@@ -13,6 +13,7 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+/CodeGreen/target/m2e-wtp/web-resources/META-INF/maven/com.greener/codegreen/pom.properties
 
 # External tool builders
 .externalToolBuilders/
