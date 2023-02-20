@@ -9,6 +9,7 @@ public class ManagerDTO {
 	String m_name;
 	String m_RRC;
 	String m_email;
+	String m_phone;
 	public ManagerDTO() {
 	}
 	public String getM_id() {
@@ -41,10 +42,18 @@ public class ManagerDTO {
 	public void setM_email(String m_email) {
 		this.m_email = m_email;
 	}
+	
+	public String getM_phone() {
+		return m_phone;
+	}
+	public void setM_phone(String m_phone) {
+		this.m_phone = m_phone;
+	}
 	@Override
 	public String toString() {
 		return "ManagerDTO [m_id=" + m_id + ", m_pwd=" + m_pwd + ", m_name=" + m_name + ", m_RRC=" + m_RRC
-				+ ", m_email=" + m_email + "]";
+				+ ", m_email=" + m_email + ", m_phone=" + m_phone + "]";
 	}
+	
 	
 }
