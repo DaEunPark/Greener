@@ -5,6 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller("managerController")
 @RequestMapping("/manager")
-public class ManagerController {
+public class ManagerControllerImpl {
 
 }

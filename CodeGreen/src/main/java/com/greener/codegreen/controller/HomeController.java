@@ -1,4 +1,4 @@
-package com.greener.codegreen;
+package com.greener.codegreen.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -23,7 +23,7 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String main(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		Date date = new Date();
@@ -33,7 +33,18 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "home";
+		return "main";
 	}
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 메인 화면 불러오기
+	//-----------------------------------------------------------------------------------------------------------
+	@RequestMapping(value = "/main.do", method = RequestMethod.GET)
+	public String main() {
+		
+		System.out.println("HomeController의 main.do를 거쳐갑니다.");
+		return "main";
+		
+	} // End - public String main()
 	
 }

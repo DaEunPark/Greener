@@ -14,8 +14,25 @@ public class BuyerDTO {
 	String b_joindate;
 	String b_phone;
 	String b_amount;	// 구매 누적 금액
+	
 	public BuyerDTO() {
 	}
+	
+	
+	public BuyerDTO(String b_id, String b_pwd, String b_name, String b_birth, String b_email, String b_add,
+			String b_grade, String b_phone, String b_amount) {
+		this.b_id = b_id;
+		this.b_pwd = b_pwd;
+		this.b_name = b_name;
+		this.b_birth = b_birth;
+		this.b_email = b_email;
+		this.b_add = b_add;
+		this.b_grade = b_grade;
+		this.b_phone = b_phone;
+		this.b_amount = b_amount;
+	}
+
+
 	public String getB_id() {
 		return b_id;
 	}
