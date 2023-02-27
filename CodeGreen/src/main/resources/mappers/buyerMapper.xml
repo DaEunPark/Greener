@@ -3,9 +3,9 @@
       PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.greener.buyer">
+<mapper namespace="com.greener.codegreen">
 
-	<resultMap id="buyerResult" type="com.greener.buyer.dto.BuyerDTO">
+	<!-- <resultMap id="buyerResult" type="com.greener.codegreen.dto.BuyerDTO">
 		<result property="b_id"		column="b_id"/>
 		<result property="b_pwd"		column="b_pwd"/>
 		<result property="b_name"		column="b_name"/>
@@ -16,30 +16,30 @@
 		<result property="b_joindate"	column="b_joindate"/>
 		<result property="b_phone"	column="b_phone"/>
 		<result property="b_amount"	column="b_amount"/>
-	</resultMap>
+	</resultMap> -->
 	
 	<!-- 로그인 처리 -->
-	<select id="loginByID" parameterType="com.greener.buyer.dto.BuyerDTO" resultType="com.greener.buyer.dto.BuyerDTO">
+<!-- 	<select id="loginByID" parameterType="com.greener.codegreen.dto.BuyerDTO" resultType="com.greener.codegreen.dto.BuyerDTO">
 		<![CDATA[
 			SELECT	*
 			FROM Buyer
 			WHERE	b_id = #{b_id}
 		]]>
-	</select>
-	<insert id="addBuyer" parameterType="com.greener.buyer.dto.BuyerDTO">
+	</select> -->
+	<!-- <insert id="addBuyer" parameterType="com.greener.codegreen.dto.BuyerDTO">
 		<![CDATA[
 			INSERT INTO Buyer 
 					(b_id, b_pwd, b_name,b_birth,b_email,b_add,b_phone, b_grade,b_joindate,b_amount)
 			VALUES	(#{b_id},	  #{b_pwd}, #{b_name}, b_birth, #{b_email}, #{b_add}	, #{b_phone}, '브론즈', sysdate(),0)
 		]]>
-	</insert>
-	<select id ="idCheck" parameterType="com.greener.buyer.dto.BuyerDTO" resultType="INT">
+	</insert> -->
+	<!-- <select id ="idCheck" parameterType="com.greener.codegreen.dto.BuyerDTO" resultType="INT">
 		<![CDATA[
 			select count(*)
 			from Buyer
 			where b_id = #{b_id}
 		]]>
-	</select>
+	</select> -->
 
 </mapper>   
 

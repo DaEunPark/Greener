@@ -1,26 +1,28 @@
 package com.greener.codegreen.dto;
 
+import java.sql.Date;
+
 import org.springframework.stereotype.Component;
 
 @Component("buyerDTO")
 public class BuyerDTO {
-	String b_id;
-	String b_pwd;
-	String b_name;
-	String b_birth;
-	String b_email;
-	String b_add;	// 회원 주소
-	String b_grade;	// 회원 등급
-	String b_joindate;
-	String b_phone;
-	String b_amount;	// 구매 누적 금액
+	private String b_id;
+	private String b_pwd;
+	private String b_name;
+	private String b_birth;
+	private String b_email;
+	private String b_add;	// 회원 주소
+	private String b_grade;	// 회원 등급
+	private Date b_joindate;
+	private String b_phone;
+	private int b_amount;	// 구매 누적 금액
 	
 	public BuyerDTO() {
 	}
 	
 	
 	public BuyerDTO(String b_id, String b_pwd, String b_name, String b_birth, String b_email, String b_add,
-			String b_grade, String b_phone, String b_amount) {
+			String b_grade, String b_phone, int b_amount) {
 		this.b_id = b_id;
 		this.b_pwd = b_pwd;
 		this.b_name = b_name;
@@ -75,10 +77,10 @@ public class BuyerDTO {
 	public void setB_grade(String b_grade) {
 		this.b_grade = b_grade;
 	}
-	public String getB_joindate() {
+	public Date getB_joindate() {
 		return b_joindate;
 	}
-	public void setB_joindate(String b_joindate) {
+	public void setB_joindate(Date b_joindate) {
 		this.b_joindate = b_joindate;
 	}
 	public String getB_phone() {
@@ -87,10 +89,10 @@ public class BuyerDTO {
 	public void setB_phone(String b_phone) {
 		this.b_phone = b_phone;
 	}
-	public String getB_amount() {
+	public int getB_amount() {
 		return b_amount;
 	}
-	public void setB_amount(String b_amount) {
+	public void setB_amount(int b_amount) {
 		this.b_amount = b_amount;
 	}
 	@Override
