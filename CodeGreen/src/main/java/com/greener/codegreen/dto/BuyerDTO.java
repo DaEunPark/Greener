@@ -11,7 +11,7 @@ public class BuyerDTO {
 	private String b_name;
 	private String b_birth;
 	private String b_email;
-	private String b_add;	// 회원 주소
+	private String b_address1;	// 회원 주소
 	private String b_grade;	// 회원 등급
 	private Date b_joindate;
 	private String b_phone;
@@ -28,7 +28,7 @@ public class BuyerDTO {
 		this.b_name = b_name;
 		this.b_birth = b_birth;
 		this.b_email = b_email;
-		this.b_add = b_add;
+		this.b_address1 = b_add;
 		this.b_grade = b_grade;
 		this.b_phone = b_phone;
 		this.b_amount = b_amount;
@@ -65,11 +65,11 @@ public class BuyerDTO {
 	public void setB_email(String b_email) {
 		this.b_email = b_email;
 	}
-	public String getB_add() {
-		return b_add;
+	public String getB_address1() {
+		return b_address1;
 	}
-	public void setB_add(String b_add) {
-		this.b_add = b_add;
+	public void setB_address1(String b_add) {
+		this.b_address1 = b_add;
 	}
 	public String getB_grade() {
 		return b_grade;
@@ -98,7 +98,7 @@ public class BuyerDTO {
 	@Override
 	public String toString() {
 		return "BuyerDTO [b_id=" + b_id + ", b_pwd=" + b_pwd + ", b_name=" + b_name + ", b_birth=" + b_birth
-				+ ", b_email=" + b_email + ", b_add=" + b_add + ", b_grade=" + b_grade + ", b_joindate=" + b_joindate
+				+ ", b_email=" + b_email + ", b_address1=" + b_address1 + ", b_grade=" + b_grade + ", b_joindate=" + b_joindate
 				+ ", b_phone=" + b_phone + ", b_amount=" + b_amount + "]";
 	}
 	

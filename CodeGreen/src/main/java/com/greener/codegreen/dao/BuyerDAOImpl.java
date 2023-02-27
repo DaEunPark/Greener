@@ -32,14 +32,15 @@ public class BuyerDAOImpl implements BuyerDAO {
 
 	@Override
 	public int addBuyer(BuyerDTO buyerDTO) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = sqlSession.insert(Namespace + ".addBuyer", buyerDTO);
+		
+		return result;
 	}
 
 	@Override
 	public int idCheck(BuyerDTO buyerDTO) throws DataAccessException {
 		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.selectOne(Namespace + ".idCheck", buyerDTO);
 	}
 
 }

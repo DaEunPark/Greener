@@ -29,13 +29,13 @@ public class BuyerServiceImpl implements BuyerService {
 	@Override
 	public int addBuyer(BuyerDTO buyerDTO) throws DataAccessException {
 		// TODO Auto-generated method stub
-		return 0;
+		return buyerDAO.addBuyer(buyerDTO);
 	}
 
 	@Override
 	public int idCheck(BuyerDTO buyerDTO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = buyerDAO.idCheck(buyerDTO);
+		return result;
 	}
 
 }

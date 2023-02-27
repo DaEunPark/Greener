@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -88,30 +89,64 @@ public class BuyerControllerImpl implements BuyerController {
 		
 		return mav;
 	}
-
+	//-----------------------------------------------------------------------------------------------------------
+	// 로그아웃 처리
+	//-----------------------------------------------------------------------------------------------------------	
 	@Override
+	@RequestMapping(value="/logout.do", method=RequestMethod.GET)
 	public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		// 로그아웃 버튼을 누르면 세션정보를 없애고, 메인페이지로 이동하게 한다.
+		HttpSession session = request.getSession();
+		session.removeAttribute("buyer");
+		session.removeAttribute("isLogOn");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:/main.do");	// 메인페이지로 이동
+		
+		return mav;
 	}
-
+	//-----------------------------------------------------------------------------------------------------------
+	// 회원가입 화면 불러오기
+	//-----------------------------------------------------------------------------------------------------------
 	@Override
+	@RequestMapping(value="/buyerForm.do", method=RequestMethod.GET)
 	public ModelAndView buyerForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/buyer/buyerForm");	// 회원가입화면
+		return mav;
 	}
 
+	//-----------------------------------------------------------------------------------------------------------
+	// 회원가입 처리하기
+	//-----------------------------------------------------------------------------------------------------------
 	@Override
+	@RequestMapping(value = "/addBuyer.do", method = RequestMethod.POST)
 	public ModelAndView addBuyer(BuyerDTO buyerDTO, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+
+		int result	= 0;	// 데이터 처리 완료 건수를 저장할 변수
+		
+		// 사용자가 입력한 회원정보를 서비스에게 넘겨주어서 처리하게 한다.
+		result = buyerService.addBuyer(buyerDTO);
+		
+		// 회원가입 처리후 회원전체목록 페이지로 이동한다.
+		ModelAndView mav = new ModelAndView("redirect:/buyer/loginForm.do");
+
+		return mav;
 	}
 
+	//-----------------------------------------------------------------------------------------------------------
+	// 아이디 중복 검사
+	//-----------------------------------------------------------------------------------------------------------
 	@Override
+	@ResponseBody
+	@RequestMapping(value = "/idCheck", method = RequestMethod.POST)
 	public int idCheck(BuyerDTO buyerDTO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = buyerService.idCheck(buyerDTO);
+		
+		return result;
 	}
 
 }
