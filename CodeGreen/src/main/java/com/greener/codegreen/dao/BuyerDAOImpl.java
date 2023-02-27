@@ -26,8 +26,8 @@ public class BuyerDAOImpl implements BuyerDAO {
 	
 	@Override
 	public BuyerDTO loginByID(BuyerDTO buyerDTO) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return null;
+		BuyerDTO buyDTO = sqlSession.selectOne(Namespace + ".loginByID", buyerDTO);
+		return buyDTO;
 	}
 
 	@Override

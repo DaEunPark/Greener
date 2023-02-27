@@ -19,13 +19,13 @@
 	</resultMap> -->
 	
 	<!-- 로그인 처리 -->
-<!-- 	<select id="loginByID" parameterType="com.greener.codegreen.dto.BuyerDTO" resultType="com.greener.codegreen.dto.BuyerDTO">
+	<select id="loginByID" parameterType="com.greener.codegreen.dto.BuyerDTO" resultType="com.greener.codegreen.dto.BuyerDTO">
 		<![CDATA[
 			SELECT	*
 			FROM Buyer
 			WHERE	b_id = #{b_id}
 		]]>
-	</select> -->
+	</select>
 	<!-- <insert id="addBuyer" parameterType="com.greener.codegreen.dto.BuyerDTO">
 		<![CDATA[
 			INSERT INTO Buyer 

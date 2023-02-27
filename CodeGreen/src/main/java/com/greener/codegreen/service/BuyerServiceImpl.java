@@ -23,7 +23,7 @@ public class BuyerServiceImpl implements BuyerService {
 	@Override
 	public BuyerDTO login(BuyerDTO buyerDTO) throws DataAccessException {
 		// TODO Auto-generated method stub
-		return null;
+		return buyerDAO.loginByID(buyerDTO);
 	}
 
 	@Override
