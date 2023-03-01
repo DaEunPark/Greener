@@ -8,7 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,58 +41,84 @@ public class BuyerControllerImpl implements BuyerController {
 		// 로그인 화면 띄우기
 		//-----------------------------------------------------------------------------------------------------------
 	@Override
-	@RequestMapping(value="/loginForm.do", method=RequestMethod.GET)
+	@RequestMapping(value="/loginForm", method=RequestMethod.GET)
 	public ModelAndView loginForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/buyer/loginForm");
 		return mav;
 	}
-
+	
+	// *********************************************************************************************************** //
+    // 로그인(vue.js)
+	// *********************************************************************************************************** //	
 	@Override
-	@RequestMapping(value="/login.do", method=RequestMethod.POST)
-	public ModelAndView login(@ModelAttribute("buyer") BuyerDTO buyer, RedirectAttributes rAttr, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-			System.out.println("로그인 정보 => " + buyer.getB_id() + " : " + buyer.getB_pwd());
+	@PostMapping(value="/login")
+	@CrossOrigin(origins="http://localhost:8080")	
+	public @ResponseBody BuyerDTO login(@RequestBody BuyerDTO buyerIdPwd) throws Exception {
 		
+		BuyerDTO buyerInfo = buyerService.login(buyerIdPwd);
+		logger.info("*** login *** " + buyerInfo);
+		return buyerInfo;
+	}
+	
+	// *********************************************************************************************************** //
+	// 회원가입 화면으로 이동
+	// *********************************************************************************************************** //	
+	@Override
+	@RequestMapping(value="/signin", method=RequestMethod.GET)
+	public ModelAndView signIn(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView();
-		
-		// 아이디 값이 없이 넘어온 경우에는 돌려보낸다.
-		if(buyer.getB_id().equals("") || buyer.getB_id() == null) {
-			rAttr.addAttribute("result", "loginIdEmpty");
-			mav.setViewName("redirect:/buyer/loginForm.do");
-			return mav;
-		}
-		
-		// 로그인한 정보를 가지고 데이터베이스에 존재하는지 처리를 하고, 그 결과를 가져온다.
-		buyerDTO = buyerService.login(buyer);
-		System.out.println("로그인 처리 결과 ==> " + buyerDTO);
-		
-		// 로그인한 정보가 데이터베이스에 존재하는지에 따라 처리를 다르게 한다.
-		if(buyerDTO != null) {	// 로그인 정보에 해당하는 자료가 있으면
-			
-			if(buyer.getB_pwd().equals(buyerDTO.getB_pwd())) {
-				
-				// 아이디와 비밀번호가 일치하면 세션을 발급한다.
-				HttpSession session = request.getSession();
-				session.setAttribute("member",buyer);
-				session.setAttribute("isLogOn", true);
-//				mav.setViewName("redirect:/main.do");	// 메인화면으로 이동한다.
-				mav.setViewName("redirect:http://localhost:8080");
-				
-			} else { 	// 아이디는 있는데 비밀번호가 틀린 경우
-						// 메시지를 가지고 로그인 화면으로 이동한다.
-				rAttr.addAttribute("result", "PasswordFailed");
-				mav.setViewName("redirect:/buyer/loginForm.do");
-			}
-			
-		} else {	// 로그인한 아이디가 존재하지 않으면 
-					// 로그인 실패 메시지를 가지고 로그인 화면으로 이동한다.
-			rAttr.addAttribute("result", "loginFailed");
-			mav.setViewName("redirect:/buyer/loginForm.do");
-		}
-		
+		mav.setViewName("/buyer/signIn1Start");
 		return mav;
 	}
+	
+	
+	// *********************************************************************************************************** //
+	// 약관 동의 페이지로 이동
+	// *********************************************************************************************************** //
+	@Override
+	@RequestMapping(value="/Agreement", method=RequestMethod.GET)
+	public ModelAndView toAgreementPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/buyer/signIn2Agree");
+		return mav;
+	}
+	
+	// *********************************************************************************************************** //
+	// 정보 입력 페이지로 이동
+	// *********************************************************************************************************** //
+	@Override
+	@RequestMapping(value="/Info", method=RequestMethod.GET)
+	public ModelAndView toMemberInfoPage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/buyer/signIn3Information");
+		return mav;
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 회원가입 처리하기
+	//-----------------------------------------------------------------------------------------------------------
+	@Override
+	@RequestMapping(value = "/addBuyer", method = RequestMethod.POST)
+	public int addBuyer(BuyerDTO buyerDTO, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		logger.info("MemberControllerImpl 회원가입 처리하기() 시작");
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+		return buyerService.addBuyer(buyerDTO); // 데이터 처리 완료 건수를 저장할 변수
+	}
+	
+	// *********************************************************************************************************** //
+	// 정보 입력 페이지에서 DB로 자료전송 후 가입완료 화면 이동
+	// *********************************************************************************************************** //
+	@Override
+	@RequestMapping(value="/done", method=RequestMethod.POST)
+	public ModelAndView signInFinish(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/buyer/signIn4Finish");
+		return mav;
+	}
+
 	//-----------------------------------------------------------------------------------------------------------
 	// 로그아웃 처리
 	//-----------------------------------------------------------------------------------------------------------	
@@ -117,26 +146,7 @@ public class BuyerControllerImpl implements BuyerController {
 		return mav;
 	}
 
-	//-----------------------------------------------------------------------------------------------------------
-	// 회원가입 처리하기
-	//-----------------------------------------------------------------------------------------------------------
-	@Override
-	@RequestMapping(value = "/addBuyer.do", method = RequestMethod.POST)
-	public ModelAndView addBuyer(BuyerDTO buyerDTO, HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html;charset=UTF-8");
-
-		int result	= 0;	// 데이터 처리 완료 건수를 저장할 변수
-		
-		// 사용자가 입력한 회원정보를 서비스에게 넘겨주어서 처리하게 한다.
-		result = buyerService.addBuyer(buyerDTO);
-		
-		// 회원가입 처리후 회원전체목록 페이지로 이동한다.
-		ModelAndView mav = new ModelAndView("redirect:/buyer/loginForm.do");
-
-		return mav;
-	}
+	
 
 	//-----------------------------------------------------------------------------------------------------------
 	// 아이디 중복 검사

@@ -25,13 +25,14 @@ public class BuyerDAOImpl implements BuyerDAO {
 	
 	
 	@Override
-	public BuyerDTO loginByID(BuyerDTO buyerDTO) throws DataAccessException {
-		BuyerDTO buyDTO = sqlSession.selectOne(Namespace + ".loginByID", buyerDTO);
+	public BuyerDTO loginByIdPwd(BuyerDTO buyerDTO) throws DataAccessException {
+		BuyerDTO buyDTO = sqlSession.selectOne(Namespace + ".loginByIdPwd", buyerDTO);
 		return buyDTO;
 	}
 
 	@Override
 	public int addBuyer(BuyerDTO buyerDTO) throws DataAccessException {
+		logger.info("*** addUser ***");
 		int result = sqlSession.insert(Namespace + ".addBuyer", buyerDTO);
 		
 		return result;

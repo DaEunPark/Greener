@@ -19,11 +19,11 @@
 	</resultMap> -->
 	
 	<!-- 로그인 처리 -->
-	<select id="loginByID" parameterType="com.greener.codegreen.dto.BuyerDTO" resultType="com.greener.codegreen.dto.BuyerDTO">
+	<select id="loginByIdPwd" parameterType="com.greener.codegreen.dto.BuyerDTO" resultType="com.greener.codegreen.dto.BuyerDTO">
 		<![CDATA[
-			SELECT	*
-			FROM Buyer
-			WHERE	b_id = #{b_id}
+			SELECT * 
+			FROM Buyer 
+			WHERE b_id = #{b_id} AND b_pwd = #{b_pwd} 
 		]]>
 	</select>
 	
@@ -31,8 +31,8 @@
 	<insert id="addBuyer" parameterType="com.greener.codegreen.dto.BuyerDTO">
 		<![CDATA[
 			INSERT INTO Buyer 
-					(b_id, b_pwd, b_name,b_birth,b_email,b_address1,b_phone, b_grade,b_joindate,b_amount)
-			VALUES	(#{b_id},	  #{b_pwd}, #{b_name}, b_birth, #{b_email}, #{b_address1}	, #{b_phone}, '브론즈', sysdate(),0)
+					(b_id, b_pwd, b_name,b_birth,b_email,b_address1,b_address2,b_address3,b_phone, b_grade,b_joindate,b_amount)
+			VALUES	(#{b_id},	  #{b_pwd}, #{b_name}, #{b_birth}, #{b_email}, #{b_address1},#{b_address2},#{b_address3}, #{b_phone}, '브론즈', sysdate(),0)
 		]]>
 	</insert> 
 	
@@ -44,6 +44,25 @@
 			where b_id = #{b_id}
 		]]>
 	</select>
+	
+	<!-- 소비자 전체 회원의 수 -->
+	<!-- <select id = "totalCount" parameterType="com.greener.codegreen.dto.BuyerDTO" resultType="INT">
+		<![CDATA[
+			select count(*)
+			from Buyer
+			where 1=1
+		]]>
+				<include refid="searchMySQL"/>
+	</select> -->
+	
+	<!-- 검색 조건 -->
+	<!-- MySQL -->
+	<!-- <sql id="searchMySQL">
+		<if test="searchType != null">
+			<if test="searchType == 'b_id'.toString()">AND b_id LIKE CONCAT('%', #{keyword}, '%')</if>
+			<if test="searchType == 'b_name'.toString()">AND b_name LIKE CONCAT('%', #{keyword}, '%')</if>
+		</if>
+	</sql> -->
 
 </mapper>   
 

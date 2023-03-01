@@ -15,6 +15,7 @@
 	fixed-top  은 상단 공간을 차지하지 않고 위에 고정한다.
 		일부 내용은 상단 메뉴바에 가려져서 보이지 않을 수가 있다.
 */
+
 %>
 
 <nav class="navbar navbar-inverse navbar-sticky-top">
@@ -25,17 +26,17 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="${contextPath}/main.do">홈페이지</a>
+			<a class="navbar-brand" href="${contextPath}/main">홈페이지</a>
 		</div>
 	
 		<!-- 실질적인 메뉴를 나열한다. -->
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav navbar-left">
 				<li>
-					<form class="navbar-form navbar-left" method="post" action="${contextPath}/buyer/login.do">
+					<form class="navbar-form navbar-left" method="post" action="${contextPath}/buyer/login">
 						<c:choose>
 							<c:when test="${isLogOn == true && buyer != null}">
-								<p class="navbar-text"><b>${buyer.b_name}님, 즐거운 시간되십시요.</b></p>
+								<p class="navbar-text"><b>${buyer.b_name} 즐거운 시간되십시요.</b></p>
 								<a href="${contextPath}/buyer/logout.do" class="btn btn-danger">
 									<span class="glyphicon glyphicon-log-out"></span> 로그아웃</a>
 							</c:when>
@@ -54,8 +55,10 @@
 				<li class="dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#">회원관리 <span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="${contextPath}/buyer/loginForm.do">로그인</a></li>
-						<li><a href="${contextPath}/buyer/buyerForm.do">회원가입</a></li>
+						<li><a href="${contextPath}/buyer/loginForm">로그인</a></li>
+						<li><a href="${contextPath}/buyer/signIn1Start">회원가입</a></li>
+						<li><a href="${contextPath}/buyer/buyerList">회원 목록</a></li>
+						<li><a href="${contextPath}/managerMain">관리자 페이지</a></li>
 					</ul>
 				</li>
 				

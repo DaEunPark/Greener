@@ -126,7 +126,7 @@
   <div class="main">
       <div class="contents">
           <div class="login">
-              <form method="post"  action="${contextPath}/buyer/login.do">
+              <form method="post"  action="${contextPath}/buyer/login">
                   <table class="buyer_login" >
                       <tbody>
                           <tr>
