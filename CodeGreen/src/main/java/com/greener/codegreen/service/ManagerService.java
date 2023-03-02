@@ -1,8 +1,12 @@
 package com.greener.codegreen.service;
 
-import org.springframework.stereotype.Service;
+import org.springframework.dao.DataAccessException;
 
-@Service("managerService")
-public class ManagerService {
+import com.greener.codegreen.dto.ManagerDTO;
 
+public interface ManagerService {
+	//-------------------------------------------------------------------------------------------------------------------------
+	// 관리자 로그인
+	//-------------------------------------------------------------------------------------------------------------------------
+	public ManagerDTO login(ManagerDTO managerDTO) throws DataAccessException;
 }

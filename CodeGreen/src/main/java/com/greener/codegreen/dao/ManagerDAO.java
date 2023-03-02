@@ -1,8 +1,9 @@
 package com.greener.codegreen.dao;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.dao.DataAccessException;
 
-@Repository("managerDAO")
-public class ManagerDAO {
+import com.greener.codegreen.dto.ManagerDTO;
 
+public interface ManagerDAO {
+	public ManagerDTO login(ManagerDTO managerDTO) throws DataAccessException;
 }

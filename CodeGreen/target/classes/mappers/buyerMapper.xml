@@ -3,7 +3,7 @@
       PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.greener.codegreen">
+<mapper namespace="com.greener.codegreen.buyer">
 
 	<!-- <resultMap id="buyerResult" type="com.greener.codegreen.dto.BuyerDTO">
 		<result property="b_id"		column="b_id"/>

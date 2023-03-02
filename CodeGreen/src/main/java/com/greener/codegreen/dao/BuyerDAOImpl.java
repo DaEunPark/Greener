@@ -24,7 +24,7 @@ public class BuyerDAOImpl implements BuyerDAO {
 	private static final Logger logger 
 			= LoggerFactory.getLogger(BuyerDAOImpl.class);
 	
-	private	static final String Namespace = "com.greener.codegreen";
+	private	static final String Namespace = "com.greener.codegreen.buyer";
 	
 	
 	@Override
