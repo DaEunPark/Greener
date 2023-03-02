@@ -20,7 +20,7 @@ public class ProductDTO {
 	String s1_id;
 	
 	// Seller2
-	String s22_id;
+	String s2_id;
 	
 	// Manager
 	String m_id;
@@ -28,11 +28,15 @@ public class ProductDTO {
 	public ProductDTO() {
 
 	}
+	
+	public ProductDTO(String c_code) {
+		this.c_code = c_code;
+	}
 
-	public ProductDTO(String c_code, String s1_id, String s22_id, String m_id) {
+	public ProductDTO(String c_code, String s1_id, String s2_id, String m_id) {
 		this.c_code = c_code;
 		this.s1_id = s1_id;
-		this.s22_id = s22_id;
+		this.s2_id = s2_id;
 		this.m_id = m_id;
 	}
 
@@ -116,12 +120,12 @@ public class ProductDTO {
 		this.s1_id = s1_id;
 	}
 
-	public String getS22_id() {
-		return s22_id;
+	public String getS2_id() {
+		return s2_id;
 	}
 
-	public void setS22_id(String s22_id) {
-		this.s22_id = s22_id;
+	public void setS2_id(String s2_id) {
+		this.s2_id = s2_id;
 	}
 
 	public String getM_id() {
@@ -136,7 +140,7 @@ public class ProductDTO {
 	public String toString() {
 		return "ProductDTO [p_number=" + p_number + ", p_name=" + p_name + ", p_price=" + p_price + ", p_content="
 				+ p_content + ", p_stock=" + p_stock + ", p_view=" + p_view + ", p_made=" + p_made + ", p_usedate="
-				+ p_usedate + ", c_code=" + c_code + ", s1_id=" + s1_id + ", s22_id=" + s22_id + ", m_id=" + m_id + "]";
+				+ p_usedate + ", c_code=" + c_code + ", s1_id=" + s1_id + ", s22_id=" + s2_id + ", m_id=" + m_id + "]";
 	}
 	
 	
