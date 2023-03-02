@@ -1,8 +1,8 @@
-<%-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+ <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"	uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <%	request.setCharacterEncoding("UTF-8"); %>
-
+<%--
 <!DOCTYPE html>
 <html>
 <head>
@@ -80,8 +80,7 @@
 </html>
 
 --%>
- <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -91,5 +90,12 @@
 <body>
 <!-- 사이드 바 -->
 <jsp:include page="./admin/include/nav.jsp"></jsp:include>
+<div class="container">
+	<div class="jumbotron">
+		<div class="container text-center">
+			<h1>관리자 페이지</h1>
+		</div>
+	</div>
+</div>
 </body>
 </html>

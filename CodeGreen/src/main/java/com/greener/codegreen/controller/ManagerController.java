@@ -70,7 +70,7 @@ public class ManagerController {
 				HttpSession session = request.getSession();
 				session.setAttribute("manager", managerDTO);
 				session.setAttribute("isLogOn", true);
-				mav.setViewName("redirect:/managerMain.do");	// 메인화면으로 이동한다.
+				mav.setViewName("redirect:/");	// 메인화면으로 이동한다.
 				
 			} else { 	// 아이디는 있는데 비밀번호가 틀린 경우
 						// 메시지를 가지고 로그인 화면으로 이동한다.
@@ -96,7 +96,7 @@ public class ManagerController {
 		HttpSession session = request.getSession();
 		session.removeAttribute("manager");
 		session.removeAttribute("isLogOn");
-		mav.setViewName("redirect:/managerMain.do");	// 메인화면으로 이동한다.
+		mav.setViewName("redirect:/");	// 메인화면으로 이동한다.
 
 		return mav;
 	}

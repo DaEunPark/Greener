@@ -1,11 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c"	uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath }"/>
+<%	request.setCharacterEncoding("UTF-8"); %>
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Code Green Admin Side-bar</title>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sidebars/">
     <!-- Custom styles for this template -->
@@ -46,21 +54,33 @@
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link text-white sidebar-link">
+        <a href="${contextPath}/order/orderManage" class="nav-link text-white sidebar-link">
             <i class="fa-solid fa-credit-card"></i>
           주문 관리
         </a>
       </li>
       <li>
-        <a href="/admin/product/list" class="nav-link text-white sidebar-link">
+        <a href="${contextPath}/admin/product/register" class="nav-link text-white sidebar-link">
             <i class="fa-solid fa-box-open"></i>
-          상품 관리
+          상품 등록
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link text-white sidebar-link">
+        <a href="${contextPath}/admin/product/list" class="nav-link text-white sidebar-link">
+            <i class="fa-solid fa-box-open"></i>
+          상품 목록
+        </a>
+      </li>
+      <li>
+        <a href="${contextPath}/buyer/buyerList" class="nav-link text-white sidebar-link">
             <i class="fa-solid fa-user"></i>
-          회원 관리
+          구매자 목록
+        </a>
+      </li>
+      <li>
+        <a href="${contextPath}/seller/sellerList.do" class="nav-link text-white sidebar-link">
+            <i class="fa-solid fa-user"></i>
+          판매자 목록
         </a>
       </li>
       <li>
@@ -72,10 +92,20 @@
     </ul>
     <hr>
     <div class="dropdown">
-      <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-        <strong>Manager</strong>
-      </a>
+      
+      <c:choose>
+		<c:when test="${isLogOn == true && manager != null}">
+			<strong style="color: white;"><b>${manager.m_name}님, 즐거운 시간되십시오.</b></strong>
+			<a href="${contextPath}/manager/logout.do" class="btn btn-danger">
+				<span class="glyphicon glyphicon-log-out"></span> 로그아웃</a>
+		</c:when>
+		<c:otherwise>
+			<a href="${contextPath}/manager/manager_loginForm.do" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+       			<img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+        		<strong>Manager LogIn</strong>
+      		</a>
+		</c:otherwise>
+	</c:choose>
       <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
         <li><a class="dropdown-item" href="#">Settings</a></li>
         <li><a class="dropdown-item" href="#">Profile</a></li>
