@@ -1,0 +1,28 @@
+@charset "UTF-8";
+
+	body {
+		width:			 80%;
+		margin:			 0 auto;
+	}
+	
+	container {
+		font-family:	'verdana';
+	}
+	
+	.form-horizontal {
+		line-height: 	40%;
+	}
+	
+	.state {
+		position:		relative;
+		top:			207px;
+	}
+	
+	.control-label {
+		poisition:		relative;
+		top:			-20px;
+	}
+	
+	.title {
+		text-family:	나눔고딕;
+	}
