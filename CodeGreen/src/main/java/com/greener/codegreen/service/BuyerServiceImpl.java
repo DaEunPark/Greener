@@ -1,11 +1,14 @@
 package com.greener.codegreen.service;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.greener.codegreen.common.SearchCriteria;
 import com.greener.codegreen.dao.BuyerDAO;
 import com.greener.codegreen.dto.BuyerDTO;
 
@@ -38,4 +41,23 @@ public class BuyerServiceImpl implements BuyerService {
 		return result;
 	}
 
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 소비자 계정 총 개수 조회
+	//-----------------------------------------------------------------------------------------------------------
+	@Override
+	public int totalCount(SearchCriteria scri) throws Exception {
+		// TODO Auto-generated method stub
+		return buyerDAO.totalCount(scri);
+	}
+
+
+	//-----------------------------------------------------------------------------------------------------------
+	// 소비자 리스트 조회
+	//-----------------------------------------------------------------------------------------------------------
+	@Override
+	public List<BuyerDTO> buyerList(SearchCriteria scri) throws Exception {
+		// TODO Auto-generated method stub
+		return buyerDAO.buyerList(scri);
+	}
 }

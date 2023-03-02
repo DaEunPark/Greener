@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.greener.codegreen.common.SearchCriteria;
 import com.greener.codegreen.dto.BuyerDTO;
 
 //-----------------------------------------------------------------------------------------------------------
@@ -72,6 +73,11 @@ public interface BuyerController {
 	// 아이디 중복 검사 
 	//-----------------------------------------------------------------------------------------------------------
 	 public int idCheck(BuyerDTO buyerDTO) throws Exception;
+	 
+	//-----------------------------------------------------------------------------------------------------------
+		// 소비자 리스트 조회
+		//-----------------------------------------------------------------------------------------------------------
+		public ModelAndView buyerList(SearchCriteria scri) throws Exception;
 	
 	
 	

@@ -1,5 +1,7 @@
 package com.greener.codegreen.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.greener.codegreen.common.PageMaker;
+import com.greener.codegreen.common.SearchCriteria;
 import com.greener.codegreen.dto.BuyerDTO;
 import com.greener.codegreen.service.BuyerService;
 
@@ -119,6 +123,53 @@ public class BuyerControllerImpl implements BuyerController {
 		return mav;
 	}
 
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 회원가입 화면 불러오기
+	//-----------------------------------------------------------------------------------------------------------
+	@Override
+	@RequestMapping(value="/buyerForm.do", method=RequestMethod.GET)
+	public ModelAndView buyerForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/buyer/buyerForm");	// 회원가입화면
+		return mav;
+	}	
+
+	//-----------------------------------------------------------------------------------------------------------
+	// 아이디 중복 검사
+	//-----------------------------------------------------------------------------------------------------------
+	@Override
+	@ResponseBody
+	@RequestMapping(value = "/idCheck", method = RequestMethod.POST)
+	public int idCheck(BuyerDTO buyerDTO) throws Exception {
+		int result = buyerService.idCheck(buyerDTO);
+		
+		return result;
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 소비자 리스트 조회
+	//-----------------------------------------------------------------------------------------------------------	
+	@Override
+	@RequestMapping(value = "/buyerList", method = RequestMethod.GET)
+	public ModelAndView buyerList(SearchCriteria scri) throws Exception {
+		ModelAndView mav = new ModelAndView("/buyer/buyerList");
+		mav.addObject("keyword",scri.getKeyword());
+		mav.addObject("searchType",scri.getSearchType());
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(scri);
+		pageMaker.setTotalCount(buyerService.totalCount(scri));
+		
+		List<BuyerDTO> buyerList = buyerService.buyerList(scri);
+		
+		mav.addObject("buyerList",buyerList);
+		mav.addObject("pageMaker",pageMaker);
+		
+		
+		return mav;
+	}
+
 	//-----------------------------------------------------------------------------------------------------------
 	// 로그아웃 처리
 	//-----------------------------------------------------------------------------------------------------------	
@@ -134,30 +185,6 @@ public class BuyerControllerImpl implements BuyerController {
 		mav.setViewName("redirect:/main.do");	// 메인페이지로 이동
 		
 		return mav;
-	}
-	//-----------------------------------------------------------------------------------------------------------
-	// 회원가입 화면 불러오기
-	//-----------------------------------------------------------------------------------------------------------
-	@Override
-	@RequestMapping(value="/buyerForm.do", method=RequestMethod.GET)
-	public ModelAndView buyerForm(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("/buyer/buyerForm");	// 회원가입화면
-		return mav;
-	}
-
-	
-
-	//-----------------------------------------------------------------------------------------------------------
-	// 아이디 중복 검사
-	//-----------------------------------------------------------------------------------------------------------
-	@Override
-	@ResponseBody
-	@RequestMapping(value = "/idCheck", method = RequestMethod.POST)
-	public int idCheck(BuyerDTO buyerDTO) throws Exception {
-		int result = buyerService.idCheck(buyerDTO);
-		
-		return result;
 	}
 
 }

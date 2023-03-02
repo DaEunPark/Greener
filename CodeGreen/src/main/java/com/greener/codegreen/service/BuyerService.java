@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 
+import com.greener.codegreen.common.SearchCriteria;
 import com.greener.codegreen.dto.BuyerDTO;
 
 //-----------------------------------------------------------------------------------------------------------
@@ -25,6 +26,15 @@ public interface BuyerService {
 	// 아이디 중복 검사
 	//-----------------------------------------------------------------------------------------------------------
 	public int idCheck(BuyerDTO buyerDTO) throws Exception;
+
+	//-----------------------------------------------------------------------------------------------------------
+	// 소비자 계정 총 개수 조회
+	//-----------------------------------------------------------------------------------------------------------
+	public int totalCount(SearchCriteria scri) throws Exception;
+	//-----------------------------------------------------------------------------------------------------------
+	// 소비자 리스트 조회
+	//-----------------------------------------------------------------------------------------------------------
+	public List<BuyerDTO> buyerList(SearchCriteria scri) throws Exception;
 	
 	
 } // End - public interface BuyerService

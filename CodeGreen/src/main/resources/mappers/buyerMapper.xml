@@ -46,24 +46,41 @@
 	</select>
 	
 	<!-- 소비자 전체 회원의 수 -->
-	<!-- <select id = "totalCount" parameterType="com.greener.codegreen.dto.BuyerDTO" resultType="INT">
+	<select id = "totalCount" parameterType="com.greener.codegreen.dto.BuyerDTO" resultType="INT">
 		<![CDATA[
 			select count(*)
 			from Buyer
 			where 1=1
 		]]>
 				<include refid="searchMySQL"/>
-	</select> -->
+	</select> 
 	
 	<!-- 검색 조건 -->
 	<!-- MySQL -->
-	<!-- <sql id="searchMySQL">
+	<sql id="searchMySQL">
 		<if test="searchType != null">
 			<if test="searchType == 'b_id'.toString()">AND b_id LIKE CONCAT('%', #{keyword}, '%')</if>
 			<if test="searchType == 'b_name'.toString()">AND b_name LIKE CONCAT('%', #{keyword}, '%')</if>
 		</if>
-	</sql> -->
-
+	</sql>
+	<!-- 소비자 전체 리스트 -->
+	<select id = "buyerList" parameterType="hashmap" resultType="com.greener.codegreen.dto.BuyerDTO">
+	 <![CDATA[
+	 	SELECT	b_id, b_name,b_birth,b_email,b_address2,b_address3,b_grade,b_joindate,b_phone,b_amount,b_num
+			FROM (
+					SELECT	b_id, b_name,b_birth,b_email,b_address2,b_address3,b_grade,b_joindate,b_phone,b_amount,b_num,
+							ROW_NUMBER() OVER(ORDER BY b_num DESC) AS rNum
+					FROM	Buyer
+					WHERE	1=1
+	 ]]>
+	<include refid="searchMySQL"/>
+		<![CDATA[
+			) brd
+			WHERE	rNum 	BETWEEN 1 + (#{perPageNum} * (#{page}-1) )
+							AND		#{perPageNum}*#{page}
+			ORDER BY b_num DESC
+		]]>
+	</select>
 </mapper>   
 
 
