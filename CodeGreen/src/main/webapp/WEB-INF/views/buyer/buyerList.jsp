@@ -21,8 +21,8 @@
 </head>
 <body>
 <!-- 상단 메뉴 -->
-<jsp:include page="../common/manager_topMenu.jsp" flush="false"/>
-
+<%-- <jsp:include page="../common/manager_topMenu.jsp" flush="false"/> --%>
+	<jsp:include page="../admin/include/nav.jsp" flush="false"/>
 	<div class="container">
 		<div>
 			<h2>소비자 목록</h2>

@@ -4,12 +4,18 @@
 <c:set var="result"		 value="${param.result}"/>
 <%	request.setCharacterEncoding("UTF-8"); %>
 
+
+
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8">
 	<title>로그인 화면</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>	
 <!-- 로그인 여부 체크 -->
 <c:choose>
 	<c:when test="${result == 'loginIdEmpty'}">
@@ -121,7 +127,7 @@
 <body>
 
 <!-- 상단 메뉴바 -->
-<jsp:include page="../common/manager_topMenu.jsp" flush="false"/>
+<%-- <jsp:include page="../common/manager_topMenu.jsp" flush="false"/> --%>
 
   <div class="main">
       <div class="contents">

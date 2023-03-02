@@ -32,6 +32,14 @@ public class AdminController {
 	}
 	
 	/*
+	 * Product List
+	 */
+	@RequestMapping(value = "/product/list")
+	public String productList() throws Exception {
+		
+		return "/admin/product/list";
+	}
+	/*
 	 * Admin Product Register
 	 */
 	@RequestMapping(value = "/product/register", method = RequestMethod.GET)
@@ -48,6 +56,6 @@ public class AdminController {
 	public String postProductRegister(ProductDTO dto) throws Exception{
 		adminService.register(dto);
 		
-		return "redirect:/admin/index";
+		return "redirect:/";
 	}
 }

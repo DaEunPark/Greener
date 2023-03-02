@@ -2,13 +2,13 @@
 <%@ taglib prefix="c"	uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
 <%	request.setCharacterEncoding("UTF-8"); %>
-
+<!-- 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>	
-
+ -->
 
 <!DOCTYPE html>
 <html>
@@ -20,7 +20,8 @@
 <body>
 <h2><center><p class="title">주문내역 조회</p></center></h2>
 <hr/>
-
+<%-- <jsp:include page="../common/manager_topMenu.jsp" flush="false"/> --%>
+	<jsp:include page="../admin/include/nav.jsp" flush="false"/>
 <div class="container">
 	<form class="form-horizontal" method="post" name="formname1" id="formname1">
 		<div class="form-group">
