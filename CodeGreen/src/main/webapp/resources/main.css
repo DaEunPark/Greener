@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+
+
+
+
+.gnb {
+	height: 50px;
+	backgrond-color: #32cd32;
+}
+.gnb p, .nav p {
+	font-size: 5em;
+	margin-left: 600px;
+}
+.logo {
+	width: 400px;
+	height: 150px;
+	background-color: #32cd32;
+	margin-left: 500px;
+}
+.logo p {
+	text-align: center;
+	padding-top:50px
+}

@@ -1,5 +1,7 @@
 package com.greener.codegreen.dto;
 
+import java.sql.Date;
+
 import org.springframework.stereotype.Component;
 
 @Component("orderDTO")
@@ -12,7 +14,31 @@ public class OrderDTO {
 	String o_receiver_name;
 	String o_receiver_phone;
 	int o_price;
+	Date o_date;
+	private BuyerDTO buyerDTO;
 	
+	BuyerDTO b_name;
+	BuyerDTO b_grade;
+
+	public BuyerDTO getBuyerDTO() {
+		return buyerDTO;
+	}
+
+
+	public void setBuyerDTO(BuyerDTO buyerDTO) {
+		this.buyerDTO = buyerDTO;
+	}
+
+
+	public Date getO_date() {
+		return o_date;
+	}
+	
+
+	public void setO_date(Date o_date) {
+		this.o_date = o_date;
+	}
+
 	// Product
 	int order_p_number;
 	

@@ -14,30 +14,31 @@ public class ProductDTO {
 	String p_usedate;	// 유통/소비기한
 	
 	// Category
-	String c_code;		// 카테고리 코드
+	int product_c_code;		// 카테고리 코드
 	
-	// Seller1
-	String s1_id;
-	
-	// Seller2
-	String s2_id;
+	// Seller
+	String product_s_id;
 	
 	// Manager
-	String m_id;
+	String product_m_id;
 
 	public ProductDTO() {
-
-	}
-	
-	public ProductDTO(String c_code) {
-		this.c_code = c_code;
 	}
 
-	public ProductDTO(String c_code, String s1_id, String s2_id, String m_id) {
-		this.c_code = c_code;
-		this.s1_id = s1_id;
-		this.s2_id = s2_id;
-		this.m_id = m_id;
+	public ProductDTO(int p_number, String p_name, int p_price, String p_content, int p_stock, int p_view,
+			String p_made, String p_usedate, int product_c_code, String product_s_id, String product_m_id) {
+
+		this.p_number = p_number;
+		this.p_name = p_name;
+		this.p_price = p_price;
+		this.p_content = p_content;
+		this.p_stock = p_stock;
+		this.p_view = p_view;
+		this.p_made = p_made;
+		this.p_usedate = p_usedate;
+		this.product_c_code = product_c_code;
+		this.product_s_id = product_s_id;
+		this.product_m_id = product_m_id;
 	}
 
 	public int getP_number() {
@@ -104,44 +105,39 @@ public class ProductDTO {
 		this.p_usedate = p_usedate;
 	}
 
-	public String getC_code() {
-		return c_code;
+	public int getProduct_c_code() {
+		return product_c_code;
 	}
 
-	public void setC_code(String c_code) {
-		this.c_code = c_code;
+	public void setProduct_c_code(int product_c_code) {
+		this.product_c_code = product_c_code;
 	}
 
-	public String getS1_id() {
-		return s1_id;
+	public String getProduct_s_id() {
+		return product_s_id;
 	}
 
-	public void setS1_id(String s1_id) {
-		this.s1_id = s1_id;
+	public void setProduct_s_id(String product_s_id) {
+		this.product_s_id = product_s_id;
 	}
 
-	public String getS2_id() {
-		return s2_id;
+	public String getProduct_m_id() {
+		return product_m_id;
 	}
 
-	public void setS2_id(String s2_id) {
-		this.s2_id = s2_id;
-	}
-
-	public String getM_id() {
-		return m_id;
-	}
-
-	public void setM_id(String m_id) {
-		this.m_id = m_id;
+	public void setProduct_m_id(String product_m_id) {
+		this.product_m_id = product_m_id;
 	}
 
 	@Override
 	public String toString() {
 		return "ProductDTO [p_number=" + p_number + ", p_name=" + p_name + ", p_price=" + p_price + ", p_content="
 				+ p_content + ", p_stock=" + p_stock + ", p_view=" + p_view + ", p_made=" + p_made + ", p_usedate="
-				+ p_usedate + ", c_code=" + c_code + ", s1_id=" + s1_id + ", s22_id=" + s2_id + ", m_id=" + m_id + "]";
+				+ p_usedate + ", product_c_code=" + product_c_code + ", product_s_id=" + product_s_id
+				+ ", product_m_id=" + product_m_id + "]";
 	}
+
+	
 	
 	
 }

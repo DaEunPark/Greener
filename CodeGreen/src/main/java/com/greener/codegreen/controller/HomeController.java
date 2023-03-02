@@ -39,7 +39,7 @@ public class HomeController {
 	//-----------------------------------------------------------------------------------------------------------
 	// 메인 화면 불러오기
 	//-----------------------------------------------------------------------------------------------------------
-	@RequestMapping(value = "/main", method = RequestMethod.GET)
+	@RequestMapping(value = {"/main", "/main.do"}, method = RequestMethod.GET)
 	public String main() {
 		
 		System.out.println("HomeController의 main.do를 거쳐갑니다.");
@@ -50,12 +50,14 @@ public class HomeController {
 	//-----------------------------------------------------------------------------------------------------------
 	//관리자 페이지 메인 화면 불러오기
 	//-----------------------------------------------------------------------------------------------------------
-	@RequestMapping(value = "/managerMain.do", method = RequestMethod.GET)
+	@RequestMapping(value = {"/managerMain.do", "/managerMain"}, method = RequestMethod.GET)
 	public String managerMain() {
 		
 		System.out.println("HomeController의 manager_main.do를 거쳐갑니다.");
 		return "managerMain";
 		
 	} // End - public String  manager_main()
+	
+	
 	
 }

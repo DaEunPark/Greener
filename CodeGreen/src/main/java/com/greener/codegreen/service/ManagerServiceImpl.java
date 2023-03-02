@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.greener.codegreen.controller.ManagerController;
 import com.greener.codegreen.dao.ManagerDAO;
+
 import com.greener.codegreen.dto.ManagerDTO;
 
 @Service("managerService")
@@ -23,7 +24,10 @@ public class ManagerServiceImpl implements ManagerService {
 	
 	@Inject
 	ManagerDAO managerDAO;
-	
+
+	//-------------------------------------------------------------------------------------------------------------------------
+	// 관리자 로그인
+	//-------------------------------------------------------------------------------------------------------------------------
 	@Override
 	public ManagerDTO login(ManagerDTO managerDTO) throws DataAccessException {
 		// TODO Auto-generated method stub
@@ -31,4 +35,6 @@ public class ManagerServiceImpl implements ManagerService {
 		return managerDAO.login(managerDTO);
 	}
 
+	
+	
 }
