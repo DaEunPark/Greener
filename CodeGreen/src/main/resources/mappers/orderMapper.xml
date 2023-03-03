@@ -28,14 +28,118 @@
 			WHERE o.o_number = #{orderNum1} 
 			   OR b.b_name = #{buyerName1} 
 			   OR o.order_p_number = #{productNum1}
-			   OR o.o_number = #{orderNum2} AND b.b_name = #{buyerName2} AND o.order_p_number = #{productNum2}
-			   OR b.b_name = #{buyerName3} AND o.order_p_number = #{productNum3}
-			   OR o.o_number = #{orderNum4} AND o.order_p_number = #{productNum4}
-			   OR o.o_number = #{orderNum5} AND b.b_name = #{buyerName5}
+			   OR o.o_number = #{orderNum2} AND b.b_name = #{buyerName2}
+			   OR o.o_number = #{orderNum3} AND o.order_p_number = #{productNum3}
+			   OR b.b_name = #{buyerName4} AND o.order_p_number = #{productNum4}
+			   OR o.o_number = #{orderNum5} AND b.b_name = #{buyerName5} AND o.order_p_number = #{productNum5}
+			   
+			   
+			   
 			ORDER BY o.o_date DESC
 		]]>
 	</select>
 	
+	<!-- ****************************************************************************************** -->
+	<!-- 조건에 맞는 주문내역 목록 가져오기 /OnlyDay -->
+	<!-- ****************************************************************************************** -->
+ 	<select id="orderListOnlyDay" resultType="HashMap" parameterType="java.util.HashMap">
+		<![CDATA[
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, p.p_name
+			FROM ProductOrder o 
+			JOIN Buyer b ON o.order_b_id = b.b_id
+			JOIN Product p ON o.order_p_number = p.p_number
+			WHERE o.o_date > curdate()
+			ORDER BY o.o_date DESC
+		]]>
+	</select>
+	
+	<!-- ****************************************************************************************** -->
+	<!-- 조건에 맞는 주문내역 목록 가져오기 /OnlyWeek -->
+	<!-- ****************************************************************************************** -->
+ 	<select id="orderListOnlyWeek" resultType="HashMap" parameterType="java.util.HashMap">
+		<![CDATA[
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, p.p_name
+			FROM ProductOrder o 
+			JOIN Buyer b ON o.order_b_id = b.b_id
+			JOIN Product p ON o.order_p_number = p.p_number
+			WHERE o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
+            ORDER BY o.o_date DESC
+		]]>
+	</select>
+	
+	<!-- ****************************************************************************************** -->
+	<!-- 조건에 맞는 주문내역 목록 가져오기 /OnlyMonth -->
+	<!-- ****************************************************************************************** -->
+ 	<select id="orderListOnlyMonth" resultType="HashMap" parameterType="java.util.HashMap">
+		<![CDATA[
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, p.p_name
+			FROM ProductOrder o 
+			JOIN Buyer b ON o.order_b_id = b.b_id
+			JOIN Product p ON o.order_p_number = p.p_number
+			WHERE o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
+            ORDER BY o.o_date DESC
+		]]>
+	</select>
+	
+	<!-- ****************************************************************************************** -->
+	<!-- 조건에 맞는 주문내역 목록 가져오기 /day -->
+	<!-- ****************************************************************************************** -->
+ 	<select id="orderListCheckDay" resultType="HashMap" parameterType="java.util.HashMap">
+		<![CDATA[
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, p.p_name
+			FROM ProductOrder o 
+			JOIN Buyer b ON o.order_b_id = b.b_id
+			JOIN Product p ON o.order_p_number = p.p_number
+			WHERE (o.o_number = #{orderNum1} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY) AND NOW())
+			   OR (b.b_name = #{buyerName1}  AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY) AND NOW())
+			   OR (o.order_p_number = #{productNum1} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY) AND NOW())
+			   OR (o.o_number = #{orderNum2} AND b.b_name = #{buyerName2} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY) AND NOW())
+			   OR (o.o_number = #{orderNum3} AND o.order_p_number = #{productNum3} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY) AND NOW())
+			   OR (b.b_name = #{buyerName4} AND o.order_p_number = #{productNum4} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY) AND NOW())
+			   OR (o.o_number = #{orderNum5} AND b.b_name = #{buyerName5} AND o.order_p_number = #{productNum5} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY) AND NOW())
+			   ORDER BY o.o_date DESC
+		]]>
+	</select>
+	
+	<!-- ****************************************************************************************** -->
+	<!-- 조건에 맞는 주문내역 목록 가져오기 /week -->
+	<!-- ****************************************************************************************** -->
+ 	<select id="orderListCheckWeek" resultType="HashMap" parameterType="java.util.HashMap">
+		<![CDATA[
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, p.p_name
+			FROM ProductOrder o 
+			JOIN Buyer b ON o.order_b_id = b.b_id
+			JOIN Product p ON o.order_p_number = p.p_number
+			WHERE (o.o_number = #{orderNum1} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW())
+			   OR (b.b_name = #{buyerName1}  AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW())
+			   OR (o.order_p_number = #{productNum1} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW())
+			   OR (o.o_number = #{orderNum2} AND b.b_name = #{buyerName2} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW())
+			   OR (o.o_number = #{orderNum3} AND o.order_p_number = #{productNum3} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW())
+			   OR (b.b_name = #{buyerName4} AND o.order_p_number = #{productNum4} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW())
+			   OR (o.o_number = #{orderNum5} AND b.b_name = #{buyerName5} AND o.order_p_number = #{productNum5} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW())
+			   ORDER BY o.o_date DESC
+		]]>
+	</select>
+	
+	<!-- ****************************************************************************************** -->
+	<!-- 조건에 맞는 주문내역 목록 가져오기 /month -->
+	<!-- ****************************************************************************************** -->
+ 	<select id="orderListCheckMonth" resultType="HashMap" parameterType="java.util.HashMap">
+		<![CDATA[
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, p.p_name
+			FROM ProductOrder o 
+			JOIN Buyer b ON o.order_b_id = b.b_id
+			JOIN Product p ON o.order_p_number = p.p_number
+			WHERE (o.o_number = #{orderNum1} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW())
+			   OR (b.b_name = #{buyerName1}  AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW())
+			   OR (o.order_p_number = #{productNum1} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW())
+			   OR (o.o_number = #{orderNum2} AND b.b_name = #{buyerName2} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW())
+			   OR (o.o_number = #{orderNum3} AND o.order_p_number = #{productNum3} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW())
+			   OR (b.b_name = #{buyerName4} AND o.order_p_number = #{productNum4} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW())
+			   OR (o.o_number = #{orderNum5} AND b.b_name = #{buyerName5} AND o.order_p_number = #{productNum5} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW())
+			   ORDER BY o.o_date DESC
+		]]>
+	</select>
 	
 	<!-- ****************************************************************************************** -->
 	<!-- 주문번호 누르면 상세 주문내역 보여주기 -->

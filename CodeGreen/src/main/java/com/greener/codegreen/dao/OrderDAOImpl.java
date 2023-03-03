@@ -28,7 +28,7 @@ public class OrderDAOImpl implements OrderDAO {
 	//-----------------------------------------------------------------------------------------------------------	
 	@Override
 	public List<HashMap<String, String>> orderListAll() throws DataAccessException {
-		logger.info("ManagerDAO orderListAll() 시작");
+		logger.info("orderDAO orderListAll() 시작");
 		
 		return sqlSession.selectList(Namespace + ".orderListAll");	
 	}
@@ -38,9 +38,75 @@ public class OrderDAOImpl implements OrderDAO {
 	//----------------------------------------------------------------------------------//	
 	@Override
 	public List<HashMap<String, String>> orderList(HashMap<String, String> paramMap) throws DataAccessException {
-		logger.info("ManagerDAO orderList() 시작");
+		logger.info("orderDAO orderList() 시작");
 
 		return sqlSession.selectList(Namespace + ".orderListCheck", paramMap);
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 조건에 맞는 주문내역 목록 불러오기(onlyDay)
+	//-----------------------------------------------------------------------------------------------------------
+	public List<HashMap<String, String>> orderListOnlyDay() throws DataAccessException {
+		
+		logger.info("orderDAO orderListOnlyDay()로 조건에 맞는 주문내역 조회하기");
+		
+		return sqlSession.selectList(Namespace + ".orderListOnlyDay");
+		
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 조건에 맞는 주문내역 목록 불러오기(Onlyweek)
+	//-----------------------------------------------------------------------------------------------------------
+	public List<HashMap<String, String>> orderListOnlyWeek() throws DataAccessException {
+			
+		logger.info("orderDAO에서 orderListOnlyWeek()로 조건에 맞는 주문내역 조회하기");
+			
+		return sqlSession.selectList(Namespace + ".orderListOnlyWeek");
+			
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 조건에 맞는 주문내역 목록 불러오기(Onlymonth)
+	//-----------------------------------------------------------------------------------------------------------
+	public List<HashMap<String, String>> orderListOnlyMonth() throws DataAccessException {
+		
+		logger.info("orderDAO에서 orderListOnlyMonth()로 조건에 맞는 주문내역 조회하기");
+		
+		return sqlSession.selectList(Namespace + ".orderListOnlyMonth");
+		
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 조건에 맞는 주문내역 목록 불러오기(day)
+	//-----------------------------------------------------------------------------------------------------------
+	public List<HashMap<String, String>> orderListDay(HashMap<String, String> paramMap) throws DataAccessException {
+		
+		logger.info("orderDAO에서 orderListDay()로 조건에 맞는 주문내역 조회하기");
+		
+		return sqlSession.selectList(Namespace + ".orderListCheckDay", paramMap);
+		
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 조건에 맞는 주문내역 목록 불러오기(week)
+	//-----------------------------------------------------------------------------------------------------------
+	public List<HashMap<String, String>> orderListWeek(HashMap<String, String> paramMap) throws DataAccessException {
+		
+		logger.info("orderDAO에서 orderListWeek()로 조건에 맞는 주문내역 조회하기");
+		
+		return sqlSession.selectList(Namespace + ".orderListCheckWeek", paramMap);
+		
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 조건에 맞는 주문내역 목록 불러오기(month)
+	//-----------------------------------------------------------------------------------------------------------
+	public List<HashMap<String, String>> orderListMonth(HashMap<String, String> paramMap) throws DataAccessException {
+		
+		logger.info("orderDAO에서 orderListMonth()로 조건에 맞는 주문내역 조회하기");
+		
+		return sqlSession.selectList(Namespace + ".orderListCheckMonth", paramMap);
+		
 	}
 
 	//-----------------------------------------------------------------------------------------------------------
@@ -48,7 +114,7 @@ public class OrderDAOImpl implements OrderDAO {
 	//-----------------------------------------------------------------------------------------------------------
 	@Override
 	public ProductOrderBuyerDTO orderDetail(int orderNum) throws DataAccessException {
-		logger.info("managerDAO orderDetail() 시작");
+		logger.info("orderDAO orderDetail() 시작");
 		
 		return sqlSession.selectOne(Namespace + ".orderDetailCheck", orderNum);
 	}
@@ -58,7 +124,7 @@ public class OrderDAOImpl implements OrderDAO {
 	//-----------------------------------------------------------------------------------------------------------
 	@Override
 	public int orderListCancle(int oNum) throws DataAccessException {
-		logger.info("ManagerDAO 주문내역 취소하기 orderListCancle()...");
+		logger.info("orderDAO 주문내역 취소하기 orderListCancle()...");
 		
 		return sqlSession.delete(Namespace + ".orderListCancle", oNum); 
 	}

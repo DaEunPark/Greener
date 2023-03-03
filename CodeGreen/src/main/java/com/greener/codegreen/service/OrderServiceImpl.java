@@ -26,7 +26,7 @@ public class OrderServiceImpl implements OrderService {
 	//-----------------------------------------------------------------------------------------------------------	
 	@Override
 	public List<HashMap<String, String>> getOrderListAll() throws DataAccessException {
-		logger.info("ManagerService에서 getOrderListAll()로 전체 주문내역 조회하기");
+		logger.info("orderService에서 getOrderListAll()로 전체 주문내역 조회하기");
 		
 		return orderDAO.orderListAll();
 	}
@@ -37,9 +37,75 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<HashMap<String, String>> getOrderList(HashMap<String, String> paramMap) throws DataAccessException {
 		
-		logger.info("ManagerService에서 getOrderList()로 조건에 맞는 주문내역 조회하기");
+		logger.info("orderService에서 getOrderList()로 조건에 맞는 주문내역 조회하기");
 		
 		return orderDAO.orderList(paramMap);
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 조건에 맞는 주문내역 목록 불러오기(onlyDay)
+	//-----------------------------------------------------------------------------------------------------------
+	public List<HashMap<String, String>> getOrderListOnlyDay() throws DataAccessException {
+			
+		logger.info("orderService에서 getOrderListOnlyDay()로 조건에 맞는 주문내역 조회하기");
+			
+		return orderDAO.orderListOnlyDay();
+			
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 조건에 맞는 주문내역 목록 불러오기(onlyWeek)
+	//-----------------------------------------------------------------------------------------------------------
+	public List<HashMap<String, String>> getOrderListOnlyWeek() throws DataAccessException {
+				
+		logger.info("orderService에서 getOrderListOnlyMonth()로 조건에 맞는 주문내역 조회하기");
+				
+		return orderDAO.orderListOnlyWeek();
+				
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 조건에 맞는 주문내역 목록 불러오기(onlyMonth)
+	//-----------------------------------------------------------------------------------------------------------
+	public List<HashMap<String, String>> getOrderListOnlyMonth() throws DataAccessException {
+					
+		logger.info("orderService에서 getOrderListOnlyMonth()로 조건에 맞는 주문내역 조회하기");
+					
+		return orderDAO.orderListOnlyMonth();
+					
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 조건에 맞는 주문내역 목록 불러오기(day)
+	//-----------------------------------------------------------------------------------------------------------
+	public List<HashMap<String, String>> getOrderListDay(HashMap<String, String> paramMap) throws DataAccessException {
+		
+		logger.info("orderService에서 getOrderListDay()로 조건에 맞는 주문내역 조회하기");
+		
+		return orderDAO.orderListDay(paramMap);
+		
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 조건에 맞는 주문내역 목록 불러오기(week)
+	//-----------------------------------------------------------------------------------------------------------
+	public List<HashMap<String, String>> getOrderListWeek(HashMap<String, String> paramMap) throws DataAccessException {
+			
+		logger.info("orderDAO에서 getOrderListWeek()로 조건에 맞는 주문내역 조회하기");
+			
+		return orderDAO.orderListWeek(paramMap);
+			
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 조건에 맞는 주문내역 목록 불러오기(month)
+	//-----------------------------------------------------------------------------------------------------------
+	public List<HashMap<String, String>> getOrderListMonth(HashMap<String, String> paramMap) throws DataAccessException {
+				
+		logger.info("orderDAO에서 getOrderListMonth()로 조건에 맞는 주문내역 조회하기");
+				
+		return orderDAO.orderListMonth(paramMap);
+				
 	}
 
 	//-----------------------------------------------------------------------------------------------------------
@@ -47,14 +113,17 @@ public class OrderServiceImpl implements OrderService {
 	//-----------------------------------------------------------------------------------------------------------
 	@Override
 	public ProductOrderBuyerDTO getOrderDetail(int orderNum) throws DataAccessException {
-		logger.info("ManagerService에서 orderDetail()로 상세 조회시작");
+		logger.info("orderService에서 orderDetail()로 상세 조회시작");
 		
 		return orderDAO.orderDetail(orderNum);
 	}
 
+	//-----------------------------------------------------------------------------------------------------------
+	// 주문내역 취소하기
+	//-----------------------------------------------------------------------------------------------------------
 	@Override
 	public int setOrderCancle(int oNum) throws DataAccessException {
-		logger.info("ManagerService에서 setOrderCancle() 실행...");
+		logger.info("orderService에서 setOrderCancle() 실행...");
 		
 		return orderDAO.orderListCancle(oNum);
 	}
