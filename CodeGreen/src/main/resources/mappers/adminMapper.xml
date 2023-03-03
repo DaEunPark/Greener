@@ -21,4 +21,21 @@
      ]]>
 </insert>
 
+<!-- 상품 목록 -->
+<select id="productlist" resultType="com.greener.codegreen.dto.ProductDTO">
+	<![CDATA[
+ 		select * from Product 
+     	order by p_number desc;
+     ]]>
+</select>
+
+<!-- 상품 상세 보기 -->
+<select id="productView" resultType="com.greener.codegreen.dto.ProductDTO">
+	<![CDATA[
+ 		select product_c_code, p_number, p_name, p_price, p_content, p_stock, p_made, p_usedate
+ 		from Product 
+     	where p_number=#{p_number}
+     ]]>
+</select>
+
 </mapper>

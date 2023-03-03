@@ -27,4 +27,16 @@ public class AdminServiceImpl implements AdminService {
 		dao.register(dto);
 	}
 
+	@Override
+	public List<ProductDTO> productlist() throws Exception {
+		// TODO Auto-generated method stub
+		return dao.productlist();
+	}
+
+	@Override
+	public ProductDTO productView(int p_number) throws Exception {
+		// TODO Auto-generated method stub
+		return dao.productView(p_number);
+	}
+
 }

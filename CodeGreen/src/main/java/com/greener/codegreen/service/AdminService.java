@@ -11,4 +11,10 @@ public interface AdminService {
 	
 	// 상품 등록
 	public void register(ProductDTO dto) throws Exception;
+	
+	// 상품 목록
+	public List<ProductDTO> productlist() throws Exception;
+	
+	// 상품 상세 보기
+	public ProductDTO productView(int p_number) throws Exception;
 }

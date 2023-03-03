@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>상품 등록</title>
+	<link href="../../resources/css/admin/product.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
@@ -17,6 +18,7 @@
 			<select class="category1">
 				<option value="">전체</option>
 			</select>
+			<br>
 			<label>2차 분류</label>
 			<select class="category2" name="c_code">
 				<option value="">전체</option>

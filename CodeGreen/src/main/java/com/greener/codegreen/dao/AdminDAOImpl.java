@@ -29,4 +29,16 @@ public class AdminDAOImpl implements AdminDAO {
 
 	}
 
+	@Override
+	public List<ProductDTO> productlist() throws Exception {
+		// TODO Auto-generated method stub
+		return sql.selectList(namespace + ".productlist");
+	}
+
+	@Override
+	public ProductDTO productView(int p_number) throws Exception {
+		// TODO Auto-generated method stub
+		return sql.selectOne(namespace + ".productView", p_number);
+	}
+
 }

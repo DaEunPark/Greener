@@ -18,10 +18,10 @@
 
 </head>
 <body>
-<h2><center><p class="title">주문내역 조회</p></center></h2>
-<hr/>
 <%-- <jsp:include page="../common/manager_topMenu.jsp" flush="false"/> --%>
 	<jsp:include page="../admin/include/nav.jsp" flush="false"/>
+<h2><center><p class="title">주문내역 조회</p></center></h2>
+<hr/>
 <div class="container">
 	<form class="form-horizontal" method="post" name="formname1" id="formname1">
 		<div class="form-group">

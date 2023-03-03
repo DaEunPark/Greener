@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.greener.codegreen.dto.CategoryDTO;
 import com.greener.codegreen.dto.ProductDTO;
@@ -57,5 +58,24 @@ public class AdminController {
 		adminService.register(dto);
 		
 		return "redirect:/";
+	}
+	
+	// 상품 목록
+	@RequestMapping(value = "/product/list", method = RequestMethod.GET)
+	public void getProductList(Model model) throws Exception{
+		logger.info("get product list");
+		
+		List<ProductDTO> list = adminService.productlist();
+		model.addAttribute("list", list);
+	}
+	
+	// 상품 상세 보기
+	@RequestMapping(value = "/product/view", method = RequestMethod.GET)
+	public void getProductview(@RequestParam("n") int p_number, Model model) throws Exception{
+		logger.info("get product view");
+		
+		ProductDTO product = adminService.productView(p_number);
+		
+		model.addAttribute("product", product);
 	}
 }
