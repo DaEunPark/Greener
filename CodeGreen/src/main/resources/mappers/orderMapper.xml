@@ -6,6 +6,17 @@
 <mapper namespace="com.greener.codegreen.order">
 
 	<!-- ****************************************************************************************** -->
+	<!-- 주문내역 목록 불러오기 (전체 주문) -->
+	<!-- ****************************************************************************************** -->
+ 	<select id="orderListAll" resultType="HashMap" parameterType="java.util.HashMap">
+		<![CDATA[
+			SELECT 	o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price
+			FROM	ProductOrder o JOIN Buyer b ON o.order_b_id = b.b_id
+			ORDER BY o.o_date DESC
+		]]>
+	</select>
+
+	<!-- ****************************************************************************************** -->
 	<!-- 조건에 맞는 주문내역 목록 가져오기 -->
 	<!-- ****************************************************************************************** -->
  	<select id="orderListCheck" resultType="HashMap" parameterType="java.util.HashMap">
@@ -25,16 +36,6 @@
 		]]>
 	</select>
 	
-	<!-- ****************************************************************************************** -->
-	<!-- 주문내역 전체 목록 가져오기 -->
-	<!-- ****************************************************************************************** -->
- 	<select id="orderListAll" resultType="HashMap" parameterType="java.util.HashMap">
-		<![CDATA[
-			SELECT 	o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price
-			FROM	ProductOrder o JOIN Buyer b ON o.order_b_id = b.b_id
-			ORDER BY o.o_date DESC
-		]]>
-	</select>
 	
 	<!-- ****************************************************************************************** -->
 	<!-- 주문번호 누르면 상세 주문내역 보여주기 -->

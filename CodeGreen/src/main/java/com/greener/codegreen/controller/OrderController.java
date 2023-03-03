@@ -35,8 +35,10 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 	//-----------------------------------------------------------------------------------------------------------
 	@GetMapping("/orderManage")
 	public String orderForm() {
+		logger.info("==============================================================");
+		logger.info("orderController의 orderManage() 메인화면 불러오기");
+		logger.info("==============================================================");
 		
-		System.out.println("orderController의 orderManage() 메인화면 불러오기");
 		return "/order/orderManage";
 	
 	}
@@ -50,90 +52,55 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 		ModelAndView mav = new ModelAndView();
 		HashMap<String, String> paramMap = new HashMap<>();
 	
-	
-		// 아무것도 지정하지 않고 조회버튼 클릭 시 주문 전체 목록 보여주기 //
-		if(mapData.get("orderNum").equals("") && mapData.get("buyerName").equals("") 
-				&& mapData.get("productNum").equals("")) {
+		String orderNum = String.valueOf(mapData.get("orderNum"));
+		String buyerName = String.valueOf(mapData.get("buyerName"));
+		String productNum = String.valueOf(mapData.get("productNum"));
+		String state0 = String.valueOf(mapData.get("state0"));
+		String state1 = String.valueOf(mapData.get("state1"));
+		String state2 = String.valueOf(mapData.get("state2"));
+		String state3 = String.valueOf(mapData.get("state3"));
+		String period0 = String.valueOf(mapData.get("period0"));
+		String period1 = String.valueOf(mapData.get("period1"));
+		String period2 = String.valueOf(mapData.get("period2"));
+		
+		// ********************<< 전체 주문건 조회 >> ************************* //
+		if(orderNum.equals("") && buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
+				period1.equals("0") && period2.equals("0")) {
 			List<HashMap<String, String>> orderListAll = orderService.getOrderListAll();
 			mav.addObject("orderListAll", orderListAll);
-		logger.info("=======================1=======================");
-		} else if (!mapData.get("orderNum").equals("") && mapData.get("buyerName").equals("") &&
-				mapData.get("productNum").equals("")){
-			paramMap.put("orderNum1", (String) mapData.get("orderNum"));
-			logger.info("=======================2=======================");
-		} else if (!mapData.get("buyerName").equals("") && mapData.get("orderNum").equals("") &&
-				mapData.get("productNum").equals("")) {
-			paramMap.put("buyerName1", (String) mapData.get("buyerName"));
-			logger.info("=======================3=======================");
-		} else if(!mapData.get("productNum").equals("") && mapData.get("orderNum").equals("") && 
-				mapData.get("buyerName").equals("")) {
-			paramMap.put("productNum1", (String) mapData.get("productNum"));
-			logger.info("=======================4======================");
-		} else if(!mapData.get("orderNum").equals("") && !mapData.get("buyerName").equals("") &&
-				!mapData.get("productNum").equals("")) {
-			paramMap.put("orderNum2", (String) mapData.get("orderNum"));
-			paramMap.put("buyerName2", (String) mapData.get("buyerName"));
-			paramMap.put("productNum2", (String) mapData.get("productNum"));
-			logger.info("=======================5=======================");
-		} else if(mapData.get("orderNum").equals("") && !mapData.get("buyerName").equals("") &&
-				!mapData.get("productNum").equals("")) {
-			paramMap.put("buyerName3", (String) mapData.get("buyerName"));
-			paramMap.put("productNum3", (String) mapData.get("productNum"));
-			logger.info("=======================6=======================");
-		} else if(!mapData.get("orderNum").equals("") && mapData.get("buyerName").equals("") &&
-				!mapData.get("productNum").equals("")) {if(mapData.get("orderNum").equals("") && mapData.get("buyerName").equals("") 
-				&& mapData.get("productNum").equals("")) {
-			List<HashMap<String, String>> orderListAll = orderService.getOrderListAll();
-			mav.addObject("orderListAll", orderListAll);
-		logger.info("=======================1=======================");
-		} else if (!mapData.get("orderNum").equals("") && mapData.get("buyerName").equals("") &&
-				mapData.get("productNum").equals("")){
-			paramMap.put("orderNum1", (String) mapData.get("orderNum"));
-			logger.info("=======================2=======================");
-		} else if (!mapData.get("buyerName").equals("") && mapData.get("orderNum").equals("") &&
-				mapData.get("productNum").equals("")) {
-			paramMap.put("buyerName1", (String) mapData.get("buyerName"));
-			logger.info("=======================3=======================");
-		} else if(!mapData.get("productNum").equals("") && mapData.get("orderNum").equals("") && 
-				mapData.get("buyerName").equals("")) {
-			paramMap.put("productNum1", (String) mapData.get("productNum"));
-			logger.info("=======================4======================");
-		} else if(!mapData.get("orderNum").equals("") && !mapData.get("buyerName").equals("") &&
-				!mapData.get("productNum").equals("")) {
-			paramMap.put("orderNum2", (String) mapData.get("orderNum"));
-			paramMap.put("buyerName2", (String) mapData.get("buyerName"));
-			paramMap.put("productNum2", (String) mapData.get("productNum"));
-			logger.info("=======================5=======================");
-		} else if(mapData.get("orderNum").equals("") && !mapData.get("buyerName").equals("") &&
-				!mapData.get("productNum").equals("")) {
-			paramMap.put("buyerName3", (String) mapData.get("buyerName"));
-			paramMap.put("productNum3", (String) mapData.get("productNum"));
-			logger.info("=======================6=======================");
-		} else if(!mapData.get("orderNum").equals("") && mapData.get("buyerName").equals("") &&
-				!mapData.get("productNum").equals("")) {
-			paramMap.put("orderNum4", (String) mapData.get("orderNum"));
-			paramMap.put("productNum4", (String) mapData.get("productNum"));
-			logger.info("=======================7=======================");
-		} else if(!mapData.get("orderNum").equals("") && !mapData.get("buyerName").equals("") &&
-				mapData.get("productNum").equals("")) {
-			paramMap.put("orderNum5", (String) mapData.get("orderNum"));
-			paramMap.put("buyerName5", (String) mapData.get("buyerName"));
-			logger.info("=======================8=======================");
+			logger.info("=======================<< 1 >>======================");
+		} 
+		
+		// ********************<< 단일 조건 주문건 조회 >> ************************* //
+		else if (!orderNum.equals("") && buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
+				period1.equals("0") && period2.equals("0")) {
+			paramMap.put("orderNum1", orderNum);
+			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+			mav.addObject("orderList", orderList);
+			logger.info("=======================<< 2 >>======================");
 		}
-			paramMap.put("orderNum4", (String) mapData.get("orderNum"));
-			paramMap.put("productNum4", (String) mapData.get("productNum"));
-			logger.info("=======================7=======================");
-		} else if(!mapData.get("orderNum").equals("") && !mapData.get("buyerName").equals("") &&
-				mapData.get("productNum").equals("")) {
-			paramMap.put("orderNum5", (String) mapData.get("orderNum"));
-			paramMap.put("buyerName5", (String) mapData.get("buyerName"));
-			logger.info("=======================8=======================");
+		else if (orderNum.equals("") && !buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
+				period1.equals("0") && period2.equals("0")) {
+			paramMap.put("buyerName1", buyerName);
+			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+			mav.addObject("orderList", orderList);
+			logger.info("=======================<< 3 >>======================");
 		}
-
-	
-		List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
-		mav.addObject("orderList", orderList);
-			
+		else if (orderNum.equals("") && buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
+				period1.equals("0") && period2.equals("0")) {
+			paramMap.put("productNum1", productNum);
+			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+			mav.addObject("orderList", orderList);
+			logger.info("=======================<< 4 >>======================");
+		}
+		else if (orderNum.equals("") && buyerName.equals("") && productNum.equals("") && !period0.equals("0") && 
+				period1.equals("0") && period2.equals("0")) {
+			paramMap.put("productNum1", productNum);
+			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+			mav.addObject("orderList", orderList);
+			logger.info("=======================<< 4 >>======================");
+		}
+		
 		mav.setViewName("/order/orderListCheck");
 		
 	    return mav;

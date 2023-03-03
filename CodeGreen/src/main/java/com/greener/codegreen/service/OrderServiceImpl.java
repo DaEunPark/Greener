@@ -15,14 +15,14 @@ import com.greener.codegreen.dto.ProductOrderBuyerDTO;
 @Service("orderService")
 public class OrderServiceImpl implements OrderService {
 
-	private static final Logger logger = LoggerFactory.getLogger(ManagerService.class);
+	private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);
 
 	
 	@Autowired
 	private OrderDAO orderDAO;
 
 	//-----------------------------------------------------------------------------------------------------------
-	// 전체 주문내역 목록 불러오기
+	// 주문내역 목록 불러오기 (전체 주문)
 	//-----------------------------------------------------------------------------------------------------------	
 	@Override
 	public List<HashMap<String, String>> getOrderListAll() throws DataAccessException {

@@ -19,65 +19,50 @@
 <h2><center><p class="title">주문내역 조회</p></center></h2>
 <hr/>
 	<form class="form-horizontal" method="post" name="formname1" id="formname1">
-		<div class="form-group">
-			<div class="col-sm-2">
-				<label for="orderNum" class="control-label">주문번호</label>
-			</div>
-			<div class="col-sm-offset-1">
-				<input type="text" id="orderNum" name="orderNum"/>
-			</div>
+		<div class="form-inline form-group">
+			<label for="orderNum" class="control-label">주문번호</label>
+			<input type="text" id="orderNum" name="orderNum"/>
 		</div>
-		<div class="form-group">
-			<div class="col-sm-2">
-				<label for="buyerName" class="control-label">이름</label>
-			</div>
-			<div class="col-sm-offset-1">
-				<input type="text" id="buyerName" name="buyerName"/>
-			</div>
+		<div class="form-inline form-group">
+			<label for="buyerName" class="control-label">이름</label>
+			<input type="text" id="buyerName" name="buyerName"/>
 		</div>
- 		<div class="form-group">
-			<div class="col-sm-2">
-				<label for="productNum" class="control-label">상품번호</label>
-			</div>
-			<div class="col-sm-offset-1">
-				<input type="text" id="productNum" name="productNum"/>
-			</div>
+ 		<div class="form-inline form-group">
+			<label for="productNum" class="control-label">상품번호</label>
+			<input type="text" id="productNum" name="productNum"/>
 		</div>
- 		<div class="form-group">
+ 		<div class="form-inline form-group">
 			<div class="col-sm-2">
 				<label for="productState" class="control-label">결제상태</label>
 			</div>
 			<div class="col-sm-offset-2">
 				<label class="checkbox-inline">
-					<input type="checkbox" class="state" id="completePay" name="completePay" value="0"> 결제완료&nbsp;&nbsp;
+					<input type="checkbox" class="state0" id="state0" name="state0" value="0"> 결제완료&nbsp;&nbsp;
 				</label>
 				<label class="checkbox-inline">
-					<input type="checkbox" class="state" id="deliveryReady" name="deliveryReady" value="1"> 배송대기&nbsp;&nbsp;
+					<input type="checkbox" class="state1" id="state1" name="state1" value="1"> 배송대기&nbsp;&nbsp;
 				</label>
 				<label class="checkbox-inline">
-					<input type="checkbox" class="state" id="onDelivery" name="onDelivery" value="2"> 배송중&nbsp;&nbsp;
+					<input type="checkbox" class="state2" id="state2" name="state2" value="2"> 배송중&nbsp;&nbsp;
 				</label>
 				<label class="checkbox-inline">
-					<input type="checkbox" class="state" id="delivered" name="delivered" value="3"> 배송완료&nbsp;&nbsp;
+					<input type="checkbox" class="state3" id="state3" name="state3" value="3"> 배송완료&nbsp;&nbsp;
 				</label>
 			</div>
 		</div>
-		<div class="form-group">
+		<div class="form-inline form-group">
 			<div class="col-sm-2">
 				<label for="productState" class="control-label">조회기간</label>
 			</div>
 			<div class="col-sm-offset-2">
-				<label class="checkbox-inline">
-					<input type="checkbox" class="state" id="day" name="day" value="0"> 당일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label class="radio-inline">
+					<input type="radio" class="period0" id="period0" name="period" value="0"> 당일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				</label>
 				<label class="checkbox-inline">
-					<input type="checkbox" class="state" id="week" name="week" value="1"> 일주일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="radio" class="period1" id="period1" name="period" value="1"> 일주일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				</label>
 				<label class="checkbox-inline">
-					<input type="checkbox" class="state" id="month" name="month" value="2"> 한달&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				</label>
-				<label class="checkbox-inline">
-					<input type="checkbox" class="state" id="whole" name="whole" value="3"> 전체
+					<input type="radio" class="period2" id="period2" name="period" value="2"> 한달&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				</label>
 			</div>
 		</div>
@@ -92,7 +77,6 @@
 	<hr style="border: 1px; #FFFFFF;">
 	<div class="container">
 		<div class="form-group">	
-			<div class="col-sm-offset-11">
 				<div class="dropdown">
 				  <button class="dropdown-toggle" type="button" id="orderMenuButton" data-toggle="dropdown"> 정렬기준
 				  </button>
@@ -102,7 +86,6 @@
 							<button class="dropdown-item" type="button">결제금액순</button>
 						</div>
 				</div>
-			</div>
 		</div>
 	</div>
  
@@ -129,14 +112,13 @@ function sendAjaxRequest(data) {
         var orderNum = $('#orderNum').val();
         var buyerName = $('#buyerName').val();
         var productNum = $('#productNum').val();
-        var completePay = $('#completePay').is(':checked') ? 1 : 0;
-        var deliveryReady = $('#deliveryReady').is(':checked') ? 1 : 0;
-        var onDelivery = $('#onDelivery').is(':checked') ? 1 : 0;
-        var delivered = $('#delivered').is(':checked') ? 1 : 0;
-        var day = $('#day').is(':checked') ? 1 : 0;
-        var week = $('#week').is(':checked') ? 1 : 0;
-        var month = $('#month').is(':checked') ? 1 : 0;
-        var whole = $('#whole').is(':checked') ? 1 : 0;
+        var state0 = $('#state0').is(':checked') ? 1 : 0;
+        var state1 = $('#state1').is(':checked') ? 1 : 0;
+        var state2 = $('#state2').is(':checked') ? 1 : 0;
+        var state3 = $('#state3').is(':checked') ? 1 : 0;
+        var period0 = $('#period0').is(':checked') ? 1 : 0;
+        var period1 = $('#period1').is(':checked') ? 1 : 0;
+        var period2 = $('#period2').is(':checked') ? 1 : 0;
       
  		  $.ajax({
  	           type: "POST",
@@ -145,14 +127,13 @@ function sendAjaxRequest(data) {
  	        	orderNum:orderNum,
  	        	buyerName:buyerName,
 	        	productNum:productNum,
- 	        	completePay:completePay,
- 	        	deliveryReady:deliveryReady,
- 	        	onDelivery:onDelivery,
- 	        	delivered:delivered,
- 	        	day:day,
- 	        	week:week,
- 	        	month:month,
- 	        	whole:whole
+	        	state0:state0,
+	        	state1:state1,
+	        	state2:state2,
+	        	state3:state3,
+	        	period0:period0,
+	        	period1:period1,
+	        	period2:period2
   	            }),
  	           contentType:"application/json;charset=UTF-8",
   	           success: function(response) {

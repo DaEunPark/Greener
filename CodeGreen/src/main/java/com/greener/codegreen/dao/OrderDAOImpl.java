@@ -19,12 +19,12 @@ public class OrderDAOImpl implements OrderDAO {
 	private SqlSession sqlSession;
 	
 	@Autowired
-	private static final Logger logger = LoggerFactory.getLogger(ManagerDAO.class);
+	private static final Logger logger = LoggerFactory.getLogger(OrderDAOImpl.class);
 	
 	private	static final String Namespace = "com.greener.codegreen.order";
 
 	//-----------------------------------------------------------------------------------------------------------
-	// 전체 주문내역 목록 불러오기
+	// 주문내역 목록 불러오기 (전체 주문)
 	//-----------------------------------------------------------------------------------------------------------	
 	@Override
 	public List<HashMap<String, String>> orderListAll() throws DataAccessException {

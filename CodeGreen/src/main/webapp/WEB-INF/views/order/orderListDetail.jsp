@@ -20,12 +20,7 @@
     	background-color:transparent;
     	height:30px;
     }
-    #list {
-    	border: none;
-    	height: 28px;
-    	width:	60px;
-    	font-size: 13px;
-    }
+    
 </style>
 <body>
 <%-- <jsp:include page="../common/manager_topMenu.jsp" flush="false"/> --%>
@@ -34,7 +29,7 @@
 <h2><center><p class="title">주문내역 상세조회</p></center></h2>
 <hr/>
 	<form class="form-horizontal" id="frm">
-		<div class="form-group">
+		<div class="form-group form-inline">
 			<label for="o_number" class="col-sm-2 control-label">주문번호: </label>
 			<div class="col-sm-2">
 				<input type="text" class="form-control" id="o_number" name="o_number" maxlength="30" value="${orderDetail.o_number}" readonly/>

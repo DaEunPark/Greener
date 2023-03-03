@@ -9,7 +9,7 @@ import com.greener.codegreen.dto.ProductOrderBuyerDTO;
 
 public interface OrderDAO {
 	//-----------------------------------------------------------------------------------------------------------
-	// 주문내역 목록 불러오기 (전체&조건지정시)
+	// 주문내역 목록 불러오기 (전체 주문)
 	//-----------------------------------------------------------------------------------------------------------
 	public List<HashMap<String, String>> orderListAll() throws DataAccessException;
 
