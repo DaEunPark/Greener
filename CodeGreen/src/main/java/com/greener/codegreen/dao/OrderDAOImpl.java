@@ -30,34 +30,126 @@ public class OrderDAOImpl implements OrderDAO {
 	
 	private	static final String Namespace = "com.greener.codegreen.order";
 
-	//-----------------------------------------------------------------------------------------------------------
-	// 전체 주문내역 목록 불러오기
-	//-----------------------------------------------------------------------------------------------------------	
-	@Override
-	public List<HashMap<String, String>> orderListAll() throws DataAccessException {
-		logger.info("ManagerDAO orderListAll() 시작");
-		
-		return sqlSession.selectList(Namespace + ".orderListAll");	
-	}
-
 	//----------------------------------------------------------------------------------//
 	// 조건에 맞는 주문내역 목록 불러오기
-	//----------------------------------------------------------------------------------//	
-	@Override
-	public List<HashMap<String, String>> orderList(HashMap<String, String> paramMap) throws DataAccessException {
+	//----------------------------------------------------------------------------------//
+	public List<HashMap<String, String>> orderList(HashMap<String, String> paramMap) throws Exception {
+		
 		logger.info("ManagerDAO orderList() 시작");
 
 		return sqlSession.selectList(Namespace + ".orderListCheck", paramMap);
 	}
-
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 조건에 맞는 주문내역 목록 불러오기(day)
+	//-----------------------------------------------------------------------------------------------------------
+	public List<HashMap<String, String>> orderListDay(HashMap<String, String> paramMap) throws Exception {
+		
+		logger.info("ManagerService에서 getOrderList()로 조건에 맞는 주문내역 조회하기");
+		
+		return sqlSession.selectList(Namespace + ".orderListCheckDay", paramMap);
+		
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 조건에 맞는 주문내역 목록 불러오기(Onlyday)
+	//-----------------------------------------------------------------------------------------------------------
+	public List<HashMap<String, String>> orderListOnlyDay(HashMap<String, String> paramMap) throws Exception {
+		
+		logger.info("ManagerService에서 getOrderList()로 조건에 맞는 주문내역 조회하기");
+		
+		return sqlSession.selectList(Namespace + ".orderListOnlyDay", paramMap);
+		
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 조건에 맞는 주문내역 목록 불러오기(week)
+	//-----------------------------------------------------------------------------------------------------------
+	public List<HashMap<String, String>> orderListWeek(HashMap<String, String> paramMap) throws Exception {
+		
+		logger.info("ManagerService에서 getOrderList()로 조건에 맞는 주문내역 조회하기");
+		
+		return sqlSession.selectList(Namespace + ".orderListCheckWeek", paramMap);
+		
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 조건에 맞는 주문내역 목록 불러오기(Onlyweek)
+	//-----------------------------------------------------------------------------------------------------------
+	public List<HashMap<String, String>> orderListOnlyWeek(HashMap<String, String> paramMap) throws Exception {
+		
+		logger.info("ManagerService에서 getOrderList()로 조건에 맞는 주문내역 조회하기");
+		
+		return sqlSession.selectList(Namespace + ".orderListOnlyWeek", paramMap);
+		
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 조건에 맞는 주문내역 목록 불러오기(month)
+	//-----------------------------------------------------------------------------------------------------------
+	public List<HashMap<String, String>> orderListMonth(HashMap<String, String> paramMap) throws Exception {
+		
+		logger.info("ManagerService에서 getOrderList()로 조건에 맞는 주문내역 조회하기");
+		
+		return sqlSession.selectList(Namespace + ".orderListCheckMonth", paramMap);
+		
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 조건에 맞는 주문내역 목록 불러오기(Onlymonth)
+	//-----------------------------------------------------------------------------------------------------------
+	public List<HashMap<String, String>> orderListOnlyMonth(HashMap<String, String> paramMap) throws Exception {
+		
+		logger.info("ManagerService에서 getOrderList()로 조건에 맞는 주문내역 조회하기");
+		
+		return sqlSession.selectList(Namespace + ".orderListOnlyMonth", paramMap);
+		
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 전체 주문내역 목록 불러오기
+	//-----------------------------------------------------------------------------------------------------------
+	public List<HashMap<String, String>> orderListAll() throws Exception {
+		
+		logger.info("ManagerDAO orderListAll() 시작");
+		
+		return sqlSession.selectList(Namespace + ".orderListAll");
+		
+	}
+	
+	
+	
 	//-----------------------------------------------------------------------------------------------------------
 	// 주문번호 누르면 상세 주문내역 보여주기
 	//-----------------------------------------------------------------------------------------------------------
-	@Override
-	public ProductOrderBuyerDTO orderDetail(int orderNum) throws DataAccessException {
+	public ProductOrderBuyerDTO orderDetail(int orderNum) throws Exception {
+		
 		logger.info("managerDAO orderDetail() 시작");
 		
 		return sqlSession.selectOne(Namespace + ".orderDetailCheck", orderNum);
+		
 	}
-
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 전체 주문 개수 불러오기
+	//-----------------------------------------------------------------------------------------------------------
+	public int orderCountAll() throws Exception {
+		
+		logger.info("ManagerDAO 전체 주문 개수 불러오기 시작");
+		
+		return sqlSession.selectOne(Namespace + ".orderAllBno");
+		
+	}	
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 주문내역 취소하기
+	//-----------------------------------------------------------------------------------------------------------
+	public int orderListCancle(int oNum) throws Exception {
+		
+		logger.info("ManagerDAO 주문내역 취소하기 orderListCancle()...");
+		
+		return sqlSession.delete(Namespace + ".orderListCancle", oNum); 
+		
+	}
+	
 }
