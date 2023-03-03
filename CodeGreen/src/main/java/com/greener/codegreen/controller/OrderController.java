@@ -48,13 +48,17 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 	//-----------------------------------------------------------------------------------------------------------
 	 @RequestMapping(value = "/map-data", method = RequestMethod.POST)
 	  @ResponseBody
-	  public ModelAndView handleMapData(@RequestBody Map<String, Object> mapData) throws Exception {
+	  public ModelAndView handleMapData(@RequestBody Map<String, Object> mapData, Integer pageSize, Integer page) throws Exception {
 		
 		ModelAndView mav = new ModelAndView();
 		HashMap<String, String> paramMap = new HashMap<>();
 		
+		if(page == null) page = 1;
+		if(pageSize == null) pageSize = 10;
+		
 		int totalCnt = orderService.getOrderCount();
-
+		PageHandler pageHandler = new PageHandler(totalCnt, page, pageSize);
+		
 		for(int i=0; i<mapData.size(); i++) {
 			paramMap.put("period"+i, String.valueOf(mapData.get("period"+i)));
 		}
@@ -295,6 +299,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 			
 		} // End : 바깥 if-else
 
+			mav.addObject("ph", pageHandler);
 			mav.setViewName("orderListCheck");
 		
 		return mav;
