@@ -1,5 +1,6 @@
 package com.greener.codegreen.common;
 
+
 public class PageMaker {
 	private Criteria cri;
 	private int totalCount;		// 총 소비자의 수
@@ -35,7 +36,7 @@ public class PageMaker {
 			startPage =1;
 		}
 		
-		int realEndPage = (int)(Math.ceil(cri.getPage()/(double)viewPageNum));
+		int realEndPage = (int)(Math.ceil(totalCount/(double)cri.getPerPageNum()));
 		if(endPage > realEndPage) {
 			endPage = realEndPage;
 		}
