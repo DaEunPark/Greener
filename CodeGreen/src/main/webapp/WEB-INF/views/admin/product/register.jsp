@@ -10,7 +10,7 @@
 <body>
 <!-- 사이드 바 -->
 <jsp:include page="../include/nav.jsp"></jsp:include>
-	<div class="container_box">
+	<div class="container">
 		<h2>상품등록</h2>
 		<form role = "form" method="post" autocomplete="off">
 			<label>1차 분류</label>
