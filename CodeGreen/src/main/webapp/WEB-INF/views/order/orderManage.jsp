@@ -2,27 +2,22 @@
 <%@ taglib prefix="c"	uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
 <%	request.setCharacterEncoding("UTF-8"); %>
-<!-- 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>	
- -->
 
+ 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>관리자 주문관리</title>
-
 </head>
 <body>
-<h2><center><p class="title">주문내역 조회</p></center></h2>
-<hr/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <%-- <jsp:include page="../common/manager_topMenu.jsp" flush="false"/> --%>
 	<jsp:include page="../admin/include/nav.jsp" flush="false"/>
 <div class="container">
+<h2><center><p class="title">주문내역 조회</p></center></h2>
+<hr/>
 	<form class="form-horizontal" method="post" name="formname1" id="formname1">
 		<div class="form-group">
 			<div class="col-sm-2">
@@ -100,7 +95,7 @@
 			<div class="col-sm-offset-11">
 				<div class="dropdown">
 				  <button class="dropdown-toggle" type="button" id="orderMenuButton" data-toggle="dropdown"> 정렬기준
-				  <span class="caret"></span></button>
+				  </button>
 						<div class="dropdown-menu" aria-labelledby="dropdownOrderMenu">
 							<button class="dropdown-item" type="button">주문일시</button>
 							<button class="dropdown-item" type="button">결제일시</button>
