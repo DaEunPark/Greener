@@ -60,4 +60,17 @@ public class BuyerServiceImpl implements BuyerService {
 		// TODO Auto-generated method stub
 		return buyerDAO.buyerList(scri);
 	}
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 소비자 상세 조회
+	//-----------------------------------------------------------------------------------------------------------
+	@Override
+	public BuyerDTO buyerDetail(String b_id , int flag) throws Exception {
+		
+		return buyerDAO.buyerDetail(b_id);
+	}
+	
+	
+	
+	
 }

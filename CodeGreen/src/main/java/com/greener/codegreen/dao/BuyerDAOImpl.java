@@ -59,6 +59,14 @@ public class BuyerDAOImpl implements BuyerDAO {
 		return sqlSession.selectList(Namespace+".buyerList",scri);
 	}
 	
+	//-----------------------------------------------------------------------------------------------------------
+	// 소비자 상세 조회
+	//-----------------------------------------------------------------------------------------------------------
+	@Override
+	public BuyerDTO buyerDetail(String b_id) throws Exception {
+		
+		return sqlSession.selectOne(Namespace+".buyerDetail", b_id);
+	}
 	
 
 }

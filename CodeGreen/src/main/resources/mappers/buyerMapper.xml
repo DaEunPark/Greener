@@ -21,7 +21,7 @@
 	<!-- 로그인 처리 -->
 	<select id="loginByIdPwd" parameterType="com.greener.codegreen.dto.BuyerDTO" resultType="com.greener.codegreen.dto.BuyerDTO">
 		<![CDATA[
-			SELECT * 
+			SELECT b_id, b_pwd, b_name,b_birth,b_email,b_address1,b_address2,b_address3,b_phone, b_grade,b_joindate,b_amount,b_num
 			FROM Buyer 
 			WHERE b_id = #{b_id} AND b_pwd = #{b_pwd} 
 		]]>
@@ -39,7 +39,7 @@
 	<!-- 아이디 중복검사 -->
 	<select id ="idCheck" parameterType="com.greener.codegreen.dto.BuyerDTO" resultType="INT">
 		<![CDATA[
-			select count(*)
+			select count(1)
 			from Buyer
 			where b_id = #{b_id}
 		]]>
@@ -48,7 +48,7 @@
 	<!-- 소비자 전체 회원의 수 -->
 	<select id = "totalCount" parameterType="com.greener.codegreen.dto.BuyerDTO" resultType="INT">
 		<![CDATA[
-			select count(*)
+			select count(1)
 			from Buyer
 			where 1=1
 		]]>
@@ -81,6 +81,16 @@
 			ORDER BY b_num DESC
 		]]>
 	</select>
+	
+		<!--  구매자 아이디 상세 조회 -->
+ <select id="buyerDetail" parameterType="com.greener.codegreen.dto.BuyerDTO" resultType="com.greener.codegreen.dto.BuyerDTO">
+
+	 		SELECT	b_id,b_name,b_birth, b_email, b_address1, b_address2, b_address3,b_grade, b_joindate,b_phone
+			FROM	Buyer
+			WHERE	b_id = #{b_id}
+
+ </select>
+ 
 </mapper>   
 
 

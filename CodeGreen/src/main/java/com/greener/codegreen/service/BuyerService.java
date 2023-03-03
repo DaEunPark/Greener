@@ -36,5 +36,11 @@ public interface BuyerService {
 	//-----------------------------------------------------------------------------------------------------------
 	public List<BuyerDTO> buyerList(SearchCriteria scri) throws Exception;
 	
+	//-----------------------------------------------------------------------------------------------------------
+	// 소비자 상세  조회
+	//-----------------------------------------------------------------------------------------------------------
+	public BuyerDTO buyerDetail(String b_id, int flag) throws Exception;
+	
+	
 	
 } // End - public interface BuyerService
