@@ -15,13 +15,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.greener.codegreen.dao.ManagerDAO;
-import com.greener.codegreen.dao.OrderDAO;
 import com.greener.codegreen.dto.ProductOrderBuyerDTO;
-import com.greener.codegreen.service.ManagerService;
 import com.greener.codegreen.service.OrderService;
 
 @Controller("orderController")
@@ -32,15 +30,13 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 	@Autowired
 	private OrderService orderService;
 	
-	@Autowired
-	private OrderDAO orderDAO;
 	//-----------------------------------------------------------------------------------------------------------
 	// 주문 목록 메인 화면 불러오기
 	//-----------------------------------------------------------------------------------------------------------
 	@GetMapping("/orderManage")
 	public String orderForm() {
 		
-		System.out.println("orderController의 order를 거쳐갑니다.");
+		System.out.println("orderController의 orderManage() 메인화면 불러오기");
 		return "/order/orderManage";
 	
 	}
@@ -156,10 +152,23 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 		  
 		  ProductOrderBuyerDTO productOrderBuyerDTO = orderService.getOrderDetail(orderNum);
 		  model.addAttribute("orderDetail", productOrderBuyerDTO);
-		  
-		  logger.info(""+orderNum);
+
 		  
 		  return "/order/orderListDetail";
 		  
 	  }	
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 주문내역 취소하기
+	//-----------------------------------------------------------------------------------------------------------
+	  @GetMapping("/orderCancle")
+	  public String orderListCancle(@RequestParam("o_number") String o_number) throws Exception {
+			  
+		  int oNum = Integer.valueOf(o_number);
+
+		  logger.info("orderController에서 주문 내역취소 orderListCancle()시작..");
+		  orderService.setOrderCancle(oNum);
+			  
+		  return "/order/orderManage";
+	  }
 }

@@ -47,6 +47,16 @@
 	        WHERE   o.o_number = #{orderNum}
 		]]>
 	</select>
+	
+	<!-- ****************************************************************************************** -->
+	<!-- 주문 내역 취소하기 -->
+	<!-- ****************************************************************************************** -->
+	  <delete id="orderListCancle" parameterType="int">
+		<![CDATA[
+	        DELETE 	FROM ProductOrder
+	        WHERE o_number = #{oNum}
+		]]>
+	</delete>
  	
 </mapper>   
 

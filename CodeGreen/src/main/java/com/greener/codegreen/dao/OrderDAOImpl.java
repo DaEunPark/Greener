@@ -10,17 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
-import com.greener.codegreen.dto.BuyerDTO;
-import com.greener.codegreen.dto.OrderDTO;
 import com.greener.codegreen.dto.ProductOrderBuyerDTO;
 
 @Repository("orderDAO")
 public class OrderDAOImpl implements OrderDAO {
-	@Autowired
-	private BuyerDTO buyerDTO;
-	
-	@Autowired
-	private OrderDTO orderDTO;
 	
 	@Autowired
 	private SqlSession sqlSession;
@@ -58,6 +51,16 @@ public class OrderDAOImpl implements OrderDAO {
 		logger.info("managerDAO orderDetail() 시작");
 		
 		return sqlSession.selectOne(Namespace + ".orderDetailCheck", orderNum);
+	}
+
+	//-----------------------------------------------------------------------------------------------------------
+	// 주문내역 취소하기
+	//-----------------------------------------------------------------------------------------------------------
+	@Override
+	public int orderListCancle(int oNum) throws DataAccessException {
+		logger.info("ManagerDAO 주문내역 취소하기 orderListCancle()...");
+		
+		return sqlSession.delete(Namespace + ".orderListCancle", oNum); 
 	}
 
 }

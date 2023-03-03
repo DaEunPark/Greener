@@ -10,16 +10,13 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.greener.codegreen.dao.OrderDAO;
-import com.greener.codegreen.dto.BuyerDTO;
 import com.greener.codegreen.dto.ProductOrderBuyerDTO;
 
 @Service("orderService")
 public class OrderServiceImpl implements OrderService {
 
 	private static final Logger logger = LoggerFactory.getLogger(ManagerService.class);
-	
-	@Autowired
-	private BuyerDTO buyerDTO;
+
 	
 	@Autowired
 	private OrderDAO orderDAO;
@@ -53,6 +50,13 @@ public class OrderServiceImpl implements OrderService {
 		logger.info("ManagerService에서 orderDetail()로 상세 조회시작");
 		
 		return orderDAO.orderDetail(orderNum);
+	}
+
+	@Override
+	public int setOrderCancle(int oNum) throws DataAccessException {
+		logger.info("ManagerService에서 setOrderCancle() 실행...");
+		
+		return orderDAO.orderListCancle(oNum);
 	}
 
 	
