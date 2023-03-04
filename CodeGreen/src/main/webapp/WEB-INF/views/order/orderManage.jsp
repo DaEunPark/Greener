@@ -14,10 +14,12 @@
 <style>
 	#formname1 {
 		padding: 10px 0px;
+		font-size:	13px;
 	}
 	#labelname1 {
 		padding: 10px 0px;
 		font-weight:	bold;
+		font-size:	13px;
 	}
 	#orderNum, #buyerName, #productNum {
 		height:27px;
@@ -25,13 +27,23 @@
 	#orderMenuButton {
 		border: 1px solid black;
 	}
+	.container {
+		width: 70%;
+	}
+	.title {
+		padding: 25px 0px 0px 420px;
+	}
+	#orderCheck {
+		position:	absolute;
+		left:	780px;
+	}
 </style>
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <%-- <jsp:include page="../common/manager_topMenu.jsp" flush="false"/> --%>
 	<jsp:include page="../admin/include/nav.jsp" flush="false"/>
 <div class="container">
-<h2><center><p class="title">주문내역 조회</p></center></h2>
+<h2><p class="title">주문내역 조회</p></h2>
 <hr/>
 	<form class="form-horizontal" method="post" name="formname1" id="formname1">
 		<div class="form-inline form-group">
@@ -64,7 +76,7 @@
 		<div class="form-inline form-group">
 				<label for="productState" class="control-label" id="labelname1">조회기간</label>&nbsp;&nbsp;&nbsp;
 				<label class="radio-inline">
-					<input type="radio" class="period0" id="period0" name="period" value="0"> 당일&nbsp;&nbsp;&nbsp;
+					<input type="radio" class="period0" id="period0" name="period" value="0"> 하루&nbsp;&nbsp;&nbsp;
 				</label>
 				<label class="checkbox-inline">
 					<input type="radio" class="period1" id="period1" name="period" value="1"> 일주일&nbsp;&nbsp;&nbsp;
@@ -79,39 +91,11 @@
 <hr/>
 
 	<div class="container">
-				<center><button type="button" id="orderCheck" class="btn btn-info btn-sm" onclick="sendAjaxRequest()">조회</button></center>
+				<center><button type="button" id="orderCheck" class="btn btn-success btn-sm" onclick="sendAjaxRequest()">조회</button></center>
 	</div>
-	<hr style="border: 1px; #FFFFFF;">
-	<div class="container">
-	<div class="form-group">	
-		<div class="dropdown">
-			<button class="btn dropdown-toggle btn-sm" type="button" id="orderMenuButton" data-bs-toggle="dropdown"> 정렬기준
-			</button>
-			<ul class="dropdown-menu" aria-labelledby="orderMenuButton">
-				<li><button class="dropdown-item" type="button">주문일시</button></li>
-				<li><button class="dropdown-item" type="button">결제일시</button></li>
-				<li><button class="dropdown-item" type="button">결제금액순</button></li>
-			</ul>
-		</div>
-	</div>
-</div>
- 
-<div class="container">
-	<table class="table table-striped table-bordered table-hover">
-		<thead>
-				<tr class="orderList">
-	  				<th class="col-sm-2 text-center">주문일자</th> 
-					<th class="col-sm-2 text-center">주문번호</th>
-					<th class="col-sm-1 text-center">회원번호</th>
-					<th class="col-sm-2 text-center">아이디	</th>
-					<th class="col-sm-1 text-center">주문자명</th>
-					<th class="col-sm-2 text-center">결제금액</th>
-<!--  					<th class="col-sm-2 text-center">주문상태</th>-->
-				</tr>
-		</thead>
-	</table>
-        <div id="resultDiv"></div>
-</div>
+	<hr style="border: 1px; color:#FFFFFF;">
+	<div id="resultDiv"></div>
+
 
 <script>
 

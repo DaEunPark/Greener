@@ -21,7 +21,7 @@
 	<!-- ****************************************************************************************** -->
  	<select id="orderListCheck" resultType="HashMap" parameterType="java.util.HashMap">
 		<![CDATA[
-			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, p.p_name
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price
 			FROM ProductOrder o 
 			JOIN Buyer b ON o.order_b_id = b.b_id
 			JOIN Product p ON o.order_p_number = p.p_number
@@ -44,7 +44,7 @@
 	<!-- ****************************************************************************************** -->
  	<select id="orderListOnlyDay" resultType="HashMap" parameterType="java.util.HashMap">
 		<![CDATA[
-			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, p.p_name
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price
 			FROM ProductOrder o 
 			JOIN Buyer b ON o.order_b_id = b.b_id
 			JOIN Product p ON o.order_p_number = p.p_number
@@ -58,7 +58,7 @@
 	<!-- ****************************************************************************************** -->
  	<select id="orderListOnlyWeek" resultType="HashMap" parameterType="java.util.HashMap">
 		<![CDATA[
-			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, p.p_name
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price
 			FROM ProductOrder o 
 			JOIN Buyer b ON o.order_b_id = b.b_id
 			JOIN Product p ON o.order_p_number = p.p_number
@@ -72,7 +72,7 @@
 	<!-- ****************************************************************************************** -->
  	<select id="orderListOnlyMonth" resultType="HashMap" parameterType="java.util.HashMap">
 		<![CDATA[
-			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, p.p_name
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price
 			FROM ProductOrder o 
 			JOIN Buyer b ON o.order_b_id = b.b_id
 			JOIN Product p ON o.order_p_number = p.p_number
@@ -86,7 +86,7 @@
 	<!-- ****************************************************************************************** -->
  	<select id="orderListCheckDay" resultType="HashMap" parameterType="java.util.HashMap">
 		<![CDATA[
-			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, p.p_name
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price
 			FROM ProductOrder o 
 			JOIN Buyer b ON o.order_b_id = b.b_id
 			JOIN Product p ON o.order_p_number = p.p_number
@@ -106,7 +106,7 @@
 	<!-- ****************************************************************************************** -->
  	<select id="orderListCheckWeek" resultType="HashMap" parameterType="java.util.HashMap">
 		<![CDATA[
-			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, p.p_name
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price
 			FROM ProductOrder o 
 			JOIN Buyer b ON o.order_b_id = b.b_id
 			JOIN Product p ON o.order_p_number = p.p_number
@@ -126,7 +126,7 @@
 	<!-- ****************************************************************************************** -->
  	<select id="orderListCheckMonth" resultType="HashMap" parameterType="java.util.HashMap">
 		<![CDATA[
-			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, p.p_name
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price
 			FROM ProductOrder o 
 			JOIN Buyer b ON o.order_b_id = b.b_id
 			JOIN Product p ON o.order_p_number = p.p_number
