@@ -77,39 +77,6 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 	
 	//-----------------------------------------------------------------------------------------------------------
-	// 조건에 맞는 주문내역 목록 불러오기(day)
-	//-----------------------------------------------------------------------------------------------------------
-	public List<HashMap<String, String>> orderListDay(HashMap<String, String> paramMap) throws DataAccessException {
-		
-		logger.info("orderDAO에서 orderListDay()로 조건에 맞는 주문내역 조회하기");
-		
-		return sqlSession.selectList(Namespace + ".orderListCheckDay", paramMap);
-		
-	}
-	
-	//-----------------------------------------------------------------------------------------------------------
-	// 조건에 맞는 주문내역 목록 불러오기(week)
-	//-----------------------------------------------------------------------------------------------------------
-	public List<HashMap<String, String>> orderListWeek(HashMap<String, String> paramMap) throws DataAccessException {
-		
-		logger.info("orderDAO에서 orderListWeek()로 조건에 맞는 주문내역 조회하기");
-		
-		return sqlSession.selectList(Namespace + ".orderListCheckWeek", paramMap);
-		
-	}
-	
-	//-----------------------------------------------------------------------------------------------------------
-	// 조건에 맞는 주문내역 목록 불러오기(month)
-	//-----------------------------------------------------------------------------------------------------------
-	public List<HashMap<String, String>> orderListMonth(HashMap<String, String> paramMap) throws DataAccessException {
-		
-		logger.info("orderDAO에서 orderListMonth()로 조건에 맞는 주문내역 조회하기");
-		
-		return sqlSession.selectList(Namespace + ".orderListCheckMonth", paramMap);
-		
-	}
-
-	//-----------------------------------------------------------------------------------------------------------
 	// 주문번호 누르면 상세 주문내역 보여주기
 	//-----------------------------------------------------------------------------------------------------------
 	@Override

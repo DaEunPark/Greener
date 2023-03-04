@@ -94,11 +94,10 @@
 				<center><button type="button" id="orderCheck" class="btn btn-success btn-sm" onclick="sendAjaxRequest()">조회</button></center>
 	</div>
 	<hr style="border: 1px; color:#FFFFFF;">
+
 	<div id="resultDiv"></div>
 
-
 <script>
-
 function sendAjaxRequest(data) {
         var orderNum = $('#orderNum').val();
         var buyerName = $('#buyerName').val();
@@ -128,7 +127,6 @@ function sendAjaxRequest(data) {
   	            }),
  	           contentType:"application/json;charset=UTF-8",
   	           success: function(response) {
-/*   	             alert ("주문 조회 성공");*/
  	             $("#resultDiv").html(response);
 	 	       },
 
@@ -138,6 +136,7 @@ function sendAjaxRequest(data) {
  	      });
 }
 </script>
+
 </body>
 </html>
 

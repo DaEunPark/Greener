@@ -32,9 +32,27 @@
 			   OR o.o_number = #{orderNum3} AND o.order_p_number = #{productNum3}
 			   OR b.b_name = #{buyerName4} AND o.order_p_number = #{productNum4}
 			   OR o.o_number = #{orderNum5} AND b.b_name = #{buyerName5} AND o.order_p_number = #{productNum5}
-			   
-			   
-			   
+			   OR (o.o_number = #{orderNum6} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY) AND NOW())
+			   OR (b.b_name = #{buyerName7}  AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY) AND NOW())
+			   OR (o.order_p_number = #{productNum8} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY) AND NOW())
+			   OR (o.o_number = #{orderNum9} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW())
+			   OR (b.b_name = #{buyerName10}  AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW())
+			   OR (o.order_p_number = #{productNum11} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW())
+			   OR (o.o_number = #{orderNum12} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW())
+			   OR (b.b_name = #{buyerName13}  AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW())
+			   OR (o.order_p_number = #{productNum14} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW())
+			   OR (o.o_number = #{orderNum15} AND b.b_name = #{buyerName15} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY) AND NOW())
+			   OR (o.o_number = #{orderNum16} AND o.order_p_number = #{productNum16} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY) AND NOW())
+			   OR (b.b_name = #{buyerName17} AND o.order_p_number = #{productNum17} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY) AND NOW())
+			   OR (o.o_number = #{orderNum18} AND b.b_name = #{buyerName18} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW())
+			   OR (o.o_number = #{orderNum19} AND o.order_p_number = #{productNum19} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW())
+			   OR (b.b_name = #{buyerName20} AND o.order_p_number = #{productNum20} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW())
+			   OR (o.o_number = #{orderNum21} AND b.b_name = #{buyerName21} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW())
+			   OR (o.o_number = #{orderNum22} AND o.order_p_number = #{productNum22} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW())
+			   OR (b.b_name = #{buyerName23} AND o.order_p_number = #{productNum23} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW())
+			   OR (o.o_number = #{orderNum24} AND b.b_name = #{buyerName24} AND o.order_p_number = #{productNum24} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY) AND NOW())
+			   OR (o.o_number = #{orderNum25} AND b.b_name = #{buyerName25} AND o.order_p_number = #{productNum25} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW())
+			   OR (o.o_number = #{orderNum26} AND b.b_name = #{buyerName26} AND o.order_p_number = #{productNum26} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW())
 			ORDER BY o.o_date DESC
 		]]>
 	</select>
@@ -78,66 +96,6 @@
 			JOIN Product p ON o.order_p_number = p.p_number
 			WHERE o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
             ORDER BY o.o_date DESC
-		]]>
-	</select>
-	
-	<!-- ****************************************************************************************** -->
-	<!-- 조건에 맞는 주문내역 목록 가져오기 /day -->
-	<!-- ****************************************************************************************** -->
- 	<select id="orderListCheckDay" resultType="HashMap" parameterType="java.util.HashMap">
-		<![CDATA[
-			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price
-			FROM ProductOrder o 
-			JOIN Buyer b ON o.order_b_id = b.b_id
-			JOIN Product p ON o.order_p_number = p.p_number
-			WHERE (o.o_number = #{orderNum1} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY) AND NOW())
-			   OR (b.b_name = #{buyerName1}  AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY) AND NOW())
-			   OR (o.order_p_number = #{productNum1} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY) AND NOW())
-			   OR (o.o_number = #{orderNum2} AND b.b_name = #{buyerName2} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY) AND NOW())
-			   OR (o.o_number = #{orderNum3} AND o.order_p_number = #{productNum3} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY) AND NOW())
-			   OR (b.b_name = #{buyerName4} AND o.order_p_number = #{productNum4} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY) AND NOW())
-			   OR (o.o_number = #{orderNum5} AND b.b_name = #{buyerName5} AND o.order_p_number = #{productNum5} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY) AND NOW())
-			   ORDER BY o.o_date DESC
-		]]>
-	</select>
-	
-	<!-- ****************************************************************************************** -->
-	<!-- 조건에 맞는 주문내역 목록 가져오기 /week -->
-	<!-- ****************************************************************************************** -->
- 	<select id="orderListCheckWeek" resultType="HashMap" parameterType="java.util.HashMap">
-		<![CDATA[
-			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price
-			FROM ProductOrder o 
-			JOIN Buyer b ON o.order_b_id = b.b_id
-			JOIN Product p ON o.order_p_number = p.p_number
-			WHERE (o.o_number = #{orderNum1} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW())
-			   OR (b.b_name = #{buyerName1}  AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW())
-			   OR (o.order_p_number = #{productNum1} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW())
-			   OR (o.o_number = #{orderNum2} AND b.b_name = #{buyerName2} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW())
-			   OR (o.o_number = #{orderNum3} AND o.order_p_number = #{productNum3} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW())
-			   OR (b.b_name = #{buyerName4} AND o.order_p_number = #{productNum4} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW())
-			   OR (o.o_number = #{orderNum5} AND b.b_name = #{buyerName5} AND o.order_p_number = #{productNum5} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW())
-			   ORDER BY o.o_date DESC
-		]]>
-	</select>
-	
-	<!-- ****************************************************************************************** -->
-	<!-- 조건에 맞는 주문내역 목록 가져오기 /month -->
-	<!-- ****************************************************************************************** -->
- 	<select id="orderListCheckMonth" resultType="HashMap" parameterType="java.util.HashMap">
-		<![CDATA[
-			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price
-			FROM ProductOrder o 
-			JOIN Buyer b ON o.order_b_id = b.b_id
-			JOIN Product p ON o.order_p_number = p.p_number
-			WHERE (o.o_number = #{orderNum1} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW())
-			   OR (b.b_name = #{buyerName1}  AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW())
-			   OR (o.order_p_number = #{productNum1} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW())
-			   OR (o.o_number = #{orderNum2} AND b.b_name = #{buyerName2} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW())
-			   OR (o.o_number = #{orderNum3} AND o.order_p_number = #{productNum3} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW())
-			   OR (b.b_name = #{buyerName4} AND o.order_p_number = #{productNum4} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW())
-			   OR (o.o_number = #{orderNum5} AND b.b_name = #{buyerName5} AND o.order_p_number = #{productNum5} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW())
-			   ORDER BY o.o_date DESC
 		]]>
 	</select>
 	

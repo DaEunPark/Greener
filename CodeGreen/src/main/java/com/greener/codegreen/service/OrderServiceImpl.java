@@ -76,39 +76,6 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	//-----------------------------------------------------------------------------------------------------------
-	// 조건에 맞는 주문내역 목록 불러오기(day)
-	//-----------------------------------------------------------------------------------------------------------
-	public List<HashMap<String, String>> getOrderListDay(HashMap<String, String> paramMap) throws DataAccessException {
-		
-		logger.info("orderService에서 getOrderListDay()로 조건에 맞는 주문내역 조회하기");
-		
-		return orderDAO.orderListDay(paramMap);
-		
-	}
-	
-	//-----------------------------------------------------------------------------------------------------------
-	// 조건에 맞는 주문내역 목록 불러오기(week)
-	//-----------------------------------------------------------------------------------------------------------
-	public List<HashMap<String, String>> getOrderListWeek(HashMap<String, String> paramMap) throws DataAccessException {
-			
-		logger.info("orderDAO에서 getOrderListWeek()로 조건에 맞는 주문내역 조회하기");
-			
-		return orderDAO.orderListWeek(paramMap);
-			
-	}
-	
-	//-----------------------------------------------------------------------------------------------------------
-	// 조건에 맞는 주문내역 목록 불러오기(month)
-	//-----------------------------------------------------------------------------------------------------------
-	public List<HashMap<String, String>> getOrderListMonth(HashMap<String, String> paramMap) throws DataAccessException {
-				
-		logger.info("orderDAO에서 getOrderListMonth()로 조건에 맞는 주문내역 조회하기");
-				
-		return orderDAO.orderListMonth(paramMap);
-				
-	}
-
-	//-----------------------------------------------------------------------------------------------------------
 	// 주문번호 누르면 상세 주문내역 보여주기
 	//-----------------------------------------------------------------------------------------------------------
 	@Override

@@ -13,6 +13,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <style>
 	.txt:hover {
 		font-weight: bold;
@@ -55,15 +57,14 @@
 			<button class="btn dropdown-toggle btn-sm" type="button" id="orderMenuButton" data-bs-toggle="dropdown"> 정렬기준
 			</button>
 			<ul class="dropdown-menu" aria-labelledby="orderMenuButton">
-				<li><button class="dropdown-item" type="button" onclick="fn_odateAscending()">주문일자(오름차순)</button></li>
-				<li><button class="dropdown-item" type="button" onclick="fn_odateDescending()">주문일자(내림차순)</button></li>
-				<li><button class="dropdown-item" type="button" onclick="fn_opriceAscending()">결제금액순(오름차순)</button></li>
-				<li><button class="dropdown-item" type="button" onclick="fn_opriceDescending()">결제금액순(내림차순)</button></li>
+				<li><button class="dropdown-item" type="button">주문일자순(오름차순)</button></li>
+				<li><button class="dropdown-item" type="button">주문일자순(내림차순)</button></li>
+				<li><button class="dropdown-item" type="button">결제금액순(오름차순)</button></li>
+				<li><button class="dropdown-item" type="button" id="priceDs">결제금액순(내림차순)</button></li>
 			</ul>
 		</div>
 	</div>
 </div>
- 
 <div class="container" id="container">
 	<table class="table table-bordered table-hover" id="table">
 		<thead>
@@ -77,39 +78,113 @@
 <!--  					<th class="col-sm-2 text-center">주문상태</th>-->
 				</tr>
 		</thead>
-	    <c:forEach var="order" items="${orderList}">
-	    	<tbody>
-		      <tr class="orderList">
-		   	    <td class="col-sm-2 text-center" id="contents">${order['o_date']}</td>
-		        <td onClick="location.href='/order/orderDetail?o_number=${order['o_number']}'" class="col-sm-2 text-center txt" id="contents">${order['o_number']}</td>
-		        <td class="col-sm-1 text-center" id="contents">${order['b_num']}</td>
-		        <td class="col-sm-2 text-center" id="contents">${order['b_id']}</td>
-		        <td class="col-sm-1 text-center" id="contents">${order['b_name']}</td>
-		        <td class="col-sm-2 text-center" id="contents">
-					<fmt:formatNumber value="${order['o_price']}" pattern="#,###" />
-				</td>
-		      </tr>
-		     </tbody>
-	    </c:forEach>
-	    <c:forEach var="list" items="${orderListAll}">
-	    	<tbody>
-		      <tr class="orderList">
-		   	    <td class="col-sm-2 text-center" id="contents">${list['o_date']}</td>
-		        <td onClick="location.href='/order/orderDetail?o_number=${list['o_number']}'"  class="col-sm-2 text-center txt" id="contents">${list['o_number']}</td>
-		        <td class="col-sm-1 text-center" id="contents">${list['b_num']}</td>
-		        <td class="col-sm-2 text-center" id="contents">${list['b_id']}</td>
-		        <td class="col-sm-1 text-center" id="contents">${list['b_name']}</td>
-		        <td class="col-sm-2 text-center" id="contents">
-		        	<fmt:formatNumber value="${list['o_price']}" pattern="#,###" />
-		        </td>
-		      </tr>
-		     </tbody>
-	    </c:forEach>
+	   	<tbody>
+		    <c:forEach var="order" items="${orderList}">
+			      <tr class="orderList">
+			   	    <td class="col-sm-2 text-center" id="contents">${order['o_date']}</td>
+			        <td onClick="location.href='/order/orderDetail?o_number=${order['o_number']}'" class="col-sm-2 text-center txt" id="contents">${order['o_number']}</td>
+			        <td class="col-sm-1 text-center" id="contents">${order['b_num']}</td>
+			        <td class="col-sm-2 text-center" id="contents">${order['b_id']}</td>
+			        <td class="col-sm-1 text-center" id="contents">${order['b_name']}</td>
+			        <td class="col-sm-2 text-center" id="contents">
+						<fmt:formatNumber value="${order['o_price']}" pattern="#,###" />
+					</td>
+			      </tr>
+		    </c:forEach>
+		    <c:forEach var="list" items="${orderListAll}">
+			      <tr class="orderList">
+			   	    <td class="col-sm-2 text-center" id="contents">${list['o_date']}</td>
+			        <td onClick="location.href='/order/orderDetail?o_number=${list['o_number']}'"  class="col-sm-2 text-center txt" id="contents">${list['o_number']}</td>
+			        <td class="col-sm-1 text-center" id="contents">${list['b_num']}</td>
+			        <td class="col-sm-2 text-center" id="contents">${list['b_id']}</td>
+			        <td class="col-sm-1 text-center" id="contents">${list['b_name']}</td>
+			        <td class="col-sm-2 text-center" id="contents">
+			        	<fmt:formatNumber value="${list['o_price']}" pattern="#,###" />
+			        </td>
+			      </tr>
+		    </c:forEach>
+		 </tbody>
 	  </table>
 </div>
-
 <script>
-
+$('.dropdown-item:contains("주문일자(오름차순)")').click(function() {
+    var rows = $('#table tbody tr').get();
+    rows.sort(function(a, b) {
+        var keyA = new Date($(a).children('td:eq(0)').text());
+        var keyB = new Date($(b).children('td:eq(0)').text());
+        if (keyA > keyB) return 1;
+        if (keyA < keyB) return -1;
+        return 0;
+    });
+    
+    // tbody 내부의 모든 tr 요소들을 삭제합니다.
+    $('#table tbody').empty();
+    
+    // 정렬된 rows 배열을 tbody 내부에 추가합니다.
+    $.each(rows, function(index, row) {
+        $('#table tbody').append(row);
+    });
+});
+</script>
+<script>
+$('.dropdown-item:contains("주문일자(내림차순)")').click(function() {
+    var rows = $('#table tbody tr').get();
+    rows.sort(function(a, b) {
+        var keyA = new Date($(a).children('td:eq(0)').text());
+        var keyB = new Date($(b).children('td:eq(0)').text());
+        if (keyA > keyB) return -1;
+        if (keyA < keyB) return 1;
+        return 0;
+    });
+    
+    // tbody 내부의 모든 tr 요소들을 삭제합니다.
+    $('#table tbody').empty();
+    
+    // 정렬된 rows 배열을 tbody 내부에 추가합니다.
+    $.each(rows, function(index, row) {
+        $('#table tbody').append(row);
+    });
+});
+</script>
+<script>
+$('.dropdown-item:contains("결제금액순(오름차순)")').click(function() {
+    var rows = $('#table tbody tr').get();
+    rows.sort(function(a, b) {
+        var keyA = parseInt($(a).children('td:eq(5)').text().replace(/,/g,''));
+        var keyB = parseInt($(b).children('td:eq(5)').text().replace(/,/g,''));
+        if (keyA > keyB) return 1;
+        if (keyA < keyB) return -1;
+        return 0;
+    });
+    
+    // tbody 내부의 모든 tr 요소들을 삭제합니다.
+    $('#table tbody').empty();
+    
+    // 정렬된 rows 배열을 tbody 내부에 추가합니다.
+    $.each(rows, function(index, row) {
+        $('#table tbody').append(row);
+    });
+});
+</script>
+<script>
+$('.dropdown-item:contains("결제금액순(내림차순)")').click(function() {
+    var rows = $('#table tbody tr').get();
+    rows.sort(function(a, b) {
+        var keyA = parseInt($(a).children('td:eq(5)').text().replace(/,/g,''));
+        var keyB = parseInt($(b).children('td:eq(5)').text().replace(/,/g,''));
+        if (keyA > keyB) return -1;
+        if (keyA < keyB) return 1;
+        return 0;
+    });
+    
+    // tbody 내부의 모든 tr 요소들을 삭제합니다.
+    $('#table tbody').empty();
+    
+    // 정렬된 rows 배열을 tbody 내부에 추가합니다.
+    $.each(rows, function(index, row) {
+        $('#table tbody').append(row);
+    });
+});
 </script>
 </body>
 </html>
