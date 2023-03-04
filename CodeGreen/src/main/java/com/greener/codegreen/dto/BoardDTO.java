@@ -1,7 +1,9 @@
 package com.greener.codegreen.dto;
 
 
+
 import java.sql.Timestamp;
+
 
 import org.springframework.stereotype.Component;
 
@@ -43,6 +45,7 @@ public class BoardDTO {
 		 String i_m_id;			//Inquiry 폼 관리자 id
 		 int  	i_answer;		//Inquiry 폼 관리자 답변여부 1 or 0
 		 String	i_an_content;	//Inquiry 폼 관리자 답변내용
+		 //yyyy-MM-dd hh:mm:ss 형태로 받아야해서 inquiryUpdate에서 리턴되어 돌아올때 패턴값 바꿈
 		 Timestamp i_an_date;		//Inquiry 폼 관리자 답변일자
 		
 		 

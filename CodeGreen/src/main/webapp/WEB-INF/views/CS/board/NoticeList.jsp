@@ -9,21 +9,21 @@
 <head>
 	<meta charset="UTF-8">
 	<title>임시메인 - 공지사항 전체 목록 NoticeList </title>
-	<!--  부트스트랩 5.3 적용 -->
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-   <link href=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
 	<!-- 제이쿼리 넣어주기 -->  
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-   <!-- 부트스트랩 사이드바 css  -->
+   <!-- 부트스트랩  -->
    <link href="../../resources/css/admin/bootstrap.min.css" rel="stylesheet">
+   <link href="../../resources/css/admin/nav.css" rel="stylesheet">
+   
 	<script src="${contextPath}/resources/js/Eboard.js"></script>
-	
 </head>
 
 <body>
 <jsp:include page="../../admin/include/nav.jsp"></jsp:include>
 
 <div class="container">
+	<jsp:include page="../../common/CStopMenu.jsp"></jsp:include>		
+		
 	<form class="form-horizontal" id="frm">
 		<div class="form-group">
 			<div>
@@ -32,10 +32,21 @@
 		</div>
 		<!-- 게시글 쓰기/등록 버튼 -->
 		<p align="center">
-			<button type="button" class="btn btn-primary" onclick="location.href='/CS/board/NoticeForm'">공지사항작성</button>
+			<button type="button" class="btn btn-success" onclick="location.href='${contextPath}/CS/board/NoticeForm'">공지사항작성</button>
 		</p>
+		<p align="center">
+		<!-- 카테고리별 답변하기 -->
+		<select class="form-select form-select-sm" aria-label="Default select example" title="문의유형 선택" id="i_bc_code" name="i_bc_code" >
+			  <option value="14" onclick="fn_goUserList">회원/멤버십</option>
+			  <option value="15" onclick="fn_goCashList">주문/결제</option>
+			  <option value="16" onclick="fn_goDeliveryList">배송</option>
+			  <option value="17" onclick="fn_goProductList">상품</option>
+			  <option value="18" onclick="fn_goEventList'">이벤트</option>	
+		</select>	
+		</p>
+		
 		<!-- 표  -->
-		<table class="table table-borderd table-striped table-hover">  <!-- 선, 굵기, 호버 -->
+		<table class="table table-borderd table-hover">  <!-- 선, 굵기, 호버 -->
 			<thead>
 				<tr class="info"> <!-- 테이블모양확인용으로 사용됨 -->
 					<th class="col-sm-1 text-center">번호</th>

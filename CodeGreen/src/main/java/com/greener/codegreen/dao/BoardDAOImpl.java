@@ -178,42 +178,9 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 	
 //----------------------------------------------------------------------------	
-// 공지사항, FAQ ,1:1  페이징처리 
+// 공지사항, FAQ ,1:1  페이징처리 - 뺌 
 //----------------------------------------------------------------------------	
-	// 공지사항게시물 총갯수
-	@Override
-	public int ncount() throws Exception {
-		
-		return sqlSession.selectOne(Namespace + ".npagecount" ); 
-	}
-	//공지사항 게시물 목록 + 페이징 : HashMap 두개 이상 데이터 보내기 위해서 사용
-	@Override
-	public List<BoardDTO> NoticeListPage(int displayPost, int postNum) throws Exception {
-	HashMap<String, Integer> data = new HashMap<String , Integer>();
-	
-	data.put("displayPost", displayPost);
-	data.put("postNum", postNum);
-	
-	return sqlSession.selectList(Namespace + ".noticelistPage", data);
-	}	
-	
-	// FAQ 게시물 총갯수
-	@Override
-	public int fcount() throws Exception {
-		
-		return sqlSession.selectOne(Namespace + ".fpagecount" ); 
-	}
-	//FAQ 게시물 목록 + 페이징 : HashMap 두개 이상 데이터 보내기 위해서 사용
-	@Override
-	public List<BoardDTO> FaqListPage(int displayPost, int postNum) throws Exception {
-		HashMap<String, Integer> data = new HashMap<String , Integer>();
-		
-		data.put("displayPost", displayPost);
-		data.put("postNum", postNum);
-		
-		return sqlSession.selectList(Namespace + ".faqlistPage", data);
-		}	
-	
+
 
 	
 	

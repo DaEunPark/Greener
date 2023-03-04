@@ -20,16 +20,17 @@
 </head>
 <!-- 상단바 자리 -->
 <body>
-
+<jsp:include page="../../admin/include/nav.jsp"></jsp:include>
 
 <div class="container">
+<jsp:include page="../../common/CStopMenu.jsp"></jsp:include>		
 	<form class="form-horizontal" id="frm">
 		<div class="form-group">
 			<div>
 				<h2 align="center">1:1문의 전체 목록</h2>
 			</div>
 		</div>
-		<!-- 게시글 쓰기/등록 버튼 -->
+		
 		<p align="center">
 		<!-- 카테고리별 답변하기 -->
 		<select class="form-select form-select-sm" aria-label="Default select example" title="문의유형 선택" id="i_bc_code" name="i_bc_code" >
@@ -41,7 +42,7 @@
 		</select>	
 		</p>
 		<!-- 표  -->
-		<table class="table table-borderd table-striped table-hover">  <!-- 선, 굵기, 호버 -->
+		<table class="table table-borderd table-hover">  <!-- 선, 굵기, 호버 -->
 			<thead>
 				<tr class="info"> <!-- 테이블모양확인용으로 사용됨 -->
 					<th class="col-sm-1 text-center">번호</th>
@@ -50,6 +51,7 @@
 					<th class="col-sm-3 text-center">작성자ID</th>
 					<th class="col-sm-3 text-center">문의내용</th>
 					<th class="col-sm-2 text-center">작성일자</th>
+						<th class="col-sm-2 text-center">답변여부</th>
 				</tr>
 			</thead>
 			
@@ -57,6 +59,7 @@
 			<tbody>
 				<c:forEach items="${InquiryList}" var="inlist">
 				<tr>
+		
 					<td align="center">${inlist.i_no}</td>
 					<!-- 하위설정값은 등록에서 정해줬으면 코드번호로 나오니까 가능할지도 -->
 				    <td align="center">${inlist.i_bc_code}</td>
@@ -65,8 +68,16 @@
 					<td align="center"><a href="${contextPath}/CS/board/InquiryDetail?i_no=${inlist.i_no}">${inlist.i_b_id}</a></td>
 					<td align="center">${inlist.i_content }</td>
 					<td><fmt:formatDate value="${inlist.i_regdate}" pattern="yyyy년 MM월 dd일 a hh시 mm분 ss초"/></td>
-					
-				</tr>
+					<!-- <td align="center">${inlist.i_answer }</td> -->
+					<c:choose>
+					<c:when test="${inlist.i_answer eq 0}">
+						<td align="center">N</td>
+						</c:when>
+						<c:otherwise>	
+						<td align="center" >Y</td>
+						</c:otherwise>
+					</c:choose>
+					</tr>
 				</c:forEach>
 			</tbody>
 			

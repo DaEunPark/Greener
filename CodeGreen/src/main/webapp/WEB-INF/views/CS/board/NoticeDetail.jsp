@@ -24,11 +24,15 @@
 <!-- 상단 사이드 바  -->
 <div class="container">
 	<form class="form-horizontal" id="frm">
+
 		<div class="form-group">
 			<div>
 				<h2 align="center">공지사항 상세보기</h2>
+				
 			</div>
 		</div>
+
+		
 		<div class="form-group">
 			<label for="m_title" class="col-sm-2 control-label">제  목</label>
 			<div class="col-sm-10">

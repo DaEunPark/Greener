@@ -95,7 +95,7 @@
 	
 	
 	 <!-- *********************************************************************************** -->
-	 <!-- 공지사항 조회(상세보기)    -->
+	 <!-- 공지사항 FAQ 1:1 조회(상세보기)    -->
  	 <!-- *********************************************************************************** -->
 
 	<select id="BnoticeDetail" parameterType="int" resultType="com.greener.codegreen.dto.BoardDTO">
@@ -121,6 +121,7 @@
 			WHERE i_no = #{i_no};
 	]]>
 	</select>
+	
 
  
 	<!-- ****************************************************************** -->
@@ -165,49 +166,13 @@
 		]]>
 	</update>
 	               
-	               
-	               
-	<!-- ****************************************************************** -->
-	<!-- 공지사항 페이징 처리  : 전체 목록 리스트로 이용    -->
-	<!-- ****************************************************************** -->
-	<!-- 게시물 총갯수  -->		
-	<select id="npagecount" resultType="int">
-	<![CDATA[
-			SELECT COUNT(n_no)
-			FROM Notice;
-	]]>
-	</select>
-	<!-- 게시물 목록 + 페이징  -->	
-	<select id="noticelistPage" parameterType="hashMap" resultType="com.greener.codegreen.dto.BoardDTO">
-	<![CDATA[
-			SELECT n_no, n_bc_code, n_m_id, n_title, n_content, n_regdate, n_readcount 
-			FROM Notice
-			ORDER BY n_no DESC
-			LIMIT #{displayPost} , #{postNum};
-	]]>
-	</select>
-	<!-- ****************************************************************** -->
-	<!-- FAQ 페이징 처리  : 전체 목록 리스트로 이용    -->
-	<!-- ****************************************************************** -->
-	<!-- 게시물 총갯수  -->		
-	<select id="fpagecount" resultType="int">
-	<![CDATA[
-			SELECT COUNT(f_no)
-			FROM Faq;
-	]]>
-	</select>
-	<!-- 게시물 목록 + 페이징  -->	
-	<select id="faqlistPage" parameterType="hashMap" resultType="com.greener.codegreen.dto.BoardDTO">
-	<![CDATA[
-			SELECT f_no, f_bc_code, f_m_id, f_title, f_content, f_regdate, f_readcount
-			FROM Faq
-			ORDER BY f_no DESC
-			LIMIT #{displayPost} , #{postNum};
-	]]>
-	</select>
-	
-
-	
+	<update id="iupdate">
+		<![CDATA[
+			UPDATE 	Inquiry
+			SET		  i_no = #{i_no} , i_answer = #{i_answer}, i_an_content = #{i_an_content},  i_an_date = now()
+			WHERE 	 i_no = #{i_no};
+		]]>
+	</update>
 	
 	
 	

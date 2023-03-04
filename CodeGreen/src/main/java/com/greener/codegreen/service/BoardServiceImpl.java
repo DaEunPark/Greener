@@ -150,36 +150,9 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.InquiryUpdate(baordDTO);
 	}
 //----------------------------------------------------------------------------	
-// 공지사항, FAQ ,1:1  페이징처리 
+// 공지사항, FAQ ,1:1  페이징처리 - 뻄 
 //----------------------------------------------------------------------------		
-	// 공지사항 게시물 총갯수
-	@Override
-	public int ncount() throws Exception {
-		
-		return boardDAO.ncount();
-	}
-	// 공기사항 게시물 목록 + 페이징
-	@Override
-	public List<BoardDTO> NoticeListPage(int displayPost, int postNum) throws Exception {
-		
-		return boardDAO.NoticeListPage(displayPost, postNum);
-	}
-	
-	// FAQ 게시물 총갯수
-	@Override
-	public int fcount() throws Exception {
-		
-		return boardDAO.fcount();
-	}
-	// FAQ 게시물 목록 + 페이징
-	@Override
-	public List<BoardDTO> FaqListPage(int displayPost, int postNum) throws Exception {
-		
-		return boardDAO.FaqListPage(displayPost, postNum);
-	}
-	
-	
-	
+
 	
 	
 	

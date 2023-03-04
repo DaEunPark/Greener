@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>소비자 1:1 등록폼 - vue 데이터확인용</title>
+	<title>임시 소비자 1:1 등록폼 - vue 데이터확인용</title>
 	<!--  부트스트랩 5.3 적용 -->
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
    <link href=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
@@ -15,6 +15,21 @@
 	<script src="${contextPath}/resources/js/Eboard.js"></script>
 </head>
 <body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </body>
 </html>

@@ -69,13 +69,13 @@
 		<div class="form-group">
 			<p align="center">
 				<button type="button" class="btn btn-primary" onclick="location.href='${contextPath}/CS/board/FaqList'">
-					<span class="glyphicon glyphicon-list-alt"> 게시글 목록</span>
+					<span> 게시글 목록</span>
 				</button>
 				<button type="button" class="btn btn-warning" onclick="fn_FaqUpdateForm(${FaqDetail.f_no})">
-					<span class="glyphicon glyphicon-pencil"> 게시글 수정</span>
+					<span> 게시글 수정</span>
 				</button>
 				<button type="button" class="btn btn-danger" onclick="fn_FaqDelete(${FaqDetail.f_no})">
-					<span class="glyphicon glyphicon-erase"> 게시글 삭제</span>
+					<span> 게시글 삭제</span>
 				</button>
 			</p>
 		</div>

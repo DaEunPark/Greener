@@ -10,6 +10,9 @@ import com.greener.codegreen.dto.BoardDTO;
 
 public interface BoardService {
 	
+	//조회화면 불러오기
+	
+	
 	
 //----------------------------------------------------------------------------	
 // 공지사항, FAQ 등록처리 
@@ -57,18 +60,25 @@ public interface BoardService {
 	public int InquiryUpdate(BoardDTO boardDTO); 
 
 //----------------------------------------------------------------------------	
-// 공지사항, FAQ ,1:1  페이징처리 
+// 공지사항, FAQ ,1:1  페이징처리 - 뺌 
 //----------------------------------------------------------------------------	
-	// 공지사항 게시물 총갯수
-	public int ncount() throws Exception;
-	// 공지사항 게시물 목록 + 페이징
-	public List<BoardDTO> NoticeListPage(int displayPost , int postNum)throws Exception;
-	
-	// FAQ 게시물 총갯수
-	public int fcount() throws Exception;
-	// FAQ 게시물 목록 + 페이징
-	public List<BoardDTO> FaqListPage(int displayPost , int postNum)throws Exception;
-	
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
