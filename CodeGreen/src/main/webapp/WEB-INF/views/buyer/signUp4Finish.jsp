@@ -106,11 +106,10 @@
 	</style>
 </head>
 <body>
-	<!-- 헤더 : 좌측에 회사 로고 이미지-->
+	<!-- 헤더/푸터 따로 만들어서 관리 jsp:include ~ -->
 	<header>
 		<a href="http://localhost:8080/"><img src="${contextPath}/resources/images/green_icon.png" alt="logo"/></a>
 	</header>
-	<!-- 바디 -->
 	<div class="container">
 		<div class="progress">
   			<div class="progress-bar bg-success" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -121,7 +120,6 @@
 		<p><a href="http://localhost:8080/"><button class="button toMain">메인 페이지로 이동</button></a></p>
 		<hr>
 	</div>
-	<!-- 푸터 : 상호명 -->
 	<footer>
 		<p>Copyright © <strong style="color:green;">GreenMarket.Co.,LTD.</strong> All Rights Reserved.</p>
 	</footer>

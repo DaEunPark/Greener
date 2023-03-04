@@ -167,11 +167,10 @@
 	</script>
 </head>
 <body>
-	<!-- 헤더 : 좌측에 회사 로고 이미지-->
+	<!-- 헤더/푸터 따로 만들어서 관리 jsp:include ~ -->
 	<header>
 		<a href="http://localhost:8080/"><img src="${contextPath}/resources/images/green_icon.png" alt="logo"/></a>
 	</header>
-	<!-- 바디 -->
 	<div class="container">
 		<div class="progress">
   			<div class="progress-bar bg-success" role="progressbar" style="width: 50%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -208,13 +207,12 @@
 		<p>＊고객은 동의를 거부할 권리가 있으며 동의를 거부할 경우, 사이트 가입 또는 일부 서비스 이용이 제한됩니다.</p>
 		<div class="btn-zone">
 			<div class="buttons">
-				<a href="${contextPath}/buyer/signin"><button class="disagree">처음으로</button></a>
+				<a href="${contextPath}/buyer/signup"><button class="disagree">처음으로</button></a>
 				<a href="${contextPath}/buyer/Info"><button class="agree">동의하고 회원가입</button></a>
 			</div>
 		</div>
 		<hr id="hr-bottom">
 	</div>
-	<!-- 푸터 : 상호명 -->
 	<footer>
 		<p>Copyright © <strong style="color:green;">GreenMarket.Co.,LTD.</strong> All Rights Reserved.</p>
 	</footer>
