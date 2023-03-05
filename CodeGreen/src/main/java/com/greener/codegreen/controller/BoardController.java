@@ -1,27 +1,30 @@
 package com.greener.codegreen.controller;
 
+
 import java.util.List;
 import java.util.Locale;
+
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+
 
 
 import com.greener.codegreen.dao.BoardDAO;
 import com.greener.codegreen.dto.BoardDTO;
 import com.greener.codegreen.service.BoardService;
+
 
 
 //----------------------------------------------------
@@ -160,6 +163,9 @@ public class BoardController {
 		
 		model.addAttribute("NoticeList",NoticeList);
 		//NoticeList 에 데이터가 저장되어있다 이걸로 NoticeList.jsp에서데이터값뿌려줌
+		
+		
+		
 	}//공지사항 전체 목록보기
 	
 	//----------------------------------------------------------------------
@@ -419,29 +425,32 @@ public class BoardController {
 			return "Y";
 		} else {
 			return "N";
+			
 		}
-		
 	}//게시글 번호에 해당하는 게시글 내용(제목, 카테고리, 작성자, 내용) 수정하기
-	
+		
 	
 	// 리스트 양을 많이 안할거라 우선 페이징 처리 안함 - 따로 빼둠 
 	
-	//
-
-	
-	
-	
-	
-	
-	
-
-			
-	
-	
-	
-	
+	//-----------------------------------------------------------------------------------------------------------
+	// 카테고리에 따른 게시판 보여주기 
+	//-----------------------------------------------------------------------------------------------------------
 
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }//public class ManagerController 게시판 관리 컨트롤러

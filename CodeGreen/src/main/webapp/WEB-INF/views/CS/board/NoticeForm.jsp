@@ -22,8 +22,6 @@
 
 <body>
 
-
-<!--관리자의 게시글 등록화면 : 새로 만들어야함 -->
 <div class="container">
 	<form class="form-horizontal" name="NoticeForm">
 	<input type="hidden" value="${NoticeForm.n_no}" name="n_no" id="n_no">
@@ -43,12 +41,12 @@
 		<div class="form-group">
 			<label class="col-sm-2 control-label"><strong>관리자</strong></label>
 			<div class="col-sm-4">
-				<input type="text" class="form-control" id="n_m_id" name="n_m_id" maxlength="20" placeholder="관리자아이디자동입력"/>
+				<input type="text" class="form-control" id="n_m_id" name="n_m_id" maxlength="20" placeholder="관리자ID"/>
 			</div>
 		</div>
 		
 		<div class="form-group">
-			<label class="col-sm-2 control-label"><strong>타입</strong></label>
+			<label class="col-sm-2 control-label"><strong>카테고리</strong></label>
 		<select class="form-select form-select-sm" aria-label="Default select example" title="문의유형 선택" id="n_bc_code" name="n_bc_code" >
 			  <option value="4">회원/멤버십</option>
 			  <option value="5">주문/결제</option>

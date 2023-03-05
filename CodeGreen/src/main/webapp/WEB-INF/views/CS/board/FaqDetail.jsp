@@ -38,7 +38,23 @@
 		<div class="form-group">
 			<label for="type" class="col-sm-2 control-label">카테고리</label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control" id="f_bc_code" name="f_bc_code" maxlength="200" value="${FaqDetail.f_bc_code}" readonly/>
+			 <c:choose>
+			 	<c:when test="${FaqDetail.f_bc_code eq 9}">
+				<input type="text" class="form-control" id="f_bc_code" name="f_bc_code" maxlength="200" value="회원/멤버십" readonly/>
+				</c:when>
+				<c:when test="${FaqDetail.f_bc_code eq 10}">
+				<input type="text" class="form-control" id="f_bc_code" name="f_bc_code" maxlength="200" value="주문/결제" readonly/>
+				</c:when>
+				<c:when test="${FaqDetail.f_bc_code eq 11}">
+				<input type="text" class="form-control" id="f_bc_code" name="f_bc_code" maxlength="200" value="배송" readonly/>
+				</c:when>
+				<c:when test="${FaqDetail.f_bc_code eq 12}">
+				<input type="text" class="form-control" id="f_bc_code" name="f_bc_code" maxlength="200" value="상품" readonly/>
+				</c:when>
+				<c:otherwise>
+				<input type="text" class="form-control" id="f_bc_code" name="f_bc_code" maxlength="200" value="이벤트" readonly/>
+				</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 		<div class="form-group">
@@ -47,12 +63,12 @@
 				<input type="text" class="form-control" id="f_regdate" name="f_regdate" value="<fmt:formatDate value='${FaqDetail.f_regdate}' pattern='yyyy년 MM월 dd일 a hh시 mm분 ss초'/>" readonly/>
 			</div>
 		</div>
-		<div class="form-group">
+		<!--  <div class="form-group">
 			<label for="count" class="col-sm-2 control-label">조회수</label>
 			<div class="col-sm-1">
 				<input type="text" class="form-control" id="f_readcount" name="f_readcount" maxlength="4" value="${FaqDetail.f_readcount}" readonly/>
 			</div>
-		</div>
+		</div>-->
 		<div class="form-group">
 			<label for="writer" class="col-sm-2 control-label">관리자</label>
 			<div class="col-sm-3">

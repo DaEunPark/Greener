@@ -20,7 +20,6 @@
 </head>
 
 <body>
-
 <!-- 상단 사이드 바  -->
 <div class="container">
 	<form class="form-horizontal" id="frm">
@@ -28,43 +27,59 @@
 		<div class="form-group">
 			<div>
 				<h2 align="center">공지사항 상세보기</h2>
-				
+			</div>
+		</div>	
+		<div class="form-group">
+			<label for="title" class="col-sm-2 control-label">제  목</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" id="n_title" name="n_title" maxlength="200" value="${NoticeDetail.n_title}" readonly/>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="type" class="col-sm-2 control-label">카테고리</label>
+			<div class="col-sm-10">
+			 <c:choose>
+			 	<c:when test="${NoticeDetail.n_bc_code eq 4}">
+				<input type="text" class="form-control" id="n_bc_code" name="n_bc_code" maxlength="200" value="회원/멤버십" readonly/>
+				</c:when>
+				<c:when test="${NoticeDetail.n_bc_code eq 5}">
+				<input type="text" class="form-control" id="n_bc_code" name="n_bc_code" maxlength="200" value="주문/결제" readonly/>
+				</c:when>
+				<c:when test="${NoticeDetail.n_bc_code eq 6}">
+				<input type="text" class="form-control" id="n_bc_code" name="n_bc_code" maxlength="200" value="배송" readonly/>
+				</c:when>
+				<c:when test="${NoticeDetail.n_bc_code eq 7}">
+				<input type="text" class="form-control" id="n_bc_code" name="n_bc_code" maxlength="200" value="상품" readonly/>
+				</c:when>
+				<c:otherwise>
+				<input type="text" class="form-control" id="n_bc_code" name="n_bc_code" maxlength="200" value="이벤트" readonly/>
+				</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 
 		
 		<div class="form-group">
-			<label for="m_title" class="col-sm-2 control-label">제  목</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" id="n_title" name="n_title" maxlength="200" value="${NoticeDetail.n_title}" readonly/>
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="m_type" class="col-sm-2 control-label">카테고리</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" id="n_bc_code" name="n_bc_code" maxlength="200" value="${NoticeDetail.n_bc_code}" readonly/>
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="m_reg_date" class="col-sm-2 control-label">작성일자</label>
+			<label for="reg_date" class="col-sm-2 control-label">작성일자</label>
 			<div class="col-sm-5">
 				<input type="text" class="form-control" id="n_regdate" name="n_regdate" value="<fmt:formatDate value='${NoticeDetail.n_regdate}' pattern='yyyy년 MM월 dd일 a hh시 mm분 ss초'/>" readonly/>
 			</div>
 		</div>
-		<div class="form-group">
+		<!-- <div class="form-group">
 			<label for="m_readCount" class="col-sm-2 control-label">조회수</label>
 			<div class="col-sm-1">
 				<input type="text" class="form-control" id="n_readcount" name="n_readcount" maxlength="4" value="${NoticeDetail.n_readcount}" readonly/>
 			</div>
-		</div>
+		</div> -->
 		<div class="form-group">
-			<label for="m_writer" class="col-sm-2 control-label">작성자</label>
+			<label for="writer" class="col-sm-2 control-label">관리자</label>
 			<div class="col-sm-3">
 				<input type="text" class="form-control" id="n_m_id" name="n_m_id" maxlength="20" value="${NoticeDetail.n_m_id}" readonly/>
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="m_content" class="col-sm-2 control-label">내  용</label>
+			<label for="content" class="col-sm-2 control-label">내  용</label>
 			<div class="col-sm-10">
 				<textarea rows="10" cols="160" class="form-control" id="n_content" name="n_content" readonly>${NoticeDetail.n_content}</textarea>
 			</div>

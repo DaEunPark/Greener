@@ -19,11 +19,9 @@
    <link href="../../resources/css/admin/bootstrap.min.css" rel="stylesheet">
 	<script src="${contextPath}/resources/js/Eboard.js"></script>
 </head>
-<!-- <jsp :include page="../common/topMenu.jsp" flush="false"/>-->
 <body>
 
 
-<!--관리자의 게시글 등록화면 : 새로 만들어야함 -->
 <div class="container">
 	<form class="form-horizontal" name="FaqForm">
 		<input type="hidden" value="${FaqForm.f_no}" name="f_no" id="f_no">
@@ -41,9 +39,9 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-2 control-label"><strong>관리자</strong></label>
+			<label class="col-sm-2 control-label"><strong>관리자ID</strong></label>
 			<div class="col-sm-4">
-				<input type="text" class="form-control" id="f_m_id" name="f_m_id" maxlength="20" placeholder="관리자아이디자동입력" />
+				<input type="text" class="form-control" id="f_m_id" name="f_m_id" maxlength="20" placeholder="관리자ID" />
 			</div>
 		</div>
 		

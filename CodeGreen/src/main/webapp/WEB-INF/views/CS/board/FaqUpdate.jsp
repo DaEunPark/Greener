@@ -8,7 +8,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>FAQ 상세 정보 수정</title>
+	<title>FAQ 수정</title>
 	<!--  부트스트랩 5.3 적용 -->
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
    <link href=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
@@ -26,7 +26,7 @@
 	<form class="form-horizontal" id="frm">
 		<div class="form-group">
 			<div>
-				<h2 align="center">FAQ 상세 정보 수정</h2>
+				<h2 align="center">FAQ 수정</h2>
 			</div>
 		</div>
 		<div class="form-group">
@@ -37,23 +37,27 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="type" class="col-sm-2 control-label">카테고리</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" id="f_bc_code" name="f_bc_code" maxlength="200" value="${FaqDetail.f_bc_code}" />
-			</div>
-		</div>
+			<label class="col-sm-2 control-label">카테고리</label>
+		<select class="form-select form-select-sm" aria-label="Default select example" title="문의유형 선택" id="f_bc_code" name="f_bc_code" >
+			  <option value="9">회원/멤버십</option>
+			  <option value="10">주문/결제</option>
+			  <option value="11">배송</option>
+			  <option value="12">상품</option>
+			  <option value="13">이벤트</option>	
+		</select>
+	 </div>
 		<div class="form-group">
-			<label for="date" class="col-sm-2 control-label">작성일자</label>
+			<label for="regdate" class="col-sm-2 control-label">작성일자</label>
 			<div class="col-sm-5">
 				<input type="text" class="form-control" id="f_regdate" name="f_regdate" value="<fmt:formatDate value='${FaqDetail.f_regdate}' pattern='yyyy년 MM월 dd일 a hh시 mm분 ss초'/>" readonly/>
 			</div>
 		</div>
-		<div class="form-group">
+		<!-- <div class="form-group">
 			<label for="count" class="col-sm-2 control-label">조회수</label>
 			<div class="col-sm-1">
 				<input type="text" class="form-control" id="f_readcount" name="f_readcount" maxlength="4" value="${FaqDetail.f_readcount}" readonly/>
 			</div>
-		</div>
+		</div> -->
 		<div class="form-group">
 			<label for="writer" class="col-sm-2 control-label">관리자</label>
 			<div class="col-sm-3">
@@ -85,8 +89,6 @@
 		
 	</form>
 </div>	
-	
-	
 
 
 </body>

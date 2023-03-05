@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"	uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt"	uri="http://java.sun.com/jsp/jstl/fmt" %>  <!-- 시간 기호 관련 처리 -->
+<%@ taglib prefix="fmt"	uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
 <%	request.setCharacterEncoding("UTF-8"); %>
 
@@ -8,7 +8,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>1:1 관리자 답변 등록 - 1:1 문의 수정</title>
+	<title>1:1문의 관리자 답변</title>
 	<!--  부트스트랩 5.3 적용 -->
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
    <link href=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
@@ -20,7 +20,7 @@
 
 </head>
 <body>
-<!-- 상단 사이드 바  -->
+
 <div class="container">
 	<form class="form-horizontal" id="frm">
 		<div class="form-group">
@@ -37,13 +37,29 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="type" class="col-sm-2 control-label">카테고리</label>
+			<label class="col-sm-2 control-label">카테고리</label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control" id="i_bc_code" name="i_bc_code" maxlength="200" value="${InquiryDetail.i_bc_code}" readonly/>
-			</div>
+			 <c:choose>
+				<c:when test="${nolist.n_bc_code eq 14}">
+					<input type="text" class="form-control" id="i_bc_code" name="i_bc_code" maxlength="200" value="회원/멤버십" readonly/>
+				</c:when>
+					<c:when test="${nolist.n_bc_code eq 15}">
+				<input type="text" class="form-control" id="i_bc_code" name="i_bc_code" maxlength="200" value="주문/결제" readonly/>
+				</c:when>
+					<c:when test="${nolist.n_bc_code eq 16}">
+				<input type="text" class="form-control" id="i_bc_code" name="i_bc_code" maxlength="200" value="배송" readonly/>
+				</c:when>
+					<c:when test="${nolist.n_bc_code eq 17}">
+					<input type="text" class="form-control" id="i_bc_code" name="i_bc_code" maxlength="200" value="상품" readonly/>
+				</c:when>
+				<c:otherwise>	
+					<input type="text" class="form-control" id="i_bc_code" name="i_bc_code" maxlength="200" value="이벤트" readonly/>
+				</c:otherwise>
+		</c:choose>
 		</div>
+	 </div>
 		<div class="form-group">
-			<label for="reg_date" class="col-sm-2 control-label">작성일자</label>
+			<label for="regdate" class="col-sm-2 control-label">작성일자</label>
 			<div class="col-sm-5">
 				<input type="text" class="form-control" id="i_regdate" name="i_regdate" value="<fmt:formatDate value='${InquiryDetail.i_regdate}' pattern='yyyy년 MM월 dd일 a hh시 mm분 ss초'/>" readonly/>
 			</div>
@@ -64,7 +80,7 @@
 		<hr/>
 		
 		<div class="form-group">
-			<label for="m_title" class="col-sm-2 control-label">답변여부</label>
+			<label for="title" class="col-sm-2 control-label">답변여부</label>
 			<div class="col-sm-3">
 			
 				<input type="hidden" id="i_m_id" name="i_m_id"  value='${InquiryDetail.i_m_id}' ></input>
@@ -75,13 +91,13 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="m_reg_date" class="col-sm-2 control-label">답변일자</label>
+			<label for="regdate" class="col-sm-2 control-label">답변일자</label>
 			<div class="col-sm-5">
 				<input type="text" class="form-control" id="i_an_date" name="i_an_date" value="<fmt:formatDate value='${InquiryDetail.i_an_date}' pattern='yyyy-MM-dd hh:mm:ss'/>" readonly />
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="m_title" class="col-sm-2 control-label">내 용</label>
+			<label for="content" class="col-sm-2 control-label">내 용</label>
 				<div class="col-sm-10">
 					<textarea rows="5" cols="160" class="form-control" id="i_an_content" name="i_an_content" >${InquiryDetail.i_an_content}</textarea>
 				</div>

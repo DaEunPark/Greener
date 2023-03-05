@@ -1,6 +1,6 @@
 package com.greener.codegreen.dao;
 
-import java.util.HashMap;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -176,13 +176,13 @@ public class BoardDAOImpl implements BoardDAO {
 		return sqlSession.update(Namespace + ".iupdate" , boardDTO ); 
 		
 	}
-	
+
 //----------------------------------------------------------------------------	
 // 공지사항, FAQ ,1:1  페이징처리 - 뺌 
 //----------------------------------------------------------------------------	
+//----------------------------------------------------------------------------
+// 카테고리에 따른 게시판 보여주기 
+//----------------------------------------------------------------------------
 
-
-	
-	
 	
 }// public class ManagerDAOImpl implements ManagerDAO 

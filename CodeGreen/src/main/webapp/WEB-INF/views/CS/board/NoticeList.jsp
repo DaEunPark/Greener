@@ -8,7 +8,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>임시메인 - 공지사항 전체 목록 NoticeList </title>
+	<title>공지사항 전체 목록</title>
 	<!-- 제이쿼리 넣어주기 -->  
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
    <!-- 부트스트랩  -->
@@ -16,6 +16,7 @@
    <link href="../../resources/css/admin/nav.css" rel="stylesheet">
    
 	<script src="${contextPath}/resources/js/Eboard.js"></script>
+	
 </head>
 
 <body>
@@ -34,19 +35,32 @@
 		<p align="center">
 			<button type="button" class="btn btn-success" onclick="location.href='${contextPath}/CS/board/NoticeForm'">공지사항작성</button>
 		</p>
-		<p align="center">
-		<!-- 카테고리별 답변하기 -->
-		<select class="form-select form-select-sm" aria-label="Default select example" title="문의유형 선택" id="i_bc_code" name="i_bc_code" >
-			  <option value="14" onclick="fn_goUserList">회원/멤버십</option>
-			  <option value="15" onclick="fn_goCashList">주문/결제</option>
-			  <option value="16" onclick="fn_goDeliveryList">배송</option>
-			  <option value="17" onclick="fn_goProductList">상품</option>
-			  <option value="18" onclick="fn_goEventList'">이벤트</option>	
+		
+		<!-- 카테고리별 검색하기 --> 
+		<div align="right">
+		<select class="form-select right"  aria-label="Default select example" title="문의유형 선택" id="n_bc_code" name="n_bc_code" >
+			  <option value="4" <c:if test="${n_bc_code == '4'}">selected</c:if>>회원/멤버십</option>
+			  <option value="5" <c:if test="${n_bc_code == '5'}">selected</c:if>>주문/결제</option>
+			  <option value="6" <c:if test="${n_bc_code == '6'}">selected</c:if>>배송</option>
+			  <option value="7" <c:if test="${n_bc_code == '7'}">selected</c:if>>상품</option>
+			  <option value="8" <c:if test="${n_bc_code == '8'}">selected</c:if>>이벤트</option>
 		</select>	
-		</p>
+		<button type="submit" class="btn btn-success">조회</button>
+		</div>
+		
+		<!-- 카테고리별 검색하기 
+		<p align="center">
+		<select class="form-select form-select-sm" aria-label="Default select example" title="문의유형 선택" id="n_bc_code" name="n_bc_code" >
+			  <option value="4" onclick="fn_goUserList">회원/멤버십</option>
+			  <option value="5" onclick="fn_goCashList">주문/결제</option>
+			  <option value="6" onclick="fn_goDeliveryList">배송</option>
+			  <option value="7" onclick="fn_goProductList">상품</option>
+			  <option value="8" onclick="fn_goEventList'">이벤트</option>	
+		</select>	
+		</p>-->
 		
 		<!-- 표  -->
-		<table class="table table-borderd table-hover">  <!-- 선, 굵기, 호버 -->
+		<table class="table table-borderd table-hover">  
 			<thead>
 				<tr class="info"> <!-- 테이블모양확인용으로 사용됨 -->
 					<th class="col-sm-1 text-center">번호</th>
@@ -55,30 +69,44 @@
 					<th class="col-sm-3 text-center">제목</th>
 					<th class="col-sm-3 text-center">내용</th>
 					<th class="col-sm-2 text-center">작성일자</th>
-					<th class="col-sm-1 text-center">조회수</th>
+					<!--<th class="col-sm-1 text-center">조회수</th>-->
 				</tr>
 			</thead>
 			
-			<!-- 데이터 한건에 대해 tr로 작업 ; 반복 대비 //< % 형태로 for문을 사용해도됨-->
+			
 			<tbody>
 				<c:forEach items="${NoticeList}" var="nolist">
 				<tr>
 					<td align="center">${nolist.n_no}</td>
-					<!-- 하위설정값은 등록에서 정해줬으면 코드번호로 나오니까 가능할지도 -->
-				    <td align="center">${nolist.n_bc_code}</td>
+				    <!--  <td align="center">${nolist.n_bc_code}</td>-->
+				 <c:choose>
+					<c:when test="${nolist.n_bc_code eq 4}">
+						<td align="center">회원/멤버십</td>
+					</c:when>
+						<c:when test="${nolist.n_bc_code eq 5}">
+						<td align="center">주문/결제</td>
+					</c:when>
+						<c:when test="${nolist.n_bc_code eq 6}">
+						<td align="center">배송</td>
+					</c:when>
+						<c:when test="${nolist.n_bc_code eq 7}">
+						<td align="center">상품</td>
+					</c:when>
+					<c:otherwise>	
+						<td align="center">이벤트</td>
+					</c:otherwise>
+				</c:choose>
 					<td align="center">${nolist.n_m_id}</td>
-					<!--  아직 상세조회 목록 만들지 않음 -->
 					<td align="center"><a href="${contextPath}/CS/board/NoticeDetail?n_no=${nolist.n_no}">${nolist.n_title}</a></td>
 					<td align="center">${nolist.n_content }</td>
 					<td><fmt:formatDate value="${nolist.n_regdate}" pattern="yyyy년 MM월 dd일 a hh시 mm분 ss초"/></td>
-					<td align="right">${nolist.n_readcount}</td>
+					<!-- 조회수는 요번에 빼놓음 -->
+					<!-- <td align="right">${nolist.n_readcount}</td> -->
 				</tr>
 				</c:forEach>
 			</tbody>
 			
-			
 		</table>
-		
 	</form>
 </div>
 	

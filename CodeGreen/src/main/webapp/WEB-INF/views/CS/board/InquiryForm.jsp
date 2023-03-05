@@ -1,5 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c"	uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt"	uri="http://java.sun.com/jsp/jstl/fmt" %>  <!-- 시간 기호 관련 처리 -->
+<c:set var="contextPath" value="${pageContext.request.contextPath }"/>
+<%	request.setCharacterEncoding("UTF-8"); %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,19 +19,6 @@
 	<script src="${contextPath}/resources/js/Eboard.js"></script>
 </head>
 <body>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

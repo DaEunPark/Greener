@@ -8,7 +8,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>1:1문의 전체 목록 InquiryList </title>
+	<title>1:1문의 전체 목록 </title>
 	<!--  부트스트랩 5.3 적용 -->
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
    <link href=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
@@ -44,7 +44,7 @@
 		<!-- 표  -->
 		<table class="table table-borderd table-hover">  <!-- 선, 굵기, 호버 -->
 			<thead>
-				<tr class="info"> <!-- 테이블모양확인용으로 사용됨 -->
+				<tr class="info"> 
 					<th class="col-sm-1 text-center">번호</th>
 					<th class="col-sm-1 text-center">카테고리</th> 
 					<th class="col-sm-1 text-center">제목</th>
@@ -55,14 +55,29 @@
 				</tr>
 			</thead>
 			
-			<!-- 데이터 한건에 대해 tr로 작업 ; 반복 대비 //< % 형태로 for문을 사용해도됨-->
 			<tbody>
 				<c:forEach items="${InquiryList}" var="inlist">
 				<tr>
 		
 					<td align="center">${inlist.i_no}</td>
-					<!-- 하위설정값은 등록에서 정해줬으면 코드번호로 나오니까 가능할지도 -->
-				    <td align="center">${inlist.i_bc_code}</td>
+				   <!-- <td align="center">${inlist.i_bc_code}</td>-->
+				 <c:choose>
+					<c:when test="${inlist.i_bc_code eq 14}">
+						<td align="center">회원/멤버십</td>
+					</c:when>
+						<c:when test="${inlist.i_bc_code eq 15}">
+						<td align="center">주문/결제</td>
+					</c:when>
+						<c:when test="${inlist.i_bc_code eq 16}">
+						<td align="center">배송</td>
+					</c:when>
+						<c:when test="${inlist.i_bc_code eq 17}">
+						<td align="center">상품</td>
+					</c:when>
+					<c:otherwise>	
+						<td align="center">이벤트</td>
+					</c:otherwise>
+				</c:choose>
 					<td align="center">${inlist.i_title}</td>
 					<!--  소비자ID 클릭시 답변창 -->
 					<td align="center"><a href="${contextPath}/CS/board/InquiryDetail?i_no=${inlist.i_no}">${inlist.i_b_id}</a></td>
@@ -77,11 +92,10 @@
 						<td align="center" >Y</td>
 						</c:otherwise>
 					</c:choose>
+					
 					</tr>
 				</c:forEach>
 			</tbody>
-			
-			
 		</table>
 		
 	</form>

@@ -124,12 +124,12 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int FaqDelete(int f_no) {
 		
-		return boardDAO.NoticeDelete(f_no);
+		return boardDAO.FaqDelete(f_no);
 	}
 	@Override
 	public int InquiryDelete(int i_no) {
 		
-		return boardDAO.NoticeDelete(i_no);
+		return boardDAO.InquiryDelete(i_no);
 	}
 //----------------------------------------------------------------------------	
 // 공지사항, FAQ ,1:1 게시글 번호에 해당하는 게시글 내용(넣어준 컬럼들) 수정
@@ -152,9 +152,10 @@ public class BoardServiceImpl implements BoardService {
 //----------------------------------------------------------------------------	
 // 공지사항, FAQ ,1:1  페이징처리 - 뻄 
 //----------------------------------------------------------------------------		
+//----------------------------------------------------------------------------
+// 카테고리에 따른 게시판 보여주기 
+//----------------------------------------------------------------------------
 
-	
-	
 	
 	
 	
