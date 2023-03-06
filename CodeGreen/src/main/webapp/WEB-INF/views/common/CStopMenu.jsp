@@ -17,13 +17,13 @@
 	
 		<div class="form-group-bar">
 			<p align="right">
-				<button type="button" class="btn btn-outline-secondary" onclick="location.href='${contextPath}/CS/board/NoticeList'">
+				<button type="button" class="btn btn-outline-secondary" onclick="location.href='${contextPath}/CS/board/NoticeList?n_bc_code=0'">
 					<span>공지사항 관리</span>
 				</button>
-				<button type="button" class="btn btn-outline-secondary" onclick="location.href='${contextPath }/CS/board/FaqList'">
+				<button type="button" class="btn btn-outline-secondary" onclick="location.href='${contextPath }/CS/board/FaqList?f_bc_code=0'">
 					<span> FAQ 관리</span>
 				</button>
-				<button type="button" class="btn btn-outline-secondary" onclick="location.href='${contextPath }/CS/board/InquiryList'">
+				<button type="button" class="btn btn-outline-secondary" onclick="location.href='${contextPath }/CS/board/InquiryList?i_bc_code=0'">
 					<span> 1:1 문의 관리</span>
 				</button>
 			</p>

@@ -16,13 +16,16 @@
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
    <!-- 부트스트랩 사이드바 css  -->
    <link href="../../resources/css/admin/bootstrap.min.css" rel="stylesheet">
+   <!-- 게시판관리 js 적용 -->
 	<script src="${contextPath}/resources/js/Eboard.js"></script>
 </head>
-<!-- 상단바 자리 -->
+
 <body>
+<!-- 사이드바 -->
 <jsp:include page="../../admin/include/nav.jsp"></jsp:include>
 
 <div class="container">
+<!-- 상단바 -->
 <jsp:include page="../../common/CStopMenu.jsp"></jsp:include>		
 	<form class="form-horizontal" id="frm">
 		<div class="form-group">
@@ -31,16 +34,19 @@
 			</div>
 		</div>
 		
-		<p align="center">
-		<!-- 카테고리별 답변하기 -->
-		<select class="form-select form-select-sm" aria-label="Default select example" title="문의유형 선택" id="i_bc_code" name="i_bc_code" >
-			  <option value="14" onclick="fn_goUserList">회원/멤버십</option>
-			  <option value="15" onclick="fn_goCashList">주문/결제</option>
-			  <option value="16" onclick="fn_goDeliveryList">배송</option>
-			  <option value="17" onclick="fn_goProductList">상품</option>
-			  <option value="18" onclick="fn_goEventList'">이벤트</option>	
+		<!-- 카테고리별 검색하기 --> 
+		<div align="right">
+		<select class="form-select right"  aria-label="Default select example" title="문의유형 선택" id="i_bc_code" name="i_bc_code" >
+		  <option value="0" <c:if test="${i_bc_code == '0'}">selected</c:if>>전체</option>
+			  <option value="14" <c:if test="${i_bc_code == '14'}">selected</c:if>>회원/멤버십</option>
+			  <option value="15" <c:if test="${i_bc_code == '15'}">selected</c:if>>주문/결제</option>
+			  <option value="16" <c:if test="${i_bc_code == '16'}">selected</c:if>>배송</option>
+			  <option value="17" <c:if test="${i_bc_code == '17'}">selected</c:if>>상품</option>
+			  <option value="18" <c:if test="${i_bc_code == '18'}">selected</c:if>>이벤트</option>
 		</select>	
-		</p>
+		<button type="submit" class="btn btn-success">조회</button>
+		</div>
+		
 		<!-- 표  -->
 		<table class="table table-borderd table-hover">  <!-- 선, 굵기, 호버 -->
 			<thead>

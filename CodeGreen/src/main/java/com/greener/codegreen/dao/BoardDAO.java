@@ -27,13 +27,13 @@ public interface BoardDAO {
 // 공지사항, FAQ ,1:1 목록보기 
 //----------------------------------------------------------------------------		
 	//공지사항 전체목록 
-	public List<BoardDTO> NoticeList() throws Exception;
+	public List<BoardDTO> NoticeList(int n_bc_code) throws Exception;
 	
 	//FAQ 전체목록
-	public List<BoardDTO> FaqList() throws Exception;
+	public List<BoardDTO> FaqList(int f_bc_code) throws Exception;
 	
 	//1:1 전체목록
-	public List<BoardDTO> InquiryList() throws Exception;
+	public List<BoardDTO> InquiryList(int i_bc_code) throws Exception;
 	
 //----------------------------------------------------------------------------	
 // 공지사항, FAQ ,1:1 상세보기 (조회) + 수정후 중복 처리도 같이

@@ -9,20 +9,22 @@
 <head>
 	<meta charset="UTF-8">
 	<title>공지사항 전체 목록</title>
+	<!--  부트스트랩 5.3 적용 -->
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+   <link href=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
 	<!-- 제이쿼리 넣어주기 -->  
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-   <!-- 부트스트랩  -->
+   <!-- 부트스트랩 사이드바 css  -->
    <link href="../../resources/css/admin/bootstrap.min.css" rel="stylesheet">
-   <link href="../../resources/css/admin/nav.css" rel="stylesheet">
-   
+   <!-- 게시판관리 js 적용 -->
 	<script src="${contextPath}/resources/js/Eboard.js"></script>
-	
 </head>
-
 <body>
+<!-- 사이드바 -->
 <jsp:include page="../../admin/include/nav.jsp"></jsp:include>
 
 <div class="container">
+<!-- 상단바 -->
 	<jsp:include page="../../common/CStopMenu.jsp"></jsp:include>		
 		
 	<form class="form-horizontal" id="frm">
@@ -39,6 +41,7 @@
 		<!-- 카테고리별 검색하기 --> 
 		<div align="right">
 		<select class="form-select right"  aria-label="Default select example" title="문의유형 선택" id="n_bc_code" name="n_bc_code" >
+		  <option value="0" <c:if test="${n_bc_code == '0'}">selected</c:if>>전체</option>
 			  <option value="4" <c:if test="${n_bc_code == '4'}">selected</c:if>>회원/멤버십</option>
 			  <option value="5" <c:if test="${n_bc_code == '5'}">selected</c:if>>주문/결제</option>
 			  <option value="6" <c:if test="${n_bc_code == '6'}">selected</c:if>>배송</option>
@@ -47,18 +50,7 @@
 		</select>	
 		<button type="submit" class="btn btn-success">조회</button>
 		</div>
-		
-		<!-- 카테고리별 검색하기 
-		<p align="center">
-		<select class="form-select form-select-sm" aria-label="Default select example" title="문의유형 선택" id="n_bc_code" name="n_bc_code" >
-			  <option value="4" onclick="fn_goUserList">회원/멤버십</option>
-			  <option value="5" onclick="fn_goCashList">주문/결제</option>
-			  <option value="6" onclick="fn_goDeliveryList">배송</option>
-			  <option value="7" onclick="fn_goProductList">상품</option>
-			  <option value="8" onclick="fn_goEventList'">이벤트</option>	
-		</select>	
-		</p>-->
-		
+	
 		<!-- 표  -->
 		<table class="table table-borderd table-hover">  
 			<thead>

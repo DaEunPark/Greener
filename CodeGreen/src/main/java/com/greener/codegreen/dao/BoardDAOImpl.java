@@ -53,32 +53,32 @@ public class BoardDAOImpl implements BoardDAO {
 	
 	//공지사항 전체목록 
 	@Override
-	public List<BoardDTO> NoticeList() throws Exception {
+	public List<BoardDTO> NoticeList(int n_bc_code) throws Exception {
 		
 		logger.info("NoticeList( )  DAOimpl ");	
 		
 		List<BoardDTO> NoticeList =
-				sqlSession.selectList(Namespace + ".Bnoticelist");
+				sqlSession.selectList(Namespace + ".Bnoticelist" , n_bc_code);
 		return NoticeList;
 	}
 	
 	//FAQ 전체목록
-	public List<BoardDTO> FaqList() throws Exception {
+	public List<BoardDTO> FaqList(int f_bc_code) throws Exception {
 		
 		logger.info("FaqList( )  DAOimpl  ");	
 		
 		List<BoardDTO> FaqList =
-				sqlSession.selectList(Namespace + ".Bfaqlist");
+				sqlSession.selectList(Namespace + ".Bfaqlist", f_bc_code);
 		return FaqList;
 	}
 	//1:1 전체목록
 	@Override
-	public List<BoardDTO> InquiryList() throws Exception {
+	public List<BoardDTO> InquiryList(int i_bc_code ) throws Exception {
 		
 		logger.info("InquiryList( )  DAOimpl  ");	
 		
 		List<BoardDTO> InquiryList =
-				sqlSession.selectList(Namespace + ".Binquirylist");
+				sqlSession.selectList(Namespace + ".Binquirylist" ,i_bc_code);
 		return InquiryList;
 	}
 

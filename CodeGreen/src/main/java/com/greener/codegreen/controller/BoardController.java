@@ -7,20 +7,24 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.greener.codegreen.dao.BoardDAO;
 import com.greener.codegreen.dto.BoardDTO;
 import com.greener.codegreen.service.BoardService;
@@ -30,6 +34,7 @@ import com.greener.codegreen.service.BoardService;
 //----------------------------------------------------
 //게시글 관리 컨트롤러
 //----------------------------------------------------
+
 @Controller
 @RequestMapping(value="/CS/board/*")
 public class BoardController {
@@ -111,39 +116,6 @@ public class BoardController {
 	
 	
 	
-
-//		//-----------------------------------------------------------------------------------------------------------
-//		// VUE 연결 공지사항 게시판 목록 가져오기 //noticelist jsp 는 없음, GSON 사용안함
-//		//-----------------------------------------------------------------------------------------------------------
-//		@CrossOrigin
-//		@ResponseBody
-//		@GetMapping("/noticelist")   //앞에 /CS/board/ 가 들어가야함
-//		public List<BoardDTO> CSboardList() throws Exception {
-//			
-//			List<BoardDTO> CSboardList = boardService.CSboardList();
-//			return CSboardList;
-//			
-//		} // End - VUE 연결 공지사항 게시판 목록 가져오기
-	//
-//		//-----------------------------------------------------------------------------------------------------------
-//		// VUE 연결 공지사항 게시글 번호에 해당하는 게시글 정보를 가져오기
-//		//-----------------------------------------------------------------------------------------------------------
-//		@CrossOrigin
-//		@ResponseBody
-//		@GetMapping("/noticelist/{m_bno}")
-//		public BoardDTO CSboardDetail(@PathVariable int m_bno) throws Exception {
-	//
-//			logger.info(" vue BoardController CSboardDetail() m_bno ==> " + m_bno);
-	//
-//			return boardService.CSboardDetail(m_bno, 1);
-//			
-//		}//END - VUE 연결 공지사항 게시글 번호에 해당하는 게시글 정보를 가져오기
-	//	
-	//	
-	
-	
-	
-	
 	
 	
 	
@@ -152,12 +124,15 @@ public class BoardController {
 	
 	
 	//----------------------------------------------------------------------
-	// 공지사항 전체 목록보기 NoticeList.jsp  - CSbaordform 에서 등록시 fn_formInsert() 의 리턴 / vscode에서 경로 사용됨
+	// 공지사항 전체 목록보기 NoticeList.jsp : 앞으로의 전체목록보기는 
+	// FaqList?f_bc_code=0 형식으로 보아야함  - CSbaordform 에서 등록시 fn_formInsert() 의 리턴 / vscode에서 경로 사용됨
 	//----------------------------------------------------------------------
 	@RequestMapping( value="/NoticeList" , method= RequestMethod.GET)
-	public void NoticeList(Model model , Locale locale ) throws Exception {
+	public void NoticeList(Model model , Locale locale ,HttpServletRequest request) throws Exception {
 		
-		List<BoardDTO> NoticeList = boardService.NoticeList();
+		int n_bc_code = Integer.parseInt((String) request.getParameter("n_bc_code"));
+		
+		List<BoardDTO> NoticeList = boardService.NoticeList(n_bc_code);
 		
 		logger.info("NoticeList() Controller" + NoticeList );	
 		
@@ -172,9 +147,11 @@ public class BoardController {
 	// FAQ 전체 목록보기 FaqList.jsp
 	//----------------------------------------------------------------------
 	@RequestMapping( value="/FaqList" , method= RequestMethod.GET)
-	public void FaqList(Model model,Locale locale) throws Exception {
+	public void FaqList(Model model,Locale locale, HttpServletRequest request) throws Exception {
 		
-		List<BoardDTO> FaqList = boardService.FaqList();
+		int f_bc_code = Integer.parseInt((String) request.getParameter("f_bc_code"));
+		
+		List<BoardDTO> FaqList = boardService.FaqList(f_bc_code);
 		
 		logger.info("FaqList( )   Controller " + FaqList);
 		
@@ -185,9 +162,11 @@ public class BoardController {
 	// 1:1 문의 전체 목록보기 InquiryList.jsp
 	//----------------------------------------------------------------------
 	@RequestMapping( value="/InquiryList" , method= RequestMethod.GET)
-	public void InquiryList(Model model,Locale locale) throws Exception {
+	public void InquiryList(Model model,Locale locale , HttpServletRequest request) throws Exception {
 		
-		List<BoardDTO> InquiryList = boardService.InquiryList();
+		int i_bc_code = Integer.parseInt((String) request.getParameter("i_bc_code"));
+		
+		List<BoardDTO> InquiryList = boardService.InquiryList(i_bc_code);
 		
 		logger.info("InquiryList( ) Controller " + InquiryList );	
 		
@@ -433,9 +412,9 @@ public class BoardController {
 	// 리스트 양을 많이 안할거라 우선 페이징 처리 안함 - 따로 빼둠 
 	
 	//-----------------------------------------------------------------------------------------------------------
-	// 카테고리에 따른 게시판 보여주기 
+	// 
 	//-----------------------------------------------------------------------------------------------------------
-
+	
 
 	
 	

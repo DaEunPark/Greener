@@ -52,29 +52,29 @@ public class BoardServiceImpl implements BoardService {
 
 	//공지사항 전체 목록
 	@Override
-	public List<BoardDTO> NoticeList() throws Exception {
+	public List<BoardDTO> NoticeList(int n_bc_code) throws Exception {
 		//ManagerDTO 를 List형태로 만들면 목록을 리스트로 받을수있음
 		
 		logger.info("NoticeList Serviceimpl 지나가는중....  ");	
 		
-		return boardDAO.NoticeList(); 
+		return boardDAO.NoticeList(n_bc_code); 
 		//리턴한 값을 컨트롤러로 가져가서 model로 받아온다?
 	}
 	//FAQ 전체 목록
 	@Override
-	public List<BoardDTO> FaqList() throws Exception {
+	public List<BoardDTO> FaqList(int f_bc_code) throws Exception {
 
 		logger.info("FaqList Serviceimpl 지나가는중....  ");	
 		
-		return boardDAO.FaqList(); 
+		return boardDAO.FaqList(f_bc_code); 
 	}
 	//1:1 전체목록
 	@Override
-	public List<BoardDTO> InquiryList() throws Exception {
+	public List<BoardDTO> InquiryList(int i_bc_code) throws Exception {
 
 		logger.info("InquiryList Serviceimpl 지나가는중....  ");	
 		
-		return boardDAO.InquiryList();
+		return boardDAO.InquiryList(i_bc_code);
 	}
 	
 ///----------------------------------------------------------------------------	

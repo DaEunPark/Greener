@@ -79,7 +79,7 @@
         </a>
       </li>
       <li>
-        <a href="${contextPath}/CS/board/NoticeList" class="nav-link text-white sidebar-link">
+        <a href="${contextPath}/CS/board/NoticeList?n_bc_code=0" class="nav-link text-white sidebar-link">
             <i class="fa-solid fa-headset"></i>
           고객센터
         </a>

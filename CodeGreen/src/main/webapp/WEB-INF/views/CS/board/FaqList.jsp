@@ -16,13 +16,16 @@
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
    <!-- 부트스트랩 사이드바 css  -->
    <link href="../../resources/css/admin/bootstrap.min.css" rel="stylesheet">
+   <!-- 게시판관리 js 적용 -->
 	<script src="${contextPath}/resources/js/Eboard.js"></script>
 </head>
-<!-- 상단바 자리 -->
+
 <body>
+<!-- 사이드바 -->
 <jsp:include page="../../admin/include/nav.jsp"></jsp:include>
 
 <div class="container">
+<!-- 상단바 -->
 <jsp:include page="../../common/CStopMenu.jsp"></jsp:include>		
 	<form class="form-horizontal" id="frm">
 		<div class="form-group">
@@ -34,16 +37,20 @@
 		<p align="center">
 			<button type="button" class="btn btn-success" onclick="location.href='/CS/board/FaqForm'">FAQ쓰기</button>
 		</p>
-	   <p align="center">
-		<!-- 카테고리별 검색하기 -->
-		<select class="form-select form-select-sm" aria-label="Default select example" title="문의유형 선택" id="i_bc_code" name="i_bc_code" >
-			  <option value="9" onclick="fn_goUserList">회원/멤버십</option>
-			  <option value="10" onclick="fn_goCashList">주문/결제</option>
-			  <option value="11" onclick="fn_goDeliveryList">배송</option>
-			  <option value="12" onclick="fn_goProductList">상품</option>
-			  <option value="13" onclick="fn_goEventList'">이벤트</option>	
+		
+		<!-- 카테고리별 검색하기 --> 
+		<div align="right">
+		<select class="form-select right"  aria-label="Default select example" title="문의유형 선택" id="f_bc_code" name="f_bc_code" >
+		  <option value="0" <c:if test="${f_bc_code == '0'}">selected</c:if>>전체</option>
+			  <option value="9" <c:if test="${f_bc_code == '9'}">selected</c:if>>회원/멤버십</option>
+			  <option value="10" <c:if test="${f_bc_code == '10'}">selected</c:if>>주문/결제</option>
+			  <option value="11" <c:if test="${f_bc_code == '11'}">selected</c:if>>배송</option>
+			  <option value="12" <c:if test="${f_bc_code == '12'}">selected</c:if>>상품</option>
+			  <option value="13" <c:if test="${f_bc_code == '13'}">selected</c:if>>이벤트</option>
 		</select>	
-		</p>
+		<button type="submit" class="btn btn-success">조회</button>
+		</div>
+		
 		<!-- 표  -->
 		<table class="table table-borderd table-hover">  <!-- 선, 굵기, 호버 -->
 			<thead>
