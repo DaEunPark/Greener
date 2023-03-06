@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
+import com.greener.codegreen.common.Criteria;
 import com.greener.codegreen.dto.ProductOrderBuyerDTO;
 
 @Repository("orderDAO")
@@ -27,10 +28,10 @@ public class OrderDAOImpl implements OrderDAO {
 	// 주문내역 목록 불러오기 (전체 주문)
 	//-----------------------------------------------------------------------------------------------------------	
 	@Override
-	public List<HashMap<String, String>> orderListAll() throws DataAccessException {
+	public List<HashMap<String, String>> orderListAll(HashMap<String, String> paramMap) throws DataAccessException {
 		logger.info("orderDAO orderListAll() 시작");
 		
-		return sqlSession.selectList(Namespace + ".orderListAll");	
+		return sqlSession.selectList(Namespace + ".orderListAll", paramMap);	
 	}
 
 	//----------------------------------------------------------------------------------//
@@ -39,6 +40,9 @@ public class OrderDAOImpl implements OrderDAO {
 	@Override
 	public List<HashMap<String, String>> orderList(HashMap<String, String> paramMap) throws DataAccessException {
 		logger.info("orderDAO orderList() 시작");
+		
+		System.out.println("***********************************");
+		System.out.println(paramMap);
 
 		return sqlSession.selectList(Namespace + ".orderListCheck", paramMap);
 	}
@@ -73,6 +77,17 @@ public class OrderDAOImpl implements OrderDAO {
 		logger.info("orderDAO에서 orderListOnlyMonth()로 조건에 맞는 주문내역 조회하기");
 		
 		return sqlSession.selectList(Namespace + ".orderListOnlyMonth");
+		
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 주문내역 총 개수 구하기
+	//-----------------------------------------------------------------------------------------------------------
+	public int orderTotalNum() throws DataAccessException {
+		
+		logger.info("orderDAO에서 orderTotalNum()로 전체 주문 내역 개수 구하기");
+		
+		return sqlSession.selectOne(Namespace + ".orderListCount");
 		
 	}
 	

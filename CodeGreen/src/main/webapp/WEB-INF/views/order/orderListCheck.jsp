@@ -40,16 +40,39 @@
 	#contents {
 		height:	35px;
 	}
-
+	#paging {
+		position:	absolute;
+		left:	780px;
+	}
+	#orderStateButton {
+		border:	none;
+		text-size:	14px;
+		font-weight:	bold;
+	}
 </style>
 
 </head>
-	<c:if test="${mapCount == null}">
+<%-- 	<c:if test="${mapCount == null}">
 	    <c:set var="mapCount" value="0" />
 	</c:if>
 	<script>
 		alert("조회된 주문 건이 "+${mapCount}+"개 있습니다.");
-	</script>
+	</script> --%>
+	<c:if test="${order['o_state']} == 0">
+		<c:set var="order.o_state" value="결제완료"/>
+	</c:if>
+	<c:if test="${list.o_state == 0}">
+		<c:set var="list.o_state" value="결제완료"/>
+	</c:if>
+	<c:if test="${list.o_state == 1}">
+		<c:set var="list.o_state" value="배송준비"/>
+	</c:if>
+	<c:if test="${list.o_state == 2}">
+		<c:set var="list.o_state" value="배송중"/>
+	</c:if>
+	<c:if test="${list.o_state == 3}">
+		<c:set var="list.o_state" value="배송완료"/>
+	</c:if>
 <body>
 <div class="container" id="container">
 	<div class="form-group">	
@@ -70,42 +93,162 @@
 		<thead>
 				<tr class="orderList">
 	  				<th class="col-sm-2 text-center" id="title">주문일자</th> 
-					<th class="col-sm-2 text-center" id="title">주문번호</th>
+					<th class="col-sm-1 text-center" id="title">주문번호</th>
 					<th class="col-sm-1 text-center" id="title">회원번호</th>
-					<th class="col-sm-2 text-center" id="title">아이디	</th>
+					<th class="col-sm-1 text-center" id="title">아이디	</th>
 					<th class="col-sm-1 text-center" id="title">주문자명</th>
-					<th class="col-sm-2 text-center" id="title">결제금액</th>
-<!--  					<th class="col-sm-2 text-center">주문상태</th>-->
+					<th class="col-sm-1 text-center" id="title">결제금액</th>
+  					<th class="col-sm-1 text-center" id="title">
+  					<button class="btn dropdown-toggle btn-sm" type="button" id="orderStateButton" data-bs-toggle="dropdown"> 주문상태
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="orderStateButton">
+						<li><button class="dropdown-item" type="button" id="state">결제완료</button></li>
+						<li><button class="dropdown-item" type="button" id="state">배송준비</button></li>
+						<li><button class="dropdown-item" type="button" id="state">배송중</button></li>
+						<li><button class="dropdown-item" type="button" id="state">배송완료</button></li>
+					</ul>
+  					</th>
 				</tr>
 		</thead>
 	   	<tbody>
 		    <c:forEach var="order" items="${orderList}">
 			      <tr class="orderList">
 			   	    <td class="col-sm-2 text-center" id="contents">${order['o_date']}</td>
-			        <td onClick="location.href='/order/orderDetail?o_number=${order['o_number']}'" class="col-sm-2 text-center txt" id="contents">${order['o_number']}</td>
+			        <td onClick="location.href='/order/orderDetail?o_number=${order['o_number']}'" class="col-sm-1 text-center txt" id="contents">${order['o_number']}</td>
 			        <td class="col-sm-1 text-center" id="contents">${order['b_num']}</td>
-			        <td class="col-sm-2 text-center" id="contents">${order['b_id']}</td>
+			        <td class="col-sm-1 text-center" id="contents">${order['b_id']}</td>
 			        <td class="col-sm-1 text-center" id="contents">${order['b_name']}</td>
-			        <td class="col-sm-2 text-center" id="contents">
+			        <td class="col-sm-1 text-center" id="contents">
 						<fmt:formatNumber value="${order['o_price']}" pattern="#,###" />
 					</td>
+					<td class="col-sm-1 text-center" id="contents">${order['o_state']}</td>
 			      </tr>
 		    </c:forEach>
 		    <c:forEach var="list" items="${orderListAll}">
 			      <tr class="orderList">
 			   	    <td class="col-sm-2 text-center" id="contents">${list['o_date']}</td>
-			        <td onClick="location.href='/order/orderDetail?o_number=${list['o_number']}'"  class="col-sm-2 text-center txt" id="contents">${list['o_number']}</td>
+			        <td onClick="location.href='/order/orderDetail?o_number=${list['o_number']}'"  class="col-sm-1 text-center txt" id="contents">${list['o_number']}</td>
 			        <td class="col-sm-1 text-center" id="contents">${list['b_num']}</td>
-			        <td class="col-sm-2 text-center" id="contents">${list['b_id']}</td>
+			        <td class="col-sm-1 text-center" id="contents">${list['b_id']}</td>
 			        <td class="col-sm-1 text-center" id="contents">${list['b_name']}</td>
-			        <td class="col-sm-2 text-center" id="contents">
+			        <td class="col-sm-1 text-center" id="contents">
 			        	<fmt:formatNumber value="${list['o_price']}" pattern="#,###" />
 			        </td>
+			        <td class="col-sm-1 text-center" id="contents">${list['o_state']}</td>
 			      </tr>
 		    </c:forEach>
 		 </tbody>
 	  </table>
+	  <br>
+	  <div id="paging">
+		<c:if test="${ph.showPrev}">
+		  <form method="POST" action="<c:url value="/order/map-data"/>">
+		    <input type="hidden" name="page" value="${ph.beginPage-1}" />
+		    <button type="submit" class="page">&lt;</button>
+		  </form>
+		</c:if>
+		<c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
+		  <form method="POST" action="<c:url value="/order/map-data"/>">
+		    <input type="hidden" name="page" value="${i}" />
+		    <button type="submit" class="page ${i==ph.page? "paging-active" : ""}">${i}</button>
+		  </form>
+		</c:forEach>
+		<c:if test="${ph.showNext}">
+		  <form method="POST" action="<c:url value="/order/map-data"/>">
+		    <input type="hidden" name="page" value="${ph.endPage+1}" />
+		    <button type="submit" class="page">&gt;</button>
+		  </form>
+		</c:if>
+	  </div>
 </div>
+<script>
+$('.dropdown-item:contains("결제완료")').click(function() {
+    var rows = $('#table tbody tr').get();
+    rows.sort(function(a, b) {
+        var keyA = $(a).children('td:eq(6)').text();
+        var keyB = $(b).children('td:eq(6)').text();
+        if (keyA < keyB) return -1;
+        if (keyA > keyB) return 1;
+        return 0;
+    });
+    
+    // tbody 내부의 모든 tr 요소들을 삭제합니다.
+    $('#table tbody').empty();
+    
+    // 정렬된 rows 배열을 tbody 내부에 추가합니다.
+    $.each(rows, function(index, row) {
+        if ($(row).children('td:eq(6)').text() === "결제완료") {
+            $('#table tbody').append(row);
+        }
+    });
+});
+</script>
+<script>
+$('.dropdown-item:contains("배송준비")').click(function() {
+    var rows = $('#table tbody tr').get();
+    rows.sort(function(a, b) {
+        var keyA = $(a).children('td:eq(6)').text();
+        var keyB = $(b).children('td:eq(6)').text();
+        if (keyA < keyB) return -1;
+        if (keyA > keyB) return 1;
+        return 0;
+    });
+    
+    // tbody 내부의 모든 tr 요소들을 삭제합니다.
+    $('#table tbody').empty();
+    
+    // 정렬된 rows 배열을 tbody 내부에 추가합니다.
+    $.each(rows, function(index, row) {
+        if ($(row).children('td:eq(6)').text() === "배송준비") {
+            $('#table tbody').append(row);
+        }
+    });
+});
+</script>
+<script>
+$('.dropdown-item:contains("배송중")').click(function() {
+    var rows = $('#table tbody tr').get();
+    rows.sort(function(a, b) {
+        var keyA = $(a).children('td:eq(6)').text();
+        var keyB = $(b).children('td:eq(6)').text();
+        if (keyA < keyB) return -1;
+        if (keyA > keyB) return 1;
+        return 0;
+    });
+    
+    // tbody 내부의 모든 tr 요소들을 삭제합니다.
+    $('#table tbody').empty();
+    
+    // 정렬된 rows 배열을 tbody 내부에 추가합니다.
+    $.each(rows, function(index, row) {
+        if ($(row).children('td:eq(6)').text() === "배송중") {
+            $('#table tbody').append(row);
+        }
+    });
+});
+</script>
+<script>
+$('.dropdown-item:contains("배송완료")').click(function() {
+    var rows = $('#table tbody tr').get();
+    rows.sort(function(a, b) {
+        var keyA = $(a).children('td:eq(6)').text();
+        var keyB = $(b).children('td:eq(6)').text();
+        if (keyA < keyB) return -1;
+        if (keyA > keyB) return 1;
+        return 0;
+    });
+    
+    // tbody 내부의 모든 tr 요소들을 삭제합니다.
+    $('#table tbody').empty();
+    
+    // 정렬된 rows 배열을 tbody 내부에 추가합니다.
+    $.each(rows, function(index, row) {
+        if ($(row).children('td:eq(6)').text() === "배송완료") {
+            $('#table tbody').append(row);
+        }
+    });
+});
+</script>
 <script>
 $('.dropdown-item:contains("주문일자(오름차순)")').click(function() {
     var rows = $('#table tbody tr').get();

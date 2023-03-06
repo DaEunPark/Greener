@@ -5,13 +5,14 @@ import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 
+import com.greener.codegreen.common.Criteria;
 import com.greener.codegreen.dto.ProductOrderBuyerDTO;
 
 public interface OrderDAO {
 	//-----------------------------------------------------------------------------------------------------------
 	// 주문내역 목록 불러오기 (전체 주문)
 	//-----------------------------------------------------------------------------------------------------------
-	public List<HashMap<String, String>> orderListAll() throws DataAccessException;
+	public List<HashMap<String, String>> orderListAll(HashMap<String, String> paramMap) throws DataAccessException;
 
 	//-----------------------------------------------------------------------------------------------------------
 	// 조건에 맞는 주문내역 목록 불러오기
@@ -32,6 +33,11 @@ public interface OrderDAO {
 	// 조건에 맞는 주문내역 목록 불러오기(onlyMonth)
 	//-----------------------------------------------------------------------------------------------------------
 	public List<HashMap<String, String>> orderListOnlyMonth() throws DataAccessException;
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 주문내역 총 개수 구하기
+	//-----------------------------------------------------------------------------------------------------------
+	public int orderTotalNum() throws DataAccessException;
 	
 	//-----------------------------------------------------------------------------------------------------------
 	// 주문번호 누르면 상세 주문내역 보여주기

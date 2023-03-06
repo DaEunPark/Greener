@@ -10,7 +10,7 @@
 	<!-- ****************************************************************************************** -->
  	<select id="orderListAll" resultType="HashMap" parameterType="java.util.HashMap">
 		<![CDATA[
-			SELECT 	o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price
+			SELECT 	o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state
 			FROM	ProductOrder o JOIN Buyer b ON o.order_b_id = b.b_id
 			ORDER BY o.o_date DESC
 		]]>
@@ -21,7 +21,7 @@
 	<!-- ****************************************************************************************** -->
  	<select id="orderListCheck" resultType="HashMap" parameterType="java.util.HashMap">
 		<![CDATA[
-			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state
 			FROM ProductOrder o 
 			JOIN Buyer b ON o.order_b_id = b.b_id
 			JOIN Product p ON o.order_p_number = p.p_number
@@ -62,7 +62,7 @@
 	<!-- ****************************************************************************************** -->
  	<select id="orderListOnlyDay" resultType="HashMap" parameterType="java.util.HashMap">
 		<![CDATA[
-			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state
 			FROM ProductOrder o 
 			JOIN Buyer b ON o.order_b_id = b.b_id
 			JOIN Product p ON o.order_p_number = p.p_number
@@ -76,7 +76,7 @@
 	<!-- ****************************************************************************************** -->
  	<select id="orderListOnlyWeek" resultType="HashMap" parameterType="java.util.HashMap">
 		<![CDATA[
-			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state
 			FROM ProductOrder o 
 			JOIN Buyer b ON o.order_b_id = b.b_id
 			JOIN Product p ON o.order_p_number = p.p_number
@@ -90,7 +90,7 @@
 	<!-- ****************************************************************************************** -->
  	<select id="orderListOnlyMonth" resultType="HashMap" parameterType="java.util.HashMap">
 		<![CDATA[
-			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state
 			FROM ProductOrder o 
 			JOIN Buyer b ON o.order_b_id = b.b_id
 			JOIN Product p ON o.order_p_number = p.p_number
@@ -100,13 +100,25 @@
 	</select>
 	
 	<!-- ****************************************************************************************** -->
+	<!-- 주문내역 총 개수 구하기 -->
+	<!-- ****************************************************************************************** -->
+  	<select id="orderListCount" resultType="int">
+		<![CDATA[
+	        SELECT 	Count(o_number)
+	        FROM	ProductOrder
+		]]>
+	</select>
+	
+	<!-- ****************************************************************************************** -->
 	<!-- 주문번호 누르면 상세 주문내역 보여주기 -->
 	<!-- ****************************************************************************************** -->
   	<select id="orderDetailCheck" resultType="com.greener.codegreen.dto.ProductOrderBuyerDTO" parameterType="integer">
 		<![CDATA[
 	        SELECT 	o.o_number, b.b_id, o.o_price, o.o_date, o.o_receiver_phone, o.o_receiver_name, b.b_email
-	        	   ,o.o_address1, o.o_address2, o.o_address3, b.b_name, b.b_grade
-	        FROM	ProductOrder o JOIN Buyer b ON o.order_b_id = b.b_id
+	        	   ,o.o_address1, o.o_address2, o.o_address3, b.b_name, b.b_grade, p.p_name, o.o_count, b.b_grade
+			FROM    ProductOrder o
+			        JOIN Buyer b ON o.order_b_id = b.b_id
+			        JOIN Product p ON o.order_p_number = p.p_number
 	        WHERE   o.o_number = #{orderNum}
 		]]>
 	</select>

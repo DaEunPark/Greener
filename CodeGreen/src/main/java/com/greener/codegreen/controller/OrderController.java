@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.greener.codegreen.common.PageHandler;
 import com.greener.codegreen.dto.ProductOrderBuyerDTO;
 import com.greener.codegreen.service.OrderService;
 
@@ -51,29 +53,34 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 		
 		ModelAndView mav = new ModelAndView();
 		HashMap<String, String> paramMap = new HashMap<>();
-	
+
+		int totalCnt = orderService.orderTotal();
+//		PageHandler pageHandler = new PageHandler(totalCnt, page, pageSize);
+//		
+//        if(page < 0 || page > pageHandler.getTotalPage())
+//            page = 1;
+//        if(pageSize < 0 || pageSize > 50)
+//            pageSize = 10;
+//		
+//		paramMap.put("offset", String.valueOf((page-1)*pageSize));
+//		paramMap.put("pageSize", String.valueOf(pageSize));
+//
+//		
+//		mav.addObject("ph", pageHandler);
+//		
 		String orderNum = String.valueOf(mapData.get("orderNum"));
 		String buyerName = String.valueOf(mapData.get("buyerName"));
 		String productNum = String.valueOf(mapData.get("productNum"));
-		String state0 = String.valueOf(mapData.get("state0"));
-		String state1 = String.valueOf(mapData.get("state1"));
-		String state2 = String.valueOf(mapData.get("state2"));
-		String state3 = String.valueOf(mapData.get("state3"));
 		String period0 = String.valueOf(mapData.get("period0"));
 		String period1 = String.valueOf(mapData.get("period1"));
 		String period2 = String.valueOf(mapData.get("period2"));
-		String opriceAs =  String.valueOf(mapData.get("opriceAs"));
-		
-		System.out.println("***************************************");
-		System.out.println("opriceAs = "+opriceAs);
-		System.out.println("***************************************");
 		
 		// ********************<< 전체 주문건 조회(조건없을시) >> ************************* //
 		if (orderNum.equals("") && buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
 				period1.equals("0") && period2.equals("0")) {
-			List<HashMap<String, String>> orderListAll = orderService.getOrderListAll();
+			List<HashMap<String, String>> orderListAll = orderService.getOrderListAll(paramMap);
 			mav.addObject("orderListAll", orderListAll);
-			int mapCount =orderListAll.size();
+			int mapCount = orderListAll.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 1 >>======================");
 		}
@@ -93,7 +100,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 			paramMap.put("buyerName1", buyerName);
 			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
 			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
+			int mapCount = orderList.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 3 >>======================");
 		}
@@ -102,7 +109,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 			paramMap.put("productNum1", productNum);
 			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
 			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
+			int mapCount = orderList.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 4 >>======================");
 		}
@@ -110,7 +117,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 				period1.equals("0") && period2.equals("0")) {
 			List<HashMap<String, String>> orderList = orderService.getOrderListOnlyDay();
 			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
+			int mapCount = orderList.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 5 >>======================");
 		}
@@ -118,7 +125,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 				!period1.equals("0") && period2.equals("0")) {
 			List<HashMap<String, String>> orderList = orderService.getOrderListOnlyWeek();
 			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
+			int mapCount = orderList.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 6 >>======================");
 		}
@@ -126,7 +133,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 				period1.equals("0") && !period2.equals("0")) {
 			List<HashMap<String, String>> orderList = orderService.getOrderListOnlyMonth();
 			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
+			int mapCount = orderList.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 7 >>======================");
 		}
@@ -138,7 +145,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 			paramMap.put("buyerName2", buyerName);
 			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
 			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
+			int mapCount = orderList.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 8 >>======================");
 		}
@@ -148,7 +155,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 			paramMap.put("productNum3", productNum);
 			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
 			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
+			int mapCount = orderList.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 9 >>======================");
 		}
@@ -158,7 +165,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 			paramMap.put("productNum4", productNum);
 			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
 			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
+			int mapCount = orderList.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 10 >>======================");
 		}
@@ -169,7 +176,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 			paramMap.put("orderNum6", orderNum);
 			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
 			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
+			int mapCount = orderList.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 11 >>======================");
 		}
@@ -178,7 +185,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 			paramMap.put("buyerName7", buyerName);
 			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
 			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
+			int mapCount = orderList.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 12 >>======================");
 		}
@@ -187,7 +194,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 			paramMap.put("productNum8", productNum);
 			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
 			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
+			int mapCount = orderList.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 13 >>======================");
 		}
@@ -198,7 +205,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 			paramMap.put("orderNum9", orderNum);
 			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
 			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
+			int mapCount = orderList.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 14 >>======================");
 		}
@@ -207,7 +214,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 			paramMap.put("buyerName10", buyerName);
 			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
 			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
+			int mapCount = orderList.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 15 >>======================");
 		}
@@ -216,7 +223,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 			paramMap.put("productNum11", productNum);
 			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
 			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
+			int mapCount = orderList.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 16 >>======================");
 		}
@@ -227,7 +234,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 			paramMap.put("orderNum12", orderNum);
 			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
 			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
+			int mapCount = orderList.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 17 >>======================");
 		}
@@ -236,7 +243,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 			paramMap.put("buyerName13", buyerName);
 			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
 			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
+			int mapCount = orderList.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 18 >>======================");
 		}
@@ -245,7 +252,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 			paramMap.put("productNum14", productNum);
 			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
 			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
+			int mapCount = orderList.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 19 >>======================");
 		}
@@ -258,7 +265,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 			paramMap.put("productNum5", productNum);
 			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
 			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
+			int mapCount = orderList.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 20 >>======================");
 		}
@@ -270,7 +277,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 			paramMap.put("buyerName15", buyerName);
 			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
 			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
+			int mapCount = orderList.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 21 >>======================");
 		}
@@ -280,7 +287,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 			paramMap.put("productNum16", productNum);
 			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
 			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
+			int mapCount = orderList.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 22 >>======================");
 		}
@@ -290,7 +297,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 			paramMap.put("productNum17", productNum);
 			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
 			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
+			int mapCount = orderList.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 23 >>======================");
 		}
@@ -302,7 +309,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 			paramMap.put("buyerName18", buyerName);
 			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
 			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
+			int mapCount = orderList.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 24 >>======================");
 		}
@@ -312,7 +319,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 			paramMap.put("productNum19", productNum);
 			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
 			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
+			int mapCount = orderList.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 25 >>======================");
 		}
@@ -322,7 +329,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 			paramMap.put("productNum20", productNum);
 			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
 			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
+			int mapCount = orderList.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 26 >>======================");
 		}
@@ -334,7 +341,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 			paramMap.put("buyerName21", buyerName);
 			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
 			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
+			int mapCount = orderList.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 27 >>======================");
 		}
@@ -344,7 +351,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 			paramMap.put("productNum22", productNum);
 			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
 			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
+			int mapCount = orderList.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 28 >>======================");
 		}
@@ -354,7 +361,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 			paramMap.put("productNum23", productNum);
 			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
 			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
+			int mapCount = orderList.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 29 >>======================");
 		}
@@ -367,7 +374,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 			paramMap.put("productNum24", productNum);
 			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
 			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
+			int mapCount = orderList.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 30 >>======================");
 		}
@@ -380,7 +387,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 			paramMap.put("productNum25", productNum);
 			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
 			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
+			int mapCount = orderList.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 31 >>======================");
 		}
@@ -393,11 +400,11 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 			paramMap.put("productNum26", productNum);
 			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
 			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
+			int mapCount = orderList.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 32 >>======================");
 		}
-	
+		
 		mav.setViewName("/order/orderListCheck");
 		
 	    return mav;
