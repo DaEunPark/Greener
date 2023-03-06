@@ -64,7 +64,7 @@
 		</if>
 	</sql>
 	<!-- 소비자 전체 리스트 -->
-	<select id = "buyerList" parameterType="hashmap" resultType="com.greener.codegreen.dto.BuyerDTO">
+	<select id = "buyerList" parameterType="com.greener.codegreen.dto.BuyerDTO" resultType="com.greener.codegreen.dto.BuyerDTO">
 	 <![CDATA[
 	 	SELECT	b_id, b_name,b_birth,b_email,b_address2,b_address3,b_grade,b_joindate,b_phone,b_amount,b_num
 			FROM (
