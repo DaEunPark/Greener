@@ -79,7 +79,7 @@
 				<button type="button" class="btn btn-danger" onclick="fn_NoticeUpdate();">
 					<span class="glyphicon glyphicon-pencil"> 게시글 수정</span>
 				</button>
-				<button type="button" class="btn btn-primary" onclick="location.href='${contextPath}/CS/board/NoticeList'">
+				<button type="button" class="btn btn-primary" onclick="location.href='${contextPath}/CS/board/NoticeList?n_bc_code=0'">
 					<span class="glyphicon glyphicon-list-alt"> 게시글 목록</span>
 				</button>
 			</p>

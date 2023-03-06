@@ -79,7 +79,7 @@
 				<button type="button" class="btn btn-danger" onclick="fn_FaqUpdate();">
 					<span class="glyphicon glyphicon-pencil"> 게시글 수정</span>
 				</button>
-				<button type="button" class="btn btn-primary" onclick="location.href='${contextPath}/CS/board/FaqList'">
+				<button type="button" class="btn btn-primary" onclick="location.href='${contextPath}/CS/board/FaqList?f_bc_code=0'">
 					<span class="glyphicon glyphicon-list-alt"> 게시글 목록</span>
 				</button>
 		

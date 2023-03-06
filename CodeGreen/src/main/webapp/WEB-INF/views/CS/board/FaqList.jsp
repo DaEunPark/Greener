@@ -35,7 +35,7 @@
 		</div>
 		<!-- 게시글 쓰기/등록 버튼 -->
 		<p align="center">
-			<button type="button" class="btn btn-success" onclick="location.href='/CS/board/FaqForm'">FAQ쓰기</button>
+			<button type="button" class="btn btn-success" onclick="location.href='/CS/board/FaqForm'">FAQ작성</button>
 		</p>
 		
 		<!-- 카테고리별 검색하기 --> 

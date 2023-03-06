@@ -53,7 +53,7 @@
 		success:  function(data) {
 			if(data == "Y") {
 			alert("등록되었습니다");
-			location.href = "/CS/board/NoticeList";
+			location.href = "/CS/board/NoticeList?n_bc_code=0";
 		}
 	},
 	error:  function(data) {
@@ -110,7 +110,7 @@
 				success:  function(data) {
 					if(data == "Y") {
 					alert("등록되었습니다");
-					location.href = "/CS/board/FaqList";
+					location.href = "/CS/board/FaqList?f_bc_code=0";
 				}
 			},
 			error:  function(data) {
@@ -323,7 +323,7 @@
 					success: function(data) {
 						if(data == "Y") {
 							alert("게시글의 삭제가 완료되었습니다");
-							location.href ="/CS/board/NoticeList";
+							location.href ="/CS/board/NoticeList?n_bc_code=0";
 					}
 				},
 				error:	  function(data) {
@@ -359,7 +359,7 @@
 							console.log(data);
 							if(data == "Y") {
 								alert("게시글의 삭제가 완료되었습니다");
-								location.href ="/CS/board/FaqList";
+								location.href ="/CS/board/FaqList?f_bc_code=0";
 						}
 					},
 					error:	  function(data) {
@@ -394,7 +394,7 @@
 						success: function(data) {
 							if(data == "Y") {
 								alert("게시글의 삭제가 완료되었습니다");
-								location.href ="/CS/board/InquiryList";
+								location.href ="/CS/board/InquiryList?i_bc_code=0";
 						}
 					},
 					error:	  function(data) {
@@ -415,22 +415,5 @@
 		}//1:1 삭제 끝
 		
 		
-		
-
-//	
-//	function    fn_goCashList(){
-//		
-//	}
-//	function	fn_goDeliveryList(){
-//		
-//	}
-//	function	fn_goProductList(){
-//		
-//	}
-//	function	fn_goEventList(){
-//		
-//	}
-//
-//	
-		
+	
 	

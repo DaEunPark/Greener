@@ -84,7 +84,7 @@
 		
 		<div class="form-group">
 			<p align="center">
-				<button type="button" class="btn btn-primary" onclick="location.href='${contextPath}/CS/board/FaqList'">
+				<button type="button" class="btn btn-primary" onclick="location.href='${contextPath}/CS/board/FaqList?f_bc_code=0'">
 					<span> 게시글 목록</span>
 				</button>
 				<button type="button" class="btn btn-warning" onclick="fn_FaqUpdateForm(${FaqDetail.f_no})">

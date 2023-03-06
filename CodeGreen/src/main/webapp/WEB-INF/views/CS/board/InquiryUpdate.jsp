@@ -111,7 +111,7 @@
 				<button type="button" class="btn btn-danger" onclick="fn_InquiryUpdate();">
 				<span class="glyphicon glyphicon-pencil"> 답변 등록</span>
 				</button>
-				<button type="button" class="btn btn-primary" onclick="location.href='${contextPath}/CS/board/InquiryList'">
+				<button type="button" class="btn btn-primary" onclick="location.href='${contextPath}/CS/board/InquiryList?i_bc_code=0'">
 					<span class="glyphicon glyphicon-list-alt"> 게시글 목록</span>
 				</button>
 			</p>

@@ -87,7 +87,7 @@
 		
 		<div class="form-group">
 			<p align="center">
-				<button type="button" class="btn btn-primary" onclick="location.href='${contextPath}/CS/board/NoticeList'">
+				<button type="button" class="btn btn-primary" onclick="location.href='${contextPath}/CS/board/NoticeList?n_bc_code=0'">
 					<span class="glyphicon glyphicon-list-alt"> 게시글 목록</span>
 				</button>
 				<button type="button" class="btn btn-warning" onclick="fn_NoticeUpdateForm(${NoticeDetail.n_no})">
