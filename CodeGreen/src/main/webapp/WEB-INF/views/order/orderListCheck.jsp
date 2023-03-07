@@ -49,30 +49,14 @@
 		text-size:	14px;
 		font-weight:	bold;
 	}
+	#paging {
+		align:	center;
+	}
+	#orderCheck {
+		align: cennter;
+	}
 </style>
-
 </head>
-<%-- 	<c:if test="${mapCount == null}">
-	    <c:set var="mapCount" value="0" />
-	</c:if>
-	<script>
-		alert("조회된 주문 건이 "+${mapCount}+"개 있습니다.");
-	</script> --%>
-	<c:if test="${order['o_state']} == 0">
-		<c:set var="order.o_state" value="결제완료"/>
-	</c:if>
-	<c:if test="${list.o_state == 0}">
-		<c:set var="list.o_state" value="결제완료"/>
-	</c:if>
-	<c:if test="${list.o_state == 1}">
-		<c:set var="list.o_state" value="배송준비"/>
-	</c:if>
-	<c:if test="${list.o_state == 2}">
-		<c:set var="list.o_state" value="배송중"/>
-	</c:if>
-	<c:if test="${list.o_state == 3}">
-		<c:set var="list.o_state" value="배송완료"/>
-	</c:if>
 <body>
 <div class="container" id="container">
 	<div class="form-group">	
@@ -140,27 +124,60 @@
 		 </tbody>
 	  </table>
 	  <br>
-	  <div id="paging">
-		<c:if test="${ph.showPrev}">
-		  <form method="POST" action="<c:url value="/order/map-data"/>">
-		    <input type="hidden" name="page" value="${ph.beginPage-1}" />
-		    <button type="submit" class="page">&lt;</button>
-		  </form>
-		</c:if>
-		<c:forEach var="i" begin="${ph.beginPage}" end="${ph.endPage}">
-		  <form method="POST" action="<c:url value="/order/map-data"/>">
-		    <input type="hidden" name="page" value="${i}" />
-		    <button type="submit" class="page ${i==ph.page? "paging-active" : ""}">${i}</button>
-		  </form>
-		</c:forEach>
-		<c:if test="${ph.showNext}">
-		  <form method="POST" action="<c:url value="/order/map-data"/>">
-		    <input type="hidden" name="page" value="${ph.endPage+1}" />
-		    <button type="submit" class="page">&gt;</button>
-		  </form>
-		</c:if>
-	  </div>
 </div>
+	<div id="paging">
+		<ul class="btn-group pagination">
+			<c:if test="${pageMaker.prev}">
+				<li>
+					<a href='<c:url value="/order/map-data?page=${pageMaker.startPage-1}"/>'><span class="glyphicon glyphicon-chevron-left"></span></a>
+				</li>
+			</c:if>
+
+			 <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="pageNum">
+					<li><a onclick="sendAjaxRequest(${pageNum})" href='#'>${pageNum}</a></li>&nbsp;&nbsp;&nbsp;
+			</c:forEach>
+		
+			<c:if test="${pageMaker.next}">
+				<li>
+					<a href='<c:url value="/order/map-data?page=${pageMaker.endPage+1}"/>'><span class="glyphicon glyphicon-chevron-right"></span></a>
+				</li>
+			</c:if>
+		</ul>
+	</div>
+<script>
+function sendAjaxRequest(pageNum) {
+    var orderNum = $('#orderNum').val();
+    var buyerName = $('#buyerName').val();
+    var productNum = $('#productNum').val();
+    var period0 = $('#period0').is(':checked') ? 1 : 0;
+    var period1 = $('#period1').is(':checked') ? 1 : 0;
+    var period2 = $('#period2').is(':checked') ? 1 : 0;
+    var pageNum = pageNum;
+      
+ 		  $.ajax({
+ 	           type: "POST",
+ 	           url: "/order/map-data",
+ 	           data:JSON.stringify({
+ 	        	orderNum:orderNum,
+ 	        	buyerName:buyerName,
+	        	productNum:productNum,
+	        	period0:period0,
+	        	period1:period1,
+	        	period2:period2,
+	        	pageNum:pageNum
+  	            }),
+ 	           contentType:"application/json;charset=UTF-8",
+  	           success: function(response) {
+  	        	   $('#resultDiv').html(response);
+	 	       },
+
+ 				error: function(xhr, status, error) {
+ 	             alert ("주문 조회 오류");
+ 	           }
+ 	      });
+}
+</script>
+	
 <script>
 $('.dropdown-item:contains("결제완료")').click(function() {
     var rows = $('#table tbody tr').get();

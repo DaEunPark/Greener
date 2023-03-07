@@ -2,14 +2,13 @@ package com.greener.codegreen.controller;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.greener.codegreen.common.PageHandler;
+import com.greener.codegreen.common.Criteria;
+import com.greener.codegreen.common.PageMaker;
+import com.greener.codegreen.common.SearchCriteria;
 import com.greener.codegreen.dto.ProductOrderBuyerDTO;
 import com.greener.codegreen.service.OrderService;
 
@@ -47,365 +48,365 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 	//-----------------------------------------------------------------------------------------------------------
 	// 주문내역 목록 불러오기 (전체&조건지정시)
 	//-----------------------------------------------------------------------------------------------------------
-	@RequestMapping(value = "/map-data", method = RequestMethod.POST)
+	@RequestMapping(value = "/map-data")
 	@ResponseBody
-	public ModelAndView handleMapData(@RequestBody Map<String, Object> mapData) throws Exception {
+	public ModelAndView handleMapData(@RequestBody HashMap<String, Object> mapData, SearchCriteria scri, Criteria cri) throws Exception {
 		
-		ModelAndView mav = new ModelAndView();
-		HashMap<String, String> paramMap = new HashMap<>();
+		ModelAndView mav = new ModelAndView("/order/orderListCheck");
+		PageMaker pageMaker = new PageMaker();
+		
+		pageMaker.setCri(scri);
+		pageMaker.setTotalCount(orderService.orderTotal(scri));
+		pageMaker.calculratePage();
 
-		int totalCnt = orderService.orderTotal();
-//		PageHandler pageHandler = new PageHandler(totalCnt, page, pageSize);
-//		
-//        if(page < 0 || page > pageHandler.getTotalPage())
-//            page = 1;
-//        if(pageSize < 0 || pageSize > 50)
-//            pageSize = 10;
-//		
-//		paramMap.put("offset", String.valueOf((page-1)*pageSize));
-//		paramMap.put("pageSize", String.valueOf(pageSize));
-//
-//		
-//		mav.addObject("ph", pageHandler);
-//		
-		String orderNum = String.valueOf(mapData.get("orderNum"));
-		String buyerName = String.valueOf(mapData.get("buyerName"));
-		String productNum = String.valueOf(mapData.get("productNum"));
-		String period0 = String.valueOf(mapData.get("period0"));
-		String period1 = String.valueOf(mapData.get("period1"));
-		String period2 = String.valueOf(mapData.get("period2"));
+		if(mapData.get("pageNum") != null) {
+			scri.setPageNum(String.valueOf(mapData.get("pageNum")));
+		} else {
+			scri.setPageNum("1");
+		}
+		
+		System.out.println("***************************************");
+		System.out.println(scri.getPageNum());
+		System.out.println("***************************************");
+
+		scri.setOrderNum(String.valueOf(mapData.get("orderNum")));
+		scri.setBuyerName(String.valueOf(mapData.get("buyerName")));
+		scri.setProductNum(String.valueOf(mapData.get("productNum")));
+		scri.setPeriod0(String.valueOf(mapData.get("period0")));
+		scri.setPeriod1(String.valueOf(mapData.get("period1")));
+		scri.setPeriod2(String.valueOf(mapData.get("period2")));
 		
 		// ********************<< 전체 주문건 조회(조건없을시) >> ************************* //
-		if (orderNum.equals("") && buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
-				period1.equals("0") && period2.equals("0")) {
-			List<HashMap<String, String>> orderListAll = orderService.getOrderListAll(paramMap);
+		if (scri.getOrderNum().equals("") && scri.getBuyerName().equals("") && scri.getProductNum().equals("") && 
+			scri.getPeriod0().equals("0") && scri.getPeriod1().equals("0") && scri.getPeriod2().equals("0")) {
+			List<HashMap<String, String>> orderListAll = orderService.getOrderListAll(scri);
 			mav.addObject("orderListAll", orderListAll);
 			int mapCount = orderListAll.size();
 			mav.addObject("mapCount", mapCount);
 			logger.info("=======================<< 1 >>======================");
 		}
-		
-		// ********************<< 단일 조건 주문건 조회 >> ************************* //
-		else if (!orderNum.equals("") && buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
-				period1.equals("0") && period2.equals("0")) {
-			paramMap.put("orderNum1", orderNum);
-			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
-			mav.addObject("orderList", orderList);
-			int mapCount =orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 2 >>======================");
-		}
-		else if (orderNum.equals("") && !buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
-				period1.equals("0") && period2.equals("0")) {
-			paramMap.put("buyerName1", buyerName);
-			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
-			mav.addObject("orderList", orderList);
-			int mapCount = orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 3 >>======================");
-		}
-		else if (orderNum.equals("") && buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
-				period1.equals("0") && period2.equals("0")) {
-			paramMap.put("productNum1", productNum);
-			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
-			mav.addObject("orderList", orderList);
-			int mapCount = orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 4 >>======================");
-		}
-		else if (orderNum.equals("") && buyerName.equals("") && productNum.equals("") && !period0.equals("0") && 
-				period1.equals("0") && period2.equals("0")) {
-			List<HashMap<String, String>> orderList = orderService.getOrderListOnlyDay();
-			mav.addObject("orderList", orderList);
-			int mapCount = orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 5 >>======================");
-		}
-		else if (orderNum.equals("") && buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
-				!period1.equals("0") && period2.equals("0")) {
-			List<HashMap<String, String>> orderList = orderService.getOrderListOnlyWeek();
-			mav.addObject("orderList", orderList);
-			int mapCount = orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 6 >>======================");
-		}
-		else if (orderNum.equals("") && buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
-				period1.equals("0") && !period2.equals("0")) {
-			List<HashMap<String, String>> orderList = orderService.getOrderListOnlyMonth();
-			mav.addObject("orderList", orderList);
-			int mapCount = orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 7 >>======================");
-		}
-		
-		// ********************<< 복수 조건 주문건 조회 (조건 2개) without period >> ************************* //
-		else if (!orderNum.equals("") && !buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
-				period1.equals("0") && period2.equals("0")) {
-			paramMap.put("orderNum2", orderNum);
-			paramMap.put("buyerName2", buyerName);
-			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
-			mav.addObject("orderList", orderList);
-			int mapCount = orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 8 >>======================");
-		}
-		else if (!orderNum.equals("") && buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
-				period1.equals("0") && period2.equals("0")) {
-			paramMap.put("orderNum3", orderNum);
-			paramMap.put("productNum3", productNum);
-			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
-			mav.addObject("orderList", orderList);
-			int mapCount = orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 9 >>======================");
-		}
-		else if (orderNum.equals("") && !buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
-				period1.equals("0") && period2.equals("0")) {
-			paramMap.put("buyerName4", buyerName);
-			paramMap.put("productNum4", productNum);
-			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
-			mav.addObject("orderList", orderList);
-			int mapCount = orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 10 >>======================");
-		}
-		
-		// ********************<< 복수 조건 주문건 조회 (조건 2개) day >> ************************* //
-		else if (!orderNum.equals("") && buyerName.equals("") && productNum.equals("") && !period0.equals("0") && 
-				period1.equals("0") && period2.equals("0")) {
-			paramMap.put("orderNum6", orderNum);
-			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
-			mav.addObject("orderList", orderList);
-			int mapCount = orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 11 >>======================");
-		}
-		else if (orderNum.equals("") && !buyerName.equals("") && productNum.equals("") && !period0.equals("0") && 
-				period1.equals("0") && period2.equals("0")) {
-			paramMap.put("buyerName7", buyerName);
-			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
-			mav.addObject("orderList", orderList);
-			int mapCount = orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 12 >>======================");
-		}
-		else if (orderNum.equals("") && buyerName.equals("") && !productNum.equals("") && !period0.equals("0") && 
-				period1.equals("0") && period2.equals("0")) {
-			paramMap.put("productNum8", productNum);
-			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
-			mav.addObject("orderList", orderList);
-			int mapCount = orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 13 >>======================");
-		}
-		
-		// ********************<< 복수 조건 주문건 조회 (조건 2개) week >> ************************* //
-		else if (!orderNum.equals("") && buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
-				!period1.equals("0") && period2.equals("0")) {
-			paramMap.put("orderNum9", orderNum);
-			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
-			mav.addObject("orderList", orderList);
-			int mapCount = orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 14 >>======================");
-		}
-		else if (orderNum.equals("") && !buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
-				!period1.equals("0") && period2.equals("0")) {
-			paramMap.put("buyerName10", buyerName);
-			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
-			mav.addObject("orderList", orderList);
-			int mapCount = orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 15 >>======================");
-		}
-		else if (orderNum.equals("") && buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
-				!period1.equals("0") && period2.equals("0")) {
-			paramMap.put("productNum11", productNum);
-			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
-			mav.addObject("orderList", orderList);
-			int mapCount = orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 16 >>======================");
-		}
-		
-		// ********************<< 복수 조건 주문건 조회 (조건 2개) Month >> ************************* //
-		else if (!orderNum.equals("") && buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
-				period1.equals("0") && !period2.equals("0")) {
-			paramMap.put("orderNum12", orderNum);
-			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
-			mav.addObject("orderList", orderList);
-			int mapCount = orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 17 >>======================");
-		}
-		else if (orderNum.equals("") && !buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
-				period1.equals("0") && !period2.equals("0")) {
-			paramMap.put("buyerName13", buyerName);
-			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
-			mav.addObject("orderList", orderList);
-			int mapCount = orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 18 >>======================");
-		}
-		else if (orderNum.equals("") && buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
-				period1.equals("0") && !period2.equals("0")) {
-			paramMap.put("productNum14", productNum);
-			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
-			mav.addObject("orderList", orderList);
-			int mapCount = orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 19 >>======================");
-		}
-		
-		// ********************<< 복수 조건 주문건 조회 (조건 3개) without period >> ************************* //
-		else if (!orderNum.equals("") && !buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
-				period1.equals("0") && period2.equals("0")) {
-			paramMap.put("orderNum5", orderNum);
-			paramMap.put("buyerName5", buyerName);
-			paramMap.put("productNum5", productNum);
-			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
-			mav.addObject("orderList", orderList);
-			int mapCount = orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 20 >>======================");
-		}
-		
-		// ********************<< 복수 조건 주문건 조회 (조건 3개) day >> ************************* //
-		else if (!orderNum.equals("") && !buyerName.equals("") && productNum.equals("") && !period0.equals("0") && 
-				period1.equals("0") && period2.equals("0")) {
-			paramMap.put("orderNum15", orderNum);
-			paramMap.put("buyerName15", buyerName);
-			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
-			mav.addObject("orderList", orderList);
-			int mapCount = orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 21 >>======================");
-		}
-		else if (!orderNum.equals("") && buyerName.equals("") && !productNum.equals("") && !period0.equals("0") && 
-				period1.equals("0") && period2.equals("0")) {
-			paramMap.put("orderNum16", orderNum);
-			paramMap.put("productNum16", productNum);
-			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
-			mav.addObject("orderList", orderList);
-			int mapCount = orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 22 >>======================");
-		}
-		else if (orderNum.equals("") && !buyerName.equals("") && !productNum.equals("") && !period0.equals("0") && 
-				period1.equals("0") && period2.equals("0")) {
-			paramMap.put("buyerName17", buyerName);
-			paramMap.put("productNum17", productNum);
-			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
-			mav.addObject("orderList", orderList);
-			int mapCount = orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 23 >>======================");
-		}
-		
-		// ********************<< 복수 조건 주문건 조회 (조건 3개) week >> ************************* //
-		else if (!orderNum.equals("") && !buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
-				!period1.equals("0") && period2.equals("0")) {
-			paramMap.put("orderNum18", orderNum);
-			paramMap.put("buyerName18", buyerName);
-			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
-			mav.addObject("orderList", orderList);
-			int mapCount = orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 24 >>======================");
-		}
-		else if (!orderNum.equals("") && buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
-				!period1.equals("0") && period2.equals("0")) {
-			paramMap.put("orderNum19", orderNum);
-			paramMap.put("productNum19", productNum);
-			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
-			mav.addObject("orderList", orderList);
-			int mapCount = orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 25 >>======================");
-		}
-		else if (orderNum.equals("") && !buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
-				!period1.equals("0") && period2.equals("0")) {
-			paramMap.put("buyerName20", buyerName);
-			paramMap.put("productNum20", productNum);
-			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
-			mav.addObject("orderList", orderList);
-			int mapCount = orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 26 >>======================");
-		}
-		
-		// ********************<< 복수 조건 주문건 조회 (조건 3개) month >> ************************* //
-		else if (!orderNum.equals("") && !buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
-				period1.equals("0") && !period2.equals("0")) {
-			paramMap.put("orderNum21", orderNum);
-			paramMap.put("buyerName21", buyerName);
-			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
-			mav.addObject("orderList", orderList);
-			int mapCount = orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 27 >>======================");
-		}
-		else if (!orderNum.equals("") && buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
-				period1.equals("0") && !period2.equals("0")) {
-			paramMap.put("orderNum22", orderNum);
-			paramMap.put("productNum22", productNum);
-			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
-			mav.addObject("orderList", orderList);
-			int mapCount = orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 28 >>======================");
-		}
-		else if (orderNum.equals("") && !buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
-				period1.equals("0") && !period2.equals("0")) {
-			paramMap.put("buyerName23", buyerName);
-			paramMap.put("productNum23", productNum);
-			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
-			mav.addObject("orderList", orderList);
-			int mapCount = orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 29 >>======================");
-		}
-		
-		// ********************<< 복수 조건 주문건 조회 (조건 4개) day >> ************************* //
-		else if (!orderNum.equals("") && !buyerName.equals("") && !productNum.equals("") && !period0.equals("0") && 
-				period1.equals("0") && period2.equals("0")) {
-			paramMap.put("orderNum24", orderNum);
-			paramMap.put("buyerName24", buyerName);
-			paramMap.put("productNum24", productNum);
-			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
-			mav.addObject("orderList", orderList);
-			int mapCount = orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 30 >>======================");
-		}
-		
-		// ********************<< 복수 조건 주문건 조회 (조건 4개) week >> ************************* //
-		else if (!orderNum.equals("") && !buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
-				!period1.equals("0") && period2.equals("0")) {
-			paramMap.put("orderNum25", orderNum);
-			paramMap.put("buyerName25", buyerName);
-			paramMap.put("productNum25", productNum);
-			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
-			mav.addObject("orderList", orderList);
-			int mapCount = orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 31 >>======================");
-		}
-		
-		// ********************<< 복수 조건 주문건 조회 (조건 4개) month >> ************************* //
-		else if (!orderNum.equals("") && !buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
-				period1.equals("0") && !period2.equals("0")) {
-			paramMap.put("orderNum26", orderNum);
-			paramMap.put("buyerName26", buyerName);
-			paramMap.put("productNum26", productNum);
-			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
-			mav.addObject("orderList", orderList);
-			int mapCount = orderList.size();
-			mav.addObject("mapCount", mapCount);
-			logger.info("=======================<< 32 >>======================");
-		}
-		
-		mav.setViewName("/order/orderListCheck");
+//		
+//		// ********************<< 단일 조건 주문건 조회 >> ************************* //
+//		else if (!orderNum.equals("") && buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
+//				period1.equals("0") && period2.equals("0")) {
+//			paramMap.put("orderNum1", orderNum);
+//			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+//			mav.addObject("orderList", orderList);
+//			int mapCount =orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 2 >>======================");
+//		}
+//		else if (orderNum.equals("") && !buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
+//				period1.equals("0") && period2.equals("0")) {
+//			paramMap.put("buyerName1", buyerName);
+//			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+//			mav.addObject("orderList", orderList);
+//			int mapCount = orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 3 >>======================");
+//		}
+//		else if (orderNum.equals("") && buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
+//				period1.equals("0") && period2.equals("0")) {
+//			paramMap.put("productNum1", productNum);
+//			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+//			mav.addObject("orderList", orderList);
+//			int mapCount = orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 4 >>======================");
+//		}
+//		else if (orderNum.equals("") && buyerName.equals("") && productNum.equals("") && !period0.equals("0") && 
+//				period1.equals("0") && period2.equals("0")) {
+//			List<HashMap<String, String>> orderList = orderService.getOrderListOnlyDay();
+//			mav.addObject("orderList", orderList);
+//			int mapCount = orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 5 >>======================");
+//		}
+//		else if (orderNum.equals("") && buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
+//				!period1.equals("0") && period2.equals("0")) {
+//			List<HashMap<String, String>> orderList = orderService.getOrderListOnlyWeek();
+//			mav.addObject("orderList", orderList);
+//			int mapCount = orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 6 >>======================");
+//		}
+//		else if (orderNum.equals("") && buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
+//				period1.equals("0") && !period2.equals("0")) {
+//			List<HashMap<String, String>> orderList = orderService.getOrderListOnlyMonth();
+//			mav.addObject("orderList", orderList);
+//			int mapCount = orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 7 >>======================");
+//		}
+//		
+//		// ********************<< 복수 조건 주문건 조회 (조건 2개) without period >> ************************* //
+//		else if (!orderNum.equals("") && !buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
+//				period1.equals("0") && period2.equals("0")) {
+//			paramMap.put("orderNum2", orderNum);
+//			paramMap.put("buyerName2", buyerName);
+//			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+//			mav.addObject("orderList", orderList);
+//			int mapCount = orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 8 >>======================");
+//		}
+//		else if (!orderNum.equals("") && buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
+//				period1.equals("0") && period2.equals("0")) {
+//			paramMap.put("orderNum3", orderNum);
+//			paramMap.put("productNum3", productNum);
+//			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+//			mav.addObject("orderList", orderList);
+//			int mapCount = orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 9 >>======================");
+//		}
+//		else if (orderNum.equals("") && !buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
+//				period1.equals("0") && period2.equals("0")) {
+//			paramMap.put("buyerName4", buyerName);
+//			paramMap.put("productNum4", productNum);
+//			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+//			mav.addObject("orderList", orderList);
+//			int mapCount = orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 10 >>======================");
+//		}
+//		
+//		// ********************<< 복수 조건 주문건 조회 (조건 2개) day >> ************************* //
+//		else if (!orderNum.equals("") && buyerName.equals("") && productNum.equals("") && !period0.equals("0") && 
+//				period1.equals("0") && period2.equals("0")) {
+//			paramMap.put("orderNum6", orderNum);
+//			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+//			mav.addObject("orderList", orderList);
+//			int mapCount = orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 11 >>======================");
+//		}
+//		else if (orderNum.equals("") && !buyerName.equals("") && productNum.equals("") && !period0.equals("0") && 
+//				period1.equals("0") && period2.equals("0")) {
+//			paramMap.put("buyerName7", buyerName);
+//			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+//			mav.addObject("orderList", orderList);
+//			int mapCount = orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 12 >>======================");
+//		}
+//		else if (orderNum.equals("") && buyerName.equals("") && !productNum.equals("") && !period0.equals("0") && 
+//				period1.equals("0") && period2.equals("0")) {
+//			paramMap.put("productNum8", productNum);
+//			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+//			mav.addObject("orderList", orderList);
+//			int mapCount = orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 13 >>======================");
+//		}
+//		
+//		// ********************<< 복수 조건 주문건 조회 (조건 2개) week >> ************************* //
+//		else if (!orderNum.equals("") && buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
+//				!period1.equals("0") && period2.equals("0")) {
+//			paramMap.put("orderNum9", orderNum);
+//			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+//			mav.addObject("orderList", orderList);
+//			int mapCount = orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 14 >>======================");
+//		}
+//		else if (orderNum.equals("") && !buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
+//				!period1.equals("0") && period2.equals("0")) {
+//			paramMap.put("buyerName10", buyerName);
+//			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+//			mav.addObject("orderList", orderList);
+//			int mapCount = orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 15 >>======================");
+//		}
+//		else if (orderNum.equals("") && buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
+//				!period1.equals("0") && period2.equals("0")) {
+//			paramMap.put("productNum11", productNum);
+//			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+//			mav.addObject("orderList", orderList);
+//			int mapCount = orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 16 >>======================");
+//		}
+//		
+//		// ********************<< 복수 조건 주문건 조회 (조건 2개) Month >> ************************* //
+//		else if (!orderNum.equals("") && buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
+//				period1.equals("0") && !period2.equals("0")) {
+//			paramMap.put("orderNum12", orderNum);
+//			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+//			mav.addObject("orderList", orderList);
+//			int mapCount = orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 17 >>======================");
+//		}
+//		else if (orderNum.equals("") && !buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
+//				period1.equals("0") && !period2.equals("0")) {
+//			paramMap.put("buyerName13", buyerName);
+//			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+//			mav.addObject("orderList", orderList);
+//			int mapCount = orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 18 >>======================");
+//		}
+//		else if (orderNum.equals("") && buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
+//				period1.equals("0") && !period2.equals("0")) {
+//			paramMap.put("productNum14", productNum);
+//			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+//			mav.addObject("orderList", orderList);
+//			int mapCount = orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 19 >>======================");
+//		}
+//		
+//		// ********************<< 복수 조건 주문건 조회 (조건 3개) without period >> ************************* //
+//		else if (!orderNum.equals("") && !buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
+//				period1.equals("0") && period2.equals("0")) {
+//			paramMap.put("orderNum5", orderNum);
+//			paramMap.put("buyerName5", buyerName);
+//			paramMap.put("productNum5", productNum);
+//			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+//			mav.addObject("orderList", orderList);
+//			int mapCount = orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 20 >>======================");
+//		}
+//		
+//		// ********************<< 복수 조건 주문건 조회 (조건 3개) day >> ************************* //
+//		else if (!orderNum.equals("") && !buyerName.equals("") && productNum.equals("") && !period0.equals("0") && 
+//				period1.equals("0") && period2.equals("0")) {
+//			paramMap.put("orderNum15", orderNum);
+//			paramMap.put("buyerName15", buyerName);
+//			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+//			mav.addObject("orderList", orderList);
+//			int mapCount = orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 21 >>======================");
+//		}
+//		else if (!orderNum.equals("") && buyerName.equals("") && !productNum.equals("") && !period0.equals("0") && 
+//				period1.equals("0") && period2.equals("0")) {
+//			paramMap.put("orderNum16", orderNum);
+//			paramMap.put("productNum16", productNum);
+//			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+//			mav.addObject("orderList", orderList);
+//			int mapCount = orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 22 >>======================");
+//		}
+//		else if (orderNum.equals("") && !buyerName.equals("") && !productNum.equals("") && !period0.equals("0") && 
+//				period1.equals("0") && period2.equals("0")) {
+//			paramMap.put("buyerName17", buyerName);
+//			paramMap.put("productNum17", productNum);
+//			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+//			mav.addObject("orderList", orderList);
+//			int mapCount = orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 23 >>======================");
+//		}
+//		
+//		// ********************<< 복수 조건 주문건 조회 (조건 3개) week >> ************************* //
+//		else if (!orderNum.equals("") && !buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
+//				!period1.equals("0") && period2.equals("0")) {
+//			paramMap.put("orderNum18", orderNum);
+//			paramMap.put("buyerName18", buyerName);
+//			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+//			mav.addObject("orderList", orderList);
+//			int mapCount = orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 24 >>======================");
+//		}
+//		else if (!orderNum.equals("") && buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
+//				!period1.equals("0") && period2.equals("0")) {
+//			paramMap.put("orderNum19", orderNum);
+//			paramMap.put("productNum19", productNum);
+//			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+//			mav.addObject("orderList", orderList);
+//			int mapCount = orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 25 >>======================");
+//		}
+//		else if (orderNum.equals("") && !buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
+//				!period1.equals("0") && period2.equals("0")) {
+//			paramMap.put("buyerName20", buyerName);
+//			paramMap.put("productNum20", productNum);
+//			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+//			mav.addObject("orderList", orderList);
+//			int mapCount = orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 26 >>======================");
+//		}
+//		
+//		// ********************<< 복수 조건 주문건 조회 (조건 3개) month >> ************************* //
+//		else if (!orderNum.equals("") && !buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
+//				period1.equals("0") && !period2.equals("0")) {
+//			paramMap.put("orderNum21", orderNum);
+//			paramMap.put("buyerName21", buyerName);
+//			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+//			mav.addObject("orderList", orderList);
+//			int mapCount = orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 27 >>======================");
+//		}
+//		else if (!orderNum.equals("") && buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
+//				period1.equals("0") && !period2.equals("0")) {
+//			paramMap.put("orderNum22", orderNum);
+//			paramMap.put("productNum22", productNum);
+//			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+//			mav.addObject("orderList", orderList);
+//			int mapCount = orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 28 >>======================");
+//		}
+//		else if (orderNum.equals("") && !buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
+//				period1.equals("0") && !period2.equals("0")) {
+//			paramMap.put("buyerName23", buyerName);
+//			paramMap.put("productNum23", productNum);
+//			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+//			mav.addObject("orderList", orderList);
+//			int mapCount = orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 29 >>======================");
+//		}
+//		
+//		// ********************<< 복수 조건 주문건 조회 (조건 4개) day >> ************************* //
+//		else if (!orderNum.equals("") && !buyerName.equals("") && !productNum.equals("") && !period0.equals("0") && 
+//				period1.equals("0") && period2.equals("0")) {
+//			paramMap.put("orderNum24", orderNum);
+//			paramMap.put("buyerName24", buyerName);
+//			paramMap.put("productNum24", productNum);
+//			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+//			mav.addObject("orderList", orderList);
+//			int mapCount = orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 30 >>======================");
+//		}
+//		
+//		// ********************<< 복수 조건 주문건 조회 (조건 4개) week >> ************************* //
+//		else if (!orderNum.equals("") && !buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
+//				!period1.equals("0") && period2.equals("0")) {
+//			paramMap.put("orderNum25", orderNum);
+//			paramMap.put("buyerName25", buyerName);
+//			paramMap.put("productNum25", productNum);
+//			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+//			mav.addObject("orderList", orderList);
+//			int mapCount = orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 31 >>======================");
+//		}
+//		
+//		// ********************<< 복수 조건 주문건 조회 (조건 4개) month >> ************************* //
+//		else if (!orderNum.equals("") && !buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
+//				period1.equals("0") && !period2.equals("0")) {
+//			paramMap.put("orderNum26", orderNum);
+//			paramMap.put("buyerName26", buyerName);
+//			paramMap.put("productNum26", productNum);
+//			List<HashMap<String, String>> orderList = orderService.getOrderList(paramMap);
+//			mav.addObject("orderList", orderList);
+//			int mapCount = orderList.size();
+//			mav.addObject("mapCount", mapCount);
+//			logger.info("=======================<< 32 >>======================");
+//		}
+//		
+		mav.addObject("pageMaker", pageMaker);
 		
 	    return mav;
 	}

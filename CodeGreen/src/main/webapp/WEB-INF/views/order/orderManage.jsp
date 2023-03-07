@@ -75,7 +75,7 @@
 <div class="container">
 <h2><p class="title">주문내역 조회</p></h2>
 <hr/>
-	<form class="form-horizontal" method="post" name="formname1" id="formname1">
+	<form class="form-horizontal" method="GET" name="formname1" id="formname1">
 		<div class="form-inline form-group">
 			<label for="orderNum" class="control-label" id="labelname1">주문번호</label>&nbsp;&nbsp;&nbsp;
 			<input type="text" id="orderNum" name="orderNum"/>
@@ -110,9 +110,7 @@
 	</div>
 	<hr style="border: 1px; color:#FFFFFF;">
 
-	<div id="resultDiv">
-
-</div>
+	<div id="resultDiv"></div>
 <script>
 function sendAjaxRequest(data) {
         var orderNum = $('#orderNum').val();

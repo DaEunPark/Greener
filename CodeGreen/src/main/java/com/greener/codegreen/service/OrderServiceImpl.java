@@ -10,6 +10,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.greener.codegreen.common.Criteria;
+import com.greener.codegreen.common.SearchCriteria;
 import com.greener.codegreen.dao.OrderDAO;
 import com.greener.codegreen.dto.ProductOrderBuyerDTO;
 
@@ -26,10 +27,10 @@ public class OrderServiceImpl implements OrderService {
 	// 주문내역 목록 불러오기 (전체 주문)
 	//-----------------------------------------------------------------------------------------------------------	
 	@Override
-	public List<HashMap<String, String>> getOrderListAll(HashMap<String, String> paramMap) throws DataAccessException {
+	public List<HashMap<String, String>> getOrderListAll(SearchCriteria scri) throws DataAccessException {
 		logger.info("orderService에서 getOrderListAll()로 전체 주문내역 조회하기");
 		
-		return orderDAO.orderListAll(paramMap);
+		return orderDAO.orderListAll(scri);
 	}
 
 	//-----------------------------------------------------------------------------------------------------------
@@ -39,9 +40,6 @@ public class OrderServiceImpl implements OrderService {
 	public List<HashMap<String, String>> getOrderList(HashMap<String, String> paramMap) throws DataAccessException {
 		
 		logger.info("orderService에서 getOrderList()로 조건에 맞는 주문내역 조회하기");
-		
-		System.out.println("***********************************");
-		System.out.println(paramMap);
 		
 		return orderDAO.orderList(paramMap);
 	}
@@ -82,11 +80,11 @@ public class OrderServiceImpl implements OrderService {
 	//-----------------------------------------------------------------------------------------------------------
 	// 주문내역 총 개수 구하기
 	//-----------------------------------------------------------------------------------------------------------
-	public int orderTotal() throws DataAccessException {
+	public int orderTotal(SearchCriteria scri) throws DataAccessException {
 		
 		logger.info("orderService에서 orderTotal()로 전체 주문내역 개수 구하기");
 		
-		return orderDAO.orderTotalNum();
+		return orderDAO.orderTotalNum(scri);
 		
 	}
 	

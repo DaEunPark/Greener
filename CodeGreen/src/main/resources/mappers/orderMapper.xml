@@ -8,13 +8,18 @@
 	<!-- ****************************************************************************************** -->
 	<!-- 주문내역 목록 불러오기 (전체 주문) -->
 	<!-- ****************************************************************************************** -->
- 	<select id="orderListAll" resultType="HashMap" parameterType="java.util.HashMap">
-		<![CDATA[
-			SELECT 	o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state
-			FROM	ProductOrder o JOIN Buyer b ON o.order_b_id = b.b_id
-			ORDER BY o.o_date DESC
-		]]>
-	</select>
+		<select id="orderListAll" resultType="HashMap" parameterType="java.util.HashMap">
+			<![CDATA[
+			SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
+			FROM (
+				SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
+				FROM ProductOrder o JOIN Buyer b ON o.order_b_id = b.b_id
+			) brd
+			WHERE rNum BETWEEN (${pageNum}-1)*10+1
+					AND #{pageNum}*10
+			ORDER BY brd.o_date DESC
+			]]>
+		</select>
 
 	<!-- ****************************************************************************************** -->
 	<!-- 조건에 맞는 주문내역 목록 가져오기 -->
@@ -54,6 +59,7 @@
 			   OR (o.o_number = #{orderNum25} AND b.b_name = #{buyerName25} AND o.order_p_number = #{productNum25} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW())
 			   OR (o.o_number = #{orderNum26} AND b.b_name = #{buyerName26} AND o.order_p_number = #{productNum26} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW())
 			ORDER BY o.o_date DESC
+			LIMIT #{startRow}, #{pageSize}
 		]]>
 	</select>
 	
@@ -68,6 +74,7 @@
 			JOIN Product p ON o.order_p_number = p.p_number
 			WHERE o.o_date > curdate()
 			ORDER BY o.o_date DESC
+			LIMIT #{startRow}, #{pageSize}
 		]]>
 	</select>
 	
@@ -82,6 +89,7 @@
 			JOIN Product p ON o.order_p_number = p.p_number
 			WHERE o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
             ORDER BY o.o_date DESC
+            LIMIT #{startRow}, #{pageSize}
 		]]>
 	</select>
 	
@@ -96,19 +104,20 @@
 			JOIN Product p ON o.order_p_number = p.p_number
 			WHERE o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
             ORDER BY o.o_date DESC
+            LIMIT #{startRow}, #{pageSize}
 		]]>
 	</select>
 	
 	<!-- ****************************************************************************************** -->
 	<!-- 주문내역 총 개수 구하기 -->
 	<!-- ****************************************************************************************** -->
-  	<select id="orderListCount" resultType="int">
+  	<select id="orderListCount" resultType="int" parameterType="com.greener.codegreen.common.SearchCriteria">
 		<![CDATA[
 	        SELECT 	Count(o_number)
 	        FROM	ProductOrder
 		]]>
 	</select>
-	
+
 	<!-- ****************************************************************************************** -->
 	<!-- 주문번호 누르면 상세 주문내역 보여주기 -->
 	<!-- ****************************************************************************************** -->

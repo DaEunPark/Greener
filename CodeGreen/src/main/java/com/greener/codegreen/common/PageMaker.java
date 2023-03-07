@@ -24,18 +24,10 @@ public class PageMaker {
 		calculratePage();
 	}
 	public void calculratePage() {
-		endPage = (int)(Math.ceil(cri.getPage()/(double)viewPageNum)*viewPageNum);
+		endPage = (int)(Math.ceil(totalCount/(double)viewPageNum));
+		startPage = (int)(endPage - 1)/viewPageNum*viewPageNum + 1;
 		
-		startPage = (endPage-viewPageNum)+1;
-		
-		if(startPage <= viewPageNum) {
-			startPage = 1;
-		}
-		if(startPage <=0) {
-			startPage =1;
-		}
-		
-		int realEndPage = (int)(Math.ceil(cri.getPage()/(double)viewPageNum));
+		int realEndPage = (int)(Math.ceil(totalCount/(double)viewPageNum));
 		if(endPage > realEndPage) {
 			endPage = realEndPage;
 		}
