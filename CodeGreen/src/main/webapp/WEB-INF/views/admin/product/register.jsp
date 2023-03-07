@@ -6,13 +6,14 @@
 <meta charset="UTF-8">
 <title>상품 등록</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/resources/ckeditor/ckeditor.js"></script>
 </head>
 <body>
 <!-- 사이드 바 -->
-<jsp:include page="../include/nav.jsp"></jsp:include>
+
 	<div class="container_box">
 		<h2>상품등록</h2>
-		<form role = "form" method="post" autocomplete="off">
+		<form role = "form" method="post" autocomplete="off" enctype="multipart/form-data">
 			<label>1차 분류</label>
 			<select class="category1">
 				<option value="">전체</option>
@@ -34,7 +35,18 @@
 			
 			<div class="inputArea">
 			 <label for="productContent">상품소개</label>
-			 <textarea rows="5" cols="50" id="p_content" name="p_content"></textarea>
+			 <textarea rows="5" cols="50" id="p_content" name="p_content"></textarea>	
+			 <script>
+					 var ckeditor_config = {
+					   resize_enaleb : false,
+					   enterMode : CKEDITOR.ENTER_BR,
+					   shiftEnterMode : CKEDITOR.ENTER_P,
+					   filebrowserUploadUrl : "/admin/product/ckUpload",
+					   filebrowserUploadMethod: 'form'
+					 };
+					 CKEDITOR.replace("p_content", ckeditor_config);
+					 
+			</script>
 			</div>
 			
 			<div class="inputArea">
@@ -51,6 +63,14 @@
 			 <label for="productUsedate">유통/소비기한</label>
 			 <input type="text" id="p_usedate" name="p_usedate" />
 			</div>
+			
+			<div class="inputArea">
+ 			<label for="gdsImg">이미지</label>
+ 			<input type="file" id="p_img" name="file" />
+			 <div class="select_img"><img src="" /></div>
+			 </div>
+			
+			<%=request.getRealPath("/") %>
 			
 			
 			<div class="inputArea">
@@ -132,6 +152,20 @@ $(document).on("change", "select.category1", function(){
 	 });
 	 
 	});
+
+$("#p_img").change(function(){
+ if(this.files && this.files[0]) {
+  var reader = new FileReader;
+  reader.onload = function(data) {
+   $(".select_img img").attr("src", data.target.result).width(500);        
+  }
+  reader.readAsDataURL(this.files[0]);
+ }
+});
+
+
+
+
 
 </script>
 </body>

@@ -16,8 +16,8 @@
 <!-- 상품 등록 -->
 <insert id="register">
 	<![CDATA[
- 		insert into Product (p_name, p_price, p_content, p_stock, p_view, p_made, p_usedate, product_c_code)
-     	values (#{p_name}, #{p_price}, #{p_content}, #{p_stock}, '0', #{p_made}, #{p_usedate}, #{product_c_code});
+ 		insert into Product (p_name, p_price, p_content, p_stock, p_view, p_made, p_usedate, product_c_code,p_img,p_thumbImg)
+     	values (#{p_name}, #{p_price}, #{p_content}, #{p_stock}, '0', #{p_made}, #{p_usedate}, #{product_c_code},#{p_img},#{p_thumbImg});
      ]]>
 </insert>
 
