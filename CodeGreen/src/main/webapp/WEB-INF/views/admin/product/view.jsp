@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>상품 등록</title>
+<title>상품 상세</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<link href="../../resources/css/admin/product.css" rel="stylesheet">
 </head>
@@ -13,12 +13,13 @@
 <!-- 사이드 바 -->
 <jsp:include page="../include/nav.jsp"></jsp:include>
 	<div class="container">
-		<h2>상품등록</h2>
+		<h2>상품 상세</h2>
 		<form role = "form" method="post" autocomplete="off">
+		<input type = "hidden" name="n" value="${product.p_number}"/>
 			<label>1차 분류</label>
 			<span class="category1"></span>    
 			<label>2차 분류</label>
-			<span class="category2">${product.product_c_code}</span>    
+			<span class="category2">${product.c_name}</span>    
 			
 			<div class="inputArea">
 			 <label for="productNumber">상품번호</label>
@@ -57,11 +58,30 @@
 			
 			
 			<div class="inputArea">
-			 <button type="button" id="register_Btn" class="btn btn-warning">수정</button>
-			 <button type="button" id="register_Btn" class="btn btn-danger">삭제</button>
-			</div>
+				<button type="button" id="modify_Btn" class="btn btn-warning">수정</button>
+				<button type="button" id="delete_Btn" class="btn btn-danger">삭제</button>
 
-			
+				<script>
+					var formObj = $("form[role='form']");
+					  
+					$("#modify_Btn").click(function(){
+						formObj.attr("action", "/admin/product/modify");
+						formObj.attr("method", "get")
+						formObj.submit();
+					});
+					  
+					$("#delete_Btn").click(function(){
+						
+						var con = confirm("해당 상품을 삭제하시겠습니까?");
+						
+						if(con){
+							formObj.attr("action", "/admin/product/delete");
+							formObj.submit();
+						}
+						
+					});
+				</script>
+			</div>
 		</form>
 	</div>
 	

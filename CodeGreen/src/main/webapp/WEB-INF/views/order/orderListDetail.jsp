@@ -20,9 +20,9 @@
 <body>
 <%-- <jsp:include page="../common/manager_topMenu.jsp" flush="false"/> --%>
 	<jsp:include page="../admin/include/nav.jsp" flush="false"/>
+<div class="container">
 <h2><center><p class="title">주문내역 상세조회</p></center></h2>
 <hr/>
-<div class="container">
 	<form class="form-horizontal" id="frm">
 		<div class="form-group">
 			<label for="o_number" class="col-sm-2 control-label">주문번호: </label>

@@ -5,37 +5,62 @@
 
 <mapper namespace="com.greener.codegreen.adminMapper">
 
-<!-- 카테고리 호출 -->
-<select id = "category" resultType="com.greener.codegreen.dto.CategoryDTO">
-	<![CDATA[
-		SELECT c_name, c_code, c_code_ref, c_level 
-		from Category;
-	]]>
-</select>
-
-<!-- 상품 등록 -->
-<insert id="register">
-	<![CDATA[
- 		insert into Product (p_name, p_price, p_content, p_stock, p_view, p_made, p_usedate, product_c_code)
-     	values (#{p_name}, #{p_price}, #{p_content}, #{p_stock}, '0', #{p_made}, #{p_usedate}, #{product_c_code});
-     ]]>
-</insert>
-
-<!-- 상품 목록 -->
-<select id="productlist" resultType="com.greener.codegreen.dto.ProductDTO">
-	<![CDATA[
- 		select * from Product 
-     	order by p_number desc;
-     ]]>
-</select>
-
-<!-- 상품 상세 보기 -->
-<select id="productView" resultType="com.greener.codegreen.dto.ProductDTO">
-	<![CDATA[
- 		select product_c_code, p_number, p_name, p_price, p_content, p_stock, p_made, p_usedate
- 		from Product 
-     	where p_number=#{p_number}
-     ]]>
-</select>
+	<!-- 카테고리 호출 -->
+	<select id = "category" resultType="com.greener.codegreen.dto.CategoryDTO">
+		<![CDATA[
+			SELECT c_name, c_code, c_code_ref, c_level 
+			from Category;
+		]]>
+	</select>
+	
+	<!-- 상품 등록 -->
+	<insert id="register">
+		<![CDATA[
+	 		insert into Product (p_name, p_price, p_content, p_stock, p_view, p_made, p_usedate, product_c_code)
+	     	values (#{p_name}, #{p_price}, #{p_content}, #{p_stock}, '0', #{p_made}, #{p_usedate}, #{product_c_code});
+	     ]]>
+	</insert>
+	
+	<!-- 상품 목록 -->
+	<select id="productlist" resultType="com.greener.codegreen.dto.ProductDTO">
+		<![CDATA[
+	 		select * from Product 
+	     	order by p_number desc;
+	     ]]>
+	</select>
+	
+	<!-- 상품 상세 보기 -->
+	<select id="productView" resultType="com.greener.codegreen.dto.ProductViewDTO">
+		<![CDATA[
+	 		select p.p_number, p.p_name, p.product_c_code, c.c_code_ref, c.c_name, p_price, p_content, p_stock, p_made, p_usedate
+	 		from Product p
+	 		inner join Category c
+	 		on p.product_c_code = c.c_code
+	     	where p.p_number=#{p_number}
+	     ]]>
+	</select>
+	
+	<!-- 상품 수정 -->
+	<update id="productModify">
+		<![CDATA[
+			update 	Product
+			set		p_name 		= #{p_name},
+					p_price		= #{p_price},
+			        p_content 	= #{p_content},
+			        p_stock		= #{p_stock},
+			        p_made		= #{p_made},
+			        p_usedate	= #{p_usedate},
+			        product_c_code = #{product_c_code}
+			where	p_number	= #{p_number};
+	     ]]>
+	</update>
+	
+	<!-- 상품 삭제 -->
+	<delete id="productDelete">
+		<![CDATA[
+			delete from Product
+			where	p_number	= #{p_number};
+	     ]]>
+	</delete>
 
 </mapper>

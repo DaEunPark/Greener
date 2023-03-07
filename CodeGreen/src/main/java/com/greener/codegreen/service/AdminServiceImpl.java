@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.greener.codegreen.dao.AdminDAO;
 import com.greener.codegreen.dto.CategoryDTO;
 import com.greener.codegreen.dto.ProductDTO;
+import com.greener.codegreen.dto.ProductViewDTO;
 
 @Service("adminService")
 public class AdminServiceImpl implements AdminService {
@@ -22,21 +23,35 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void register(ProductDTO dto) throws Exception {
+	public void productRegister(ProductDTO dto) throws Exception {
 		// TODO Auto-generated method stub
-		dao.register(dto);
+		dao.productRegister(dto);
 	}
 
 	@Override
-	public List<ProductDTO> productlist() throws Exception {
+	public List<ProductViewDTO> productList() throws Exception {
 		// TODO Auto-generated method stub
-		return dao.productlist();
+		return dao.productList();
 	}
 
 	@Override
-	public ProductDTO productView(int p_number) throws Exception {
+	public ProductViewDTO productView(int p_number) throws Exception {
 		// TODO Auto-generated method stub
 		return dao.productView(p_number);
+	}
+
+	@Override
+	public void productModify(ProductDTO dto) throws Exception {
+		// TODO Auto-generated method stub
+		dao.productModify(dto);
+		
+	}
+
+	@Override
+	public void productDelete(int p_number) throws Exception {
+		// TODO Auto-generated method stub
+		dao.productDelete(p_number);
+		
 	}
 
 }
