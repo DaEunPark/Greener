@@ -54,4 +54,9 @@ public class AdminServiceImpl implements AdminService {
 		
 	}
 
+	@Override
+	public void register(ProductDTO dto) throws Exception {
+		// TODO Auto-generated method stub
+		dao.register(dto);
+	}
 }

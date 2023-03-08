@@ -60,4 +60,10 @@ public class AdminDAOImpl implements AdminDAO {
 		
 	}
 
+	// 상품등록
+	@Override
+	public void register(ProductDTO dto) throws Exception {
+		sql.insert(namespace+".register", dto);
+
+	}
 }
