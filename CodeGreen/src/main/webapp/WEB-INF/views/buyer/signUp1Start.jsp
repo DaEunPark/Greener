@@ -90,7 +90,7 @@
 	</style>
 </head>
 <body>
-	<!-- 헤더/푸터 따로 만들어서 관리 <%--<jsp:include page="../common/topMenu.jsp" flush="false"/>--%> -->
+	<!-- 헤더/푸터 따로 만들어서 관리 jsp:include ~ -->
 	<header>
 		<a href="http://localhost:8080/"><img src="${contextPath}/resources/images/green_icon.png" alt="logo"/></a>
 	</header>

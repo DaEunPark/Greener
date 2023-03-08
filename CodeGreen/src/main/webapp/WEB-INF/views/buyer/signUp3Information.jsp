@@ -67,6 +67,7 @@
     	}
     	.input-infos:last-child{
     		border: none;
+    		padding-top: 11px;
     	}
     	label {
     		font-size: 14px;
@@ -76,6 +77,20 @@
     		border: none;
     		outline: none;
     		display: none;
+    	}
+    	#phone1, #phone2, #phone3 {
+    		border: 1px solid black;
+    		text-align: center;
+    	}
+    	#popup_kakao {
+    		width: 40px;
+    		height: 30px;
+    		font-size: 12px;
+    		font-weight: bold;
+    		color: white;
+    		background: green;
+    		border: 1px solid green;
+    		border-radius: 5px;
     	}
     	b {
     		color: darkgrey;
@@ -132,73 +147,42 @@
     		font-size: 10px;
     	}
 	</style>
-	<script>
+	<script> // 제이쿼리
 		$(function(){
 			// id 입력
 			$("label[id=id]").click(function(){
 				$("label[id=id]").css("display", "none");
+				$("#validity").css({"display":"none"});
 				$("input[id=b_id]").css("display", "block").focus();
 			});
-			$("#b_id").blur(function(){ // ID 중복 확인(by 민준 킴)
-				fn_idCheck();
+			$("#b_id").blur(function(){
 				if($("input[id=b_id]").val().length===0) {					
 					$("label[id=id]").css("display", "block");
 					$("input[id=b_id]").css("display", "none");
+					$("#validity").css({"display":"block", "color":"red"}).text("ID를 입력해주세요.");
+				}
+				else {
+					fn_idCheck_format(); // ID 형식 체크(ID 중복 여부 포함)
 				}
 			});
 			
 			// pw 입력
 			$("label[id=pwd]").click(function(){
 				$("label[id=pwd]").css("display", "none");
+				$("#pw_result").css({"display":"none"});
 				$("input[id=b_pwd]").css("display", "block").focus();
 			});
-			$("#b_pwd").blur(function(){  // 비밀번호 일치 확인 : 비밀번호 확인 과정까지 마친 후, 최초에 설정한 비밀번호가 바뀌는 경우 대비
-				fn_compare_pwd();
+			$("#b_pwd").blur(function(){  // 비밀번호 일치 확인 : 비밀번호 확인 과정까지 마친 후, 최초 설정한 비밀번호가 바뀌는 경우 대비
 				if($("input[id=b_pwd]").val().length===0) {					
 					$("label[id=pwd]").css("display", "block");
 					$("input[id=b_pwd]").css("display", "none");
-					$("#pw_empty").css({"display":"block", "color":"red"}).text("비밀번호를 입력해주세요");
+					$("#pw_result").css({"display":"block", "color":"red"}).text("비밀번호를 입력해주세요");
 				}
 				else {
-					$("#pw_empty").css({"display":"none"});
+					checkPassword( $('#b_pwd').val(), $('#b_id').val() );
+					fn_compare_pwd();
 				}
 			});
-			
-			
-		/*	$("#b_pwd").change(function(){
-				checkPassword($('#b_pwd').val(),$('b_id').val());
-			});
-			function checkPassword(b_pwd,b_id){
-				var $b_pwd_result = $("#b_pwd_result");
-				if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/.test(b_pwd)){ 
-				    	$b_pwd_result.text("숫자+영문자+특수문자 조합으로 8자리 이상 사용해야 합니다.");
-				        $('#b_pwd').val('').focus();
-				        return false;
-				    }  else {
-				    	$b_pwd_result.text("");
-				    }
-				    	
-				var checkNumber = b_pwd.search(/[0-9]/g);
-				var checkEnglish = b_pwd.search(/[a-z]/ig);
-				if(checkNumber <0 || checkEnglish <0){
-					$b_pwd_result.text("숫자와 영문자를 혼용하여야 합니다.");
-				    $('#b_pwd').val('').focus();
-				    return false;
-				}
-				if(/(\w)\1\1\1/.test(b_pwd)){
-					$b_pwd_result.text('같은 문자를 4번 이상 사용하실 수 없습니다.');
-				    $('#b_pwd').val('').focus();
-				    return false;
-				}
-				if(b_pwd.search(id) > -1){
-					$b_pwd_result.text("비밀번호에 아이디가 포함되었습니다.");
-				    $('#b_pwd').val('').focus();
-				    return false;
-				}
-				
-				return true;
-			} */
-			
 			
 			// pw 확인
 			$("label[id=repwd]").click(function(){
@@ -226,6 +210,7 @@
 				}
 				else {
 					$("#no_name").css("display", "none");
+					$("#no_name").css({"display":"block", "color":"blue"}).text("입력되었습니다.");
 				}
 			});
 			
@@ -233,7 +218,7 @@
 			$("label[id=birth]").click(function(){
 				$("label[id=birth]").css("display", "none");
 				$("input[id=b_birth]").datepicker({maxDate: "-14y", minDate:"-100y"}).css("display", "block");
-			});		
+			});
 			$.datepicker.setDefaults({
 				changeYear:  true,
 				changeMonth: true,
@@ -244,42 +229,59 @@
 				yearSuffix: '년',
 			});
 			$("#b_birth").blur(function(){
-				if($("input[id=b_birth]").val().length===0) {					
+				if($("input[id=b_birth]").val().length===0) {			
 					$("label[id=birth]").css("display", "block");
 					$("input[id=b_birth]").css("display", "none");
 					$("#born").css({"display":"block", "color":"red"}).text("생년월일을 선택해주세요");
 				}
 				else {
-					$("#born").css("display", "none");
+					$("label[id=birth]").css("display", "none");
+					$("input[id=b_birth]").css("display", "block");
+					$("#born").css({"display":"block", "color":"blue"}).text("입력되었습니다.");
 				}
 			});
 			
 			// 전화번호 입력
 			$("label[id=phone]").click(function(){
 				$("label[id=phone]").css("display", "none");
+				$("#pnum").css({"display":"none"});
 				$("input[id=phone1], input[id=phone2], input[id=phone3]").css("display", "block");
+				$("#phone0").css("display", "flex");
 				$("input[id=phone1]").focus();
 			});
-			$("#phone1").blur(function(){
-				if($("input[id=phone1], input[id=phone2], input[id=phone3]").val().length===0){					
+			$("#phone1, #phone2, #phone3").blur(function(){
+				let $Len1 = $("#phone1").val().length, $Len2 = $("#phone2").val().length, $Len3 = $("#phone3").val().length;
+				
+				if($Len1+$Len2+$Len3 === 0){					
 					$("label[id=phone]").css({"display":"block"});
-					$("#phone0").css("display", "none");
-					$("input[id=phone1], input[id=phone2], input[id=phone3]").css("display", "none");
 					$("#pnum").css({"display":"block", "color":"red"}).text("연락처를 입력해주세요");
+					$("input[id=phone1], input[id=phone2], input[id=phone3]").css("display", "none");
+					$("#phone0").css("display", "none");
 				}
-				else if($("input[id=phone1]").val().length===3 && $("input[id=phone2], input[id=phone3]").val().length===4) {
-					$("#pnum").css({"display":"none"});
+				else if($Len1+$Len2+$Len3 === 11) {
+					$("#pnum").css({"display":"block", "color":"blue"}).text("입력되었습니다.");
 				}
 				else {
-					$("#pnum").css({"display":"block", "color":"red"}).text("연락처를 다시 확인해주세요");
+					$("#pnum").css({"display":"block", "color":"red"}).text("연락처를 확인해주세요");
 				}
 			});
 			
 			// 이메일 입력
 			$("label[id=email]").click(function(){
 				$("label[id=email]").css("display", "none");
-				$("select[id=b_email]").css("display", "block");
+				$("select[id=b_email_selec]").css("display", "block");
 				$("input[id=b_email]").css("display", "block").focus();
+			});
+			$("input[id=b_email]").blur(function(){
+				if($("input[id=b_email]").val().length===0) {
+					$("#email-check").css({"display":"block", "color":"red"}).text("email을 입력해주세요");
+				}
+				else if(!/^(?=.*[@])(?=.*[.])/.test($("input[id=b_email]").val())) {
+					$("#email-check").css({"display":"block", "color":"red"}).text("email을 확인해주세요");
+				}
+				else {
+					$("#email-check").css({"display":"block", "color":"blue"}).text("입력되었습니다.");
+				}
 			});
 			
 			// 배송지 입력 (카카오 주소 API 활용)
@@ -288,13 +290,34 @@
 				$("#sample6_postcode").css("display", "block");
 				$("#sample6_address").css("display", "block");
 				$("#sample6_detailAddress").css("display", "block");
+				$("#popup_kakao").css("display", "block");
+        	});
+			$("#sample6_detailAddress").blur(function(){
+				if($("input[id=sample6_detailAddress]").val().length===0) {
+					$("#address-check").css({"display":"block", "color":"red"}).text("상세주소를 입력해주세요");
+				}
+				else {
+					$("#address-check").css({"display":"block", "color":"blue"}).text("입력되었습니다.");
+				}
         	});
 			
-			// 전송
-			$("button[class=agree]").click(function(){fn_submit();});
+			// 전송 버튼
+			$("button[class=agree]").click(function(){ fn_submit(); });
 			
-			// 함수 정리
-			function fn_idCheck() { // ID 중복 확인
+			
+			// ------------------------------------------------------
+			//                        함수 정리
+			// ------------------------------------------------------
+			function fn_idCheck_format() { // ID 형식 체크(by 시훈 리)
+				if(!/^(?=.*[a-zA-Z])(?=.*[0-9]).{6,10}$/.test($('#b_id').val())){ 
+				    $("#validity").css({"display":"block", "color":"red"}).text("입력값 확인해주세요 - 영어/숫자 포함한 6-10자");
+				}
+				else {
+					fn_idCheck_duplication(); // ID 중복 확인
+				}
+			}
+			
+			function fn_idCheck_duplication() { // ID 중복 확인(by 민준 킴)
 				$.ajax({
 					url:		"/buyer/idCheck",
 					type:		"post",
@@ -303,18 +326,45 @@
 					success:
 					function(data) {
 						if(data == 1) {	// 입력한 아이디가 이미 존재하는 경우
-							if($("#b_id").val()=='' && $("#b_id").val().length==0) {
-								$("#validity").css({"display":"block", "color":"red"}).text("ID를 입력해주세요.");
-							} else {
-								$("#validity").css({"display":"block", "color":"red"}).text("이미 사용 중인 ID입니다.");
-							}
+							$("#validity").css({"display":"block", "color":"red"}).text("이미 사용 중인 ID입니다.");
 						} else if(data == 0) { // 입력한 아이디가 존재하지 않는 경우
 							$("#validity").css({"display":"block", "color":"blue"}).text("사용 가능한 아이디입니다.");
 						}
 					}
 				});	
 			}
-			function fn_compare_pwd() { // 비밀번호 일치 여부 확인
+			
+			function checkPassword(b_pwd, b_id){ // 비밀번호 형식 확인(by 민준 킴)
+				let $pw_result = $("#pw_result");
+				
+				if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/.test(b_pwd)){ 
+				    $pw_result.css({"display":"block", "color":"red"}).text("영문자, 숫자, 특수문자 조합으로 8자리 이상 사용해야 합니다.");
+				    $('#b_pwd').val('').focus();
+				    return false;
+				}
+				if(/(\w)\1\1/.test(b_pwd)){
+					$pw_result.css({"display":"block", "color":"red"}).text('같은 문자를 3번 이상 연속으로 사용하실 수 없습니다.');
+				    $('#b_pwd').val('').focus();
+				    return false;
+				}
+				if(b_pwd.search(b_id) > -1){
+					if(b_id.length===0) {
+						$pw_result.css({"display":"block", "color":"red"}).text("아이디부터 입력해주세요.");
+					    $('#b_pwd').val('').focus();
+					}
+					else {						
+						$pw_result.css({"display":"block", "color":"red"}).text("비밀번호에 아이디가 포함되었습니다.");
+				    	$('#b_pwd').val('').focus();
+					}
+				    return false;
+				}
+				else {
+					$pw_result.css({"display":"block", "color":"blue"}).text("사용 가능합니다.");
+					return true;
+				}
+			}
+			
+			function fn_compare_pwd() { // 비밀번호 일치 여부 확인(by 민준 킴)
 				const $pwd1 = $("#b_pwd").val();
 				const $pwd2 = $("#b_repwd").val();
 	
@@ -328,8 +378,8 @@
 			    	$("#pw_equal").css({"display":"none"});
 			    }
 			}
-			// 회원가입 정보 DB에 전송
-			function fn_submit() {
+			
+			function fn_submit() { // 회원가입 정보 DB에 전송(by 시훈 리)
 				$.ajax({
 					url:      "/buyer/addBuyer",
 					type:     "post",
@@ -358,8 +408,8 @@
 			}
 		});
 	</script>
-	<script>
-		function sample6_execDaumPostcode() {
+	<script> // 자바스크립트
+		function sample6_execDaumPostcode() { // 카카오 API 구현 (by 민준 킴)
 			new daum.Postcode({
 	    		oncomplete: function(data) {
 	        		var addr = ''; // 주소 변수
@@ -387,14 +437,19 @@
 	    		}
 			}).open();
 		}
+	
+		function select(target) { // 이메일 선택/입력
+			const text = target.options[target.selectedIndex].text;
+			document.querySelector("#b_email").value = text;
+			document.querySelector("#b_email").focus();
+		}
 	</script>
 </head>
 <body>
-	<!-- 헤더 : 좌측에 회사 로고 이미지-->
+	<!-- 헤더/푸터 따로 만들어서 관리 jsp:include ~ -->
 	<header>
 		<a href="http://localhost:8080/"><img src="${contextPath}/resources/images/green_icon.png" alt="logo"/></a>
 	</header>
-	<!-- 바디 -->
 	<div class="container">
 		<div class="progress">
   			<div class="progress-bar bg-success" role="progressbar" style="width: 75%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -404,15 +459,17 @@
 		<form method="post" action="${contextPath}/buyer/done">
 			<ul class="infos">
 				<li class="input-infos">
-					<label for="b_id" id="id"><b>ID를 만들어주세요</b></label><input type="text" id="b_id" name="b_id" maxlength="20"/>
+					<label for="b_id" id="id"><b>ID를 만들어주세요 (영어/숫자 6-10자)</b></label><input type="text" id="b_id" name="b_id" maxlength="10"/>
 					<p><span id="validity" style="font-size:7px; display:none"></span></p>
 				</li>
 				<li class="input-infos">
-					<label for="b_pwd" id="pwd"><b>비밀번호 입력</b></label><input type="password" id="b_pwd" name="b_pwd" maxlength="20"/>
-					<p><span id="pw_empty" style="font-size:7px; display:none"></span></p>
+					<label for="b_pwd" id="pwd"><b>비밀번호 입력 (8-15자의 영문 대소문자, 숫자 또는 특수문자 조합)</b></label>
+					<input type="password" id="b_pwd" name="b_pwd" maxlength="15" autocomplete="on"/>
+					<p><span id="pw_result" style="font-size:7px; display:none"></span></p>
 				</li>
 				<li class="input-infos">
-					<label for="b_repwd" id="repwd"><b>위의 비밀번호를 다시 입력해주세요</b></label><input type="password" id="b_repwd" name="b_repwd" maxlength="20"/>
+					<label for="b_repwd" id="repwd"><b>위의 비밀번호를 다시 입력해주세요</b></label>
+					<input type="password" id="b_repwd" name="b_repwd" maxlength="15" autocomplete="on"/>
 					<p><span id="pw_equal" style="font-size:7px; display:none"></span></p>
 				</li>
 				<li class="input-infos">
@@ -425,18 +482,21 @@
 				</li>
 				<li class="input-infos">
 					<label id="phone"><b>휴대전화 번호 입력</b></label>
-					<p style="display:flex; margin:0px;" id="phone0">
-						<input type="text" id="phone1" name="b_phone" maxlength="3" style="border:solid 1px black; width:50px; text-align:center;"/>&nbsp;
-						<input type="text" id="phone2" name="b_phone" maxlength="4" style="border:solid 1px black; width:60px; text-align:center;"/>&nbsp;
-						<input type="text" id="phone3" name="b_phone" maxlength="4" style="border:solid 1px black; width:60px; text-align:center;"/>
+					<p style="margin:0px;" id="phone0">
+						<input type="text" id="phone1" name="b_phone" maxlength="3" style="width:50px;" 
+						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>&nbsp;
+						<input type="text" id="phone2" name="b_phone" maxlength="4" style="width:60px;" 
+						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>&nbsp;
+						<input type="text" id="phone3" name="b_phone" maxlength="4" style="width:60px;" 
+						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
 					</p>
 					<p><span id="pnum" style="font-size:7px; display:none"></span></p>
 				</li>
 				<li class="input-infos">
 					<label for="b_email" id="email"><b>이메일</b></label>
-					<p id="b_email_p" style="display:flex;">
-						<input type="email" id="b_email" name="b_email" maxlength="100"/>			
-						<select id="b_email_selec" name="b_email" style="display:none;">
+					<p id="b_email_p" style="display:flex; margin:0;">
+						<input type="email" id="b_email" name="b_email" maxlength="100"/>
+						<select id="b_email_selec" name="b_email" style="display:none;" onchange="select(this)">
       						<option selected="selected">직접입력</option>
       						<option>@naver.com</option>
       						<option>@daum.net</option>
@@ -444,27 +504,29 @@
       						<option>@gmail.com</option>
     					</select>
     				</p>
+    				<p><span id="email-check" style="font-size:7px; display:none"></span></p>
 				</li>
 				<li class="input-infos">
-					<label id="address"><b onclick="sample6_execDaumPostcode()">배송지 주소 입력</b></label>
-					<p id="location" style="display:flex;">
-						<input type="text" id="sample6_postcode" name="b_address1" placeholder="우편번호" style="width:50px; display:none">
-						<input type="text" id="sample6_address" name="b_address2" placeholder="주소" style="text-align:center; width:250px; display:none">
-						<input type="text" id="sample6_detailAddress" name="b_address3" placeholder="상세주소" style="width:100px; display:none">
+					<label id="address"><b>배송지 주소 입력</b></label>
+					<p id="location" style="display:flex; margin:0;">
+						<input type="text" id="sample6_postcode" name="b_address1" placeholder="우편번호" style="width:60px; height:24px; display:none">
+						<input type="text" id="sample6_address" name="b_address2" placeholder=" 주소" style="width:200px; height:24px; display:none">
+						<input type="text" id="sample6_detailAddress" name="b_address3" placeholder="상세주소" style="width:150px; height:26px; display:none">
 						<input type="text" id="sample6_extraAddress" placeholder="참고항목" style="display:none">
+						<button type="button" id="popup_kakao" onclick="sample6_execDaumPostcode()" style="display:none">찾기</button>
 					</p>
+					<p><span id="address-check" style="font-size:7px; display:none"></span></p>
 				</li>
 			</ul>
 			<div class="btn-zone">
 				<div class="buttons">
-					<a href="${contextPath}/buyer/signin"><button class="disagree">처음으로</button></a>
+					<a href="${contextPath}/buyer/signup"><button class="disagree">처음으로</button></a>
 					<button type="submit" class="agree">확인</button>
 				</div>
 			</div>
 		</form>
 		<hr>
 	</div>
-	<!-- 푸터 : 상호명 -->
 	<footer>
 		<p>Copyright © <strong style="color:green;">GreenMarket.Co.,LTD.</strong> All Rights Reserved.</p>
 	</footer>

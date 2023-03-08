@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component("buyerDTO")
 public class BuyerDTO {
+	
 	private	String	b_id;		 // 구매자 아이디
 	private	String	b_pwd;		 // 구매자 비밀번호
 	private	String	b_name;		 // 구매자 이름
@@ -18,7 +19,6 @@ public class BuyerDTO {
 	private	Date	b_joindate;	 // 구매자 가입일자
 	private	String	b_phone;	 //  구매자 핸드폰번호
 	private	int	    b_amount;	 // 구매자 누적 금액
-	private int 	b_num;		 // 회원 번호
 	
 	public	BuyerDTO()	{}		// 기본생성자
 	public	BuyerDTO
@@ -37,30 +37,6 @@ public class BuyerDTO {
 		this.b_amount   = b_amount;
 	}
 	
-	public BuyerDTO(String b_id, String b_pwd, String b_name, String b_birth, String b_email, String b_address1,
-			String b_address2, String b_address3, String b_grade, Date b_joindate, String b_phone, int b_amount,
-			int b_num) {
-		super();
-		this.b_id = b_id;
-		this.b_pwd = b_pwd;
-		this.b_name = b_name;
-		this.b_birth = b_birth;
-		this.b_email = b_email;
-		this.b_address1 = b_address1;
-		this.b_address2 = b_address2;
-		this.b_address3 = b_address3;
-		this.b_grade = b_grade;
-		this.b_joindate = b_joindate;
-		this.b_phone = b_phone;
-		this.b_amount = b_amount;
-		this.b_num = b_num;
-	}
-	public BuyerDTO(String b_id, String b_name, int b_num) {
-		super();
-		this.b_id = b_id;
-		this.b_name = b_name;
-		this.b_num = b_num;
-	}
 	public String getB_id() {return b_id;}
 	public void   setB_id(String b_id) {this.b_id = b_id;}
 	public String getB_pwd() {return b_pwd;}
@@ -86,20 +62,13 @@ public class BuyerDTO {
 	public int    getB_amount() {return b_amount;}
 	public void   setB_amount(int b_amount) {this.b_amount = b_amount;}
 	
-	public int getB_num() {
-		return b_num;
-	}
-	public void setB_num(int b_num) {
-		this.b_num = b_num;
-	}
 	@Override
 	public String toString() {
 		return "BuyerDTO [b_id=" + b_id + ", b_pwd=" + b_pwd + ", b_name=" + b_name + ", b_birth=" + b_birth
 				+ ", b_email=" + b_email + ", b_address1=" + b_address1 + ", b_address2=" + b_address2 + ", b_address3="
 				+ b_address3 + ", b_grade=" + b_grade + ", b_joindate=" + b_joindate + ", b_phone=" + b_phone
-				+ ", b_amount=" + b_amount + ", b_num=" + b_num + "]";
+				+ ", b_amount=" + b_amount + "]";
 	}
 	
+} // End - public class BuyerDTO
 
-	
-}
