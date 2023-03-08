@@ -11,10 +11,12 @@
 <head>
 <meta charset="UTF-8">
 <title>주문내역 상세조회</title>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <%-- <jsp:include page="../common/manager_topMenu.jsp" flush="false"/> --%>
 	<jsp:include page="../admin/include/nav.jsp" flush="false"/>
+
 
 </head>
 <style>
@@ -51,6 +53,7 @@
 	}
 </style>
 <body>
+
 <div class="container">
 	<h2><p id="title">주문내역 상세조회</p></h2>
 	<button type="button" class="btn btn-secondary btn-sm" id="orderCancle" name="orderCancle" onclick="fn_orderCancle()">주문취소</button>
