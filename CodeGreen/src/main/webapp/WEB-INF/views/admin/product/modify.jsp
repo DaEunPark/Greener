@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +8,7 @@
 <title>상품 정보 수정</title>
 	<link href="../../resources/css/admin/product.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/resources/ckeditor/ckeditor.js"></script>
 </head>
 <body>
 <!-- 사이드 바 -->
@@ -20,12 +22,12 @@
 			<div class = "inputArea">
 				<label>1차 분류</label>
 				<select class="category1">
-					<option value=""></option>
+					<option value="">전체</option>
 				</select>
 				<br>
 				<label>2차 분류</label>
 				<select class="category2" name="c_code">
-					<option value=""></option>
+					<option value="">전체</option>
 				</select>
 			</div>	
 			<div class="inputArea">
@@ -41,6 +43,16 @@
 			<div class="inputArea">
 				 <label for="productContent">상품소개</label>
 				 <textarea rows="5" cols="50" id="p_content" name="p_content">${product.p_content}</textarea>
+				<script>
+				   var ckeditor_config = {
+				     resize_enaleb : false,
+				     enterMode : CKEDITOR.ENTER_BR,
+				     shiftEnterMode : CKEDITOR.ENTER_P,
+				     filebrowserUploadUrl : "/admin/product/ckUpload"
+				   };
+				   
+				   CKEDITOR.replace("p_content", ckeditor_config);
+				</script>
 			</div>
 				
 			<div class="inputArea">
@@ -88,7 +100,6 @@ for(var i = 0; i < jsonData.length; i++) {
   cate1Obj = new Object();  //초기화
   cate1Obj.c_code = jsonData[i].c_code;
   cate1Obj.c_name = jsonData[i].c_name;
-  console.log(cate1Obj);
   cate1Arr.push(cate1Obj);
  }
 }
@@ -142,28 +153,49 @@ $(document).on("change", "select.category1", function(){
 	         + cate2Arr[i].c_name + "</option>");
 	   }
 	  }
-	  
 	 });
-	 
 	});
 	
-	var select_c_code = '${product.product_c_code}';
-	var select_c_code_ref = '${product.c_code_ref}';
-	var select_c_name = '${product.c_name}';
+
+var select_c_code = '${product.product_c_code}';
+var select_c_code_ref= '${product.c_code_ref}';
+var select_c_name= '${product.c_name}';
+
+console.log("select_c_code = " + select_c_code);
+console.log("select_c_code_ref = " + select_c_code_ref);
+
+
+if(select_c_code_ref != null && select_c_code_ref != "") {
 	
-	if(select_c_code_ref != null && select_c_code_ref != ''){
-		$(".category1").val(select_c_code_ref);
-		$(".category2").val(select_c_code);
-		$(".category1").children().remove();
-		$(".category2").append("<option value='"
-			       + select_c_code + "'>" + select_c_name + "</option>");
-		
-	} else {
-		$(".category1").select_c_code;
-		$(".category2").append("<option value="' + select_c_code + '" selected='selected'>전체</option>");
+	console.log("값이 없으면");
+	
+	$(".category1").val(select_c_code_ref);
+	$(".category2").val(select_c_code);
+	$(".category2").children().remove();
+	$(".category2").append("<option value='"
+							+ select_c_code + "'>" + select_c_name + "</option>");
+	
+} else {
+	
+	console.log("값이 있으면");
+	
+	$(".category1").val(select_c_code);
+	//$(".category2").val(select_c_code);
+	$(".category2").append("<option value='"
+			+ select_c_code + "' selected='selected'>전체</option>");
+}
+
+</script>
+<script>
+	var regExp = /[^0-9]/gi;
+	
+	$("#p_price").keyup(function(){ numCheck($(this)); });
+	$("#p_stock").keyup(function(){ numCheck($(this)); });
+	
+	function numCheck(selector) {
+	   var tempVal = selector.val();
+	   selector.val(tempVal.replace(regExp, ""));
 	}
-
-
 </script>
 </body>
 </html>

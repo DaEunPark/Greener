@@ -16,15 +16,18 @@
 	<!-- 상품 등록 -->
 	<insert id="register">
 		<![CDATA[
-	 		insert into Product (p_name, p_price, p_content, p_stock, p_view, p_made, p_usedate, product_c_code)
-	     	values (#{p_name}, #{p_price}, #{p_content}, #{p_stock}, '0', #{p_made}, #{p_usedate}, #{product_c_code});
+	 		insert into Product (p_name, p_price, p_content, p_stock, p_view, p_made, p_usedate, p_img, p_thumbImg, product_c_code)
+	     	values (#{p_name}, #{p_price}, #{p_content}, #{p_stock}, '0', #{p_made}, #{p_usedate}, #{p_img}, #{p_thumbImg}, #{product_c_code});
 	     ]]>
 	</insert>
 	
 	<!-- 상품 목록 -->
-	<select id="productlist" resultType="com.greener.codegreen.dto.ProductDTO">
+	<select id="productList" resultType="com.greener.codegreen.dto.ProductViewDTO">
 		<![CDATA[
-	 		select * from Product 
+	 		select p.p_number, p.p_name, p.product_c_code, c.c_code_ref, c.c_name, p_price, p_content, p_stock, p_thumbImg, p_made, p_usedate
+	 		from Product p
+	 		inner join Category c
+	 		on p.product_c_code = c.c_code
 	     	order by p_number desc;
 	     ]]>
 	</select>

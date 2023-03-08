@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,6 +39,15 @@
 			<div class="inputArea">
 			 <label for="productContent">상품소개</label>
 			 <span>${product.p_content}</span>
+			</div>
+			
+			<div class="inputArea">
+			 <label for="purdocutImg">상품 이미지</label>
+			 <p>원본 이미지</p>
+			 <img src = "${product.p_img}" class="oriImg"/>
+			 
+			 <p>썸네일</p>
+			 <img src = "${product.p_thumbImg}" class="thumbImg"/>
 			</div>
 			
 			<div class="inputArea">

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,13 +8,14 @@
 <title>상품 등록</title>
 	<link href="../../resources/css/admin/product.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="../../resources/ckeditor/ckeditor.js"></script>
 </head>
 <body>
 <!-- 사이드 바 -->
 <jsp:include page="../include/nav.jsp"></jsp:include>
 	<div class="container">
 		<h2>상품등록</h2>
-		<form role = "form" method="post" autocomplete="off">
+		<form role = "form" method="post" autocomplete="off" enctype="myltipart/form-data">
 			<label>1차 분류</label>
 			<select class="category1">
 				<option value="">전체</option>
@@ -37,6 +39,16 @@
 			<div class="inputArea">
 			 <label for="productContent">상품소개</label>
 			 <textarea rows="5" cols="50" id="p_content" name="p_content"></textarea>
+			 <script>
+			   var ckeditor_config = {
+			     resize_enaleb : false,
+			     enterMode : CKEDITOR.ENTER_BR,
+			     shiftEnterMode : CKEDITOR.ENTER_P,
+			     filebrowserUploadUrl : "/admin/product/ckUpload"
+			   };
+			   
+			   CKEDITOR.replace("p_content", ckeditor_config);
+			</script>
 			</div>
 			
 			<div class="inputArea">
@@ -135,6 +147,18 @@ $(document).on("change", "select.category1", function(){
 	 
 	});
 
+</script>
+
+<script>
+var regExp = /[^0-9]/gi;
+
+$("#p_price").keyup(function(){ numCheck($(this)); });
+$("#p_stock").keyup(function(){ numCheck($(this)); });
+
+function numCheck(selector) {
+   var tempVal = selector.val();
+   selector.val(tempVal.replace(regExp, ""));
+}
 </script>
 </body>
 </html>

@@ -36,7 +36,7 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public List<ProductViewDTO> productList() throws Exception {
 		// TODO Auto-generated method stub
-		return sql.selectList(namespace + ".productlist");
+		return sql.selectList(namespace + ".productList");
 	}
 
 	// 상품 상세 보기

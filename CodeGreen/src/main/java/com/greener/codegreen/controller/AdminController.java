@@ -1,8 +1,17 @@
 package com.greener.codegreen.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.List;
+import java.util.UUID;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
 import org.slf4j.Logger;
@@ -12,11 +21,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.greener.codegreen.dto.CategoryDTO;
 import com.greener.codegreen.dto.ProductDTO;
 import com.greener.codegreen.dto.ProductViewDTO;
 import com.greener.codegreen.service.AdminService;
+import com.greener.codegreen.util.UploadFileUtils;
 
 @Controller("adminController")
 @RequestMapping("/admin/*")
@@ -25,6 +36,9 @@ public class AdminController {
 	
 	@Inject
 	AdminService adminService;
+	
+	@Resource(name="uploadPath")
+	private String uploadPath;
 	
 	/**
 	 * 관리자 페이지
@@ -49,9 +63,18 @@ public class AdminController {
 	// 상품 등록
 	@RequestMapping(value = "/product/register", method = RequestMethod.POST)
 	public String postProductRegister(ProductDTO dto) throws Exception{
+		
+		System.out.println("=================");
+		
+		System.out.println("1 = " + dto.getP_name());
+		System.out.println("1 = " + dto.getP_price());
+		System.out.println("1 = " + dto.getP_content());
+		System.out.println("1 = " + dto.getP_img());
+		System.out.println("=================");
+							
 		adminService.productRegister(dto);
 		
-		return "redirect:/";
+		return "redirect:/admin/index";
 	}
 	
 	// 상품 목록
@@ -107,4 +130,5 @@ public class AdminController {
 		
 		return "redirect:/admin/product/list";
 	}
+	
 }

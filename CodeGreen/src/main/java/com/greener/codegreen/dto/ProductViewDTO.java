@@ -12,6 +12,8 @@ public class ProductViewDTO {
 	int p_view;			// 상품글 조회수
 	String p_made;		// 원산지
 	String p_usedate;	// 유통/소비기한
+	String p_img;
+	String p_thumbImg;
 	
 	// Category
 	int product_c_code;		// 카테고리 코드
@@ -130,15 +132,35 @@ public class ProductViewDTO {
 	public void setProduct_m_id(String product_m_id) {
 		this.product_m_id = product_m_id;
 	}
+	
+	
+
+	public String getP_img() {
+		return p_img;
+	}
+
+	public void setP_img(String p_img) {
+		this.p_img = p_img;
+	}
+
+	public String getP_thumbImg() {
+		return p_thumbImg;
+	}
+
+	public void setP_thumbImg(String p_thumbImg) {
+		this.p_thumbImg = p_thumbImg;
+	}
 
 	@Override
 	public String toString() {
 		return "ProductViewDTO [p_number=" + p_number + ", p_name=" + p_name + ", p_price=" + p_price + ", p_content="
 				+ p_content + ", p_stock=" + p_stock + ", p_view=" + p_view + ", p_made=" + p_made + ", p_usedate="
-				+ p_usedate + ", product_c_code=" + product_c_code + ", c_name=" + c_name
-				+ ", c_code_ref=" + c_code_ref + ", product_s_id=" + product_s_id + ", product_m_id="
-				+ product_m_id + "]";
+				+ p_usedate + ", p_img=" + p_img + ", p_thumbImg=" + p_thumbImg + ", product_c_code=" + product_c_code
+				+ ", c_code_ref=" + c_code_ref + ", c_name=" + c_name + ", product_s_id=" + product_s_id
+				+ ", product_m_id=" + product_m_id + "]";
 	}
+
+	
 
 
 	

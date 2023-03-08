@@ -5,3 +5,5 @@ label { display:inline-block; width:150px; padding:5px; font-weight:bolder; }
 label[for='productContent'] { display:block; }
 input { width:150px; }
 textarea#productContent { width:400px; height:180px; }
+.oriImg {width : 500px; height : auto;}
+.thumbImg{}

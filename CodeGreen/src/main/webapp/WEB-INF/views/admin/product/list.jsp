@@ -17,7 +17,8 @@
 	   <thead class="table-dark">
 	    	<tr class="text-center">
 			    <th scope="col">번호</th>
-			    <th scope="col">이름</th>
+			    <th scope="col">상품명</th>
+			    <th scope="col">이미지</th>
 			    <th scope="col">카테고리</th>
 			    <th scope="col">가격</th>
 			    <th scope="col">수량</th>
@@ -33,7 +34,10 @@
      <td>
      	<a href="/admin/product/view?n=${list.p_number}">${list.p_name}</a>
      </td>
-     <td>${list.product_c_code}</td>
+     <td>
+     	<img src="${list.p_thumbImg}">
+     </td>
+     <td>${list.c_name}</td>
      <td>${list.p_price}</td>
      <td>${list.p_stock}</td>
      <td>${list.p_usedate}</td>
