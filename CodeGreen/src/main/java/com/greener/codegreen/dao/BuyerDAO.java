@@ -37,5 +37,10 @@ public interface BuyerDAO {
 	//-----------------------------------------------------------------------------------------------------------
 	public List<BuyerDTO> buyerList(SearchCriteria scri) throws DataAccessException;
 
+	//-----------------------------------------------------------------------------------------------------------
+	// 소비자 상세 조회
+	//-----------------------------------------------------------------------------------------------------------
+	public BuyerDTO buyerDetail(String b_id) throws Exception;
+
 	
 } // End - public interface BuyerDAO

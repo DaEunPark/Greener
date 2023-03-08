@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -61,6 +62,11 @@ public interface BuyerController {
 	// 소비자 리스트 조회(민준)
 	//-----------------------------------------------------------------------------------------------------------
 	public ModelAndView buyerList(SearchCriteria scri) throws Exception;
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 아이디 상세 조회(민준)
+	//-----------------------------------------------------------------------------------------------------------
+	public String buyerDetail(Model model, HttpServletRequest request) throws Exception;
 	
 	
 } // End - public interface BuyerController

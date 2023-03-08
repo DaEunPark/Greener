@@ -47,7 +47,7 @@ public class PageMaker {
 		endPage = (int)(Math.ceil(totalCount/(double)viewPageNum));
 		startPage = (int)(endPage - 1)/viewPageNum*viewPageNum + 1;
 		
-		int realEndPage = (int)(Math.ceil(totalCount/(double)viewPageNum));
+		int realEndPage = (int)(Math.ceil(totalCount/(double)cri.getPerPageNum()));
 		if(endPage > realEndPage) {
 			endPage = realEndPage;
 		}

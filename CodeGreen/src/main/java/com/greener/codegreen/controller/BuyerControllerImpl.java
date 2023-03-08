@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -136,6 +137,24 @@ public class BuyerControllerImpl implements BuyerController {
 		
 		return mav;
 	}	// End - 소비자 리스트 조회
+
+	//-----------------------------------------------------------------------------------------------------------		//-----------------------------------------------------------------------------------------------------------
+	// 아이디 상세 조회
+	//-----------------------------------------------------------------------------------------------------------		//-----------------------------------------------------------------------------------------------------------
+	@RequestMapping(value ="/buyerDetail", method = RequestMethod.GET)
+	@Override
+	public String buyerDetail(Model model, HttpServletRequest request) throws Exception {
+		String b_id = 	request.getParameter("b_id");
+		logger.info("b_id =>"+b_id);
+		int flag = Integer.parseInt((String)request.getParameter("flag"));
+		
+		BuyerDTO buyerDTO = buyerService.buyerDetail(b_id,flag);
+		model.addAttribute("buyerDetail", buyerDTO);
+		
+		return "/buyer/buyerDetail";
+	}
+	
+	
 
 	
 } // End - public class BuyerControllerImpl

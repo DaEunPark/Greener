@@ -62,5 +62,13 @@ public class BuyerServiceImpl implements BuyerService {
 		return buyerDAO.buyerList(scri);
 	} // buyerList()
 	
+	//-----------------------------------------------------------------------------------------------------------
+	// 소비자 상세 조회
+	//-----------------------------------------------------------------------------------------------------------
+	@Override
+	public BuyerDTO buyerDetail(String b_id , int flag) throws Exception {
+		
+		return buyerDAO.buyerDetail(b_id);
+	}	
 	
 } // End - public class BuyerServiceImpl
