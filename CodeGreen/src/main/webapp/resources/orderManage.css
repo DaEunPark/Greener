@@ -1,28 +1,26 @@
 @charset "UTF-8";
 
-	body {
-		width:			 80%;
-		margin:			 0 auto;
+	.txt:hover {
+		font-weight: bold;
+		color: #5CAAEF;
+		webkit-transform: scale(1.1,1.1);
+    	moz-transform: scale(1.1,1.1);
+    	o-transform: scale(1.1,1.1);
+    	ms-transform: scale(1.1,1.1);
+    	transform: scale(1.1,1.1);
 	}
 	
-	container {
-		font-family:	'verdana';
+	#title {
+		background-color: #F2FFED;
 	}
 	
-	.form-horizontal {
-		line-height: 	40%;
+	#contents {
+		background-color: transparent;
 	}
-	
-	.state {
-		position:		relative;
-		top:			207px;
+	#table {
+		width:	1100px;
+		font-size:	14px;
 	}
-	
-	.control-label {
-		poisition:		relative;
-		top:			-20px;
-	}
-	
-	.title {
-		text-family:	나눔고딕;
+	#contents {
+		height:	35px;
 	}
