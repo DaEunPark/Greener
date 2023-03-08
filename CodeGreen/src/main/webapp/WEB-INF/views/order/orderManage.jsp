@@ -68,17 +68,21 @@
 	}
 </style>
 <body>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <%-- <jsp:include page="../common/manager_topMenu.jsp" flush="false"/> --%>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<jsp:include page="../admin/include/nav.jsp" flush="false"/>
 <div class="container">
+
 <h2><p class="title">주문내역 조회</p></h2>
 <hr/>
 	<form class="form-horizontal" method="GET" name="formname1" id="formname1">
 		<div class="form-inline form-group">
 			<label for="orderNum" class="control-label" id="labelname1">주문번호</label>&nbsp;&nbsp;&nbsp;
 			<input type="text" id="orderNum" name="orderNum"/>
+
 		</div>
 		<div class="form-inline form-group">
 			<label for="buyerName" class="control-label" id="labelname1">주문자명</label>&nbsp;&nbsp;&nbsp;
