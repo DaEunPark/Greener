@@ -25,24 +25,24 @@ public class BuyerVueController {
 	
 
  	//-----------------------------------------------------------------------------------------------------------
-	// °Ô½ÃÆÇ ¸ñ·Ï °¡Á®¿À±â
+	// ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	//-----------------------------------------------------------------------------------------------------------
 	@GetMapping("/buyer/mypage")
 	public List<BuyerDTO> buyerList() throws Exception {
 		
-		List<BuyerDTO> buyerList = buyerService.buyerList();
-		return buyerList;
+//		List<BuyerDTO> buyerList = buyerService.buyerList();
+		return null;
 		
-	} // End - °Ô½ÃÆÇ ¸ñ·Ï °¡Á®¿À±â
+	} // End - ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	//-----------------------------------------------------------------------------------------------------------
-	// °Ô½Ã±Û ¹øÈ£¿¡ ÇØ´çÇÏ´Â °Ô½Ã±Û Á¤º¸¸¦ °¡Á®¿À±â
+	// ï¿½Ô½Ã±ï¿½ ï¿½ï¿½È£ï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½Ô½Ã±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	//-----------------------------------------------------------------------------------------------------------
 	@GetMapping("/buyer/{b_id}")
 	public BuyerDTO buyerDetail(@PathVariable String b_id) throws Exception {
 
 		logger.info("VueBoardController boardDetail() bno ==> " + b_id);
 
-		return buyerService.buyerDetail(b_id);
+		return null; /*buyerService.buyerDetail(b_id);*/
 	}
 }
