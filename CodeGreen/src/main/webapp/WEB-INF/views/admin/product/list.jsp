@@ -27,25 +27,25 @@
 				<th scope="col">관리자</th>
 	    	</tr>
 	   </thead>
-   <tbody class="table-group-divider"> 
-    <c:forEach items="${list}" var="list">
-    <tr>
-     <td>${list.p_number}</td>
-     <td>
-     	<a href="/admin/product/view?n=${list.p_number}">${list.p_name}</a>
-     </td>
-     <td>
-     	<img src="${list.p_thumbImg}">
-     </td>
-     <td>${list.c_name}</td>
-     <td>${list.p_price}</td>
-     <td>${list.p_stock}</td>
-     <td>${list.p_usedate}</td>
-     <td>${list.product_s_id}</td>
-     <td>${list.product_m_id}</td>
-    </tr>     
-    </c:forEach>
-   </tbody>
+	<tbody class="table-group-divider"> 
+	    <c:forEach items="${list}" var="list">
+			<tr>
+				<td>${list.p_number}</td>
+				<td>
+					<a href="/admin/product/view?n=${list.p_number}">${list.p_name}</a>
+				</td>
+				<td>
+					<img src="${list.p_thumbImg}">
+				</td>
+				<td>${list.c_name}</td>
+				<td>${list.p_price}</td>
+				<td>${list.p_stock}</td>
+				<td>${list.p_usedate}</td>
+				<td>${list.product_s_id}</td>
+				<td>${list.product_m_id}</td>
+		    </tr>     
+	    </c:forEach>
+	</tbody>
 </table>
 </div>
 </body>

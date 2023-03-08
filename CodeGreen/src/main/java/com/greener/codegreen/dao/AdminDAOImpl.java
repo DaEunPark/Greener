@@ -28,7 +28,7 @@ public class AdminDAOImpl implements AdminDAO {
 	// 상품 등록
 	@Override
 	public void productRegister(ProductDTO dto) throws Exception {
-		sql.insert(namespace+".register", dto);
+		sql.insert(namespace+".productRegister", dto);
 
 	}
 

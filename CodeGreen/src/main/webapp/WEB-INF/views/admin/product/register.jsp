@@ -18,12 +18,12 @@
 		<form role = "form" method="post" autocomplete="off" enctype="myltipart/form-data">
 			<label>1차 분류</label>
 			<select class="category1">
-				<option value="">전체</option>
+				<option selected value="none">전체</option>
 			</select>
 			<br>
 			<label>2차 분류</label>
 			<select class="category2" name="c_code">
-				<option value="">전체</option>
+				<option selected value="none">전체</option>
 			</select>
 			
 			<div class="inputArea">
@@ -77,49 +77,69 @@
 <script>
 // 컨트롤러에서 데이터 받기
 var jsonData = JSON.parse('${category}');
-console.log(jsonData);
 
 var cate1Arr = new Array();
+var cate2Arr = new Array();
 var cate1Obj = new Object();
+var cate2Obj = new Object();
+var cateSelect1 = $(".category1")
+var cateSelect2 = $(".category2");
 
-// 1차 분류 셀렉트 박스에 삽입할 데이터 준비
+
+// 셀렉트 박스에 삽입할 데이터 준비
+
 for(var i = 0; i < jsonData.length; i++) {
- 
- if(jsonData[i].c_level == "1") {
-  cate1Obj = new Object();  //초기화
-  cate1Obj.c_code = jsonData[i].c_code;
-  cate1Obj.c_name = jsonData[i].c_name;
-  cate1Arr.push(cate1Obj);
- }
+	if(jsonData[i].c_level == "1") {
+		cate1Obj = new Object();  //초기화
+		
+		cate1Obj.c_name = jsonData[i].c_name;
+		cate1Obj.c_code = jsonData[i].c_code;
+		cate1Obj.c_code_ref = jsonData[i].c_code_ref;
+		
+		cate1Arr.push(cate1Obj);
+ 	}
+}
+for(var i = 0; i < jsonData.length; i++) {
+	if(jsonData[i].c_level == "2") {
+		cate2Obj = new Object();  //초기화
+		
+		cate2Obj.c_name = jsonData[i].c_name;
+		cate2Obj.c_code = jsonData[i].c_code;
+		cate2Obj.c_code_ref = jsonData[i].c_code_ref;
+		
+		cate2Arr.push(cate2Obj);
+ 	}
 }
 
-// 1차 분류 셀렉트 박스에 데이터 삽입
-var cate1Select = $("select.category1")
+$(document).ready(function(){
+	console.log(cate1Arr);
+	console.log(cate2Arr);
+});
 
-for(var i = 0; i < cate1Arr.length; i++) {
- cate1Select.append("<option value='" + cate1Arr[i].c_code + "'>"
-      + cate1Arr[i].c_name + "</option>"); 
-}
+/* 대분류 <option> 태그 */
+for(let i = 0; i < cate1Arr.length; i++){
+	cateSelect1.append("<option value='"+cate1Arr[i].c_code+"'>" + cate1Arr[i].c_name + "</option>");
+	}
 
-$(document).on("change", "select.category1", function(){
+/* 중분류 <option> 태그 */
+$(cateSelect1).on("change", function(){
+	
+	let selectVal = $(this).find("option:selected").val();	
+	$("option:selected", this).each(function(){
 
-	 var cate2Arr = new Array();
-	 var cate2Obj = new Object();
-	 
-	 // 2차 분류 셀렉트 박스에 삽입할 데이터 준비
-	 for(var i = 0; i < jsonData.length; i++) {
-	  
-	  if(jsonData[i].c_level == "2") {
-	   cate2Obj = new Object();  //초기화
-	   cate2Obj.c_code = jsonData[i].c_code;
-	   cate2Obj.c_name = jsonData[i].c_name;
-	   cate2Obj.c_code_ref = jsonData[i].c_code_ref;
-	   
-	   cate2Arr.push(cate2Obj);
-	  }
-	 }
-	 
-	 var cate2Select = $("select.category2");
+		cateSelect2.children().remove();
+		
+		cateSelect2.append("<option value='none'>전체</option>")
+	
+		for(let i = 0; i < cate2Arr.length; i++){
+			if(selectVal == cate2Arr[i].c_code_ref){
+				cateSelect2.append("<option value='" + cate2Arr[i].c_code + "'>" + cate2Arr[i].c_name + "</option>");	
+			}
+		}// for
+	});
+});
+/*
+$(document).on("change", ".category1", function(){
 	 
 	 /*
 	 for(var i = 0; i < cate2Arr.length; i++) {
@@ -128,6 +148,7 @@ $(document).on("change", "select.category1", function(){
 	 }
 	 */
 	 
+	 /*
 	 cate2Select.children().remove();
 
 	 $("option:selected", this).each(function(){
@@ -143,9 +164,8 @@ $(document).on("change", "select.category1", function(){
 	   }
 	  }
 	  
-	 });
-	 
 	});
+	 */
 
 </script>
 

@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.greener.codegreen.dto.CategoryDTO;
 import com.greener.codegreen.dto.ProductDTO;
 import com.greener.codegreen.dto.ProductViewDTO;
@@ -74,7 +75,7 @@ public class AdminController {
 							
 		adminService.productRegister(dto);
 		
-		return "redirect:/admin/index";
+		return "redirect:/admin/product/list";
 	}
 	
 	// 상품 목록
@@ -83,6 +84,7 @@ public class AdminController {
 		logger.info("get product list");
 		
 		List<ProductViewDTO> list = adminService.productList();
+		
 		model.addAttribute("list", list);
 	}
 	
