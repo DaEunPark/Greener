@@ -76,7 +76,7 @@
         </a>
       </li>
       <li>
-        <a href="${contextPath}/seller/sellerList.do" class="nav-link text-white sidebar-link">
+        <a href="${contextPath}/seller/sellerList" class="nav-link text-white sidebar-link">
             <i class="fa-solid fa-user"></i>
           판매자 목록
         </a>

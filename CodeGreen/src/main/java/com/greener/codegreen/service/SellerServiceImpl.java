@@ -17,17 +17,34 @@ public class SellerServiceImpl implements SellerService {
 	private SellerController sellerController;
 	@Inject 
 	private SellerDAO sellerDAO;
-
+	
+	//------------------------------------------------------------------------------------------------------------
+	// 판매자 리스트 조회
+	//------------------------------------------------------------------------------------------------------------
 	@Override
 	public List<SellerDTO> sellerList(SearchCriteria scri) throws Exception {
-		// TODO Auto-generated method stub
+		
 		return sellerDAO.sellerList(scri);
 	}
-
+	
+	//------------------------------------------------------------------------------------------------------------
+	// 판매자 회원 수 조회
+	//------------------------------------------------------------------------------------------------------------
 	@Override
 	public int totalCount(SearchCriteria scri) throws Exception {
-		// TODO Auto-generated method stub
+
 		return sellerDAO.totalCount(scri);
 	}
+	
+	//------------------------------------------------------------------------------------------------------------
+	// 판매자 회원 수 조회
+	//------------------------------------------------------------------------------------------------------------
+	@Override
+	public SellerDTO sellerDetail(String s_id,int flag) throws Exception {
+
+		return sellerDAO.sellerDetail(s_id);
+	}
+	
+	
 
 }
