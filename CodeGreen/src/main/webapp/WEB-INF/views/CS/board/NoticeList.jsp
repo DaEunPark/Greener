@@ -41,7 +41,7 @@
 		<!-- 카테고리별 검색하기 --> 
 		<div align="right">
 		<select class="form-select right"  aria-label="Default select example" title="문의유형 선택" id="n_bc_code" name="n_bc_code" >
-		  <option value="0" <c:if test="${n_bc_code == '0'}">selected</c:if>>전체</option>
+			  <option value="0" <c:if test="${n_bc_code == '0'}">selected</c:if>>전체</option>
 			  <option value="4" <c:if test="${n_bc_code == '4'}">selected</c:if>>회원/멤버십</option>
 			  <option value="5" <c:if test="${n_bc_code == '5'}">selected</c:if>>주문/결제</option>
 			  <option value="6" <c:if test="${n_bc_code == '6'}">selected</c:if>>배송</option>

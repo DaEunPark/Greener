@@ -7,7 +7,7 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,10 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+
 import com.greener.codegreen.dao.BoardDAO;
 import com.greener.codegreen.dto.BoardDTO;
 import com.greener.codegreen.service.BoardService;
@@ -101,23 +99,62 @@ public class BoardController {
 		
 	}//FAQ 작성한걸 등록하기 
 	
+//------------------------------------------------------------------------------------------------	
+	
 	//----------------------------------------------------------------------
-	// 1:1 작성하기화면불러오기 : InquiryForm( vue의 CSInquiryForm )
+	// vue 에서 faq전체 목록 뿌려주기 
 	//----------------------------------------------------------------------
+	
+	@CrossOrigin
+	@ResponseBody
+	@GetMapping ("/Ffaqlist")
+	public List<BoardDTO> FaqList() throws Exception {
+		
+		List<BoardDTO> FaqList = boardService.FaqList(0);
+		return FaqList;
+		
+	} 
+	//----------------------------------------------------------------------
+	// vue 에서 faq전체 목록 뿌려주기 - 게시글 번호에 해당하는 게시글 정보가져오기
+	//----------------------------------------------------------------------
+	@GetMapping("/Ffaqlist/{f_no}")
+	public BoardDTO FaqDetail(@PathVariable int f_no) throws Exception {
+
+		logger.info("BoardController FaqDetail() f_no ==> " + f_no);
+
+		return boardService.FaqDetail(f_no);
+	}
+	//----------------------------------------------------------------------
+	// vue 에서 Notice 전체 목록 뿌려주기 
+	//----------------------------------------------------------------------
+	
+	@CrossOrigin
+	@ResponseBody
+	@GetMapping ("/Nnoticelist")
+	public List<BoardDTO> NoticeList() throws Exception {
+		
+		List<BoardDTO> NoticeList = boardService.NoticeList(0);
+		return NoticeList;
+		
+	} 
+	//----------------------------------------------------------------------
+	// vue 에서 Notice 전체 목록 뿌려주기  - 게시글 번호에 해당하는 게시글 정보가져오기
+	//----------------------------------------------------------------------
+	@GetMapping("/Nnoticelist/{n_no}")
+	public BoardDTO NoticeDetail(@PathVariable int n_no) throws Exception {
+
+		logger.info("BoardController NoticeDetail() n_no ==> " + n_no);
+
+		return boardService.NoticeDetail(n_no);
+	}
 
 	
-	
-	
-	
-	
-	
-	
-//--------------------------------------------------------------------------------------------------	
-	
+//------------------------------------------------------------------------------------------------	
+
+
 	
 	//----------------------------------------------------------------------
-	// 공지사항 전체 목록보기 NoticeList.jsp : 앞으로의 전체목록보기는 
-	// FaqList?f_bc_code=0 형식으로 보아야함  - CSbaordform 에서 등록시 fn_formInsert() 의 리턴 / vscode에서 경로 사용됨
+	// 공지사항 전체 목록보기 NoticeList.jsp 
 	//----------------------------------------------------------------------
 	@RequestMapping( value="/NoticeList" , method= RequestMethod.GET)
 	public void NoticeList(Model model , Locale locale ,HttpServletRequest request) throws Exception {
@@ -131,12 +168,11 @@ public class BoardController {
 		model.addAttribute("NoticeList",NoticeList);
 		//NoticeList 에 데이터가 저장되어있다 이걸로 NoticeList.jsp에서데이터값뿌려줌
 		
-		
-		
 	}//공지사항 전체 목록보기
 	
 	//----------------------------------------------------------------------
-	// FAQ 전체 목록보기 FaqList.jsp
+	// FAQ 전체 목록보기 FaqList.jsp   : 앞으로의 전체목록보기는 
+	// FaqList?f_bc_code=0 형식으로 보아야함  
 	//----------------------------------------------------------------------
 	@RequestMapping( value="/FaqList" , method= RequestMethod.GET)
 	public void FaqList(Model model,Locale locale, HttpServletRequest request) throws Exception {
@@ -402,10 +438,7 @@ public class BoardController {
 		
 	
 	// 리스트 양을 많이 안할거라 우선 페이징 처리 안함 - 따로 빼둠 
-	
-	//-----------------------------------------------------------------------------------------------------------
-	// 
-	//-----------------------------------------------------------------------------------------------------------
+
 	
 
 	

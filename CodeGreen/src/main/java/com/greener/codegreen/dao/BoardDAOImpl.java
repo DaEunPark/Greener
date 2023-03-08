@@ -46,6 +46,10 @@ public class BoardDAOImpl implements BoardDAO {
 		
 		return sqlSession.insert(Namespace + ".BfaqUpform" , boardDTO);
 	}
+	
+	
+	
+	
 
 //----------------------------------------------------------------------------	
 // 공지사항, FAQ ,1:1 목록보기 

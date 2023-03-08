@@ -46,6 +46,10 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.FaqUpForm(baordDTO);
 	}
 
+	
+	
+	
+	
 //----------------------------------------------------------------------------	
 // 공지사항, FAQ ,1:1 목록보기 
 //----------------------------------------------------------------------------		
@@ -53,12 +57,12 @@ public class BoardServiceImpl implements BoardService {
 	//공지사항 전체 목록
 	@Override
 	public List<BoardDTO> NoticeList(int n_bc_code) throws Exception {
-		//ManagerDTO 를 List형태로 만들면 목록을 리스트로 받을수있음
+	
 		
 		logger.info("NoticeList Serviceimpl 지나가는중....  ");	
 		
 		return boardDAO.NoticeList(n_bc_code); 
-		//리턴한 값을 컨트롤러로 가져가서 model로 받아온다?
+		
 	}
 	//FAQ 전체 목록
 	@Override
@@ -152,9 +156,7 @@ public class BoardServiceImpl implements BoardService {
 //----------------------------------------------------------------------------	
 // 공지사항, FAQ ,1:1  페이징처리 - 뻄 
 //----------------------------------------------------------------------------		
-//----------------------------------------------------------------------------
-// 카테고리에 따른 게시판 보여주기 
-//----------------------------------------------------------------------------
+
 
 	
 	
