@@ -16,7 +16,7 @@
 				FROM ProductOrder o JOIN Buyer b ON o.order_b_id = b.b_id
 			) brd
 			WHERE rNum BETWEEN (${pageNum}-1)*10+1
-					AND #{pageNum}*10
+					AND ${pageNum}*10
 			ORDER BY brd.o_date DESC
 			]]>
 		</select>
@@ -26,40 +26,20 @@
 	<!-- ****************************************************************************************** -->
  	<select id="orderListCheck" resultType="HashMap" parameterType="java.util.HashMap">
 		<![CDATA[
-			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state
+		SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
+		FROM (
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
 			FROM ProductOrder o 
-			JOIN Buyer b ON o.order_b_id = b.b_id
-			JOIN Product p ON o.order_p_number = p.p_number
-			WHERE o.o_number = #{orderNum1} 
-			   OR b.b_name = #{buyerName1} 
-			   OR o.order_p_number = #{productNum1}
-			   OR o.o_number = #{orderNum2} AND b.b_name = #{buyerName2}
-			   OR o.o_number = #{orderNum3} AND o.order_p_number = #{productNum3}
-			   OR b.b_name = #{buyerName4} AND o.order_p_number = #{productNum4}
-			   OR o.o_number = #{orderNum5} AND b.b_name = #{buyerName5} AND o.order_p_number = #{productNum5}
-			   OR (o.o_number = #{orderNum6} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY) AND NOW())
-			   OR (b.b_name = #{buyerName7}  AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY) AND NOW())
-			   OR (o.order_p_number = #{productNum8} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY) AND NOW())
-			   OR (o.o_number = #{orderNum9} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW())
-			   OR (b.b_name = #{buyerName10}  AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW())
-			   OR (o.order_p_number = #{productNum11} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW())
-			   OR (o.o_number = #{orderNum12} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW())
-			   OR (b.b_name = #{buyerName13}  AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW())
-			   OR (o.order_p_number = #{productNum14} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW())
-			   OR (o.o_number = #{orderNum15} AND b.b_name = #{buyerName15} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY) AND NOW())
-			   OR (o.o_number = #{orderNum16} AND o.order_p_number = #{productNum16} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY) AND NOW())
-			   OR (b.b_name = #{buyerName17} AND o.order_p_number = #{productNum17} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY) AND NOW())
-			   OR (o.o_number = #{orderNum18} AND b.b_name = #{buyerName18} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW())
-			   OR (o.o_number = #{orderNum19} AND o.order_p_number = #{productNum19} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW())
-			   OR (b.b_name = #{buyerName20} AND o.order_p_number = #{productNum20} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW())
-			   OR (o.o_number = #{orderNum21} AND b.b_name = #{buyerName21} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW())
-			   OR (o.o_number = #{orderNum22} AND o.order_p_number = #{productNum22} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW())
-			   OR (b.b_name = #{buyerName23} AND o.order_p_number = #{productNum23} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW())
-			   OR (o.o_number = #{orderNum24} AND b.b_name = #{buyerName24} AND o.order_p_number = #{productNum24} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 DAY) AND NOW())
-			   OR (o.o_number = #{orderNum25} AND b.b_name = #{buyerName25} AND o.order_p_number = #{productNum25} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW())
-			   OR (o.o_number = #{orderNum26} AND b.b_name = #{buyerName26} AND o.order_p_number = #{productNum26} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH) AND NOW())
+				JOIN Buyer b ON o.order_b_id = b.b_id
+				JOIN Product p ON o.order_p_number = p.p_number
+			WHERE o.o_number = #{orderNum}
+				OR b.b_name = #{buyerName}
+				OR p.p_number = #{productNum}
 			ORDER BY o.o_date DESC
-			LIMIT #{startRow}, #{pageSize}
+		) brd
+			WHERE rNum BETWEEN (${pageNum}-1)*10+1
+					AND ${pageNum}*10
+			ORDER BY brd.o_date DESC
 		]]>
 	</select>
 	
@@ -68,13 +48,18 @@
 	<!-- ****************************************************************************************** -->
  	<select id="orderListOnlyDay" resultType="HashMap" parameterType="java.util.HashMap">
 		<![CDATA[
-			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state
+		SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
+		FROM (	
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
 			FROM ProductOrder o 
-			JOIN Buyer b ON o.order_b_id = b.b_id
-			JOIN Product p ON o.order_p_number = p.p_number
+				JOIN Buyer b ON o.order_b_id = b.b_id
+				JOIN Product p ON o.order_p_number = p.p_number
 			WHERE o.o_date > curdate()
 			ORDER BY o.o_date DESC
-			LIMIT #{startRow}, #{pageSize}
+			) brd
+			WHERE rNum BETWEEN (${pageNum}-1)*10+1
+					AND ${pageNum}*10
+			ORDER BY brd.o_date DESC
 		]]>
 	</select>
 	
@@ -83,13 +68,18 @@
 	<!-- ****************************************************************************************** -->
  	<select id="orderListOnlyWeek" resultType="HashMap" parameterType="java.util.HashMap">
 		<![CDATA[
-			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state
+		SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
+		FROM (	
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
 			FROM ProductOrder o 
-			JOIN Buyer b ON o.order_b_id = b.b_id
-			JOIN Product p ON o.order_p_number = p.p_number
+				JOIN Buyer b ON o.order_b_id = b.b_id
+				JOIN Product p ON o.order_p_number = p.p_number
 			WHERE o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
-            ORDER BY o.o_date DESC
-            LIMIT #{startRow}, #{pageSize}
+			ORDER BY o.o_date DESC
+			) brd
+			WHERE rNum BETWEEN (${pageNum}-1)*10+1
+					AND ${pageNum}*10
+			ORDER BY brd.o_date DESC
 		]]>
 	</select>
 	
@@ -98,13 +88,18 @@
 	<!-- ****************************************************************************************** -->
  	<select id="orderListOnlyMonth" resultType="HashMap" parameterType="java.util.HashMap">
 		<![CDATA[
-			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state
+		SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
+		FROM (	
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
 			FROM ProductOrder o 
-			JOIN Buyer b ON o.order_b_id = b.b_id
-			JOIN Product p ON o.order_p_number = p.p_number
+				JOIN Buyer b ON o.order_b_id = b.b_id
+				JOIN Product p ON o.order_p_number = p.p_number
 			WHERE o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
-            ORDER BY o.o_date DESC
-            LIMIT #{startRow}, #{pageSize}
+			ORDER BY o.o_date DESC
+			) brd
+			WHERE rNum BETWEEN (${pageNum}-1)*10+1
+					AND ${pageNum}*10
+			ORDER BY brd.o_date DESC
 		]]>
 	</select>
 	
@@ -117,6 +112,22 @@
 	        FROM	ProductOrder
 		]]>
 	</select>
+	
+	<!-- ****************************************************************************************** -->
+	<!-- 주문내역 총 개수 구하기 -->
+	<!-- ****************************************************************************************** -->
+  	<select id="orderListCountTwo" resultType="int" parameterType="com.greener.codegreen.common.SearchCriteria">
+		<![CDATA[
+	        SELECT 	Count(o_number)
+	        FROM ProductOrder o 
+				JOIN Buyer b ON o.order_b_id = b.b_id
+				JOIN Product p ON o.order_p_number = p.p_number
+	        WHERE o.o_number = #{orderNum}
+				OR b.b_name = #{buyerName}
+				OR p.p_number = #{productNum}
+		]]>
+	</select>
+	
 
 	<!-- ****************************************************************************************** -->
 	<!-- 주문번호 누르면 상세 주문내역 보여주기 -->

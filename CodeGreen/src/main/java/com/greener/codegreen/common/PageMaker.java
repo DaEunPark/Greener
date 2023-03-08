@@ -8,7 +8,27 @@ public class PageMaker {
 	private boolean prev;			// 이전
 	private boolean next;			// 다음
 	private int viewPageNum = 10;	// 하단에 보여줄 페이지의 개수
+	private int filterListNum;		// 조건 검색시 해당하는 목록 개수
+	private int realEndPage = (int) (Math.ceil(filterListNum / (double)10)+1);
 	
+	public int getRealEndPage() {
+		return realEndPage;
+	}
+	public void setRealEndPage(int realEndPage) {
+		this.realEndPage = realEndPage;
+	}
+	@Override
+	public String toString() {
+		return "PageMaker [cri=" + cri + ", totalCount=" + totalCount + ", startPage=" + startPage + ", endPage="
+				+ endPage + ", prev=" + prev + ", next=" + next + ", viewPageNum=" + viewPageNum + ", filterListNum="
+				+ filterListNum + "]";
+	}
+	public int getFilterListNum() {
+		return filterListNum;
+	}
+	public void setFilterListNum(int filterListNum) {
+		this.filterListNum = filterListNum;
+	}
 	public Criteria getCri() {
 		return cri;
 	}

@@ -132,11 +132,9 @@
 					<a href='<c:url value="/order/map-data?page=${pageMaker.startPage-1}"/>'><span class="glyphicon glyphicon-chevron-left"></span></a>
 				</li>
 			</c:if>
-
-			 <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="pageNum">
-					<li><a onclick="sendAjaxRequest(${pageNum})" href='#'>${pageNum}</a></li>&nbsp;&nbsp;&nbsp;
-			</c:forEach>
-		
+						<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="pageNum">
+							<li><a onclick="sendAjaxRequest(${pageNum})" href='#'>${pageNum}</a></li>&nbsp;&nbsp;
+						</c:forEach>
 			<c:if test="${pageMaker.next}">
 				<li>
 					<a href='<c:url value="/order/map-data?page=${pageMaker.endPage+1}"/>'><span class="glyphicon glyphicon-chevron-right"></span></a>

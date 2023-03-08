@@ -18,27 +18,32 @@ public interface OrderDAO {
 	//-----------------------------------------------------------------------------------------------------------
 	// 조건에 맞는 주문내역 목록 불러오기
 	//-----------------------------------------------------------------------------------------------------------
-	public List<HashMap<String, String>> orderList(HashMap<String, String> paramMap) throws DataAccessException;
+	public List<HashMap<String, String>> orderList(SearchCriteria scri) throws DataAccessException;
 	
 	//-----------------------------------------------------------------------------------------------------------
 	// 조건에 맞는 주문내역 목록 불러오기(onlyDay)
 	//-----------------------------------------------------------------------------------------------------------
-	public List<HashMap<String, String>> orderListOnlyDay() throws DataAccessException;
+	public List<HashMap<String, String>> orderListOnlyDay(SearchCriteria scri) throws DataAccessException;
 
 	//-----------------------------------------------------------------------------------------------------------
 	// 조건에 맞는 주문내역 목록 불러오기(onlyWeek)
 	//-----------------------------------------------------------------------------------------------------------
-	public List<HashMap<String, String>> orderListOnlyWeek() throws DataAccessException;
+	public List<HashMap<String, String>> orderListOnlyWeek(SearchCriteria scri) throws DataAccessException;
 	
 	//-----------------------------------------------------------------------------------------------------------
 	// 조건에 맞는 주문내역 목록 불러오기(onlyMonth)
 	//-----------------------------------------------------------------------------------------------------------
-	public List<HashMap<String, String>> orderListOnlyMonth() throws DataAccessException;
+	public List<HashMap<String, String>> orderListOnlyMonth(SearchCriteria scri) throws DataAccessException;
 	
 	//-----------------------------------------------------------------------------------------------------------
-	// 주문내역 총 개수 구하기
+	// 주문내역 총 개수 구하기(orderTotalNum)
 	//-----------------------------------------------------------------------------------------------------------
 	public int orderTotalNum(SearchCriteria scri) throws DataAccessException;
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 주문내역 총 개수 구하기(orderTotalNumTwo)
+	//-----------------------------------------------------------------------------------------------------------
+	public int orderTotalNumTwo(SearchCriteria scri) throws DataAccessException;
 	
 	//-----------------------------------------------------------------------------------------------------------
 	// 주문번호 누르면 상세 주문내역 보여주기

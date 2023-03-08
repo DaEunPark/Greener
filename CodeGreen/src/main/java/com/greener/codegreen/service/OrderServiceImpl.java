@@ -37,54 +37,65 @@ public class OrderServiceImpl implements OrderService {
 	// 조건에 맞는 주문내역 목록 불러오기
 	//-----------------------------------------------------------------------------------------------------------	
 	@Override
-	public List<HashMap<String, String>> getOrderList(HashMap<String, String> paramMap) throws DataAccessException {
+	public List<HashMap<String, String>> getOrderList(SearchCriteria scri) throws DataAccessException {
 		
 		logger.info("orderService에서 getOrderList()로 조건에 맞는 주문내역 조회하기");
 		
-		return orderDAO.orderList(paramMap);
+		return orderDAO.orderList(scri);
 	}
 	
 	//-----------------------------------------------------------------------------------------------------------
 	// 조건에 맞는 주문내역 목록 불러오기(onlyDay)
 	//-----------------------------------------------------------------------------------------------------------
-	public List<HashMap<String, String>> getOrderListOnlyDay() throws DataAccessException {
+	public List<HashMap<String, String>> getOrderListOnlyDay(SearchCriteria scri) throws DataAccessException {
 			
 		logger.info("orderService에서 getOrderListOnlyDay()로 조건에 맞는 주문내역 조회하기");
 			
-		return orderDAO.orderListOnlyDay();
+		return orderDAO.orderListOnlyDay(scri);
 			
 	}
 	
 	//-----------------------------------------------------------------------------------------------------------
 	// 조건에 맞는 주문내역 목록 불러오기(onlyWeek)
 	//-----------------------------------------------------------------------------------------------------------
-	public List<HashMap<String, String>> getOrderListOnlyWeek() throws DataAccessException {
+	public List<HashMap<String, String>> getOrderListOnlyWeek(SearchCriteria scri) throws DataAccessException {
 				
 		logger.info("orderService에서 getOrderListOnlyMonth()로 조건에 맞는 주문내역 조회하기");
 				
-		return orderDAO.orderListOnlyWeek();
+		return orderDAO.orderListOnlyWeek(scri);
 				
 	}
 	
 	//-----------------------------------------------------------------------------------------------------------
 	// 조건에 맞는 주문내역 목록 불러오기(onlyMonth)
 	//-----------------------------------------------------------------------------------------------------------
-	public List<HashMap<String, String>> getOrderListOnlyMonth() throws DataAccessException {
+	public List<HashMap<String, String>> getOrderListOnlyMonth(SearchCriteria scri) throws DataAccessException {
 					
 		logger.info("orderService에서 getOrderListOnlyMonth()로 조건에 맞는 주문내역 조회하기");
 					
-		return orderDAO.orderListOnlyMonth();
+		return orderDAO.orderListOnlyMonth(scri);
 					
 	}
 	
 	//-----------------------------------------------------------------------------------------------------------
-	// 주문내역 총 개수 구하기
+	// 주문내역 총 개수 구하기(orderTotal)
 	//-----------------------------------------------------------------------------------------------------------
 	public int orderTotal(SearchCriteria scri) throws DataAccessException {
 		
 		logger.info("orderService에서 orderTotal()로 전체 주문내역 개수 구하기");
 		
 		return orderDAO.orderTotalNum(scri);
+		
+	}
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 주문내역 총 개수 구하기(orderTotalTwo)
+	//-----------------------------------------------------------------------------------------------------------
+	public int orderTotalTwo(SearchCriteria scri) throws DataAccessException {
+		
+		logger.info("orderService에서 orderTotal()로 전체 주문내역 개수 구하기");
+		
+		return orderDAO.orderTotalNumTwo(scri);
 		
 	}
 	
