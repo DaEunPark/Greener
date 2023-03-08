@@ -3,11 +3,20 @@ package com.greener.codegreen.common;
 public class Criteria {
 	private int page;					// 현재 페이지 번호
 	private int perPageNum;	// 페이지당 보여줄 소비자 목록의 개수
+	private String pageNum;	// jsp에서 클릭된 페이지
 	
 	public Criteria() {
 		this.page = 1;						// 시작시 페이지 번호를 1로 고정
-		this.perPageNum = 20;		// 페이지당 보여줄 소비자 목록의 개수를 설정한다.
+		this.perPageNum = 10;		// 페이지당 보여줄 소비자 목록의 개수를 설정한다.
 	} // end - public Criteria()
+
+	public String getPageNum() {
+		return pageNum;
+	}
+
+	public void setPageNum(String pageNum) {
+		this.pageNum = pageNum;
+	}
 
 	public int getPage() {
 		return page;
@@ -31,7 +40,7 @@ public class Criteria {
 
 	@Override
 	public String toString() {
-		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + "]";
+		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + ", pageNum=" + pageNum + "]";
 	}
 	
 	

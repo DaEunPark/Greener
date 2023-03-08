@@ -1,90 +1,108 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"	uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
+<%@ taglib prefix="fmt"	uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%	request.setCharacterEncoding("UTF-8"); %>
-<!-- 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>	
- -->
 
+ 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>관리자 주문관리</title>
-
 </head>
+<style>
+	#formname1 {
+		padding: 10px 0px;
+		font-size:	13px;
+	}
+	#labelname1 {
+		padding: 10px 0px;
+		font-weight:	bold;
+		font-size:	13px;
+	}
+	#orderNum, #buyerName, #productNum {
+		height:27px;
+	}
+	#orderMenuButton {
+		border: 1px solid black;
+	}
+	.container {
+		width: 70%;
+	}
+	.title {
+		padding: 25px 0px 0px 420px;
+	}
+	#orderCheck {
+		position:	absolute;
+		left:	780px;
+	}
+		.txt:hover {
+		font-weight: bold;
+		color: #5CAAEF;
+		webkit-transform: scale(1.1,1.1);
+    	moz-transform: scale(1.1,1.1);
+    	o-transform: scale(1.1,1.1);
+    	ms-transform: scale(1.1,1.1);
+    	transform: scale(1.1,1.1);
+	}
+	
+	#title {
+		background-color: #F2FFED;
+	}
+	
+	#contents {
+		background-color: transparent;
+	}
+	#table {
+		width:	1100px;
+		font-size:	14px;
+	}
+	#contents {
+		height:	35px;
+	}
+	#paging {
+		position:	absolute;
+		left:	780px;
+	}
+</style>
 <body>
-<h2><center><p class="title">주문내역 조회</p></center></h2>
-<hr/>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <%-- <jsp:include page="../common/manager_topMenu.jsp" flush="false"/> --%>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<jsp:include page="../admin/include/nav.jsp" flush="false"/>
 <div class="container">
-	<form class="form-horizontal" method="post" name="formname1" id="formname1">
-		<div class="form-group">
-			<div class="col-sm-2">
-				<label for="orderNum" class="control-label">주문번호</label>
-			</div>
-			<div class="col-sm-offset-1">
-				<input type="text" id="orderNum" name="orderNum"/>
-			</div>
+
+<h2><p class="title">주문내역 조회</p></h2>
+<hr/>
+	<form class="form-horizontal" method="GET" name="formname1" id="formname1">
+		<div class="form-inline form-group">
+			<label for="orderNum" class="control-label" id="labelname1">주문번호</label>&nbsp;&nbsp;&nbsp;
+			<input type="text" id="orderNum" name="orderNum"/>
+
 		</div>
-		<div class="form-group">
-			<div class="col-sm-2">
-				<label for="buyerName" class="control-label">이름</label>
-			</div>
-			<div class="col-sm-offset-1">
-				<input type="text" id="buyerName" name="buyerName"/>
-			</div>
+		<div class="form-inline form-group">
+			<label for="buyerName" class="control-label" id="labelname1">주문자명</label>&nbsp;&nbsp;&nbsp;
+			<input type="text" id="buyerName" name="buyerName"/>
 		</div>
- 		<div class="form-group">
-			<div class="col-sm-2">
-				<label for="productNum" class="control-label">상품번호</label>
-			</div>
-			<div class="col-sm-offset-1">
-				<input type="text" id="productNum" name="productNum"/>
-			</div>
+ 		<div class="form-inline form-group">
+			<label for="productNum" class="control-label" id="labelname1">상품번호</label>&nbsp;&nbsp;&nbsp;
+			<input type="text" id="productNum" name="productNum"/>
 		</div>
- 		<div class="form-group">
-			<div class="col-sm-2">
-				<label for="productState" class="control-label">결제상태</label>
-			</div>
-			<div class="col-sm-offset-2">
-				<label class="checkbox-inline">
-					<input type="checkbox" class="state" id="completePay" name="completePay" value="0"> 결제완료&nbsp;&nbsp;
+		<div class="form-inline form-group">
+				<label for="productState" class="control-label" id="labelname1">조회기간</label>&nbsp;&nbsp;&nbsp;
+				<label class="radio-inline">
+					<input type="radio" class="period0" id="period0" name="period" value="0"> 하루&nbsp;&nbsp;&nbsp;
 				</label>
 				<label class="checkbox-inline">
-					<input type="checkbox" class="state" id="deliveryReady" name="deliveryReady" value="1"> 배송대기&nbsp;&nbsp;
+					<input type="radio" class="period1" id="period1" name="period" value="1"> 일주일&nbsp;&nbsp;&nbsp;
 				</label>
 				<label class="checkbox-inline">
-					<input type="checkbox" class="state" id="onDelivery" name="onDelivery" value="2"> 배송중&nbsp;&nbsp;
+					<input type="radio" class="period2" id="period2" name="period" value="2"> 한달&nbsp;&nbsp;&nbsp;
 				</label>
-				<label class="checkbox-inline">
-					<input type="checkbox" class="state" id="delivered" name="delivered" value="3"> 배송완료&nbsp;&nbsp;
-				</label>
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-sm-2">
-				<label for="productState" class="control-label">조회기간</label>
-			</div>
-			<div class="col-sm-offset-2">
-				<label class="checkbox-inline">
-					<input type="checkbox" class="state" id="day" name="day" value="0"> 당일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				</label>
-				<label class="checkbox-inline">
-					<input type="checkbox" class="state" id="week" name="week" value="1"> 일주일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				</label>
-				<label class="checkbox-inline">
-					<input type="checkbox" class="state" id="month" name="month" value="2"> 한달&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				</label>
-				<label class="checkbox-inline">
-					<input type="checkbox" class="state" id="whole" name="whole" value="3"> 전체
-				</label>
-			</div>
 		</div>
 	</form>
 </div>
@@ -92,56 +110,19 @@
 <hr/>
 
 	<div class="container">
-				<center><button type="button" id="orderCheck" class="btn btn-info" onclick="sendAjaxRequest()">조회</button></center>
+				<center><button type="button" id="orderCheck" class="btn btn-success btn-sm" onclick="sendAjaxRequest()">조회</button></center>
 	</div>
-	<hr style="border: 1px; #FFFFFF;">
-	<div class="container">
-		<div class="form-group">	
-			<div class="col-sm-offset-11">
-				<div class="dropdown">
-				  <button class="dropdown-toggle" type="button" id="orderMenuButton" data-toggle="dropdown"> 정렬기준
-				  <span class="caret"></span></button>
-						<div class="dropdown-menu" aria-labelledby="dropdownOrderMenu">
-							<button class="dropdown-item" type="button">주문일시</button>
-							<button class="dropdown-item" type="button">결제일시</button>
-							<button class="dropdown-item" type="button">결제금액순</button>
-						</div>
-				</div>
-			</div>
-		</div>
-	</div>
- 
-<div class="container">
-	<table class="table table-striped table-bordered table-hover">
-		<thead>
-				<tr class="orderList">
-	  				<th class="col-sm-2 text-center">주문일자</th> 
-					<th class="col-sm-2 text-center">주문번호</th>
-					<th class="col-sm-1 text-center">회원번호</th>
-					<th class="col-sm-2 text-center">아이디	</th>
-					<th class="col-sm-1 text-center">주문자명</th>
-					<th class="col-sm-2 text-center">결제금액</th>
-<!--  					<th class="col-sm-2 text-center">주문상태</th>-->
-				</tr>
-		</thead>
-	</table>
-        <div id="resultDiv"></div>
-</div>
+	<hr style="border: 1px; color:#FFFFFF;">
 
+	<div id="resultDiv"></div>
 <script>
-
 function sendAjaxRequest(data) {
         var orderNum = $('#orderNum').val();
         var buyerName = $('#buyerName').val();
         var productNum = $('#productNum').val();
-        var completePay = $('#completePay').is(':checked') ? 1 : 0;
-        var deliveryReady = $('#deliveryReady').is(':checked') ? 1 : 0;
-        var onDelivery = $('#onDelivery').is(':checked') ? 1 : 0;
-        var delivered = $('#delivered').is(':checked') ? 1 : 0;
-        var day = $('#day').is(':checked') ? 1 : 0;
-        var week = $('#week').is(':checked') ? 1 : 0;
-        var month = $('#month').is(':checked') ? 1 : 0;
-        var whole = $('#whole').is(':checked') ? 1 : 0;
+        var period0 = $('#period0').is(':checked') ? 1 : 0;
+        var period1 = $('#period1').is(':checked') ? 1 : 0;
+        var period2 = $('#period2').is(':checked') ? 1 : 0;
       
  		  $.ajax({
  	           type: "POST",
@@ -150,19 +131,13 @@ function sendAjaxRequest(data) {
  	        	orderNum:orderNum,
  	        	buyerName:buyerName,
 	        	productNum:productNum,
- 	        	completePay:completePay,
- 	        	deliveryReady:deliveryReady,
- 	        	onDelivery:onDelivery,
- 	        	delivered:delivered,
- 	        	day:day,
- 	        	week:week,
- 	        	month:month,
- 	        	whole:whole
+	        	period0:period0,
+	        	period1:period1,
+	        	period2:period2
   	            }),
  	           contentType:"application/json;charset=UTF-8",
   	           success: function(response) {
-/*   	             alert ("주문 조회 성공");*/
- 	             $("#resultDiv").html(response);
+  	        	   $('#resultDiv').html(response);
 	 	       },
 
  				error: function(xhr, status, error) {
@@ -171,6 +146,7 @@ function sendAjaxRequest(data) {
  	      });
 }
 </script>
+
 </body>
 </html>
 

@@ -17,47 +17,50 @@ import com.greener.codegreen.dto.BuyerDTO;
 //-----------------------------------------------------------------------------------------------------------
 @Service("buyerService")
 public class BuyerServiceImpl implements BuyerService {
-	private static final Logger logger 
-	= LoggerFactory.getLogger(BuyerServiceImpl.class);
-	
+	private static final Logger logger = LoggerFactory.getLogger(BuyerServiceImpl.class);
 	@Autowired
 	private BuyerDAO buyerDAO;
 
+	//-----------------------------------------------------------------------------------------------------------
+	// 로그인(시훈)
+	//-----------------------------------------------------------------------------------------------------------
 	@Override
-	public BuyerDTO login(BuyerDTO buyerDTO) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return buyerDAO.loginByIdPwd(buyerDTO);
-	}
+	public BuyerDTO login(BuyerDTO buyerIdPwd) throws DataAccessException {
+		return buyerDAO.loginByIdPwd(buyerIdPwd);
+	} // login()
 
-	@Override
-	public int addBuyer(BuyerDTO buyerDTO) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return buyerDAO.addBuyer(buyerDTO);
-	}
-
+	//-----------------------------------------------------------------------------------------------------------
+	// 아이디 중복 검사(민준)
+	//-----------------------------------------------------------------------------------------------------------
 	@Override
 	public int idCheck(BuyerDTO buyerDTO) throws Exception {
 		int result = buyerDAO.idCheck(buyerDTO);
 		return result;
-	}
-
+	} // idCheck()
 	
 	//-----------------------------------------------------------------------------------------------------------
-	// 소비자 계정 총 개수 조회
+	// 회원가입 처리하기(민준)
 	//-----------------------------------------------------------------------------------------------------------
 	@Override
-	public int totalCount(SearchCriteria scri) throws Exception {
-		// TODO Auto-generated method stub
+	public int addBuyer(BuyerDTO buyerDTO) throws DataAccessException {
+		return buyerDAO.addBuyer(buyerDTO);
+	} // addBuyer()
+
+	//-----------------------------------------------------------------------------------------------------------
+	// 소비자 계정 총 개수 조회(민준)
+	//-----------------------------------------------------------------------------------------------------------
+	@Override
+	public int totalCount(SearchCriteria scri) throws Exception {		
 		return buyerDAO.totalCount(scri);
-	}
-
-
+	} // totalCount()
+	
 	//-----------------------------------------------------------------------------------------------------------
 	// 소비자 리스트 조회
 	//-----------------------------------------------------------------------------------------------------------
 	@Override
-	public List<BuyerDTO> buyerList(SearchCriteria scri) throws Exception {
-		// TODO Auto-generated method stub
+	public List<BuyerDTO> buyerList(SearchCriteria scri) throws Exception {		
 		return buyerDAO.buyerList(scri);
-	}
-}
+	} // buyerList()
+	
+	
+} // End - public class BuyerServiceImpl
