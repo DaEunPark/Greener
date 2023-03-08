@@ -47,6 +47,21 @@ public class BoardDAOImpl implements BoardDAO {
 		return sqlSession.insert(Namespace + ".BfaqUpform" , boardDTO);
 	}
 	
+	//----------------------------------------------------------------------
+	// vue 에서 faq전체 목록 뿌려주기 이것도 뷰에서 select 할수있게
+	//----------------------------------------------------------------------
+	@Override
+	public List<BoardDTO> FaqListVue(int f_bc_code) throws Exception {
+		
+		logger.info("FaqListVue() DAOimpl 지남");
+		
+		return sqlSession.selectList(Namespace + ".VFaqlist" , f_bc_code);
+	}
+
+	
+	
+	
+	
 	
 	
 	

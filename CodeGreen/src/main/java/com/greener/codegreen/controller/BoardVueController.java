@@ -8,6 +8,7 @@
 //import org.slf4j.LoggerFactory;
 //import org.springframework.web.bind.annotation.CrossOrigin;
 //import org.springframework.web.bind.annotation.GetMapping;
+//import org.springframework.web.bind.annotation.PathVariable;
 //import org.springframework.web.bind.annotation.RestController;
 //
 //import com.greener.codegreen.dto.BoardDTO;
@@ -26,9 +27,9 @@
 //	// 게시판 목록 가져오기
 //	//-----------------------------------------------------------------------------------------------------------
 //	@GetMapping("/Ffaqlist")
-//	public List<BoardDTO> FaqList() throws Exception {
+//	public List<BoardDTO> FaqList(@PathVariable int f_bc_code) throws Exception {
 //		
-//		List<BoardDTO> FaqList = boardService.FaqList(0);
+//		List<BoardDTO> FaqList = boardService.FaqList(f_bc_code);
 //		return FaqList;
 //		
 //	} // End - 게시판 목록 가져오기

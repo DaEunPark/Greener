@@ -16,7 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -108,45 +108,46 @@ public class BoardController {
 	@CrossOrigin
 	@ResponseBody
 	@GetMapping ("/Ffaqlist")
-	public List<BoardDTO> FaqList() throws Exception {
+	public List<BoardDTO> FaqListVue(int f_bc_code) throws Exception {
 		
-		List<BoardDTO> FaqList = boardService.FaqList(0);
+		List<BoardDTO> FaqList = boardService.FaqList(f_bc_code);
 		return FaqList;
-		
 	} 
-	//----------------------------------------------------------------------
-	// vue 에서 faq전체 목록 뿌려주기 - 게시글 번호에 해당하는 게시글 정보가져오기
-	//----------------------------------------------------------------------
-	@GetMapping("/Ffaqlist/{f_no}")
-	public BoardDTO FaqDetail(@PathVariable int f_no) throws Exception {
-
-		logger.info("BoardController FaqDetail() f_no ==> " + f_no);
-
-		return boardService.FaqDetail(f_no);
-	}
-	//----------------------------------------------------------------------
-	// vue 에서 Notice 전체 목록 뿌려주기 
-	//----------------------------------------------------------------------
 	
-	@CrossOrigin
-	@ResponseBody
-	@GetMapping ("/Nnoticelist")
-	public List<BoardDTO> NoticeList() throws Exception {
-		
-		List<BoardDTO> NoticeList = boardService.NoticeList(0);
-		return NoticeList;
-		
-	} 
-	//----------------------------------------------------------------------
-	// vue 에서 Notice 전체 목록 뿌려주기  - 게시글 번호에 해당하는 게시글 정보가져오기
-	//----------------------------------------------------------------------
-	@GetMapping("/Nnoticelist/{n_no}")
-	public BoardDTO NoticeDetail(@PathVariable int n_no) throws Exception {
-
-		logger.info("BoardController NoticeDetail() n_no ==> " + n_no);
-
-		return boardService.NoticeDetail(n_no);
-	}
+	
+//	//----------------------------------------------------------------------
+//	// vue 에서 faq전체 목록 뿌려주기 - 게시글 번호에 해당하는 게시글 정보가져오기
+//	//----------------------------------------------------------------------
+//	@GetMapping("/Ffaqlist/{f_no}")
+//	public BoardDTO FaqDetail(@PathVariable int f_no) throws Exception {
+//
+//		logger.info("BoardController FaqDetail() f_no ==> " + f_no);
+//
+//		return boardService.FaqDetail(f_no);
+//	}
+//	//----------------------------------------------------------------------
+//	// vue 에서 Notice 전체 목록 뿌려주기 
+//	//----------------------------------------------------------------------
+//	
+//	@CrossOrigin
+//	@ResponseBody
+//	@GetMapping ("/Nnoticelist/{n_bc_code}")
+//	public List<BoardDTO> NoticeList(@PathVariable int n_bc_code) throws Exception {
+//		
+//		List<BoardDTO> NoticeList = boardService.NoticeList(n_bc_code);
+//		return NoticeList;
+//		
+//	} 
+//	//----------------------------------------------------------------------
+//	// vue 에서 Notice 전체 목록 뿌려주기  - 게시글 번호에 해당하는 게시글 정보가져오기
+//	//----------------------------------------------------------------------
+//	@GetMapping("/Nnoticelist/{n_no}")
+//	public BoardDTO NoticeDetail(@PathVariable int n_no) throws Exception {
+//
+//		logger.info("BoardController NoticeDetail() n_no ==> " + n_no);
+//
+//		return boardService.NoticeDetail(n_no);
+//	}
 
 	
 //------------------------------------------------------------------------------------------------	
