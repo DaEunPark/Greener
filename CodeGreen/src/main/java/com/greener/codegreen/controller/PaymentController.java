@@ -36,7 +36,7 @@ public class PaymentController {
 	@CrossOrigin(origins="http://localhost:8080")
 	public @ResponseBody String paymentInfo(@RequestBody BuyerDTO buyerId) throws Exception {
 		// 현재 구매자 정보 반환
-		BuyerDTO buyerDTO = paymentService.getBuyerInfo(buyerId);
+		buyerDTO = paymentService.getBuyerInfo(buyerId);
 		// 현재 구매자의 결제 예정 장바구니 목록 반환
 		List<PaymentCartDTO> cartList = paymentService.getPaymentCartList(buyerId);
 		logger.info("PaymentController paymentInfo() 장바구니 목록 확인 : " + cartList);

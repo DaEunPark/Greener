@@ -9,6 +9,7 @@ public class PaymentCartDTO {
 	private String p_img;
 	private int o_count;
 	private int o_total_price;
+	private int p_number;
 
 	public PaymentCartDTO() {
 	}
@@ -19,6 +20,17 @@ public class PaymentCartDTO {
 		this.p_img = p_img;
 		this.o_count = o_count;
 		this.o_total_price = o_total_price;
+	}
+	
+	
+
+	public PaymentCartDTO(String p_name, int p_price, String p_img, int o_count, int o_total_price, int p_number) {
+		this.p_name = p_name;
+		this.p_price = p_price;
+		this.p_img = p_img;
+		this.o_count = o_count;
+		this.o_total_price = o_total_price;
+		this.p_number = p_number;
 	}
 
 	public String getP_name() {
@@ -61,13 +73,20 @@ public class PaymentCartDTO {
 		this.o_total_price = o_total_price;
 	}
 
+	public int getP_number() {
+		return p_number;
+	}
+
+	public void setP_number(int p_number) {
+		this.p_number = p_number;
+	}
+
 	@Override
 	public String toString() {
 		return "PaymentCartDTO [p_name=" + p_name + ", p_price=" + p_price + ", p_img=" + p_img + ", o_count=" + o_count
-				+ ", o_total_price=" + o_total_price + "]";
+				+ ", o_total_price=" + o_total_price + ", p_number=" + p_number + "]";
 	}
 
-	
-	
+
 	
 }
