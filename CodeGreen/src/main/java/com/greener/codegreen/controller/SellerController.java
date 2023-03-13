@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +25,31 @@ public class SellerController {
 	@Inject
 	private SellerService sellerService;
 
+	
+	
+	//----------------------------------------------------------------------------------------------------
+	// 사업자 판매회원 인증 페이지로 이동(시훈)
+	//----------------------------------------------------------------------------------------------------
+	@RequestMapping(value="corpSellerVerif", method = RequestMethod.GET)
+	public ModelAndView corpSellerSignUp1(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/seller/cSellSignUp1Verify");
+		return mav;
+	} // corpSellerSignUp1()
+	
+	//----------------------------------------------------------------------------------------------------
+	// 개인 판매회원 인증 페이지로 이동(시훈)
+	//----------------------------------------------------------------------------------------------------	
+	@RequestMapping(value="privSellerVerif", method = RequestMethod.GET)
+	public ModelAndView privSellerSignUp1(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/seller/pSellSignUp1Verify");
+		return mav;
+	} // corpSellerSignUp1()
+	
+	
+	
+	
 	//----------------------------------------------------------------------------------------------------
 	// 판매자 리스트 불러오기
 	//----------------------------------------------------------------------------------------------------
@@ -43,11 +69,12 @@ public class SellerController {
 		mav.addObject("sellerList",sellerList);
 		mav.addObject("pageMaker",pageMaker);
 		
-		
 		return mav;
+	} // sellerList()
 	
-	}	// End - 판매자 리스트 조회
-	
+	//----------------------------------------------------------------------------------------------------
+	// 판매자 상세 조회
+	//----------------------------------------------------------------------------------------------------
 	@RequestMapping(value="/sellerDetail", method =RequestMethod.GET)
 	public String sellerDetail (Model model , HttpServletRequest request) throws Exception{
 		
@@ -59,7 +86,7 @@ public class SellerController {
 		model.addAttribute("sellerDetail",sellerDTO);
 		
 		return "/seller/sellerDetail";
-		
-	}
+	} // sellerDetail() 
 	
-}
+	
+} // SellerController

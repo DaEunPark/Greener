@@ -55,22 +55,40 @@
     	.button {
     		width: 300px;
     		height: 50px;
+    		font-size: 16px;
+    		font-weight: bold;
     		border-radius: 10px;
     	}
     	.buyer {
     		background: green;
     		color: white;
-    		font-size: 16px;
-    		font-weight: bold;
     		border: 1px solid green;
     		margin: 10px auto;
     	}
     	.seller {
     		background: none;
-    		font-size: 16px;
-    		font-weight: bold;
     		border: 1px solid darkgrey;
     		margin: 10px auto;
+    	}
+    	.add_btns {
+    		align-items: center;
+    		justify-content: space-between;
+    		width: 300px;
+    		margin: 0 auto;
+    	}
+    	.private {
+    		background: none;
+    		border: 1px solid darkgrey;
+    	}
+    	.private:hover {
+			color: green;
+    	}
+    	.corporation {
+    		background: none;
+    		border: 1px solid darkgrey;
+    	}
+    	.corporation:hover {
+			color: green;
     	}
     	hr {
     		width: 500px;
@@ -88,6 +106,15 @@
 			margin:0;
     	}
 	</style>
+	<script>
+		window.onload = function(){
+			document.getElementById("sellers").addEventListener("click", function(){
+				const btns = document.getElementById("btns");
+				if(btns.style.display == 'none') { btns.style.display = "flex"; }
+				else { btns.style.display = "none"; }
+			});
+		};
+	</script>
 </head>
 <body>
 	<!-- 헤더/푸터 따로 만들어서 관리 jsp:include ~ -->
@@ -101,7 +128,11 @@
 		<h3>회원가입</h3>
 		<h6>초록마켓의 회원이 되어 다양한 서비스를 경험해보세요</h6>
 		<p><a href="${contextPath}/buyer/Agreement"><button class="button buyer">구매 회원가입</button></a></p>
-		<p><button class="button seller" disabled>판매 회원가입</button></p>
+		<p><button id="sellers" class="button seller">판매 회원가입</button></p>
+		<div id="btns" class="add_btns" style="display: none;">
+			<a href="${contextPath}/seller/privSellerVerif"><button class="button private" style="width:140px;">개인 판매회원</button></a>
+			<a href="${contextPath}/seller/corpSellerVerif"><button class="button corporation" style="width:140px;">사업자 판매회원</button></a>
+		</div>
 		<hr>
 	</div>
 	<footer>

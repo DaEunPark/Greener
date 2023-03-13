@@ -16,6 +16,18 @@ public class AdminServiceImpl implements AdminService {
 	@Inject
 	private AdminDAO dao;
 
+	
+	// ---------------------------------------------------------------------------------------
+	// 누적판매량 상위 10개 상품 전시(시훈)
+	// ---------------------------------------------------------------------------------------
+	@Override
+	public List<ProductDTO> top10products() throws Exception {
+		return dao.top10products();
+	} // top10products()
+	
+	
+	
+	
 	@Override
 	public List<CategoryDTO> category() throws Exception {
 		// TODO Auto-generated method stub
@@ -59,4 +71,5 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		dao.register(dto);
 	}
+
 }
