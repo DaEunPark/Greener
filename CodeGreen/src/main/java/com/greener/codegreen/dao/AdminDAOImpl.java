@@ -28,7 +28,7 @@ public class AdminDAOImpl implements AdminDAO {
 	// 상품 등록
 	@Override
 	public void productRegister(ProductDTO dto) throws Exception {
-		sql.insert(namespace+".register", dto);
+		sql.insert(namespace+".productRegister", dto);
 
 	}
 
@@ -53,6 +53,7 @@ public class AdminDAOImpl implements AdminDAO {
 		sql.update(namespace+".productModify", dto);
 	}
 
+	// 상품 삭제
 	@Override
 	public void productDelete(int p_number) throws Exception {
 		// TODO Auto-generated method stub
@@ -60,10 +61,4 @@ public class AdminDAOImpl implements AdminDAO {
 		
 	}
 
-	// 상품등록
-	@Override
-	public void register(ProductDTO dto) throws Exception {
-		sql.insert(namespace+".register", dto);
-
-	}
 }

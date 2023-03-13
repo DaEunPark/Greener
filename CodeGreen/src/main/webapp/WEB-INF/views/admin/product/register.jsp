@@ -22,7 +22,7 @@
 			</select>
 			<br>
 			<label>2차 분류</label>
-			<select class="category2" name="c_code">
+			<select class="category2" name="product_c_code">
 				<option value="">전체</option>
 			</select>
 			
@@ -75,7 +75,7 @@
 			<%=request.getRealPath("/") %>			
 			
 			<div class="inputArea">
-			 <button type="submit" id="register_Btn" class="btn btn-primary">등록</button>
+			 	<button type="submit" id="register_Btn" class="btn btn-primary">등록</button>
 			</div>
 			
 		</form>
@@ -84,10 +84,11 @@
 <script>
 // 컨트롤러에서 데이터 받기
 var jsonData = JSON.parse('${category}');
-console.log(jsonData);
 
 var cate1Arr = new Array();
+var cate2Arr = new Array();
 var cate1Obj = new Object();
+var cate2Obj = new Object();
 
 // 1차 분류 셀렉트 박스에 삽입할 데이터 준비
 for(var i = 0; i < jsonData.length; i++) {
@@ -109,9 +110,6 @@ for(var i = 0; i < cate1Arr.length; i++) {
 }
 
 $(document).on("change", "select.category1", function(){
-
-	 var cate2Arr = new Array();
-	 var cate2Obj = new Object();
 	 
 	 // 2차 분류 셀렉트 박스에 삽입할 데이터 준비
 	 for(var i = 0; i < jsonData.length; i++) {

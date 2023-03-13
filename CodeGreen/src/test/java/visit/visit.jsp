@@ -1,19 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자 메인 페이지</title>
-  <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery.min.js"></script>
-    <!-- google charts -->
-       <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<title>Insert title here</title>
+
 </head>
 <body>
-<!-- 사이드 바 -->
-<jsp:include page="./include/nav.jsp"></jsp:include>
-<div id="chart_div" class="container"></div>
+ <div id="chart_div"></div>
   <script type="text/javascript">
    google.charts.load('current', {packages: ['corechart', 'bar']});
    google.charts.setOnLoadCallback(drawBasic);

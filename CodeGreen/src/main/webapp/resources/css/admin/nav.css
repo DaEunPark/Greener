@@ -2,12 +2,12 @@
 body {
   min-height: 100vh;
   min-height: -webkit-fill-available;
+  overflow-x:hidden; 
+  overflow-y:auto;
 }
-
 html {
   height: -webkit-fill-available;
 }
-
 main {
   height: 100vh;
   height: -webkit-fill-available;
@@ -15,47 +15,42 @@ main {
   overflow-x: auto;
   overflow-y: hidden;
 }
-
 nav {
 	position: fixed;
-	height: 100%;
+	height: 100%;	
+  	width: 280px;
 }
-
+.adminTitle {
+	font-size : 280px;
+}
 .sidebar {
-	
-  width: 230px;
-  height: 100vh;
-  background : linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.9));
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  box-shadow: 5px 7px 25px #999;
+	width: 280px;
+  	height: 100vh;
+  	background : linear-gradient(rgba(0,0,0,.7), rgba(0,0,0,.9));
+  	background-position: center;
+  	background-repeat: no-repeat;
+  	background-size: cover;
+  	box-shadow: 5px 7px 25px #999;
 }
-
 .current {
   background-color: #45c62b;
   border-radius: 7px;
   box-shadow: 2px 5px 10px #111;
 }
-
 .current:hover {
   background-color: #73e45d;
   border-radius: 7px;
   box-shadow: 2px 5px 10px #111;
   transform: translateY(-1px);
 }
-
 .sidebar-link {
   transition: all .4s;
 }
-
 .sidebar-link:hover {
   background-color: #444;
   border-radius: 5px;
 }
-
 .dropdown-toggle { outline: 0; }
-
 .btn-toggle {
   padding: .25rem .5rem;
   font-weight: 600;
@@ -63,12 +58,10 @@ nav {
   background-color: transparent;
 }
 .btn-toggle:hover,
-
 .btn-toggle:focus {
   color: rgba(0, 0, 0, .85);
   background-color: #d2f4ea;
 }
-
 .btn-toggle::before {
   width: 1.25em;
   line-height: 0;
@@ -76,14 +69,12 @@ nav {
   transition: transform .35s ease;
   transform-origin: .5em 50%;
 }
-
 .btn-toggle[aria-expanded="true"] {
   color: rgba(0, 0, 0, .85);
 }
 .btn-toggle[aria-expanded="true"]::before {
   transform: rotate(90deg);
 }
-
 .btn-toggle-nav a {
   padding: .1875rem .5rem;
   margin-top: .125rem;
@@ -93,15 +84,11 @@ nav {
 .btn-toggle-nav a:focus {
   background-color: #d2f4ea;
 }
-
 .scrollarea {
   overflow-y: auto;
 }
-
 .container{ 
-   margin-left:280px;                            
-
-}
-.pagename{
-	padding:40px;
+   margin-left : 280px;
+   width : 100%;     
+   padding : 0;           
 }

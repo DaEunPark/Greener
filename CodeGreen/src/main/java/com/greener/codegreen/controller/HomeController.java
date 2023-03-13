@@ -56,6 +56,8 @@ public class HomeController {
 		System.out.println("HomeController의 manager_main.do를 거쳐갑니다.");
 		return "managerMain";
 		
+
+		
 	} // End - public String  manager_main()
 	
 	

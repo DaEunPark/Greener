@@ -25,5 +25,4 @@ public interface AdminDAO {
 	// 상품 삭제
 	public void productDelete(int p_number) throws Exception;
 
-	public void register(ProductDTO dto) throws Exception;
 }
