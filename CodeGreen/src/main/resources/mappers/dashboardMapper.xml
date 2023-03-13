@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.greener.codegreen.dashboard">
+	
+	<!--  구매 상품 개수 평균 -->
+	<select id="productAvgCntInfo" parameterType="int" resultType="com.greener.codegreen.dto.ProductAvgCntDTO">
+		<![CDATA[
+			SELECT AVG(PO.o_count) product_order_avg, P.p_name p_name, PO.order_p_number order_p_number
+			FROM Product P, ProductOrder PO
+			WHERE P.p_number = PO.order_p_number
+			GROUP BY PO.order_p_number
+			ORDER BY product_order_avg DESC LIMIT 0, #{limit}
+		]]>
+	</select>
+
+	
+</mapper>
+
