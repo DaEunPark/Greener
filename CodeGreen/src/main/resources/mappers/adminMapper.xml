@@ -66,4 +66,22 @@
 	     ]]>
 	</delete>
 
+
+
+
+
+    <!-- DashProductView 목록  -->
+	<select id="dashproductview" resultType="com.greener.codegreen.dto.ProductViewDTO">
+		<![CDATA[
+		select	 p.p_name, p.p_view, c.c_code_ref, c.c_name
+		from 	 Product p
+		inner 	 join Category c
+		on 		 p.product_c_code = c.c_code
+		order by p.p_view desc;
+	     ]]>
+	</select>
+
+
+
+
 </mapper>

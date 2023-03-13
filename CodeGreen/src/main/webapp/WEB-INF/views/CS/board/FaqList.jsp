@@ -18,14 +18,15 @@
    <link href="../../resources/css/admin/bootstrap.min.css" rel="stylesheet">
    <!-- 게시판관리 js 적용 -->
 	<script src="${contextPath}/resources/js/Eboard.js"></script>
+	
 </head>
 
 <body>
 <!-- 사이드바 -->
 <jsp:include page="../../admin/include/nav.jsp"></jsp:include>
 
-<div class="container">
-<!-- 상단바 -->
+<div class="container"  style="margin-right:120px; width: 70%" >
+<!-- 상단 바  -->
 <jsp:include page="../../common/CStopMenu.jsp"></jsp:include>		
 	<form class="form-horizontal" id="frm">
 		<div class="form-group">

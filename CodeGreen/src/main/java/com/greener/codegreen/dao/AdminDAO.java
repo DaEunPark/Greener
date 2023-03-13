@@ -26,4 +26,9 @@ public interface AdminDAO {
 	public void productDelete(int p_number) throws Exception;
 
 	public void register(ProductDTO dto) throws Exception;
+	
+	
+	
+	// DashProductView 목록
+	public List<ProductViewDTO> DashProductview() throws Exception ;
 }

@@ -21,8 +21,12 @@
 </head>
 
 <body>
+<!-- 사이드바 -->
+<jsp:include page="../../admin/include/nav.jsp"></jsp:include>
 
-<div class="container">
+<div class="container"  style="margin-right:120px; width: 70%" >
+<!-- 상단 바  -->
+<jsp:include page="../../common/CStopMenu.jsp"></jsp:include>		
 	<form class="form-horizontal" name="NoticeForm">
 	<input type="hidden" value="${NoticeForm.n_no}" name="n_no" id="n_no">
 	<input type="hidden" value="${NoticeForm.n_regdate}" name="n_regdate" id="n_regdate">
