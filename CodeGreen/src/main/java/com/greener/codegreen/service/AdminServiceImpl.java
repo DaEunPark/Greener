@@ -59,4 +59,16 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		dao.register(dto);
 	}
+	
+	
+	
+	
+	// DashProductView 목록
+	@Override
+	public List<ProductViewDTO> DashProductview() throws Exception {
+		return dao.DashProductview();
+	}
+
+
+	
 }
