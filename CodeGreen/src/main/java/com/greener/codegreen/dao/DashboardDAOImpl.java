@@ -21,7 +21,7 @@ public class DashboardDAOImpl implements DashboardDAO {
 	@Override
 	public List<ProductAvgCntDTO> getProductAvgCntInfo(int limit) throws DataAccessException {
 		List<ProductAvgCntDTO> list = sqlSession.selectList(Namespace + ".productAvgCntInfo", limit);
-		return null;
+		return list;
 	}
 
 }
