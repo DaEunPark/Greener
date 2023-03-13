@@ -1,10 +1,6 @@
 package com.greener.codegreen.dao;
 
-import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -12,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.greener.codegreen.common.SearchCriteria;
 import com.greener.codegreen.dto.BuyerDTO;
@@ -27,16 +22,6 @@ public class BuyerDAOImpl implements BuyerDAO {
 	private SqlSession sqlSession;
 	
 	private	static final String Namespace = "com.greener.codegreen.buyer";
-	
-	
-	//-----------------------------------------------------------------------------------------------------------
-    // 월별 가입자수 차트 (정하)
-	//-----------------------------------------------------------------------------------------------------------
-	public Map<String, Object> getChart() throws DataAccessException{
-		return sqlSession.selectOne(Namespace + ".getChart");
-	}
-	
-	
 	
 	//-----------------------------------------------------------------------------------------------------------
 	// 로그인(시훈)
@@ -77,7 +62,7 @@ public class BuyerDAOImpl implements BuyerDAO {
 	//-----------------------------------------------------------------------------------------------------------
 	@Override
 	public List<BuyerDTO> buyerList(SearchCriteria scri) throws DataAccessException {
-		return sqlSession.selectList(Namespace+".buyerList", scri);
+		return sqlSession.selectList(Namespace+".buyerList",scri);
 	} // buyerList()
 
 	//-----------------------------------------------------------------------------------------------------------

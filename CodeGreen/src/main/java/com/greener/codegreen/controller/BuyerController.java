@@ -1,14 +1,9 @@
 package com.greener.codegreen.controller;
-import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,13 +16,6 @@ import com.greener.codegreen.dto.BuyerDTO;
 // public interface BuyerController
 //-----------------------------------------------------------------------------------------------------------
 public interface BuyerController {
-	
-	//-----------------------------------------------------------------------------------------------------------
-    // 월별 가입자수 차트 (정하)
-	//-----------------------------------------------------------------------------------------------------------
-	public ModelAndView getchart(HttpServletRequest request, HttpServletResponse response) throws Exception ;
-	
-	
 	
 	//-----------------------------------------------------------------------------------------------------------
     // 로그인(vue.js에서 입력값 DB로 전송, 결과 조회)(시훈)
