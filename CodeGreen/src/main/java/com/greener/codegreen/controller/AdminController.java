@@ -1,35 +1,27 @@
 package com.greener.codegreen.controller;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.util.List;
-import java.util.UUID;
-
 import javax.annotation.Resource;
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import net.sf.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.greener.codegreen.dto.CategoryDTO;
 import com.greener.codegreen.dto.ProductDTO;
 import com.greener.codegreen.dto.ProductViewDTO;
 import com.greener.codegreen.service.AdminService;
-import com.greener.codegreen.util.UploadFileUtils;
 
 @Controller("adminController")
+@RestController
 @RequestMapping("/admin/*")
 public class AdminController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
@@ -44,8 +36,25 @@ public class AdminController {
 	 * 관리자 페이지
 	 */
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public void getIndex() throws Exception {
+	public String getIndex(			
+		@RequestHeader(value="Accept") String accept,
+		@RequestHeader(value="Accept-Language") String acceptLanguage,
+		@RequestHeader(value="User-Agent", defaultValue="myBrowser") String userAgent,
+		@RequestHeader(value="Host") String host
+		) throws Exception {
 		logger.info("get index");
+		
+		System.out.println("Accept: " + accept);
+        System.out.println("Accept-Language: " + acceptLanguage);
+        System.out.println("User-Agent: " + userAgent);
+        System.out.println("Host: " + host);
+
+		return "admin/index";
+	}
+	
+	@RequestMapping(value = "/index")
+	public ModelAndView chart1() {
+		return new ModelAndView("admin/index");
 	}
 
 	/*

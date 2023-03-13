@@ -4,17 +4,18 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.greener.codegreen.visitMapper">
- <insert id="insertVisitor" parameterType="com.greener.codegreen.dto.VisitCountDTO">
-            INSERT
-            INTO visitor
-            (
-                v_ip,
-                v_time
-            )
-            VALUES
-            (
-                #{v_ip},
-                now()
-            )
-        </insert>
-    </mapper>
+	<insert id="insertVisitor" parameterType="com.greener.codegreen.dto.VisitCountDTO">
+		<![CDATA[
+			INSERT
+			INTO visitor (v_time)
+			VALUES (now())
+		]]>
+	</insert>
+       
+	<select id="visitList" resultType="hashmap">
+		<![CDATA[
+			select v_time from visitor 
+			where v_time=#{v_time};
+  		]]>
+	</select>
+</mapper>
