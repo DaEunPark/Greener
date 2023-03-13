@@ -5,7 +5,7 @@
 
 <mapper namespace="com.greener.codegreen.dashboard">
 	
-	<!--  구매할 상품 정보 목록 -->
+	<!--  구매 상품 개수 평균 -->
 	<select id="productAvgCntInfo" parameterType="int" resultType="com.greener.codegreen.dto.ProductAvgCntDTO">
 		<![CDATA[
 			SELECT AVG(PO.o_count) product_order_avg, P.p_name p_name, PO.order_p_number order_p_number
