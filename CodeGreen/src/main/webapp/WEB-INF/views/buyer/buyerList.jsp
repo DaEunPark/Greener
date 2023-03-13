@@ -38,9 +38,7 @@
 			<tbody>
 				<c:forEach var="buyer" items="${buyerList }">
 					<tr>
-						<td align="right" ><a href="${contextPath}/buyer/buyerDetail?b_id=${buyer.b_id}&flag=0">${buyer.b_id}</a></td>
-						<td align="center">${buyer.b_name }</td>
-						<td align="right">${buyer.b_birth}</td>
+<td align="right" ><a href="${contextPath}/buyer/buyerDetail?b_id=${buyer.b_id}&flag=0">${buyer.b_id}</a></td>						<td align="right">${buyer.b_birth}</td>
 						<td align="right">${buyer.b_email}</td>
 						<td align="right">${buyer.b_address2}&nbsp;${buyer.b_address3}</td>
 						<td align="right">${buyer.b_grade}</td>

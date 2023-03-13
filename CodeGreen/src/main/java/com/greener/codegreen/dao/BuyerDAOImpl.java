@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.greener.codegreen.common.SearchCriteria;
 import com.greener.codegreen.dto.BuyerDTO;
+import com.greener.codegreen.dto.DashboardDTO;
 
 //-----------------------------------------------------------------------------------------------------------
 //회원 정보 서비스
@@ -73,6 +74,7 @@ public class BuyerDAOImpl implements BuyerDAO {
 		
 		return sqlSession.selectOne(Namespace+".buyerDetail", b_id);
 	}
+
 
 
 } // End - public class BuyerDAOImpl implements BuyerDAO

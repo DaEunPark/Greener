@@ -6,6 +6,7 @@ import org.springframework.dao.DataAccessException;
 
 import com.greener.codegreen.common.SearchCriteria;
 import com.greener.codegreen.dto.BuyerDTO;
+import com.greener.codegreen.dto.DashboardDTO;
 
 //-----------------------------------------------------------------------------------------------------------
 //회원 정보 서비스
@@ -42,5 +43,4 @@ public interface BuyerDAO {
 	//-----------------------------------------------------------------------------------------------------------
 	public BuyerDTO buyerDetail(String b_id) throws Exception;
 
-	
 } // End - public interface BuyerDAO

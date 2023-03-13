@@ -63,10 +63,10 @@ public interface BuyerController {
 	//-----------------------------------------------------------------------------------------------------------
 	public ModelAndView buyerList(SearchCriteria scri) throws Exception;
 	
+	
 	//-----------------------------------------------------------------------------------------------------------
 	// 아이디 상세 조회(민준)
 	//-----------------------------------------------------------------------------------------------------------
 	public String buyerDetail(Model model, HttpServletRequest request) throws Exception;
-	
 	
 } // End - public interface BuyerController

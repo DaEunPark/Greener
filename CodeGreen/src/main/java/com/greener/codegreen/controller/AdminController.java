@@ -1,6 +1,7 @@
 package com.greener.codegreen.controller;
 
 import java.io.File;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -35,7 +36,7 @@ public class AdminController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 	
 	@Inject
-	AdminService adminService;
+	private AdminService adminService;
 	
 	@Resource(name="uploadPath")
 	private String uploadPath;
@@ -62,21 +63,20 @@ public class AdminController {
 	
 	// 상품 등록
 	@RequestMapping(value = "/product/register", method = RequestMethod.POST)
-	public String postProductRegister(ProductDTO dto, MultipartFile file) throws Exception{
-		
+	public String postProductRegister( ProductDTO dto, MultipartFile file) throws Exception{
+
 		String imgUploadPath = uploadPath + File.separator + "imgUpload";
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 		String fileName = null;
 
 		if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
 		 fileName =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
-		} else {
+		} else{
 		 fileName = uploadPath + File.separator + "images" + File.separator + "none.png";
 		}
 
 		dto.setP_img(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
 		dto.setP_thumbImg(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
-		
 		
 		adminService.register(dto);
 		
@@ -173,8 +173,21 @@ public class AdminController {
 	
 	// 상품 수정
 	@RequestMapping(value = "/product/modify", method = RequestMethod.POST)
-	public String postProductModify(ProductDTO dto) throws Exception{
+	public String postProductModify( ProductDTO dto, MultipartFile file) throws Exception{
 		logger.info("post product modify");
+		
+		String imgUploadPath = uploadPath + File.separator + "imgUpload";
+		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
+		String fileName = null;
+
+		if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
+		 fileName =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
+		} else{
+		 fileName = uploadPath + File.separator + "images" + File.separator + "none.png";
+		}
+
+		dto.setP_img(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
+		dto.setP_thumbImg(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
 		
 		adminService.productModify(dto);
 		

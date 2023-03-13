@@ -15,14 +15,14 @@
 <jsp:include page="../include/nav.jsp"></jsp:include>
 	<div class="container">
 		<h2>상품등록</h2>
-		<form role = "form" method="post" autocomplete="off" enctype="myltipart/form-data">
+		<form role = "form" method="post" autocomplete="off" enctype="multipart/form-data">
 			<label>1차 분류</label>
 			<select class="category1">
 				<option value="">전체</option>
 			</select>
 			<br>
 			<label>2차 분류</label>
-			<select class="category2" name="c_code">
+			<select class="category2" name="product_c_code">
 				<option value="">전체</option>
 			</select>
 			
@@ -66,10 +66,22 @@
 			 <label for="productUsedate">유통/소비기한</label>
 			 <input type="text" id="p_usedate" name="p_usedate" />
 			</div>
+			
 			<div class="inputArea">
- 			<label for="gdsImg">이미지</label>
+ 			<label for="p_img">이미지</label>
  			<input type="file" id="p_img" name="file" />
 			 <div class="select_img"><img src="" /></div>
+			 <script>
+					$("#p_img").change(function(){
+					 if(this.files && this.files[0]) {
+					  var reader = new FileReader;
+					  reader.onload = function(data) {
+					   $(".select_img img").attr("src", data.target.result).width(500);        
+					  }
+					  reader.readAsDataURL(this.files[0]);
+					 }
+					});
+					</script>
 			 </div>
 			
 			<%=request.getRealPath("/") %>			
@@ -153,15 +165,8 @@ $(document).on("change", "select.category1", function(){
 	 });
 	 
 	});
-	$("#p_img").change(function(){
-	 if(this.files && this.files[0]) {
-	  var reader = new FileReader;
-	  reader.onload = function(data) {
-	   $(".select_img img").attr("src", data.target.result).width(500);        
-	  }
-	  reader.readAsDataURL(this.files[0]);
-	 }
-	});
+	
+	
 </script>
 
 <script>
@@ -175,5 +180,6 @@ function numCheck(selector) {
    selector.val(tempVal.replace(regExp, ""));
 }
 </script>
+
 </body>
 </html>
