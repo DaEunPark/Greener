@@ -12,15 +12,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <script type="text/javascript">
-/*	$(function() {
-		$.ajax({
-			url: "/dashboard/productavg"
-			type: "GET",
-			suceess: function (data) {
-				alert(data);
-			}
-		});
-	});*/
+
 	// Load the Visualization API
 	google.charts.load('current', {'packages':['bar']});
 	google.charts.setOnLoadCallback(drawChart);
@@ -33,7 +25,7 @@
 		}).responseText;
 //		alert(jsonData);
 		var jdata = new google.visualization.DataTable(jsonData);
-		var dt = new google.visualization.DataTable({
+/*		var dt = new google.visualization.DataTable({
 				    cols: [{id: 'task', label: 'Task', type: 'string'},
 				           {id: 'hours', label: 'Hours per Day', type: 'number'}],
 				    rows: [{c:[{v: 'Work'}, {v: 11}]},
@@ -49,7 +41,7 @@
             ['2016', 660],
             ['2017', 1030]
           ]);
-
+*/
           var options = {
             chart: {
               title: '상품별 구매 개수 평균',
@@ -85,7 +77,7 @@
 <body>
 	<jsp:include page="../include/nav.jsp" flush="false"/>
 	<div class="container">
-		<div cla id="product_avg_chart" style="width: 1200px; height: 500px;"></div>
+		<div id="product_avg_chart" style="width: 1200px; height: 500px;"></div>
 	</div>
 	
 </body>
