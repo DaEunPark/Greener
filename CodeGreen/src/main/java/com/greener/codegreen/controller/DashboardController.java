@@ -31,6 +31,7 @@ import com.greener.codegreen.service.DashboardService;
 import com.greener.codegreen.dto.ProductViewDTO;
 import com.greener.codegreen.service.AdminService;
 import com.greener.codegreen.dto.BuyerDTO;
+import com.greener.codegreen.dto.DashBoardCategoryDTO;
 import com.greener.codegreen.dto.DashboardAgeDTO;
 import com.greener.codegreen.service.BuyerService;
 
@@ -164,6 +165,36 @@ public class DashboardController {
 		mav.addObject("result", result);
 		// mav.addObject("getChart", map);
 		mav.setViewName("/admin/dashBoard/SignUpChart");
+		return mav;
+	}
+
+	/* -----------------------------
+	 * *********** 유현지 **********
+	 * -----------------------------
+	 */
+	@GetMapping("/dash/dashBoard")
+	public ModelAndView dashBoardController() {
+
+		logger.info("dashboardController() 실행....");
+		
+		ModelAndView mav = new ModelAndView("/dash/dashBoard");
+		
+		DashBoardCategoryDTO dashBoardDTO = dashboardService.getGrain();
+		DashBoardCategoryDTO dashBoardDTOF = dashboardService.getFruit();
+		DashBoardCategoryDTO dashBoardDTOS = dashboardService.getFish();
+		DashBoardCategoryDTO dashBoardDTOM = dashboardService.getMeat();
+		DashBoardCategoryDTO dashBoardDTOH = dashboardService.getHealthy();
+		DashBoardCategoryDTO dashBoardDTOW = dashboardService.getWater();
+		DashBoardCategoryDTO dashBoardDTON = dashboardService.getSnack();
+		
+		mav.addObject("dashBoardDTO", dashBoardDTO);
+		mav.addObject("dashBoardDTOF", dashBoardDTOF);
+		mav.addObject("dashBoardDTOS", dashBoardDTOS);
+		mav.addObject("dashBoardDTOM", dashBoardDTOM);
+		mav.addObject("dashBoardDTOH", dashBoardDTOH);
+		mav.addObject("dashBoardDTOW", dashBoardDTOW);
+		mav.addObject("dashBoardDTON", dashBoardDTON);
+		
 		return mav;
 	}
 }

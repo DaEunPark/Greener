@@ -12,6 +12,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.greener.codegreen.dto.ProductAvgCntDTO;
+import com.greener.codegreen.dto.DashBoardCategoryDTO;
 import com.greener.codegreen.dto.DashboardAgeDTO;
 
 @Repository("dashboardDAO")
@@ -43,4 +44,85 @@ public class DashboardDAOImplements implements DashboardDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(Namespace + ".getChart", map);
 	}
+	/* -----------------------------
+	 * *********** 유현지 **********
+	 * -----------------------------
+	 */
+	//-----------------------------------------------------------------------------//
+	// 쌀,잡곡 판매량 가져오기                                                     //
+	//-----------------------------------------------------------------------------//
+	@Override
+	public DashBoardCategoryDTO getGrainVolume() throws DataAccessException {
+		
+		logger.info("DashBoardDAO에서 getGrainMonVolume()실행..");
+		
+		return sqlSession.selectOne(Namespace+".grainVolume");
+	}
+	
+	//-----------------------------------------------------------------------------//
+	// 과일,견과,건과 판매량 가져오기                                              //
+	//-----------------------------------------------------------------------------//
+	@Override
+	public DashBoardCategoryDTO getFruitVolume() throws DataAccessException {
+		
+		logger.info("DashBoardDAO에서 getFruitVolume()실행..");
+		
+		return sqlSession.selectOne(Namespace+".fruitVolume");
+	}
+
+	//-----------------------------------------------------------------------------//
+	// 수산, 건어물 판매량 가져오기                                                //
+	//-----------------------------------------------------------------------------//
+	@Override
+	public DashBoardCategoryDTO getFishVolume() throws DataAccessException {
+		
+		logger.info("DashBoardDAO에서 getFishVolume()실행..");
+		
+		return sqlSession.selectOne(Namespace+".fishVolume");
+	}
+
+	//-----------------------------------------------------------------------------//
+	// 정육,계란류 판매량 가져오기                                                 //
+	//-----------------------------------------------------------------------------//
+	@Override
+	public DashBoardCategoryDTO getMeatVolume() throws DataAccessException {
+		
+		logger.info("DashBoardDAO에서 getMeatVolume()실행..");
+		
+		return sqlSession.selectOne(Namespace+".meatVolume");
+	}
+
+	//-----------------------------------------------------------------------------//
+	// 건강식품 판매량 가져오기                                                    //
+	//-----------------------------------------------------------------------------//
+	@Override
+	public DashBoardCategoryDTO getHealthyVolume() throws DataAccessException {
+		
+		logger.info("DashBoardDAO에서 getHealthyVolume()실행..");
+		
+		return sqlSession.selectOne(Namespace+".healthyVolume");
+	}
+
+	//-----------------------------------------------------------------------------//
+	// 차·음료·생수·유제품 판매량 가져오기                                         //
+	//-----------------------------------------------------------------------------//
+	@Override
+	public DashBoardCategoryDTO getWaterVolume() throws DataAccessException {
+		
+		logger.info("DashBoardDAO에서 getWaterVolume()실행..");
+		
+		return sqlSession.selectOne(Namespace+".waterVolume");
+	}
+
+	//-----------------------------------------------------------------------------//
+	// 과자·간식·빵·빙과 판매량 가져오기                                           //
+	//-----------------------------------------------------------------------------//
+	@Override
+	public DashBoardCategoryDTO getSnackVolume() throws DataAccessException {
+		
+		logger.info("DashBoardDAO에서 getSnackVolume()실행..");
+		
+		return sqlSession.selectOne(Namespace+".snackVolume");
+	}
+
 }

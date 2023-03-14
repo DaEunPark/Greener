@@ -63,4 +63,146 @@
 				
 				]]>
    </select>	
+   
+	<!-- ****************************************************************************************** -->
+	<!-- 쌀잡곡 일별 판매량 (현지) -->
+	<!-- ****************************************************************************************** -->
+  	<select id="grainVolume" resultType="com.greener.codegreen.dto.DashBoardCategoryDTO">
+		<![CDATA[
+  			SELECT   COUNT(CASE DAYOFWEEK(o.o_date) WHEN 2 THEN 1 ELSE NULL END) grainMon, 
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 3 THEN 1 ELSE NULL END) grainTue, 
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 4 THEN 1 ELSE NULL END) grainWen,
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 5 THEN 1 ELSE NULL END) grainThur, 
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 6 THEN 1 ELSE NULL END) grainFri, 
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 7 THEN 1 ELSE NULL END) grainSat,
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 1 THEN 1 ELSE NULL END) grainSun
+			FROM ProductOrder o
+				JOIN Product p  ON o.order_p_number = p.p_number
+			WHERE (o.o_date >= DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) + 7 DAY)
+			  AND o.o_date < DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) DAY))
+			  AND p.product_c_code IN (8,9)
+		]]>
+	</select>
+	
+	<!-- ****************************************************************************************** -->
+	<!-- 과일,견과,건과 일별 판매량 (현지) -->
+	<!-- ****************************************************************************************** -->
+  	<select id="fruitVolume" resultType="com.greener.codegreen.dto.DashBoardCategoryDTO">
+		<![CDATA[				
+  			SELECT    COUNT(CASE DAYOFWEEK(o.o_date) WHEN 2 THEN 1 ELSE NULL END) fruitMon, 
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 3 THEN 1 ELSE NULL END) fruitTue, 
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 4 THEN 1 ELSE NULL END) fruitWen,
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 5 THEN 1 ELSE NULL END) fruitThur, 
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 6 THEN 1 ELSE NULL END) fruitFri, 
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 7 THEN 1 ELSE NULL END) fruitSat,
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 1 THEN 1 ELSE NULL END) fruitSun
+			FROM ProductOrder o
+				JOIN Product p  ON o.order_p_number = p.p_number
+			WHERE (o.o_date >= DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) + 7 DAY)
+			  AND o.o_date < DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) DAY))
+			  AND p.product_c_code IN (10, 11, 12)
+		]]>
+	</select>
+		
+	<!-- ****************************************************************************************** -->
+	<!-- 수산, 건어물 일별 판매량 (현지) -->
+	<!-- ****************************************************************************************** -->
+  	<select id="fishVolume" resultType="com.greener.codegreen.dto.DashBoardCategoryDTO">
+		<![CDATA[	
+  			SELECT    COUNT(CASE DAYOFWEEK(o.o_date) WHEN 2 THEN 1 ELSE NULL END) fishMon, 
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 3 THEN 1 ELSE NULL END) fishTue, 
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 4 THEN 1 ELSE NULL END) fishWen,
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 5 THEN 1 ELSE NULL END) fishThur, 
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 6 THEN 1 ELSE NULL END) fishFri, 
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 7 THEN 1 ELSE NULL END) fishSat,
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 1 THEN 1 ELSE NULL END) fishSun
+			FROM ProductOrder o
+				JOIN Product p  ON o.order_p_number = p.p_number
+			WHERE (o.o_date >= DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) + 7 DAY)
+			  AND o.o_date < DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) DAY))
+			  AND p.product_c_code IN (13, 14)
+		]]>
+	</select>
+	
+	<!-- ****************************************************************************************** -->
+	<!-- 정육,계란류 일별 판매량 (현지) -->
+	<!-- ****************************************************************************************** -->
+  	<select id="meatVolume" resultType="com.greener.codegreen.dto.DashBoardCategoryDTO">
+		<![CDATA[
+  			SELECT    COUNT(CASE DAYOFWEEK(o.o_date) WHEN 2 THEN 1 ELSE NULL END) meatMon, 
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 3 THEN 1 ELSE NULL END) meatTue, 
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 4 THEN 1 ELSE NULL END) meatWen,
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 5 THEN 1 ELSE NULL END) meatThur, 
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 6 THEN 1 ELSE NULL END) meatFri, 
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 7 THEN 1 ELSE NULL END) meatSat,
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 1 THEN 1 ELSE NULL END) meatSun
+			FROM ProductOrder o
+				JOIN Product p  ON o.order_p_number = p.p_number
+			WHERE (o.o_date >= DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) + 7 DAY)
+			  AND o.o_date < DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) DAY))
+			  AND p.product_c_code IN (15, 16)
+		]]>
+	</select>
+		
+	<!-- ****************************************************************************************** -->
+	<!-- 건강식품 일별 판매량 (현지) -->
+	<!-- ****************************************************************************************** -->
+  	<select id="healthyVolume" resultType="com.greener.codegreen.dto.DashBoardCategoryDTO">
+		<![CDATA[
+  			SELECT    COUNT(CASE DAYOFWEEK(o.o_date) WHEN 2 THEN 1 ELSE NULL END) healthyMon, 
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 3 THEN 1 ELSE NULL END) healthyTue, 
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 4 THEN 1 ELSE NULL END) healthyWen,
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 5 THEN 1 ELSE NULL END) healthyThur, 
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 6 THEN 1 ELSE NULL END) healthyFri, 
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 7 THEN 1 ELSE NULL END) healthySat,
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 1 THEN 1 ELSE NULL END) healthySun
+			FROM ProductOrder o
+				JOIN Product p  ON o.order_p_number = p.p_number
+			WHERE (o.o_date >= DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) + 7 DAY)
+			  AND o.o_date < DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) DAY))
+			  AND p.product_c_code = 17
+		]]>
+	</select>
+	
+			
+	<!-- ****************************************************************************************** -->
+	<!-- 차·음료·생수·유제품 일별 판매량 (현지) -->
+	<!-- ****************************************************************************************** -->
+  	<select id="waterVolume" resultType="com.greener.codegreen.dto.DashBoardCategoryDTO">
+		<![CDATA[
+  			SELECT    COUNT(CASE DAYOFWEEK(o.o_date) WHEN 2 THEN 1 ELSE NULL END) meatMon, 
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 3 THEN 1 ELSE NULL END) meatTue, 
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 4 THEN 1 ELSE NULL END) meatWen,
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 5 THEN 1 ELSE NULL END) meatThur, 
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 6 THEN 1 ELSE NULL END) meatFri, 
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 7 THEN 1 ELSE NULL END) meatSat,
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 1 THEN 1 ELSE NULL END) meatSun
+			FROM ProductOrder o
+				JOIN Product p  ON o.order_p_number = p.p_number
+			WHERE (o.o_date >= DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) + 7 DAY)
+			  AND o.o_date < DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) DAY))
+			  AND p.product_c_code IN (18, 19, 20)
+		]]>
+	</select>
+	
+				
+	<!-- ****************************************************************************************** -->
+	<!-- 과자·간식·빵·빙과 일별 판매량 (현지) -->
+	<!-- ****************************************************************************************** -->
+  	<select id="snackVolume" resultType="com.greener.codegreen.dto.DashBoardCategoryDTO">
+		<![CDATA[
+  			SELECT    COUNT(CASE DAYOFWEEK(o.o_date) WHEN 2 THEN 1 ELSE NULL END) snackMon, 
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 3 THEN 1 ELSE NULL END) snackTue, 
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 4 THEN 1 ELSE NULL END) snackWen,
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 5 THEN 1 ELSE NULL END) snackThur, 
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 6 THEN 1 ELSE NULL END) snackFri, 
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 7 THEN 1 ELSE NULL END) snackSat,
+					  COUNT(CASE DAYOFWEEK(o.o_date) WHEN 1 THEN 1 ELSE NULL END) snackSun
+			FROM ProductOrder o
+				JOIN Product p  ON o.order_p_number = p.p_number
+			WHERE (o.o_date >= DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) + 7 DAY)
+			  AND o.o_date < DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) DAY))
+			  AND p.product_c_code IN (21, 22, 23)
+		]]>
+	</select>
 </mapper>
