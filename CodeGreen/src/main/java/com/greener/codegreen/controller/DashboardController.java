@@ -54,7 +54,7 @@ public class DashboardController {
 	@RequestMapping(value = "/dash/productAvg", method = RequestMethod.GET)
 	public ModelAndView dashboard(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView("/admin/dash/productAvg");
-		
+
 		return mav;
 	}
   
@@ -66,7 +66,7 @@ public class DashboardController {
 	public String productAvg() throws Exception {
 		List<ProductAvgCntDTO> dtoList = dashboardService.getProductAvgCntInfo(10);
 		logger.info("DashboardController ProductAvg() => " + dtoList);
-		
+
 		Gson gson = new GsonBuilder().create();
 		JsonObject colEle1 = new JsonObject();
 		JsonObject colEle2 = new JsonObject();
@@ -78,24 +78,22 @@ public class DashboardController {
 		colEle2.addProperty("id", "product_avg");
 		colEle2.addProperty("label", "구매 수량 평균");
 		colEle2.addProperty("type", "number");
-		colArr.add(colEle2);		
-		
-		
-		
+		colArr.add(colEle2);
+
 		JsonArray rowArr = new JsonArray();
 		for (ProductAvgCntDTO productAvgCntDTO : dtoList) {
 			JsonObject vObj1 = new JsonObject();
 			JsonObject vObj2 = new JsonObject();
 			JsonArray cArr = new JsonArray();
-			JsonObject cObj = new JsonObject();	
+			JsonObject cObj = new JsonObject();
 			vObj1.addProperty("v", productAvgCntDTO.getP_name());
 			cArr.add(vObj1);
-			vObj2.addProperty("v", productAvgCntDTO.getProduct_order_avg());			
+			vObj2.addProperty("v", productAvgCntDTO.getProduct_order_avg());
 			cArr.add(vObj2);
 			cObj.add("c", cArr);
 			rowArr.add(cObj);
 		}
-		
+
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.add("cols", colArr);
 		jsonObject.add("rows", rowArr);
@@ -110,65 +108,63 @@ public class DashboardController {
 		  
 		return "/admin/dash/DashProductView";
 	 }
-	//목록 불러오기 - 정경희
-	@ResponseBody 
-	@RequestMapping(value="/dashproductview", method = RequestMethod.POST)
+
+	// 목록 불러오기 - 정경희
+	@ResponseBody
+	@RequestMapping(value = "/dashproductview", method = RequestMethod.POST)
 	public String dashproductviewpost(Model model) throws Exception {
 
-	    List<ProductViewDTO>list = adminService.DashProductview();
-	    //gson객체 생성
-	    Gson gson = new Gson();
-	    JsonArray jArray = new JsonArray();
+		List<ProductViewDTO> list = adminService.DashProductview();
+		// gson객체 생성
+		Gson gson = new Gson();
+		JsonArray jArray = new JsonArray();
 
+		Iterator<ProductViewDTO> it = list.iterator();
+		while (it.hasNext()) {
+			ProductViewDTO productViewDTO = it.next();
+			JsonObject object = new JsonObject();
+			String c_name = productViewDTO.getC_name();
+			int p_view = productViewDTO.getP_view();
 
-	    Iterator<ProductViewDTO> it = list.iterator();
-	    while(it.hasNext()) {
-	      ProductViewDTO productViewDTO = it.next();
-	        JsonObject object = new JsonObject();
-	        String c_name = productViewDTO.getC_name();
-	        int p_view = productViewDTO.getP_view();
-	
-	        object.addProperty("c_name", c_name);
-	        object.addProperty("p_view", p_view);
-	        jArray.add(object);
-	    }
+			object.addProperty("c_name", c_name);
+			object.addProperty("p_view", p_view);
+			jArray.add(object);
+		}
 
-	    String json = gson.toJson(jArray);
-	    logger.info("json변환: "+json);
+		String json = gson.toJson(jArray);
+		logger.info("json변환: " + json);
 
-	    return json;
+		return json;
 	}
   
 	// 대시보드 - 김민준
-	@RequestMapping(value="/Dashboard",method = RequestMethod.GET)
-	public void Dash()throws Exception{}
+	@RequestMapping(value = "/Dashboard", method = RequestMethod.GET)
+	public void Dash() throws Exception {
+	}
 
 	// 대시보드 - 김민준
 	@RequestMapping(value = "/Dashboard22", method = RequestMethod.GET)
 	@ResponseBody
 	public List<DashboardDTO> Dashboard() throws Exception {
-		
-		List<DashboardDTO> dashboard = dashboardService.Dash();				
-		
-		
-		return dashboard; 
+
+		List<DashboardDTO> dashboard = dashboardService.Dash();
+
+		return dashboard;
 	}
 
 	// 대시보드 - 이정하
 	@GetMapping("/dashBoard/SignUpChart")
 	public ModelAndView getchart() throws Exception {
 		ModelAndView mav = new ModelAndView();
-		
-		Map<String,Object> map = new HashMap<String, Object>();
-		//Map<String, Object> map = buyerService.getChart();
-		List<Map<String, Object>> result= dashboardService.getChart(map);
-		
-		
-		 
-		 mav.addObject("result", result);
-		 //mav.addObject("getChart", map);
-		 mav.setViewName("/admin/dashBoard/SignUpChart");
-		 return mav;
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		// Map<String, Object> map = buyerService.getChart();
+		List<Map<String, Object>> result = dashboardService.getChart(map);
+
+		mav.addObject("result", result);
+		// mav.addObject("getChart", map);
+		mav.setViewName("/admin/dashBoard/SignUpChart");
+		return mav;
 	}
 }
 
