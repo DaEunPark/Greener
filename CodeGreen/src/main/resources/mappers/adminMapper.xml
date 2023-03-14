@@ -5,16 +5,25 @@
 
 <mapper namespace="com.greener.codegreen.adminMapper">
 
-
-	<!-- 누적판매량 상위 10개 상품 전시(시훈) -->
+	<!-- 수정 전
+		SELECT      prd.* 
+		FROM        Product prd 
+		INNER JOIN  (SELECT order_p_number, SUM(o_count) orderNum FROM ProductOrder GROUP BY order_p_number ORDER BY orderNum DESC LIMIT 0, 10) cond 
+		ON          prd.p_number = cond.order_p_number;
+	-->
+	<!-- (수정 후)누적판매량 상위 10개 상품 전시(시훈) -->
 	<select id="top10products" resultType="com.greener.codegreen.dto.ProductDTO">
-		<![CDATA[
-			SELECT      prd.* 
+		<![CDATA[ 
+			SELECT      prd.*, (SELECT c_name FROM Category WHERE c_code=cate.c_code_ref) category
 			FROM        Product prd 
-			INNER JOIN  (SELECT order_p_number, SUM(o_count) orderNum FROM ProductOrder GROUP BY order_p_number ORDER BY orderNum DESC LIMIT 0, 10) cond 
-			ON          prd.p_number = cond.order_p_number; 
+			INNER JOIN  (SELECT order_p_number, SUM(o_count) orderNum FROM ProductOrder GROUP BY order_p_number ORDER BY orderNum DESC LIMIT 0, 10) cond
+			ON          prd.p_number = cond.order_p_number 
+			INNER JOIN  (SELECT * FROM Category) cate
+			ON          cate.c_code = prd.product_c_code;
 		]]>
 	</select>
+
+
 
 	<!-- 카테고리 호출 -->
 	<select id = "category" resultType="com.greener.codegreen.dto.CategoryDTO">

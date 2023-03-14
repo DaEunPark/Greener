@@ -3,7 +3,7 @@ package com.greener.codegreen.dto;
 import org.springframework.stereotype.Component;
 
 @Component("productDTO")
-public class ProductDTO {
+public class ProductDTO {	
 	int p_number;		// 상품 번호
 	String p_name;		// 상품 이름
 	int p_price;		// 상품 가격
@@ -15,8 +15,11 @@ public class ProductDTO {
 	private String p_img;	// 상품 이미지
 	private String p_thumbImg; // 상품 썸네일
 	
+	
 	// Category
 	int product_c_code;		// 카테고리 코드
+	String category;        // category 대분류 추가(시훈)
+	
 	
 	// Seller
 	String product_s_id;
@@ -28,7 +31,7 @@ public class ProductDTO {
 	}
 
 	public ProductDTO(int p_number, String p_name, int p_price, String p_content, int p_stock, int p_view,
-			String p_made, String p_usedate, String p_img, String p_thumbImg, int product_c_code, String product_s_id, String product_m_id) {
+			String p_made, String p_usedate, String p_img, String p_thumbImg, int product_c_code, String category, String product_s_id, String product_m_id) {
 
 		this.p_number = p_number;
 		this.p_name = p_name;
@@ -41,10 +44,24 @@ public class ProductDTO {
 		this.p_img = p_img;
 		this.p_thumbImg = p_thumbImg;
 		this.product_c_code = product_c_code;
+		this.category=category;
 		this.product_s_id = product_s_id;
 		this.product_m_id = product_m_id;
 	}
 
+	
+	// category 대분류 추가(시훈)
+	// ---------------------------------------------
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	// ----------------------------------------------
+	
+	
+	
 	public int getP_number() {
 		return p_number;
 	}
