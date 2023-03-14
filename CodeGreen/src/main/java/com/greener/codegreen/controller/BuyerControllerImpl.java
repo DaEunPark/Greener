@@ -1,6 +1,11 @@
 package com.greener.codegreen.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,10 +16,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,10 +31,14 @@ import com.greener.codegreen.common.SearchCriteria;
 import com.greener.codegreen.dto.BuyerDTO;
 import com.greener.codegreen.service.BuyerService;
 
+import java.text.DateFormat;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 //-----------------------------------------------------------------------------------------------------------
 //회원 정보 컨트롤러
 //-----------------------------------------------------------------------------------------------------------
-@Controller
+
+@Controller("buyerController")
 @RequestMapping("/buyer/*")	// url에서 /buyer로 시작하는 요청들을 처리하는 컨트롤러.
 public class BuyerControllerImpl implements BuyerController {
 	private static final Logger logger = LoggerFactory.getLogger(BuyerControllerImpl.class);
@@ -36,13 +47,30 @@ public class BuyerControllerImpl implements BuyerController {
 	@Autowired
 	private	BuyerService	buyerService;
 	
+	
+	//-----------------------------------------------------------------------------------------------------------
+    // 월별 가입자수 차트 (정하)
+	//-----------------------------------------------------------------------------------------------------------
+	@Override
+	@RequestMapping(value="/SignUpChart", method=RequestMethod.GET)
+	public ModelAndView getchart(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		Map<String, Object> result = buyerService.getChart();
+		
+		mav.addObject("result", result);
+		mav.addObject("map", map);
+		mav.setViewName("buyer/SignUpChart");
+		return mav;
+	}
 	//-----------------------------------------------------------------------------------------------------------
     // 로그인(vue.js에서 입력값 DB로 전송, 결과 조회)(시훈)
 	//-----------------------------------------------------------------------------------------------------------
 	@PostMapping(value="/login")
 	@CrossOrigin(origins="http://localhost:8080")
 	@Override
-	public BuyerDTO login(@RequestBody BuyerDTO buyerIdPwd) throws Exception {
+	public @ResponseBody BuyerDTO login(@RequestBody BuyerDTO buyerIdPwd) throws Exception {
 		BuyerDTO buyerInfo = buyerService.login(buyerIdPwd);
 		return buyerInfo;
 	} // login()

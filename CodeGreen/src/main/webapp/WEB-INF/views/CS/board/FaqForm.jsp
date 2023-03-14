@@ -20,9 +20,12 @@
 	<script src="${contextPath}/resources/js/Eboard.js"></script>
 </head>
 <body>
+<!-- 사이드바 -->
+<jsp:include page="../../admin/include/nav.jsp"></jsp:include>
 
-
-<div class="container">
+<div class="container"  style="margin-right:120px; width: 70%" >
+<!-- 상단 바  -->
+<jsp:include page="../../common/CStopMenu.jsp"></jsp:include>		
 	<form class="form-horizontal" name="FaqForm">
 		<input type="hidden" value="${FaqForm.f_no}" name="f_no" id="f_no">
 		<input type="hidden" value="${FaqForm.f_regdate}" name="f_regdate" id="f_regdate">

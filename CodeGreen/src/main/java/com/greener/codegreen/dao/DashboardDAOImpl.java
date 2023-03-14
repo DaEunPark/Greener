@@ -1,26 +1,38 @@
+
 package com.greener.codegreen.dao;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
+import com.greener.codegreen.dto.ProductAvgCntDTO;
 import com.greener.codegreen.dto.DashboardDTO;
 
-@Repository
+@Repository("dashboardDAO")
 public class DashboardDAOImpl implements DashboardDAO {
+	private static final Logger logger = LoggerFactory.getLogger(DashboardDAOImpl.class);
+	@Autowired
+	private SqlSession sqlSession;
+	
+	private	static final String Namespace = "com.greener.codegreen.dashboard";
+  /*
+  * 상품 구매 개수 평균 - 박다은
+  */
+  @Override
+	public List<ProductAvgCntDTO> getProductAvgCntInfo(int limit) throws DataAccessException {
+		List<ProductAvgCntDTO> list = sqlSession.selectList(Namespace + ".productAvgCntInfo", limit);
+		return list;
+	}
 
-	@Inject
-	private SqlSession sqlsession;
-	
-	private static final String Namespace = "com.greener.codegreen.dash";
-	
-	@Override
+  // 대시보드 - 김민준
+  @Override
 	public List<DashboardDTO> Dash() throws Exception {
 
 		return sqlsession.selectList(Namespace+".dash");
 	}
-
 }

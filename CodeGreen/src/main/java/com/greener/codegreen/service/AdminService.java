@@ -2,6 +2,7 @@ package com.greener.codegreen.service;
 
 import java.util.List;
 
+
 import com.greener.codegreen.dto.CategoryDTO;
 import com.greener.codegreen.dto.ProductDTO;
 import com.greener.codegreen.dto.ProductViewDTO;
@@ -26,4 +27,11 @@ public interface AdminService {
 	public void productDelete(int p_number) throws Exception;
 
 	public void register(ProductDTO dto) throws Exception;
+
+	
+
+	// DashProductView 목록 
+	public List<ProductViewDTO> DashProductview() throws Exception;
+	
+	
 }
