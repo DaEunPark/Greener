@@ -245,6 +245,16 @@
           <version>4.2</version>
       </dependency>
       
+      <!-- 이미지 썸네일용 라이브러리 -->
+		<!-- https://mvnrepository.com/artifact/net.coobird/thumbnailator -->
+		<dependency>
+		    <groupId>net.coobird</groupId>
+		    <artifactId>thumbnailator</artifactId>
+		    <version>0.4.8</version>
+		</dependency>
+
+      
+      
             <!-- @Resource annotation을 사용하는데 필요하다. -->
       <!-- https://mvnrepository.com/artifact/javax.annotation/javax.annotation-api -->
       <dependency>
@@ -294,7 +304,19 @@
 		    <classifier>jdk15</classifier>
 		</dependency>     
 		
+		<!-- https://mvnrepository.com/artifact/net.coobird/thumbnailator -->
+		<dependency>
+    	<groupId>net.coobird</groupId>
+    	<artifactId>thumbnailator</artifactId>
+    	<version>0.4.8</version>
+		</dependency>
 		
+		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+		<dependency>
+    	<groupId>commons-fileupload</groupId>
+    	<artifactId>commons-fileupload</artifactId>
+    	<version>1.5</version>
+		</dependency>		
 
 
 		<!-- *********************************************************** -->

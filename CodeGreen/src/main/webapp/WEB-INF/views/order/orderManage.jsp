@@ -2,13 +2,6 @@
 <%@ taglib prefix="c"	uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
 <%	request.setCharacterEncoding("UTF-8"); %>
-<!-- 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>	
- -->
 
 <!DOCTYPE html>
 <html>
@@ -16,12 +9,27 @@
 <meta charset="UTF-8">
 <title>관리자 주문관리</title>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>	
+<link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sidebars/">
+    <!-- Custom styles for this template -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+<link href="../../resources/css/admin/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+<link href="../../resources/css/admin/nav.css" rel="stylesheet">
+<%-- <jsp:include page="../common/manager_topMenu.jsp" flush="false"/> --%>
+<jsp:include page="../admin/include/nav.jsp" flush="false"/>
+
 </head>
 <body>
+
 <h2><center><p class="title">주문내역 조회</p></center></h2>
 <hr/>
-<%-- <jsp:include page="../common/manager_topMenu.jsp" flush="false"/> --%>
-	<jsp:include page="../admin/include/nav.jsp" flush="false"/>
+
 <div class="container">
 	<form class="form-horizontal" method="post" name="formname1" id="formname1">
 		<div class="form-group">
@@ -54,16 +62,16 @@
 			</div>
 			<div class="col-sm-offset-2">
 				<label class="checkbox-inline">
-					<input type="checkbox" class="state" id="completePay" name="completePay" value="0"> 결제완료&nbsp;&nbsp;
+					<input type="checkbox" class="state" id="pay0" name="pay0" value="0"> 결제완료&nbsp;&nbsp;
 				</label>
 				<label class="checkbox-inline">
-					<input type="checkbox" class="state" id="deliveryReady" name="deliveryReady" value="1"> 배송대기&nbsp;&nbsp;
+					<input type="checkbox" class="state" id="pay1" name="pay1" value="1"> 배송대기&nbsp;&nbsp;
 				</label>
 				<label class="checkbox-inline">
-					<input type="checkbox" class="state" id="onDelivery" name="onDelivery" value="2"> 배송중&nbsp;&nbsp;
+					<input type="checkbox" class="state" id="pay2" name="pay2" value="2"> 배송중&nbsp;&nbsp;
 				</label>
 				<label class="checkbox-inline">
-					<input type="checkbox" class="state" id="delivered" name="delivered" value="3"> 배송완료&nbsp;&nbsp;
+					<input type="checkbox" class="state" id="pay3" name="pay3" value="3"> 배송완료&nbsp;&nbsp;
 				</label>
 			</div>
 		</div>
@@ -72,17 +80,14 @@
 				<label for="productState" class="control-label">조회기간</label>
 			</div>
 			<div class="col-sm-offset-2">
-				<label class="checkbox-inline">
-					<input type="checkbox" class="state" id="day" name="day" value="0"> 당일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label class="radio-inline">
+					<input type="radio" class="state" id="period0" name="period" value="0"> 하루&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				</label>
-				<label class="checkbox-inline">
-					<input type="checkbox" class="state" id="week" name="week" value="1"> 일주일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<label class="radio-inline">
+					<input type="radio" class="state" id="period1" name="period" value="1"> 일주일&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				</label>
-				<label class="checkbox-inline">
-					<input type="checkbox" class="state" id="month" name="month" value="2"> 한달&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				</label>
-				<label class="checkbox-inline">
-					<input type="checkbox" class="state" id="whole" name="whole" value="3"> 전체
+				<label class="radio-inline">
+					<input type="radio" class="state" id="period2" name="period" value="2"> 한달&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				</label>
 			</div>
 		</div>
@@ -134,15 +139,14 @@ function sendAjaxRequest(data) {
         var orderNum = $('#orderNum').val();
         var buyerName = $('#buyerName').val();
         var productNum = $('#productNum').val();
-        var completePay = $('#completePay').is(':checked') ? 1 : 0;
-        var deliveryReady = $('#deliveryReady').is(':checked') ? 1 : 0;
-        var onDelivery = $('#onDelivery').is(':checked') ? 1 : 0;
-        var delivered = $('#delivered').is(':checked') ? 1 : 0;
-        var day = $('#day').is(':checked') ? 1 : 0;
-        var week = $('#week').is(':checked') ? 1 : 0;
-        var month = $('#month').is(':checked') ? 1 : 0;
-        var whole = $('#whole').is(':checked') ? 1 : 0;
-      
+        var pay0 = $('#pay0').is(':checked') ? 1 : 0;
+        var pay1 = $('#pay1').is(':checked') ? 1 : 0;
+        var pay2 = $('#pay2').is(':checked') ? 1 : 0;
+        var pay3 = $('#pay3').is(':checked') ? 1 : 0;
+        var period0 = $('#period0').is(':checked') ? 1 : 0;
+        var period1 = $('#period1').is(':checked') ? 1 : 0;
+        var period2 = $('#period2').is(':checked') ? 1 : 0;
+/*          var radioVar = $('input[name=registerYn]:checked').val();*/
  		  $.ajax({
  	           type: "POST",
  	           url: "/order/map-data",
@@ -150,14 +154,13 @@ function sendAjaxRequest(data) {
  	        	orderNum:orderNum,
  	        	buyerName:buyerName,
 	        	productNum:productNum,
- 	        	completePay:completePay,
- 	        	deliveryReady:deliveryReady,
- 	        	onDelivery:onDelivery,
- 	        	delivered:delivered,
- 	        	day:day,
- 	        	week:week,
- 	        	month:month,
- 	        	whole:whole
+	        	pay0:pay0,
+	        	pay1:pay1,
+	        	pay2:pay2,
+	        	pay3:pay3,
+	        	period0:period0,
+	        	period1:period1,
+	        	period2:period2
   	            }),
  	           contentType:"application/json;charset=UTF-8",
   	           success: function(response) {

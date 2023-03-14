@@ -12,6 +12,8 @@ public class ProductDTO {
 	int p_view;			// 상품글 조회수
 	String p_made;		// 원산지
 	String p_usedate;	// 유통/소비기한
+	private String p_img;	// 상품 이미지
+	private String p_thumbImg; // 상품 썸네일
 	
 	// Category
 	int product_c_code;		// 카테고리 코드
@@ -26,7 +28,7 @@ public class ProductDTO {
 	}
 
 	public ProductDTO(int p_number, String p_name, int p_price, String p_content, int p_stock, int p_view,
-			String p_made, String p_usedate, int product_c_code, String product_s_id, String product_m_id) {
+			String p_made, String p_usedate, String p_img, String p_thumbImg, int product_c_code, String product_s_id, String product_m_id) {
 
 		this.p_number = p_number;
 		this.p_name = p_name;
@@ -36,6 +38,8 @@ public class ProductDTO {
 		this.p_view = p_view;
 		this.p_made = p_made;
 		this.p_usedate = p_usedate;
+		this.p_img = p_img;
+		this.p_thumbImg = p_thumbImg;
 		this.product_c_code = product_c_code;
 		this.product_s_id = product_s_id;
 		this.product_m_id = product_m_id;
@@ -129,15 +133,28 @@ public class ProductDTO {
 		this.product_m_id = product_m_id;
 	}
 
+	public String getP_img() {
+		return p_img;
+	}
+
+	public void setP_img(String p_img) {
+		this.p_img = p_img;
+	}
+
+	public String getP_thumbImg() {
+		return p_thumbImg;
+	}
+
+	public void setP_thumbImg(String p_thumbImg) {
+		this.p_thumbImg = p_thumbImg;
+	}
+
 	@Override
 	public String toString() {
 		return "ProductDTO [p_number=" + p_number + ", p_name=" + p_name + ", p_price=" + p_price + ", p_content="
 				+ p_content + ", p_stock=" + p_stock + ", p_view=" + p_view + ", p_made=" + p_made + ", p_usedate="
-				+ p_usedate + ", product_c_code=" + product_c_code + ", product_s_id=" + product_s_id
-				+ ", product_m_id=" + product_m_id + "]";
+				+ p_usedate + ", p_img=" + p_img + ", p_thumbImg=" + p_thumbImg + ", product_c_code=" + product_c_code
+				+ ", product_s_id=" + product_s_id + ", product_m_id=" + product_m_id + "]";
 	}
-
-	
-	
 	
 }

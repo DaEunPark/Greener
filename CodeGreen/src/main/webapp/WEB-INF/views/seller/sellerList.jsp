@@ -44,7 +44,7 @@
 			<tbody>
 				<c:forEach var="seller" items="${sellerList }">
 					<tr>
-						<td align="right">${seller.s_id }</td>
+						<td align="right" ><a href="${contextPath}/seller/sellerDetail?s_id=${seller.s_id}&flag=0">${seller.s_id}</a></td>
 						<td align="center">${seller.s_pwd}</td>
 						<td align="center">${seller.s_name }</td>
 						<c:choose>
@@ -70,8 +70,8 @@
 			<div class= "col-sm-offset-4 col-sm-2">
 			<select id="searchType" class="form-control">
 				<option>검색종류</option>
-				<option value="b_id" <c:if test="${searchType=='id' }">selected</c:if>>아이디</option>
-				<option value="b_name" <c:if test="${searchType=='name' }">selected</c:if>>이 름</option>
+				<option value="s_id" <c:if test="${searchType=='id' }">selected</c:if>>아이디</option>
+				<option value="s_name" <c:if test="${searchType=='name' }">selected</c:if>>이 름</option>
 			</select>
 			</div>
 			<div class="col-sm-2">
@@ -113,29 +113,9 @@
 			<input type="hidden" name="keyword" value="${keyword}"/>
 		</form>
 	</div>
-	
 <!-- 하단 메뉴 -->
 <jsp:include page="../common/footer.jsp" flush="false"/>
-<script >
-$(document).ready(function(){
-	var	formObj	=	$("#formList");
-	
-	// 검색 버튼을 눌렀을 경우
-	$("#searchBtn").click(function(){
-		var typeStr	=	$("#searchType").find(":selected").val();
-		var keywordStr	=	$("#searchKeyword").val();
-		alert(typeStr + ":" +keywordStr);
-		
-		// 서버로 전송하기 전에, name 속성에 값을 넣어준다.
-		formObj.find("[name='searchType']").val(typeStr);
-		formObj.find("[name='keyword").val(keywordStr);
-		formObj.find("[name='page").val("1");
-		formObj.submit();
-	});
-	
-	
-	
-});
-</script>
+
+<script src="/resources/js/seller.js"></script>
 </body>
 </html>

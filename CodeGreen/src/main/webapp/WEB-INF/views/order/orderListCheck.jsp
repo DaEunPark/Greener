@@ -12,11 +12,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>	
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sidebars/">
+    <!-- Custom styles for this template -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+<link href="../../resources/css/admin/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+<link href="../../resources/css/admin/nav.css" rel="stylesheet">
+ 	
 <style>
 	.txt:hover {
 		font-weight: bold;
@@ -32,6 +41,11 @@
 
 </head>
 <body>
+<%-- <c:if test="${empty orderList}">
+  <script>
+    alert('조회 결과가 없습니다.');
+  </script>
+</c:if> --%>
 	    <c:forEach var="order" items="${orderList}">
 	    	<table class="table table-bordered table-hover table-xs">
 	    	<tbody>
@@ -60,5 +74,16 @@
 		     </tbody>
 	   	   </table>
 	    </c:forEach>
+	    <div>
+		   	<c:if test="${ph.showPrev} ">
+		   		<a href="<c:url value='/order/map-data?page=${ph.beginPage-1}&pageSize=${ph.pageSize}'/>">&lt;</a>
+		   	</c:if>
+		    <c:forEach var="i"  begin="${ph.beginPage}" end="${ph.endPage}">
+		    	<a href="<c:url value='/order/map-data?page=${i}&pageSize=${ph.pageSize}'/>">${i}</a>
+	    </c:forEach>
+		    <c:if test="${ph.showNext} ">
+		   		<a href="<c:url value='/order/map-data?page=${ph.endPage+1}&pageSize=${ph.pageSize}'/>">&gt;</a>
+		   	</c:if>
+	   </div>
 </body>
 </html>
