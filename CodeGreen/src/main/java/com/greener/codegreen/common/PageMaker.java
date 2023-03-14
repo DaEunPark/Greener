@@ -44,6 +44,16 @@ public class PageMaker {
 		calculratePage();
 	}
 	public void calculratePage() {
+//		endPage = (int)(Math.ceil(totalCount/(double)viewPageNum));
+//		startPage = (int)(endPage - 1)/viewPageNum*viewPageNum + 1;
+//		
+//		int realEndPage = (int)(Math.ceil(totalCount/(double)cri.getPerPageNum()));
+//		if(endPage > realEndPage) {
+//			endPage = realEndPage;
+//		}
+//		
+//		prev = startPage == 1 ? false: true;
+//		next = endPage * cri.getPerPageNum() < totalCount ? true:false; 
 		endPage = (int)(Math.ceil(totalCount/(double)viewPageNum));
 		startPage = (int)(endPage - 1)/viewPageNum*viewPageNum + 1;
 		
@@ -52,9 +62,8 @@ public class PageMaker {
 			endPage = realEndPage;
 		}
 		
-		prev = startPage == 1 ? false: true;
-		next = endPage * cri.getPerPageNum() < totalCount ? true:false; 
-		
+		prev = startPage != 1;
+		next = endPage != totalCount; 		
 		
 	}
 	public int getStartPage() {
