@@ -172,12 +172,12 @@ public class DashboardController {
 	 * *********** 유현지 **********
 	 * -----------------------------
 	 */
-	@GetMapping("/dash/dashBoard")
+	@GetMapping("/dash/dashBoardCategory")
 	public ModelAndView dashBoardController() {
 
 		logger.info("dashboardController() 실행....");
 		
-		ModelAndView mav = new ModelAndView("/dash/dashBoard");
+		ModelAndView mav = new ModelAndView("/admin/dash/dashBoardCategory");
 		
 		DashBoardCategoryDTO dashBoardDTO = dashboardService.getGrain();
 		DashBoardCategoryDTO dashBoardDTOF = dashboardService.getFruit();
