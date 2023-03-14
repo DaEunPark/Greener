@@ -36,7 +36,17 @@ public class ProductOrderBuyerDTO {
 	int p_view;			// 상품글 조회수
 	String p_made;		// 원산지
 	String p_usedate;	// 유통/소비기한
+	String order_coupon_name;
 	
+	
+	public String getOrder_coupon_name() {
+		return order_coupon_name;
+	}
+
+	public void setOrder_coupon_name(String order_coupon_name) {
+		this.order_coupon_name = order_coupon_name;
+	}
+
 	// Category
 	String c_code;		// 카테고리 코드
 	

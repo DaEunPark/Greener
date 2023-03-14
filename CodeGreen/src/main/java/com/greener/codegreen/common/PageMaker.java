@@ -8,7 +8,27 @@ public class PageMaker {
 	private boolean prev;			// 이전
 	private boolean next;			// 다음
 	private int viewPageNum = 10;	// 하단에 보여줄 페이지의 개수
+	private int filterListNum;		// 조건 검색시 해당하는 목록 개수
+	private int realEndPage = (int) (Math.ceil(filterListNum / (double)10)+1);
 	
+	public int getRealEndPage() {
+		return realEndPage;
+	}
+	public void setRealEndPage(int realEndPage) {
+		this.realEndPage = realEndPage;
+	}
+	@Override
+	public String toString() {
+		return "PageMaker [cri=" + cri + ", totalCount=" + totalCount + ", startPage=" + startPage + ", endPage="
+				+ endPage + ", prev=" + prev + ", next=" + next + ", viewPageNum=" + viewPageNum + ", filterListNum="
+				+ filterListNum + "]";
+	}
+	public int getFilterListNum() {
+		return filterListNum;
+	}
+	public void setFilterListNum(int filterListNum) {
+		this.filterListNum = filterListNum;
+	}
 	public Criteria getCri() {
 		return cri;
 	}
@@ -24,24 +44,16 @@ public class PageMaker {
 		calculratePage();
 	}
 	public void calculratePage() {
-		endPage = (int)(Math.ceil(cri.getPage()/(double)viewPageNum)*viewPageNum);
+		endPage = (int)(Math.ceil(totalCount/(double)viewPageNum));
+		startPage = (int)(endPage - 1)/viewPageNum*viewPageNum + 1;
 		
-		startPage = (endPage-viewPageNum)+1;
-		
-		if(startPage <= viewPageNum) {
-			startPage = 1;
-		}
-		if(startPage <=0) {
-			startPage =1;
-		}
-		
-		int realEndPage = (int)(Math.ceil(cri.getPage()/(double)viewPageNum));
+		int realEndPage = (int)(Math.ceil(totalCount/(double)cri.getPerPageNum()));
 		if(endPage > realEndPage) {
 			endPage = realEndPage;
 		}
 		
-		prev = startPage == 1 ? false: true;
-		next = endPage * cri.getPerPageNum() < totalCount ? true:false; 
+		prev = startPage != 1;
+		next = endPage != totalCount; 
 		
 		
 	}
