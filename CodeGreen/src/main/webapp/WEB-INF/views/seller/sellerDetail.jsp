@@ -73,7 +73,7 @@
 		<div class="form-group">
 			<p align="center">
 				<button type="button" class="btn btn-primary" onclick="location.href='${contextPath}/seller/sellerList'">
-					<span class="glyphicon glyphicon-list-alt"> 소비자 목록</span>
+					<span class="glyphicon glyphicon-list-alt"> 목록</span>
 				</button>
 			</p>
 		</div>

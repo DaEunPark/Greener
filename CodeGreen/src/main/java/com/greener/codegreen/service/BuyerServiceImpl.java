@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.greener.codegreen.common.SearchCriteria;
 import com.greener.codegreen.dao.BuyerDAO;
 import com.greener.codegreen.dto.BuyerDTO;
+import com.greener.codegreen.dto.DashboardDTO;
 
 //-----------------------------------------------------------------------------------------------------------
 //회원 정보 서비스
@@ -82,6 +83,7 @@ public class BuyerServiceImpl implements BuyerService {
 	public BuyerDTO buyerDetail(String b_id , int flag) throws Exception {
 		
 		return buyerDAO.buyerDetail(b_id);
-	}	
+	}
+
 	
 } // End - public class BuyerServiceImpl

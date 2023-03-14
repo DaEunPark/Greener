@@ -1,3 +1,4 @@
+
 package com.greener.codegreen.dao;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.greener.codegreen.dto.ProductAvgCntDTO;
+import com.greener.codegreen.dto.DashboardDTO;
 
 @Repository("dashboardDAO")
 public class DashboardDAOImpl implements DashboardDAO {
@@ -18,10 +20,19 @@ public class DashboardDAOImpl implements DashboardDAO {
 	private SqlSession sqlSession;
 	
 	private	static final String Namespace = "com.greener.codegreen.dashboard";
-	@Override
+  /*
+  * 상품 구매 개수 평균 - 박다은
+  */
+  @Override
 	public List<ProductAvgCntDTO> getProductAvgCntInfo(int limit) throws DataAccessException {
 		List<ProductAvgCntDTO> list = sqlSession.selectList(Namespace + ".productAvgCntInfo", limit);
 		return list;
 	}
 
+  // 대시보드 - 김민준
+  @Override
+	public List<DashboardDTO> Dash() throws Exception {
+
+		return sqlsession.selectList(Namespace+".dash");
+	}
 }

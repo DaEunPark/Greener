@@ -37,8 +37,9 @@ import org.json.simple.JSONObject;
 //-----------------------------------------------------------------------------------------------------------
 //회원 정보 컨트롤러
 //-----------------------------------------------------------------------------------------------------------
+
 @Controller("buyerController")
-@RequestMapping("/buyer")	// url에서 /buyer로 시작하는 요청들을 처리하는 컨트롤러.
+@RequestMapping("/buyer/*")	// url에서 /buyer로 시작하는 요청들을 처리하는 컨트롤러.
 public class BuyerControllerImpl implements BuyerController {
 	private static final Logger logger = LoggerFactory.getLogger(BuyerControllerImpl.class);
 	@Autowired
@@ -165,6 +166,9 @@ public class BuyerControllerImpl implements BuyerController {
 		
 		return mav;
 	}	// End - 소비자 리스트 조회
+	
+
+	
 
 	//-----------------------------------------------------------------------------------------------------------		//-----------------------------------------------------------------------------------------------------------
 	// 아이디 상세 조회
@@ -182,7 +186,5 @@ public class BuyerControllerImpl implements BuyerController {
 		return "/buyer/buyerDetail";
 	}
 	
-	
-
 	
 } // End - public class BuyerControllerImpl

@@ -1,14 +1,13 @@
-
 package com.greener.codegreen.controller;
 
 import java.util.Iterator;
+
 import java.util.List;
 
 import javax.inject.Inject;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +27,9 @@ import com.greener.codegreen.dto.ProductAvgCntDTO;
 import com.greener.codegreen.service.DashboardService;
 import com.greener.codegreen.dto.ProductViewDTO;
 import com.greener.codegreen.service.AdminService;
+import com.greener.codegreen.dto.BuyerDTO;
+import com.greener.codegreen.dto.DashboardDTO;
+import com.greener.codegreen.service.BuyerService;
 
 @Controller("dashboardController")
 @RequestMapping("/admin/*")
@@ -39,6 +41,9 @@ public class DashboardController {
   
   @Inject 
   AdminService adminService;	
+ 	
+  @Inject
+	private BuyerService buyerservice;
 	
 	/*
 	 * 구매 상품 주문 수량 평균 - 박다은
@@ -130,5 +135,21 @@ public class DashboardController {
 
     return json;
   }
+  
+  // 대시보드 - 김민준
+  @RequestMapping(value="/Dashboard",method = RequestMethod.GET)
+	public void Dash()throws Exception{}
+
+  // 대시보드 - 김민준
+	@RequestMapping(value = "/Dashboard22", method = RequestMethod.GET)
+	@ResponseBody
+	public List<DashboardDTO> Dashboard() throws Exception {
+		
+		List<DashboardDTO> dashboard = dashboardservice.Dash();
+				
+		
+		
+		return dashboard; 
+	}
 }
 

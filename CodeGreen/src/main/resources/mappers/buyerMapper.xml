@@ -157,5 +157,6 @@
 			WHERE	b_id = #{b_id}
 		]]>
 	</select>
+	
 </mapper>
 
