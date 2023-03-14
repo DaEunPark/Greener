@@ -15,19 +15,19 @@
 <jsp:include page="../include/nav.jsp"></jsp:include>
 	<div class="container">
 		<h2>상품 정보 수정</h2>
-		<form role = "form" method="post" autocomplete="off">
+		<form role = "form" method="post" autocomplete="off" enctype="multipart/form-data" >
 		
 		<input type = "hidden" name="p_number" value="${product.p_number}"/>
 		
 			<div class = "inputArea">
 				<label>1차 분류</label>
 				<select class="category1">
-					<option value="">전체</option>
+					<option value="${product.product_c_code }">전체</option>
 				</select>
 				<br>
 				<label>2차 분류</label>
-				<select class="category2" name="c_code">
-					<option value="">전체</option>
+				<select class="category2" name="product_c_code">
+					<option value="${product.product_c_code }">전체</option>
 				</select>
 			</div>	
 			<div class="inputArea">
@@ -48,7 +48,8 @@
 				     resize_enaleb : false,
 				     enterMode : CKEDITOR.ENTER_BR,
 				     shiftEnterMode : CKEDITOR.ENTER_P,
-				     filebrowserUploadUrl : "/admin/product/ckUpload"
+				     filebrowserUploadUrl : "/admin/product/ckUpload",
+				     filebrowserUploadMethod: 'form'
 				   };
 				   
 				   CKEDITOR.replace("p_content", ckeditor_config);
@@ -69,7 +70,12 @@
 				 <label for="productUsedate">유통/소비기한</label>
 				 <input type="text" id="p_usedate" name="p_usedate" value="${product.p_usedate}"/>
 			</div>
-				
+			
+			<div class="inputArea">
+			<label for="gdsImg">이미지</label>
+ 			<input type="file" id="p_img" name="file" value="${product.p_img }"/>
+			 <div class="select_img"><img src="" /></div>
+			 </div>
 				
 			<div class="inputArea">
 				 <button type="submit" id="update_Btn" class="btn btn-primary">완료</button>
@@ -197,5 +203,17 @@ if(select_c_code_ref != null && select_c_code_ref != "") {
 	   selector.val(tempVal.replace(regExp, ""));
 	}
 </script>
+<script>
+$("#p_img").change(function(){
+ if(this.files && this.files[0]) {
+  var reader = new FileReader;
+  reader.onload = function(data) {
+   $(".select_img img").attr("src", data.target.result).width(500);        
+  }
+  reader.readAsDataURL(this.files[0]);
+ }
+});
+</script>
+
 </body>
 </html>

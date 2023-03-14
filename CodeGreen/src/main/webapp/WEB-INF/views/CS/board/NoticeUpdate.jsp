@@ -20,8 +20,12 @@
 </head>	
 
 <body>
-<!-- 상단 메뉴 -->
-<div class="container">
+<!-- 사이드바 -->
+<jsp:include page="../../admin/include/nav.jsp"></jsp:include>
+
+<div class="container"  style="margin-right:120px; width: 70%" >
+<!-- 상단 바  -->
+<jsp:include page="../../common/CStopMenu.jsp"></jsp:include>		
 	<form class="form-horizontal" id="frm">
 		<div class="form-group">
 			<div>

@@ -1,16 +1,21 @@
 package com.greener.codegreen.service;
 
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.greener.codegreen.common.SearchCriteria;
 import com.greener.codegreen.dao.BuyerDAO;
 import com.greener.codegreen.dto.BuyerDTO;
+import com.greener.codegreen.dto.DashboardDTO;
 
 //-----------------------------------------------------------------------------------------------------------
 //회원 정보 서비스
@@ -21,6 +26,15 @@ public class BuyerServiceImpl implements BuyerService {
 	@Autowired
 	private BuyerDAO buyerDAO;
 
+	//-----------------------------------------------------------------------------------------------------------
+    // 월별 가입자수 차트 (정하)
+	//-----------------------------------------------------------------------------------------------------------
+	public Map<String, Object> getChart() throws DataAccessException{
+		return buyerDAO.getChart();	
+	}
+	
+	
+	
 	//-----------------------------------------------------------------------------------------------------------
 	// 로그인(시훈)
 	//-----------------------------------------------------------------------------------------------------------
@@ -69,6 +83,7 @@ public class BuyerServiceImpl implements BuyerService {
 	public BuyerDTO buyerDetail(String b_id , int flag) throws Exception {
 		
 		return buyerDAO.buyerDetail(b_id);
-	}	
+	}
+
 	
 } // End - public class BuyerServiceImpl

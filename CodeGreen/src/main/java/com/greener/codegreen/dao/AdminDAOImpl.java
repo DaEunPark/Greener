@@ -81,5 +81,11 @@ public class AdminDAOImpl implements AdminDAO {
 		sql.insert(namespace+".register", dto);
 
 	}
+	
+	// DashProductView 목록
+	@Override
+	public List<ProductViewDTO> DashProductview() {
+		return sql.selectList(namespace+".dashproductview");
+	}
 
 }

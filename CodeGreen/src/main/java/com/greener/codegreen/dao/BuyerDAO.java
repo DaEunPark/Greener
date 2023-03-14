@@ -1,17 +1,31 @@
 package com.greener.codegreen.dao;
 
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.greener.codegreen.common.SearchCriteria;
 import com.greener.codegreen.dto.BuyerDTO;
+import com.greener.codegreen.dto.DashboardDTO;
 
 //-----------------------------------------------------------------------------------------------------------
 //회원 정보 서비스
 //-----------------------------------------------------------------------------------------------------------
 public interface BuyerDAO {
 
+	
+	//-----------------------------------------------------------------------------------------------------------
+    // 월별 가입자수 차트 (정하)
+	//-----------------------------------------------------------------------------------------------------------
+	public Map<String, Object> getChart() throws DataAccessException;
+	
+	
 	//-----------------------------------------------------------------------------------------------------------
 	// 로그인(시훈)
 	//-----------------------------------------------------------------------------------------------------------
@@ -42,5 +56,4 @@ public interface BuyerDAO {
 	//-----------------------------------------------------------------------------------------------------------
 	public BuyerDTO buyerDetail(String b_id) throws Exception;
 
-	
 } // End - public interface BuyerDAO

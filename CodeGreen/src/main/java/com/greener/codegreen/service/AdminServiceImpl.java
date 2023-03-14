@@ -18,7 +18,7 @@ public class AdminServiceImpl implements AdminService {
 
 	
 	// ---------------------------------------------------------------------------------------
-	// ´©ÀûÆÇ¸Å·® »óÀ§ 10°³ »óÇ° Àü½Ã(½ÃÈÆ)
+	// ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸Å·ï¿½ ï¿½ï¿½ï¿½ 10ï¿½ï¿½ ï¿½ï¿½Ç° ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
 	// ---------------------------------------------------------------------------------------
 	@Override
 	public List<ProductDTO> top10products() throws Exception {
@@ -71,5 +71,12 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		dao.register(dto);
 	}
+  
+	// DashProductView ëª©ë¡
+	@Override
+	public List<ProductViewDTO> DashProductview() throws Exception {
+		return dao.DashProductview();
+	}
+
 
 }

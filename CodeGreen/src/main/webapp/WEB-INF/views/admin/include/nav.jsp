@@ -81,6 +81,12 @@
           판매자 목록
         </a>
       </li>
+       <li>
+        <a href="${contextPath}/admin/dash/Dashboard" class="nav-link text-white sidebar-link" >
+            <i class="fa-solid fa-user"></i>
+           통계
+        </a>
+      </li>
       <li>
         <a href="${contextPath}/CS/board/NoticeList?n_bc_code=0" class="nav-link text-white sidebar-link">
             <i class="fa-solid fa-headset"></i>
@@ -116,6 +122,6 @@
 </main>
 
   <script src="https://kit.fontawesome.com/a995061e9a.js" crossorigin="anonymous"></script>
-
+  
 </body>
 </html>

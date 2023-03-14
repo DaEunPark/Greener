@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.greener.codegreen.dashboard">
+	
+	<!--  구매 상품 개수 평균 (다은) -->
+	<select id="productAvgCntInfo" parameterType="int" resultType="com.greener.codegreen.dto.ProductAvgCntDTO">
+		<![CDATA[
+			SELECT AVG(PO.o_count) product_order_avg, P.p_name p_name, PO.order_p_number order_p_number
+			FROM Product P, ProductOrder PO
+			WHERE P.p_number = PO.order_p_number
+			GROUP BY PO.order_p_number
+			ORDER BY product_order_avg DESC LIMIT 0, #{limit}
+		]]>
+	</select>
+
+  <!-- 구매자 나이별 분포 (민준) -->
+	<select id = "dash" resultType="com.greener.codegreen.dto.DashboardDTO">
+	 	<![CDATA[
+	 		SELECT CASE
+			        WHEN age < 30 THEN '20대'
+			        WHEN age < 40 THEN '30대'
+			        WHEN age < 50 THEN '40대'
+			        WHEN age < 60 THEN '50대'
+			        WHEN age > 60 THEN '60대 이상'
+			       END AS age_group,
+			       count(*) total
+			FROM (SELECT *, FLOOR(date_format(now(), '%Y')-substring(b_birth,1,4)) age FROM Buyer) a
+			GROUP BY age_group;
+		 	]]>
+	</select>	
+	<!-- 구매자 나이별 분포 (민준) -->
+	
+</mapper>
+

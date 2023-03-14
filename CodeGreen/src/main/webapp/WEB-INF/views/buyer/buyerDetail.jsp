@@ -9,11 +9,6 @@
 <head>
 	<meta charset="UTF-8">
 	<title>구매자 상세 정보</title>
-<style>
-	  .cont{
-       margin-left: 280px;
-   }
-</style>
 
 
 </head>
@@ -95,6 +90,24 @@
 </div>
 <!-- 하단 메뉴 -->
 <jsp:include page="../common/footer.jsp" flush="false"/>
-	<script src="${contextPath}/resources/js/buyer.js"></script>
+<script src="${contextPath}/resources/js/buyer.js"></script>
+<script>
+$(function(){
+	$.ajax({
+		url:"/buyerDetail?",
+		type:"GET",
+		
+		success:{
+			function(data){
+				
+			}
+		},
+		error:{
+			
+		}
+	});
+});
+</script>
+
 </body>
 </html>
