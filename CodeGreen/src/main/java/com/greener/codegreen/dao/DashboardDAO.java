@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 
 import com.greener.codegreen.dto.ProductAvgCntDTO;
 import com.greener.codegreen.dto.BuyerDTO;
-import com.greener.codegreen.dto.DashboardDTO;
+import com.greener.codegreen.dto.DashboardAgeDTO;
 
 public interface DashboardDAO {
 	/*
@@ -17,7 +17,7 @@ public interface DashboardDAO {
 	List<ProductAvgCntDTO> getProductAvgCntInfo(int limit) throws DataAccessException;
   
 	// 대시보드 - 김민준
-	public List<DashboardDTO>Dash() throws Exception;
+	public List<DashboardAgeDTO>Dash() throws Exception;
 
 	// 대시보드 - 이정하
 	List<Map<String, Object>> getChart(Map<String, Object> map) throws DataAccessException;

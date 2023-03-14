@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.greener.codegreen.common.SearchCriteria;
 import com.greener.codegreen.dao.BuyerDAO;
 import com.greener.codegreen.dto.BuyerDTO;
-import com.greener.codegreen.dto.DashboardDTO;
+import com.greener.codegreen.dto.DashboardAgeDTO;
 
 //-----------------------------------------------------------------------------------------------------------
 //회원 정보 서비스

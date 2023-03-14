@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DashboardDTO {
+public class DashboardAgeDTO {
 
 	private int total;
 	private String age_group;

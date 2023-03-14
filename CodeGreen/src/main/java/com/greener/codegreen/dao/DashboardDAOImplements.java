@@ -12,7 +12,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.greener.codegreen.dto.ProductAvgCntDTO;
-import com.greener.codegreen.dto.DashboardDTO;
+import com.greener.codegreen.dto.DashboardAgeDTO;
 
 @Repository("dashboardDAO")
 public class DashboardDAOImplements implements DashboardDAO {
@@ -32,7 +32,7 @@ public class DashboardDAOImplements implements DashboardDAO {
 
 	// 대시보드 - 김민준
 	@Override
-	public List<DashboardDTO> Dash() throws Exception {
+	public List<DashboardAgeDTO> Dash() throws Exception {
 
 		return sqlSession.selectList(Namespace+".dash");
 	}

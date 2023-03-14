@@ -10,7 +10,7 @@ import org.springframework.dao.DataAccessException;
 
 import com.greener.codegreen.common.SearchCriteria;
 import com.greener.codegreen.dto.BuyerDTO;
-import com.greener.codegreen.dto.DashboardDTO;
+import com.greener.codegreen.dto.DashboardAgeDTO;
 
 //-----------------------------------------------------------------------------------------------------------
 //회원 정보 서비스

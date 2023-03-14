@@ -17,7 +17,7 @@
 	</select>
 
   	<!-- 구매자 나이별 분포 (민준) -->
-	<select id = "dash" resultType="com.greener.codegreen.dto.DashboardDTO">
+	<select id = "dash" resultType="com.greener.codegreen.dto.DashboardAgeDTO">
 	 	<![CDATA[
 	 		SELECT CASE
 			        WHEN age < 30 THEN '20대'

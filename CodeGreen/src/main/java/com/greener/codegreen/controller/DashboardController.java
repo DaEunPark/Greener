@@ -31,7 +31,7 @@ import com.greener.codegreen.service.DashboardService;
 import com.greener.codegreen.dto.ProductViewDTO;
 import com.greener.codegreen.service.AdminService;
 import com.greener.codegreen.dto.BuyerDTO;
-import com.greener.codegreen.dto.DashboardDTO;
+import com.greener.codegreen.dto.DashboardAgeDTO;
 import com.greener.codegreen.service.BuyerService;
 
 @Controller("dashboardController")
@@ -145,9 +145,9 @@ public class DashboardController {
 	// 대시보드 - 김민준
 	@RequestMapping(value = "/Dashboard22", method = RequestMethod.GET)
 	@ResponseBody
-	public List<DashboardDTO> Dashboard() throws Exception {
+	public List<DashboardAgeDTO> Dashboard() throws Exception {
 
-		List<DashboardDTO> dashboard = dashboardService.Dash();
+		List<DashboardAgeDTO> dashboard = dashboardService.Dash();
 
 		return dashboard;
 	}

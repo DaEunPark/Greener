@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 
 import com.greener.codegreen.dto.ProductAvgCntDTO;
 import com.greener.codegreen.dto.BuyerDTO;
-import com.greener.codegreen.dto.DashboardDTO;
+import com.greener.codegreen.dto.DashboardAgeDTO;
 
 public interface DashboardService {
 
@@ -19,7 +19,7 @@ public interface DashboardService {
 	List<ProductAvgCntDTO> getProductAvgCntInfo(int limit) throws DataAccessException;
   
 	// 대시보드 - 김민준
-	public List<DashboardDTO> Dash() throws Exception;
+	public List<DashboardAgeDTO> Dash() throws Exception;
 	
 	//-----------------------------------------------------------------------------------------------------------
 	// 월별 가입자수 차트 (정하)

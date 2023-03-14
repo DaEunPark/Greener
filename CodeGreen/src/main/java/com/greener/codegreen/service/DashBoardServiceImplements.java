@@ -11,7 +11,7 @@ import org.springframework.ui.Model;
 
 import com.greener.codegreen.dao.DashboardDAO;
 import com.greener.codegreen.dto.BuyerDTO;
-import com.greener.codegreen.dto.DashboardDTO;
+import com.greener.codegreen.dto.DashboardAgeDTO;
 import com.greener.codegreen.dto.ProductAvgCntDTO;
 
 @Service("dashboardService")
@@ -21,7 +21,7 @@ public class DashBoardServiceImplements implements DashboardService {
 	private DashboardDAO dashboarddao;
 	// 대시보드 - 민준
 	@Override
-	public List<DashboardDTO> Dash() throws Exception {
+	public List<DashboardAgeDTO> Dash() throws Exception {
 		
 		return dashboarddao.Dash();
 	}
