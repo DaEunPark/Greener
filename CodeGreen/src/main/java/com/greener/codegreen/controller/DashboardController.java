@@ -1,8 +1,10 @@
 package com.greener.codegreen.controller;
 
+import java.util.HashMap;
 import java.util.Iterator;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -13,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,10 +42,10 @@ public class DashboardController {
 	@Autowired
 	private DashboardService dashboardService;
   
-  @Inject 
-  AdminService adminService;	
+	@Inject 
+	AdminService adminService;	
  	
-  @Inject
+	@Inject
 	private BuyerService buyerservice;
 	
 	/*
@@ -136,19 +139,36 @@ public class DashboardController {
 	    return json;
 	}
   
-  // 대시보드 - 김민준
-  @RequestMapping(value="/Dashboard",method = RequestMethod.GET)
+	// 대시보드 - 김민준
+	@RequestMapping(value="/Dashboard",method = RequestMethod.GET)
 	public void Dash()throws Exception{}
 
-  // 대시보드 - 김민준
-  @RequestMapping(value = "/Dashboard22", method = RequestMethod.GET)
-  @ResponseBody
-  public List<DashboardDTO> Dashboard() throws Exception {
+	// 대시보드 - 김민준
+	@RequestMapping(value = "/Dashboard22", method = RequestMethod.GET)
+	@ResponseBody
+	public List<DashboardDTO> Dashboard() throws Exception {
 		
-	  List<DashboardDTO> dashboard = dashboardService.Dash();				
+		List<DashboardDTO> dashboard = dashboardService.Dash();				
 		
 		
 		return dashboard; 
-  }
+	}
+
+	// 대시보드 - 이정하
+	@GetMapping("/dashBoard/SignUpChart")
+	public ModelAndView getchart() throws Exception {
+		ModelAndView mav = new ModelAndView();
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		//Map<String, Object> map = buyerService.getChart();
+		List<Map<String, Object>> result= dashboardService.getChart(map);
+		
+		
+		 
+		 mav.addObject("result", result);
+		 //mav.addObject("getChart", map);
+		 mav.setViewName("/admin/dashBoard/SignUpChart");
+		 return mav;
+	}
 }
 

@@ -1,6 +1,7 @@
 package com.greener.codegreen.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -13,7 +14,7 @@ import com.greener.codegreen.dto.BuyerDTO;
 import com.greener.codegreen.dto.DashboardDTO;
 import com.greener.codegreen.dto.ProductAvgCntDTO;
 
-@Service
+@Service("dashboardService")
 public class DashBoardServiceImplements implements DashboardService {
 	
 	@Inject
@@ -30,6 +31,13 @@ public class DashBoardServiceImplements implements DashboardService {
 	public List<ProductAvgCntDTO> getProductAvgCntInfo(int limit) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return dashboarddao.getProductAvgCntInfo(limit);
+	}
+
+	// 대시보드 - 정하
+	@Override
+	public List<Map<String, Object>> getChart(Map<String, Object> map) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return dashboarddao.getChart(map);
 	}
 
 }

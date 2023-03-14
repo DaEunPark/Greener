@@ -2,6 +2,7 @@
 package com.greener.codegreen.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -34,5 +35,12 @@ public class DashboardDAOImplements implements DashboardDAO {
 	public List<DashboardDTO> Dash() throws Exception {
 
 		return sqlSession.selectList(Namespace+".dash");
+	}
+
+	// 대시보드 - 이정하
+	@Override
+	public List<Map<String, Object>> getChart(Map<String, Object> map) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(Namespace + ".getChart", map);
 	}
 }

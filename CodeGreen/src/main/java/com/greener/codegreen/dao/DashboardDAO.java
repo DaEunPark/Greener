@@ -1,6 +1,7 @@
 package com.greener.codegreen.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.ui.Model;
@@ -15,7 +16,10 @@ public interface DashboardDAO {
 	 */
 	List<ProductAvgCntDTO> getProductAvgCntInfo(int limit) throws DataAccessException;
   
-  // 대시보드 - 김민준
-  public List<DashboardDTO>Dash() throws Exception;
+	// 대시보드 - 김민준
+	public List<DashboardDTO>Dash() throws Exception;
+
+	// 대시보드 - 이정하
+	List<Map<String, Object>> getChart(Map<String, Object> map) throws DataAccessException;
 
 }
