@@ -35,8 +35,9 @@ import java.text.DateFormat;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 //-----------------------------------------------------------------------------------------------------------
-//회원 정보 컨트롤러
+// 회원 정보 컨트롤러
 //-----------------------------------------------------------------------------------------------------------
+
 
 @Controller("buyerController")
 @RequestMapping("/buyer/*")	// url에서 /buyer로 시작하는 요청들을 처리하는 컨트롤러.
@@ -69,6 +70,7 @@ public class BuyerControllerImpl implements BuyerController {
 	//-----------------------------------------------------------------------------------------------------------
 	@PostMapping(value="/login")
 	@CrossOrigin(origins="http://localhost:8080")
+	@ResponseBody
 	@Override
 	public @ResponseBody BuyerDTO login(@RequestBody BuyerDTO buyerIdPwd) throws Exception {
 		BuyerDTO buyerInfo = buyerService.login(buyerIdPwd);
@@ -115,9 +117,9 @@ public class BuyerControllerImpl implements BuyerController {
 	@ResponseBody
 	@RequestMapping(value = "/idCheck", method = RequestMethod.POST)
 	public int idCheck(BuyerDTO buyerDTO) throws Exception {
-		logger.info("MemberControllerImpl 아이디 중복 검사 (Ajax) 시작");
+		logger.info("MemberControllerImpl �븘�씠�뵒 以묐났 寃��궗 (Ajax) �떆�옉");
 		int result = buyerService.idCheck(buyerDTO);
-		logger.info("MemberControllerImpl 아이디 중복 검사 (Ajax) 후 받은 값 : " + result);
+		logger.info("MemberControllerImpl �븘�씠�뵒 以묐났 寃��궗 (Ajax) �썑 諛쏆� 媛� : " + result);
 		return result;
 	} // idCheck()
 	
@@ -127,10 +129,10 @@ public class BuyerControllerImpl implements BuyerController {
 	@Override
 	@RequestMapping(value = "/addBuyer", method = RequestMethod.POST)
 	public int addBuyer(BuyerDTO buyerDTO, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		logger.info("MemberControllerImpl 회원가입 처리하기() 시작");
+		logger.info("MemberControllerImpl �쉶�썝媛��엯 泥섎━�븯湲�() �떆�옉");
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
-		return buyerService.addBuyer(buyerDTO); // 데이터 처리 완료 건수를 저장할 변수
+		return buyerService.addBuyer(buyerDTO); // �뜲�씠�꽣 泥섎━ �셿猷� 嫄댁닔瑜� ���옣�븷 蹂��닔
 	} // addBuyer()
 	
 	//-----------------------------------------------------------------------------------------------------------
@@ -165,14 +167,13 @@ public class BuyerControllerImpl implements BuyerController {
 		mav.addObject("pageMaker",pageMaker);
 		
 		return mav;
-	}	// End - 소비자 리스트 조회
-	
 
-	
+	} // buyerList()
 
-	//-----------------------------------------------------------------------------------------------------------		//-----------------------------------------------------------------------------------------------------------
-	// 아이디 상세 조회
-	//-----------------------------------------------------------------------------------------------------------		//-----------------------------------------------------------------------------------------------------------
+
+	//-----------------------------------------------------------------------------------------------------------
+	// 소비자 상세 조회
+	//-----------------------------------------------------------------------------------------------------------
 	@RequestMapping(value ="/buyerDetail", method = RequestMethod.GET)
 	@Override
 	public String buyerDetail(Model model, HttpServletRequest request) throws Exception {
@@ -184,7 +185,6 @@ public class BuyerControllerImpl implements BuyerController {
 		model.addAttribute("buyerDetail", buyerDTO);
 		
 		return "/buyer/buyerDetail";
-	}
-	
-	
+	} // buyerDetail()
+
 } // End - public class BuyerControllerImpl
