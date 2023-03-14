@@ -72,7 +72,7 @@ public class BuyerControllerImpl implements BuyerController {
 	@CrossOrigin(origins="http://localhost:8080")
 	@ResponseBody
 	@Override
-	public @ResponseBody BuyerDTO login(@RequestBody BuyerDTO buyerIdPwd) throws Exception {
+	public BuyerDTO login(@RequestBody BuyerDTO buyerIdPwd) throws Exception {
 		BuyerDTO buyerInfo = buyerService.login(buyerIdPwd);
 		return buyerInfo;
 	} // login()
