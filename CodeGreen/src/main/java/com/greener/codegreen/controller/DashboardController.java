@@ -62,7 +62,7 @@ public class DashboardController {
 	/*
 	 * 구매 상품 주문 수량 평균 - 박다은
 	 */	
-	@RequestMapping(value = "/productavg", method = RequestMethod.GET)
+	@RequestMapping(value = "/dash/productavg", method = RequestMethod.GET)
 	@ResponseBody
 	public String productAvg() throws Exception {
 		List<ProductAvgCntDTO> dtoList = dashboardService.getProductAvgCntInfo(10);
@@ -103,7 +103,7 @@ public class DashboardController {
 	}
   
 	//목록 불러오기 - 정경희
-	@RequestMapping(value="/dashproductview", method = RequestMethod.GET)
+	@RequestMapping(value="/dash/dashproductview", method = RequestMethod.GET)
 	public String DashProductview(Model model)throws Exception{
     logger.info("화면불러오기");
 		  
@@ -139,22 +139,23 @@ public class DashboardController {
 	}
   
 	// 대시보드 - 김민준
-	@RequestMapping(value = "/Dashboard", method = RequestMethod.GET)
-	public void Dash() throws Exception {
+	@RequestMapping(value = "/dash/Dashboard", method = RequestMethod.GET)
+	public String Dash() throws Exception {
+		return "/admin/dash/Dashboard";
 	}
 
 	// 대시보드 - 김민준
-	@RequestMapping(value = "/Dashboard22", method = RequestMethod.GET)
+	@RequestMapping(value = "/dash/Dashboard22", method = RequestMethod.GET)
 	@ResponseBody
 	public List<DashboardAgeDTO> Dashboard() throws Exception {
 
 		List<DashboardAgeDTO> dashboard = dashboardService.Dash();
-
+		logger.info("DashboardController Dashboard() dashboard => " + dashboard);
 		return dashboard;
 	}
 
 	// 대시보드 - 이정하
-	@GetMapping("/dashBoard/SignUpChart")
+	@GetMapping("/dash/SignUpChart")
 	public ModelAndView getchart() throws Exception {
 		ModelAndView mav = new ModelAndView();
 
@@ -164,7 +165,7 @@ public class DashboardController {
 
 		mav.addObject("result", result);
 		// mav.addObject("getChart", map);
-		mav.setViewName("/admin/dashBoard/SignUpChart");
+		mav.setViewName("/admin/dash/SignUpChart");
 		return mav;
 	}
 

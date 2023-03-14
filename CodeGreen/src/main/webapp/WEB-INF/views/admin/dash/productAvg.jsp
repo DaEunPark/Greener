@@ -19,7 +19,7 @@
 	
 	function drawChart() {
 		var jsonData = $.ajax({
-			url: "/admin/dashboard/productavg",
+			url: "/admin/dash/productavg",
 			dataType: "json",
 			async: false
 		}).responseText;

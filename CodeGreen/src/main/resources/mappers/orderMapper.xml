@@ -145,7 +145,7 @@
 	<!-- ****************************************************************************************** -->
 	<!-- 주문번호 누르면 상세 주문내역 보여주기 -->
 	<!-- ****************************************************************************************** -->
-  	<select id="orderDetailCheck" resultType="com.edu.order.dto.ProductOrderBuyerDTO" parameterType="integer">
+  	<select id="orderDetailCheck" resultType="com.greener.codegreen.dto.ProductOrderBuyerDTO" parameterType="integer">
 		<![CDATA[
 	        SELECT 	o.o_number, b.b_id, o.o_price, o.o_date, o.o_receiver_phone, o.o_receiver_name, b.b_email
 	        	   ,o.o_address1, o.o_address2, o.o_address3, b.b_name, b.b_grade, o.order_p_number

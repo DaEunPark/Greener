@@ -8,16 +8,20 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.0/chart.min.js"></script>
 </head>
 <body>
-	<h1>SignUpChart</h1>
-	<canvas id="myChart" style="width:80%; max-width:500px"></canvas>
+	<jsp:include page="../include/nav.jsp" flush="false"/>
+	<div class="container">
+		<h1>월간 일별 회원가입자 수</h1>
+		<canvas id="myChart" style="width:80%; max-width:500px"></canvas>
+	
+	</div>
 	
 
 	<script>
 		$.ajax({
 			type:'get',
-			url:'/dashBoard/SignUpChart',
+			url:'',
 			success:function(json){
-				console.log(json);
+//				console.log(json);
 				
 				//5,7,3,5,3,3,4,5,5,5,2,3
 				let myData = [5,7,3,5,3,3,4,5,5,5,2,3];

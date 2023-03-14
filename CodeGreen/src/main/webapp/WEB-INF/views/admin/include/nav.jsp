@@ -81,11 +81,21 @@
           판매자 목록
         </a>
       </li>
-       <li>
-        <a href="${contextPath}/admin/dash/Dashboard" class="nav-link text-white sidebar-link" >
-            <i class="fa-solid fa-user"></i>
-           통계
+       
+      <li class="nav-item">
+        <a href="#dashboardCollapseMenu" class="nav-link text-white sidebar-link" data-bs-toggle="collapse" aria-expanded="false" aria-controls="dashboardCollapseMenu">
+            <i class="fa-solid fa-th-list"></i>
+           대시보드 <i class="fa fa-caret-down" ></i>
         </a>
+        <div class="collapse" id="dashboardCollapseMenu">
+	        <div class="list-group">
+	        	<a class="list-group-item list-group-item-action list-group-item-dark" href="${contextPath}/admin/dash/Dashboard">가입자 연령대</a>
+	        	<a class="list-group-item list-group-item-action list-group-item-dark" href="${contextPath}/admin/dash/dashBoardCategory">1주일간 일별 카테고리 선호도</a>
+	        	<a class="list-group-item list-group-item-action list-group-item-dark" href="${contextPath}/admin/dash/productAvg">상품별 구매 수량 평균</a>
+	        	<a class="list-group-item list-group-item-action list-group-item-dark" href="${contextPath}/admin/dash/dashproductview">상품별 조회수 누적</a>
+	        	<a class="list-group-item list-group-item-action list-group-item-dark" href="${contextPath}/admin/dash/SignUpChart">월간 일별 회원가입자 수</a>
+	        </div>
+        </div>
       </li>
       <li>
         <a href="${contextPath}/CS/board/NoticeList?n_bc_code=0" class="nav-link text-white sidebar-link">
