@@ -15,7 +15,7 @@ import com.greener.codegreen.dto.ProductViewDTO;
 public class AdminDAOImpl implements AdminDAO {	
 	@Inject
 	private SqlSession sql;
-	// 留ㅽ띁
+	// 매퍼
 	private static String namespace = "com.greener.codegreen.adminMapper";
 	
 	
@@ -29,57 +29,46 @@ public class AdminDAOImpl implements AdminDAO {
 		return sql.selectList(namespace+".top10products");
 	} // top10products()	
 	
-	
-	
-	
-	
-	
-	// 移댄뀒怨좊━ �샇異�
+	// 카테고리 호출
 	@Override
 	public List<CategoryDTO> category() throws Exception {
 		return sql.selectList(namespace + ".category");
 	}
 
-	// �긽�뭹 �벑濡�
+	// 상품 등록
 	@Override
 	public void productRegister(ProductDTO dto) throws Exception {
-		sql.insert(namespace+".register", dto);
+		sql.insert(namespace+".productRegister", dto);
 
 	}
 
-	// �긽�뭹 紐⑸줉
+	// 상품 목록
 	@Override
 	public List<ProductViewDTO> productList() throws Exception {
 		// TODO Auto-generated method stub
 		return sql.selectList(namespace + ".productList");
 	}
 
-	// �긽�뭹 �긽�꽭 蹂닿린
+	// 상품 상세 보기
 	@Override
 	public ProductViewDTO productView(int p_number) throws Exception {
 		// TODO Auto-generated method stub
 		return sql.selectOne(namespace + ".productView", p_number);
 	}
 
-	// �긽�뭹 �닔�젙
+	// 상품 수정
 	@Override
 	public void productModify(ProductDTO dto) throws Exception {
 		// TODO Auto-generated method stub
 		sql.update(namespace+".productModify", dto);
 	}
 
+	// 상품 삭제
 	@Override
 	public void productDelete(int p_number) throws Exception {
 		// TODO Auto-generated method stub
 		sql.delete(namespace+ ".productDelete", p_number);
 		
-	}
-
-	// �긽�뭹�벑濡�
-	@Override
-	public void register(ProductDTO dto) throws Exception {
-		sql.insert(namespace+".register", dto);
-
 	}
 	
 	// DashProductView 목록

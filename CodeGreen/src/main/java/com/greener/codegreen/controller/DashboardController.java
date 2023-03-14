@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -197,6 +198,15 @@ public class DashboardController {
 		mav.addObject("dashBoardDTON", dashBoardDTON);
 		
 		return mav;
+	}
+	//-----------------------------------------------------------------------------------------------------------
+	// 대시보드 테스트 (공혜린)
+	// -----------------------------------------------------------------------------------------------------------
+	@RequestMapping(value = { "/visit.do", "/visit" }, method = RequestMethod.POST)
+	public String managerMain() {
+
+		System.out.println("대시보드 테스트 진행 중입니다.");
+		return "visit";
 	}
 }
 

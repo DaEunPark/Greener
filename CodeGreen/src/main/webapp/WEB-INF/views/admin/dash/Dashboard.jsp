@@ -21,9 +21,7 @@
 	    
 	    type: "GET",
 	    success: function(data) {
-	    	
-			console.log(data[0].age_group);
-	        
+        
 	        var chartData = {
 	            labels: [], 
 	            datasets: [

@@ -35,10 +35,6 @@ public interface AdminService {
 	// �긽�뭹 �궘�젣
 	public void productDelete(int p_number) throws Exception;
 
-	public void register(ProductDTO dto) throws Exception;
-
-	
-
 	// DashProductView 목록 
 	public List<ProductViewDTO> DashProductview() throws Exception;
 	

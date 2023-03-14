@@ -14,25 +14,23 @@ public interface AdminDAO {
 	public List<ProductDTO> top10products() throws Exception;
 	
 	
-	// 移댄뀒怨좊━ �샇異�
+	// 카테고리 호출
 	public List<CategoryDTO> category() throws Exception;
 	
-	// �긽�뭹 �벑濡�
+	// 상품 등록
 	public void productRegister(ProductDTO dto) throws Exception;
 
-	// �긽�뭹 紐⑸줉
+	// 상품 목록
 	public List<ProductViewDTO> productList() throws Exception;
 
-	// �긽�뭹 �긽�꽭 蹂닿린
+	// 상품 상세 보기
 	public ProductViewDTO productView(int p_number) throws Exception;
 	
-	// �긽�뭹 �닔�젙
+	// 상품 수정
 	public void productModify(ProductDTO dto) throws Exception;
 	
-	// �긽�뭹 �궘�젣
+	// 상품 삭제
 	public void productDelete(int p_number) throws Exception;
-
-	public void register(ProductDTO dto) throws Exception;
 	
 	
 	

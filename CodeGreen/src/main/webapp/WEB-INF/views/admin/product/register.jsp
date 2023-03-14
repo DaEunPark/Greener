@@ -15,7 +15,7 @@
 <jsp:include page="../include/nav.jsp"></jsp:include>
 	<div class="container">
 		<h2>상품등록</h2>
-		<form role = "form" method="post" autocomplete="off" enctype="multipart/form-data">
+		<form role = "form" method="post" autocomplete="off" enctype="myltipart/form-data">
 			<label>1차 분류</label>
 			<select class="category1">
 				<option value="">전체</option>
@@ -66,28 +66,16 @@
 			 <label for="productUsedate">유통/소비기한</label>
 			 <input type="text" id="p_usedate" name="p_usedate" />
 			</div>
-			
 			<div class="inputArea">
- 			<label for="p_img">이미지</label>
+ 			<label for="gdsImg">이미지</label>
  			<input type="file" id="p_img" name="file" />
 			 <div class="select_img"><img src="" /></div>
-			 <script>
-					$("#p_img").change(function(){
-					 if(this.files && this.files[0]) {
-					  var reader = new FileReader;
-					  reader.onload = function(data) {
-					   $(".select_img img").attr("src", data.target.result).width(500);        
-					  }
-					  reader.readAsDataURL(this.files[0]);
-					 }
-					});
-					</script>
 			 </div>
 			
 			<%=request.getRealPath("/") %>			
 			
 			<div class="inputArea">
-			 <button type="submit" id="register_Btn" class="btn btn-primary">등록</button>
+			 	<button type="submit" id="register_Btn" class="btn btn-primary">등록</button>
 			</div>
 			
 		</form>
@@ -96,10 +84,11 @@
 <script>
 // 컨트롤러에서 데이터 받기
 var jsonData = JSON.parse('${category}');
-console.log(jsonData);
 
 var cate1Arr = new Array();
+var cate2Arr = new Array();
 var cate1Obj = new Object();
+var cate2Obj = new Object();
 
 // 1차 분류 셀렉트 박스에 삽입할 데이터 준비
 for(var i = 0; i < jsonData.length; i++) {
@@ -121,9 +110,6 @@ for(var i = 0; i < cate1Arr.length; i++) {
 }
 
 $(document).on("change", "select.category1", function(){
-
-	 var cate2Arr = new Array();
-	 var cate2Obj = new Object();
 	 
 	 // 2차 분류 셀렉트 박스에 삽입할 데이터 준비
 	 for(var i = 0; i < jsonData.length; i++) {
@@ -165,8 +151,15 @@ $(document).on("change", "select.category1", function(){
 	 });
 	 
 	});
-	
-	
+	$("#p_img").change(function(){
+	 if(this.files && this.files[0]) {
+	  var reader = new FileReader;
+	  reader.onload = function(data) {
+	   $(".select_img img").attr("src", data.target.result).width(500);        
+	  }
+	  reader.readAsDataURL(this.files[0]);
+	 }
+	});
 </script>
 
 <script>
@@ -180,6 +173,5 @@ function numCheck(selector) {
    selector.val(tempVal.replace(regExp, ""));
 }
 </script>
-
 </body>
 </html>

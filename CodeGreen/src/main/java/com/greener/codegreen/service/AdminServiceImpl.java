@@ -65,12 +65,6 @@ public class AdminServiceImpl implements AdminService {
 		dao.productDelete(p_number);
 		
 	}
-
-	@Override
-	public void register(ProductDTO dto) throws Exception {
-		// TODO Auto-generated method stub
-		dao.register(dto);
-	}
   
 	// DashProductView 목록
 	@Override

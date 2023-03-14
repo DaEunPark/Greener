@@ -6,10 +6,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Component("dashboardAgeDTO")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Component("dashboardAgeDTO")
 public class DashboardAgeDTO {
 
 	private int total;
