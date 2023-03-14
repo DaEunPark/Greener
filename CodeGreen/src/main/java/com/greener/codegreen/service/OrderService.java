@@ -5,170 +5,65 @@ import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 
-import com.greener.codegreen.common.SearchCriteria;
 import com.greener.codegreen.dto.ProductOrderBuyerDTO;
 
 public interface OrderService {
 
 	//-----------------------------------------------------------------------------------------------------------
-	// 주문내역 목록 불러오기 (getOrderListAll)
+	// 주문내역 목록 불러오기 (전체&조건지정시)
 	//-----------------------------------------------------------------------------------------------------------
-	public List<HashMap<String, String>> getOrderListAll(SearchCriteria scri) throws DataAccessException;
+	public List<HashMap<String, String>> getOrderListAll() throws Exception;
 
 	//-----------------------------------------------------------------------------------------------------------
-	// 조건에 맞는 주문내역 목록 불러오기 (getOrderList)
+	// 조건에 맞는 주문내역 목록 불러오기
 	//-----------------------------------------------------------------------------------------------------------
-	public List<HashMap<String, String>> getOrderList(SearchCriteria scri) throws DataAccessException;
+	public List<HashMap<String, String>> getOrderList(HashMap<String, String> paramMap) throws Exception;
+
+	//-----------------------------------------------------------------------------------------------------------
+	// 주문번호 누르면 상세 주문내역 보여주기
+	//-----------------------------------------------------------------------------------------------------------
+	public ProductOrderBuyerDTO getOrderDetail(int orderNum) throws Exception;
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 조건에 맞는 주문내역 목록 불러오기(day)
+	//-----------------------------------------------------------------------------------------------------------
+	public List<HashMap<String, String>> getOrderListDay(HashMap<String, String> paramMap) throws Exception;
 	
 	//-----------------------------------------------------------------------------------------------------------
 	// 조건에 맞는 주문내역 목록 불러오기(onlyDay)
 	//-----------------------------------------------------------------------------------------------------------
-	public List<HashMap<String, String>> getOrderListOnlyDay(SearchCriteria scri) throws DataAccessException;
-
+	public List<HashMap<String, String>> getOrderListOnlyDay(HashMap<String, String> paramMap) throws Exception;
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 조건에 맞는 주문내역 목록 불러오기(week)
+	//-----------------------------------------------------------------------------------------------------------
+	public List<HashMap<String, String>> getOrderListWeek(HashMap<String, String> paramMap) throws Exception;
+	
 	//-----------------------------------------------------------------------------------------------------------
 	// 조건에 맞는 주문내역 목록 불러오기(onlyWeek)
 	//-----------------------------------------------------------------------------------------------------------
-	public List<HashMap<String, String>> getOrderListOnlyWeek(SearchCriteria scri) throws DataAccessException;
+	public List<HashMap<String, String>> getOrderListOnlyWeek(HashMap<String, String> paramMap) throws Exception;
+	
+	//-----------------------------------------------------------------------------------------------------------
+	// 조건에 맞는 주문내역 목록 불러오기(month)
+	//-----------------------------------------------------------------------------------------------------------
+	public List<HashMap<String, String>> getOrderListMonth(HashMap<String, String> paramMap) throws Exception;
 	
 	//-----------------------------------------------------------------------------------------------------------
 	// 조건에 맞는 주문내역 목록 불러오기(onlyMonth)
 	//-----------------------------------------------------------------------------------------------------------
-	public List<HashMap<String, String>> getOrderListOnlyMonth(SearchCriteria scri) throws DataAccessException;
+	public List<HashMap<String, String>> getOrderListOnlyMonth(HashMap<String, String> paramMap) throws Exception;
 	
 	//-----------------------------------------------------------------------------------------------------------
-	// 조건에 맞는 주문내역 목록 불러오기(getOrderListTwo)
+	// 전체 주문 개수 불러오기
 	//-----------------------------------------------------------------------------------------------------------
-	public List<HashMap<String, String>> getOrderListTwo(SearchCriteria scri) throws DataAccessException;
-	
-	//-----------------------------------------------------------------------------------------------------------
-	// 조건에 맞는 주문내역 목록 불러오기(getOrderListDay)
-	//-----------------------------------------------------------------------------------------------------------
-	public List<HashMap<String, String>> getOrderListDay(SearchCriteria scri) throws DataAccessException;
-	
-	//-----------------------------------------------------------------------------------------------------------
-	// 조건에 맞는 주문내역 목록 불러오기(getOrderListWeek)
-	//-----------------------------------------------------------------------------------------------------------
-	public List<HashMap<String, String>> getOrderListWeek(SearchCriteria scri) throws DataAccessException;
-	
-	//-----------------------------------------------------------------------------------------------------------
-	// 조건에 맞는 주문내역 목록 불러오기(getOrderListMonth)
-	//-----------------------------------------------------------------------------------------------------------
-	public List<HashMap<String, String>> getOrderListMonth(SearchCriteria scri) throws DataAccessException;
-	
-	//-----------------------------------------------------------------------------------------------------------
-	// 조건에 맞는 주문내역 목록 불러오기(getOrderListTwo)
-	//-----------------------------------------------------------------------------------------------------------
-	public List<HashMap<String, String>> getOrderListThree(SearchCriteria scri) throws DataAccessException;
-	
-	//-----------------------------------------------------------------------------------------------------------
-	// 조건에 맞는 주문내역 목록 불러오기(getOrderListDay)
-	//-----------------------------------------------------------------------------------------------------------
-	public List<HashMap<String, String>> getOrderListDayTwo(SearchCriteria scri) throws DataAccessException;
-	
-	//-----------------------------------------------------------------------------------------------------------
-	// 조건에 맞는 주문내역 목록 불러오기(getOrderListWeek)
-	//-----------------------------------------------------------------------------------------------------------
-	public List<HashMap<String, String>> getOrderListWeekTwo(SearchCriteria scri) throws DataAccessException;
-	
-	//-----------------------------------------------------------------------------------------------------------
-	// 조건에 맞는 주문내역 목록 불러오기(getOrderListMonth)
-	//-----------------------------------------------------------------------------------------------------------
-	public List<HashMap<String, String>> getOrderListMonthTwo(SearchCriteria scri) throws DataAccessException;
-	
-	//-----------------------------------------------------------------------------------------------------------
-	// 조건에 맞는 주문내역 목록 불러오기(getOrderListWhole)
-	//-----------------------------------------------------------------------------------------------------------
-	public List<HashMap<String, String>> getOrderListWhole(SearchCriteria scri) throws DataAccessException;
-	
-	//-----------------------------------------------------------------------------------------------------------
-	// 주문내역 총 개수 구하기(orderTotalWhole)
-	//-----------------------------------------------------------------------------------------------------------
-	public int orderTotalWhole(SearchCriteria scri) throws DataAccessException;
-	
-	//-----------------------------------------------------------------------------------------------------------
-	// 주문내역 총 개수 구하기(orderTotal)
-	//-----------------------------------------------------------------------------------------------------------
-	public int orderTotal(SearchCriteria scri) throws DataAccessException;
-	
-	//-----------------------------------------------------------------------------------------------------------
-	// 주문내역 총 개수 구하기(orderTotalTwo)
-	//-----------------------------------------------------------------------------------------------------------
-	public int orderTotalTwo(SearchCriteria scri) throws DataAccessException;
-	
-	//-----------------------------------------------------------------------------------------------------------
-	// 주문내역 총 개수 구하기(orderTotalOnlyDay)
-	//-----------------------------------------------------------------------------------------------------------
-	public int orderTotalOnlyDay(SearchCriteria scri) throws DataAccessException;
-	
-	//-----------------------------------------------------------------------------------------------------------
-	// 주문내역 총 개수 구하기(orderTotalOnlyWeek)
-	//-----------------------------------------------------------------------------------------------------------
-	public int orderTotalOnlyWeek(SearchCriteria scri) throws DataAccessException;
-	
-	//-----------------------------------------------------------------------------------------------------------
-	// 주문내역 총 개수 구하기(orderTotalOnlyMonth)
-	//-----------------------------------------------------------------------------------------------------------
-	public int orderTotalOnlyMonth(SearchCriteria scri) throws DataAccessException;
-	
-	//-----------------------------------------------------------------------------------------------------------
-	// 주문내역 총 개수 구하기(orderTotalThree)
-	//-----------------------------------------------------------------------------------------------------------
-	public int orderTotalThree(SearchCriteria scri) throws DataAccessException;
-	
-	//-----------------------------------------------------------------------------------------------------------
-	// 주문내역 총 개수 구하기(orderTotalDay)
-	//-----------------------------------------------------------------------------------------------------------
-	public int orderTotalDay(SearchCriteria scri) throws DataAccessException;
-	
-	//-----------------------------------------------------------------------------------------------------------
-	// 주문내역 총 개수 구하기(orderTotalWeek)
-	//-----------------------------------------------------------------------------------------------------------
-	public int orderTotalWeek(SearchCriteria scri) throws DataAccessException;
-	
-	//-----------------------------------------------------------------------------------------------------------
-	// 주문내역 총 개수 구하기(orderTotalMonth)
-	//-----------------------------------------------------------------------------------------------------------
-	public int orderTotalMonth(SearchCriteria scri) throws DataAccessException;
-	
-	//-----------------------------------------------------------------------------------------------------------
-	// 주문내역 총 개수 구하기(orderTotalFour)
-	//-----------------------------------------------------------------------------------------------------------
-	public int orderTotalFour(SearchCriteria scri) throws DataAccessException;
-	
-	//-----------------------------------------------------------------------------------------------------------
-	// 주문내역 총 개수 구하기(orderTotalDay)
-	//-----------------------------------------------------------------------------------------------------------
-	public int orderTotalDayTwo(SearchCriteria scri) throws DataAccessException;
-	
-	//-----------------------------------------------------------------------------------------------------------
-	// 주문내역 총 개수 구하기(orderTotalWeek)
-	//-----------------------------------------------------------------------------------------------------------
-	public int orderTotalWeekTwo(SearchCriteria scri) throws DataAccessException;
-	
-	//-----------------------------------------------------------------------------------------------------------
-	// 주문내역 총 개수 구하기(orderTotalMonth)
-	//-----------------------------------------------------------------------------------------------------------
-	public int orderTotalMonthTwo(SearchCriteria scri) throws DataAccessException;
-	
-	//-----------------------------------------------------------------------------------------------------------
-	// 주문번호 누르면 상세 주문내역 보여주기
-	//-----------------------------------------------------------------------------------------------------------
-	public ProductOrderBuyerDTO getOrderDetail(int orderNum) throws DataAccessException;
+	public int getOrderCount() throws Exception;
 	
 	//-----------------------------------------------------------------------------------------------------------
 	// 주문내역 취소하기
 	//-----------------------------------------------------------------------------------------------------------
-	public int setOrderCancle(int oNum) throws DataAccessException;
+	public int setOrderCancle(int oNum) throws Exception;
+				
+				
 	
-		
 }
-
-
-
-
-
-
-
-
-
-
