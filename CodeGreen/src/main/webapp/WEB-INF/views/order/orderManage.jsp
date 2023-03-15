@@ -22,6 +22,11 @@
 		font-weight:	bold;
 		font-size:	13px;
 	}
+	#labelname2 {
+		padding: 10px 0px;
+		font-weight:	bold;
+		font-size:	13px;
+	}
 	#orderNum, #buyerName, #productNum {
 		height:27px;
 	}
@@ -104,6 +109,21 @@
 					<input type="radio" class="period2" id="period2" name="period" value="2"> 한달&nbsp;&nbsp;&nbsp;
 				</label>
 		</div>
+		<div class="form-inline form-group">
+				<label for="payState" class="control-label" id="labelname2">배송상태</label>&nbsp;&nbsp;&nbsp;
+				<label class="radio-inline">
+					<input type="radio" class="state0" id="state0" name="state" value="0"> 결제완료&nbsp;&nbsp;&nbsp;
+				</label>
+				<label class="checkbox-inline">
+					<input type="radio" class="state1" id="state1" name="state" value="1"> 배송준비&nbsp;&nbsp;&nbsp;
+				</label>
+				<label class="checkbox-inline">
+					<input type="radio" class="state2" id="state2" name="state" value="2"> 배송중&nbsp;&nbsp;&nbsp;
+				</label>
+				<label class="checkbox-inline">
+					<input type="radio" class="state3" id="state3" name="state" value="3"> 배송완료&nbsp;&nbsp;&nbsp;
+				</label>
+		</div>
 	</form>
 </div>
 
@@ -123,6 +143,10 @@ function sendAjaxRequest(data) {
         var period0 = $('#period0').is(':checked') ? 1 : 0;
         var period1 = $('#period1').is(':checked') ? 1 : 0;
         var period2 = $('#period2').is(':checked') ? 1 : 0;
+        var state0 = $('#state0').is(':checked') ? 1 : 0;
+        var state1 = $('#state1').is(':checked') ? 1 : 0;
+        var state2 = $('#state2').is(':checked') ? 1 : 0;
+        var state3 = $('#state3').is(':checked') ? 1 : 0;
       
  		  $.ajax({
  	           type: "POST",
@@ -133,7 +157,11 @@ function sendAjaxRequest(data) {
 	        	productNum:productNum,
 	        	period0:period0,
 	        	period1:period1,
-	        	period2:period2
+	        	period2:period2,
+	        	state0:state0,
+	        	state1:state1,
+	        	state2:state2,
+	        	state3:state3
   	            }),
  	           contentType:"application/json;charset=UTF-8",
   	           success: function(response) {

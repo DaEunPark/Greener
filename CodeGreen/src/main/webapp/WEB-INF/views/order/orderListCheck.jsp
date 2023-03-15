@@ -83,13 +83,13 @@
 					<th class="col-sm-1 text-center" id="title">주문자명</th>
 					<th class="col-sm-1 text-center" id="title">결제금액</th>
   					<th class="col-sm-1 text-center" id="title">
-  					<button class="btn dropdown-toggle btn-sm" type="button" id="orderStateButton" data-bs-toggle="dropdown"> 주문상태
+   					<button class="btn dropdown-toggle btn-sm" type="button" id="orderStateButton" data-bs-toggle="dropdown"> 주문상태
 					</button>
 					<ul class="dropdown-menu" aria-labelledby="orderStateButton">
-						<li><button class="dropdown-item" type="button" id="state">결제완료</button></li>
-						<li><button class="dropdown-item" type="button" id="state">배송준비</button></li>
-						<li><button class="dropdown-item" type="button" id="state">배송중</button></li>
-						<li><button class="dropdown-item" type="button" id="state">배송완료</button></li>
+						<li><button class="dropdown-item" type="button" id="state0">결제완료</button></li>
+						<li><button class="dropdown-item" type="button" id="state1">배송준비</button></li>
+						<li><button class="dropdown-item" type="button" id="state2">배송중</button></li>
+						<li><button class="dropdown-item" type="button" id="state3">배송완료</button></li>
 					</ul>
   					</th>
 				</tr>
@@ -150,6 +150,10 @@ function sendAjaxRequest(pageNum) {
     var period0 = $('#period0').is(':checked') ? 1 : 0;
     var period1 = $('#period1').is(':checked') ? 1 : 0;
     var period2 = $('#period2').is(':checked') ? 1 : 0;
+    var state0 = $('#state0').is(':checked') ? 1 : 0;
+    var state1 = $('#state1').is(':checked') ? 1 : 0;
+    var state2 = $('#state2').is(':checked') ? 1 : 0;
+    var state3 = $('#state3').is(':checked') ? 1 : 0;
     var pageNum = pageNum;
       
  		  $.ajax({
@@ -162,7 +166,11 @@ function sendAjaxRequest(pageNum) {
 	        	period0:period0,
 	        	period1:period1,
 	        	period2:period2,
-	        	pageNum:pageNum
+	        	pageNum:pageNum,
+	        	state0:state0,
+	        	state1:state1,
+	        	state2:state2,
+	        	state3:state3
   	            }),
  	           contentType:"application/json;charset=UTF-8",
   	           success: function(response) {
@@ -174,8 +182,7 @@ function sendAjaxRequest(pageNum) {
  	           }
  	      });
 }
-</script>
-	
+</script>	
 <script>
 $('.dropdown-item:contains("결제완료")').click(function() {
     var rows = $('#table tbody tr').get();
@@ -282,6 +289,7 @@ $('.dropdown-item:contains("주문일자(오름차순)")').click(function() {
     $.each(rows, function(index, row) {
         $('#table tbody').append(row);
     });
+    
 });
 </script>
 <script>

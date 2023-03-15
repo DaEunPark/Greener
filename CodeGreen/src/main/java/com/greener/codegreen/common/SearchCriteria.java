@@ -9,7 +9,36 @@ public class SearchCriteria extends Criteria {
 	private String period0;		// 하루 주문건
 	private String period1;		// 일주일 주문건
 	private String period2;		// 한달 주문건
+	private String state0;		// 결제완료
+	private String state1;		// 배송준비
+	private String state2;		// 배송중
+	private String state3;		// 배송완료
 	
+	
+	public String getState0() {
+		return state0;
+	}
+	public void setState0(String state0) {
+		this.state0 = state0;
+	}
+	public String getState1() {
+		return state1;
+	}
+	public void setState1(String state1) {
+		this.state1 = state1;
+	}
+	public String getState2() {
+		return state2;
+	}
+	public void setState2(String state2) {
+		this.state2 = state2;
+	}
+	public String getState3() {
+		return state3;
+	}
+	public void setState3(String state3) {
+		this.state3 = state3;
+	}
 	public String getKeyword() {
 		return keyword;
 	}

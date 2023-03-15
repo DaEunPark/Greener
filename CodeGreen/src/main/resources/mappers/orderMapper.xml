@@ -34,12 +34,11 @@
 					 JOIN Product p ON o.order_p_number = p.p_number
 				 WHERE o.o_number = #{orderNum}
 					 OR b.b_name LIKE '%${buyerName}%'
-					 OR p.p_number = #{productNum}
+				 	 OR p.p_number = #{productNum}
 				 ORDER BY o.o_date DESC
 				 ) brd
 			 WHERE rNum BETWEEN (${pageNum}-1)*10+1
 				 AND ${pageNum}*10
-			 ORDER BY brd.o_date DESC
 		]]>
 	</select>
 
