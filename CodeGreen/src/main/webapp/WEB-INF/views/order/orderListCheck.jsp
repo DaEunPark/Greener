@@ -64,8 +64,8 @@
 			<button class="btn dropdown-toggle btn-sm" type="button" id="orderMenuButton" data-bs-toggle="dropdown"> 정렬기준
 			</button>
 			<ul class="dropdown-menu" aria-labelledby="orderMenuButton">
-				<li><button class="dropdown-item" type="button">주문일자순(오름차순)</button></li>
-				<li><button class="dropdown-item" type="button">주문일자순(내림차순)</button></li>
+				<li><button class="dropdown-item" type="button">주문일자(오름차순)</button></li>
+				<li><button class="dropdown-item" type="button">주문일자(내림차순)</button></li>
 				<li><button class="dropdown-item" type="button">결제금액순(오름차순)</button></li>
 				<li><button class="dropdown-item" type="button" id="priceDs">결제금액순(내림차순)</button></li>
 			</ul>
