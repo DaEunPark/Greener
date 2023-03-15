@@ -100,7 +100,7 @@
 	      <li>
 	        <a href="${contextPath}/CS/board/NoticeList?n_bc_code=0" class="nav-link text-white sidebar-link">
 	            <i class="fa-solid fa-headset"></i>
-	          고객센터
+	          게시글 관리
 	        </a>
 	      </li>
 	    </ul>
