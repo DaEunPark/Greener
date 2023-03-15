@@ -675,7 +675,7 @@
 	<select id="orderDetailCheck" resultType="com.greener.codegreen.dto.ProductOrderBuyerDTO" parameterType="integer">
 		<![CDATA[
 			SELECT o.o_number, b.b_id, o.o_price, o.o_date, o.o_receiver_phone, o.o_receiver_name, b.b_email
-			 ,o.o_address1, o.o_address2, o.o_address3, b.b_name, b.b_grade, p.p_name, o.o_count, b.b_grade
+			 ,o.o_address1, o.o_address2, o.o_address3, b.b_name, b.b_grade, p.p_name, o.o_count, b.b_grade, p.p_img, p.p_number
 			 FROM ProductOrder o
 				 JOIN Buyer b ON o.order_b_id = b.b_id
 				 JOIN Product p ON o.order_p_number = p.p_number
