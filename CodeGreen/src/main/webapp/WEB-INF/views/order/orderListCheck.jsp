@@ -55,23 +55,15 @@
 	#orderCheck {
 		align: cennter;
 	}
+	.orderList {
+		padding:	100px;
+	}
 </style>
 </head>
 <body>
-<div class="container" id="container">
-	<div class="form-group">	
-		<div class="dropdown">
-			<button class="btn dropdown-toggle btn-sm" type="button" id="orderMenuButton" data-bs-toggle="dropdown"> 정렬기준
-			</button>
-			<ul class="dropdown-menu" aria-labelledby="orderMenuButton">
-				<li><button class="dropdown-item" type="button" id="dateAsc">주문일자(오름차순)</button></li>
-				<li><button class="dropdown-item" type="button" id="dateDes">주문일자(내림차순)</button></li>
-				<li><button class="dropdown-item" type="button" id="priceAsc">결제금액순(오름차순)</button></li>
-				<li><button class="dropdown-item" type="button" id="priceDes">결제금액순(내림차순)</button></li>
-			</ul>
-		</div>
-	</div>
-</div>
+	<hr style="border: 1px; color:#FFFFFF;">
+	<hr style="border: 1px; color:#FFFFFF;">
+	<hr style="border: 1px; color:#FFFFFF;">
 <div class="container" id="container">
 	<table class="table table-bordered table-hover" id="table">
 		<thead>
@@ -146,6 +138,10 @@ function sendAjaxRequest(pageNum) {
     var state2 = $('#state2').is(':checked') ? 1 : 0;
     var state3 = $('#state3').is(':checked') ? 1 : 0;
     var pageNum = pageNum;
+    var dateAsc = $('#dateAsc').is(':checked') ? 1 : 0;
+    var dateDes = $('#dateDes').is(':checked') ? 1 : 0;
+    var priceAsc = $('#priceAsc').is(':checked') ? 1 : 0;
+    var priceDes = $('#priceDes').is(':checked') ? 1 : 0;
       
  		  $.ajax({
  	           type: "POST",
@@ -161,7 +157,8 @@ function sendAjaxRequest(pageNum) {
 	        	state0:state0,
 	        	state1:state1,
 	        	state2:state2,
-	        	state3:state3
+	        	state3:state3,
+	        	dateAsc:dateAsc,
   	            }),
  	           contentType:"application/json;charset=UTF-8",
   	           success: function(response) {
@@ -175,65 +172,55 @@ function sendAjaxRequest(pageNum) {
 }
 </script>
 <script>
-$('.dropdown-item:contains("주문일자(내림차순)")').click(function() {
-    var rows = $('#table tbody tr').get();
-    rows.sort(function(a, b) {
-        var keyA = new Date($(a).children('td:eq(0)').text());
-        var keyB = new Date($(b).children('td:eq(0)').text());
-        if (keyA > keyB) return -1;
-        if (keyA < keyB) return 1;
-        return 0;
-    });
-    
-    // tbody 내부의 모든 tr 요소들을 삭제합니다.
-    $('#table tbody').empty();
-    
-    // 정렬된 rows 배열을 tbody 내부에 추가합니다.
-    $.each(rows, function(index, row) {
-        $('#table tbody').append(row);
-    });
-});
+function sendAjaxRequest(pageNum, varName) {
+    var orderNum = $('#orderNum').val();
+    var buyerName = $('#buyerName').val();
+    var productNum = $('#productNum').val();
+    var period0 = $('#period0').is(':checked') ? 1 : 0;
+    var period1 = $('#period1').is(':checked') ? 1 : 0;
+    var period2 = $('#period2').is(':checked') ? 1 : 0;
+    var state0 = $('#state0').is(':checked') ? 1 : 0;
+    var state1 = $('#state1').is(':checked') ? 1 : 0;
+    var state2 = $('#state2').is(':checked') ? 1 : 0;
+    var state3 = $('#state3').is(':checked') ? 1 : 0;
+    var pageNum = pageNum;
+    var dateAsc = $('#dateAsc').is(':checked') ? 1 : 0;
+    var dateDes = $('#dateDes').is(':checked') ? 1 : 0;
+    var priceAsc = $('#priceAsc').is(':checked') ? 1 : 0;
+    var priceDes = $('#priceDes').is(':checked') ? 1 : 0;
+      
+ 		  $.ajax({
+ 	           type: "POST",
+ 	           url: "/order/map-data",
+ 	           data:JSON.stringify({
+ 	        	orderNum:orderNum,
+ 	        	buyerName:buyerName,
+	        	productNum:productNum,
+	        	period0:period0,
+	        	period1:period1,
+	        	period2:period2,
+	        	pageNum:pageNum,
+	        	state0:state0,
+	        	state1:state1,
+	        	state2:state2,
+	        	state3:state3,
+	        	dateAsc:dateAsc,
+	        	dateDes:dateDes,
+	        	priceAsc:priceAsc,
+	        	priceDes:priceDes
+  	            }),
+ 	           contentType:"application/json;charset=UTF-8",
+  	           success: function(response) {
+  	        	   $('#resultDiv').html(response);
+	 	       },
+
+ 				error: function(xhr, status, error) {
+ 	             alert ("주문 조회 오류");
+ 	           }
+ 	      });
+}
 </script>
-<script>
-$('.dropdown-item:contains("결제금액순(오름차순)")').click(function() {
-    var rows = $('#table tbody tr').get();
-    rows.sort(function(a, b) {
-        var keyA = parseInt($(a).children('td:eq(5)').text().replace(/,/g,''));
-        var keyB = parseInt($(b).children('td:eq(5)').text().replace(/,/g,''));
-        if (keyA > keyB) return 1;
-        if (keyA < keyB) return -1;
-        return 0;
-    });
-    
-    // tbody 내부의 모든 tr 요소들을 삭제합니다.
-    $('#table tbody').empty();
-    
-    // 정렬된 rows 배열을 tbody 내부에 추가합니다.
-    $.each(rows, function(index, row) {
-        $('#table tbody').append(row);
-    });
-});
-</script>
-<script>
-$('.dropdown-item:contains("결제금액순(내림차순)")').click(function() {
-    var rows = $('#table tbody tr').get();
-    rows.sort(function(a, b) {
-        var keyA = parseInt($(a).children('td:eq(5)').text().replace(/,/g,''));
-        var keyB = parseInt($(b).children('td:eq(5)').text().replace(/,/g,''));
-        if (keyA > keyB) return -1;
-        if (keyA < keyB) return 1;
-        return 0;
-    });
-    
-    // tbody 내부의 모든 tr 요소들을 삭제합니다.
-    $('#table tbody').empty();
-    
-    // 정렬된 rows 배열을 tbody 내부에 추가합니다.
-    $.each(rows, function(index, row) {
-        $('#table tbody').append(row);
-    });
-});
-</script>
+
 </body>
 </html>
 

@@ -76,6 +76,10 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 		scri.setState1(String.valueOf(mapData.get("state1")));
 		scri.setState2(String.valueOf(mapData.get("state2")));
 		scri.setState3(String.valueOf(mapData.get("state3")));
+		scri.setDateAsc(String.valueOf(mapData.get("dateAsc")));
+		scri.setDateDes(String.valueOf(mapData.get("dateDes")));
+		scri.setPriceAsc(String.valueOf(mapData.get("priceAsc")));
+		scri.setPriceDes(String.valueOf(mapData.get("priceDes")));
 		
 		String orderNum = scri.getOrderNum();
 		String buyerName = scri.getBuyerName();
@@ -87,6 +91,10 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 		String state1 = scri.getState1();
 		String state2 = scri.getState2();
 		String state3 = scri.getState3();
+		String dateAsc = scri.getDateAsc();
+		String dateDes = scri.getDateDes();
+		String priceAsc = scri.getPriceAsc();
+		String priceDes = scri.getPriceDes();
 		
 		if(state0.equals("1")) scri.setState0("결제완료");
 		if(state1.equals("1")) scri.setState1("배송준비");
@@ -98,6 +106,37 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 			scri.setState2("배송중");
 			scri.setState3("배송완료");
 		}
+		if(dateAsc.equals("1") && dateDes.equals("0") && priceAsc.equals("0") && priceDes.equals("0")) { 
+			scri.setDateAsc("ORDER BY o.o_date");
+			scri.setDateDes("");
+			scri.setPriceAsc("");
+			scri.setPriceDes("");
+		}
+		if(dateAsc.equals("0") && dateDes.equals("1") && priceAsc.equals("0") && priceDes.equals("0")) {
+			scri.setDateDes("ORDER BY o.o_date DESC");
+			scri.setDateAsc("");
+			scri.setPriceAsc("");
+			scri.setPriceDes("");
+		}
+		if(dateAsc.equals("0") && dateDes.equals("0") && priceAsc.equals("1") && priceDes.equals("0")) {
+			scri.setDateAsc("");
+			scri.setDateDes("");
+			scri.setPriceAsc("ORDER BY o.o_price");
+			scri.setPriceDes("");
+		}
+		if(dateAsc.equals("0") && dateDes.equals("0") && priceAsc.equals("0") && priceDes.equals("1")) {
+			scri.setDateAsc("");
+			scri.setDateDes("");
+			scri.setPriceAsc("");
+			scri.setPriceDes("ORDER BY o.o_price DESC");
+		}
+		if(dateAsc.equals("0") && dateDes.equals("0") && priceAsc.equals("0") && priceDes.equals("0")) {
+			scri.setDateAsc("ORDER BY o.o_date DESC");
+			scri.setDateDes("");
+			scri.setPriceAsc("");
+			scri.setPriceDes("");
+		}
+
 		
 		// ********************<< 전체 주문건 조회(조건없을시) >> ************************* //
 		if (orderNum.equals("") && buyerName.equals("") && productNum.equals("") && period0.equals("0") && 				
