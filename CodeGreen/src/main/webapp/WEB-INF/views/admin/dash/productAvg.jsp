@@ -14,7 +14,7 @@
 <script type="text/javascript">
 
 	// Load the Visualization API
-	google.charts.load('current', {'packages':['bar']});
+	google.charts.load('visualization', '1', {'packages':['bar']});
 	google.charts.setOnLoadCallback(drawChart);
 	
 	function drawChart() {
@@ -56,8 +56,15 @@
 					title : '상품별 구매 개수 평균',
 					subtitle : '',
 				},
-				bars : 'horizontal' // Required for Material Bar Charts.
+				bars : 'horizontal', // Required for Material Bar Charts.
+				animation : {
+					startup : true,
+					duration: 20,
+			        easing: 'out'
+			    }
 			};
+			
+			
 			var chart = new google.charts.Bar(document.getElementById('product_avg_chart'));
 
 			chart.draw(jdata, google.charts.Bar.convertOptions(options));
