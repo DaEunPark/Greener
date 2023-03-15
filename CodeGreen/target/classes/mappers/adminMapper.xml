@@ -59,7 +59,7 @@
 	<!-- 상품 상세 보기 -->
 	<select id="productView" resultType="com.greener.codegreen.dto.ProductViewDTO">
 		<![CDATA[
-	 		select p.p_number, p.p_name, p.product_c_code, c.c_code_ref, c.c_name, p_price, p_content, p_stock, p_made, p_usedate
+	 		select p.p_number, p.p_name, p.product_c_code, c.c_code_ref, c.c_name, p_price, p_content, p_stock, p_made, p_usedate, p_img
 	 		from Product p
 	 		inner join Category c
 	 		on p.product_c_code = c.c_code

@@ -24,8 +24,9 @@
 		<div class="container text-center">
 			<h1>관리자 페이지</h1>			
 		</div>
-		<div id="chart_div" class="container" width="300" height="250"></div>
+		
 	</div>
+	<div id="chart_div" class="container" width="300" height="250"></div>
   <script type="text/javascript">
    google.charts.load('current', {packages: ['corechart', 'bar']});
    google.charts.setOnLoadCallback(drawBasic);

@@ -45,7 +45,7 @@
 			 <label for="purdocutImg">상품 이미지</label>
 			 <p>원본 이미지</p>
 			 <img src = "${product.p_img}" class="oriImg"/>
-			 
+
 			 <p>썸네일</p>
 			 <img src = "${product.p_thumbImg}" class="thumbImg"/>
 			</div>

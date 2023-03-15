@@ -10,12 +10,12 @@
 	<meta charset="UTF-8">
 	<title>공지사항 관리</title>
 	<!--  부트스트랩 5.3 적용 -->
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-   <link href=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+	<link href=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
 	<!-- 제이쿼리 넣어주기 -->  
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
    <!-- 부트스트랩 사이드바 css  -->
-   <link href="../../resources/css/admin/bootstrap.min.css" rel="stylesheet">
+	<link href="../../resources/css/admin/bootstrap.min.css" rel="stylesheet">
    <!-- 게시판관리 js 적용 -->
 	<script src="${contextPath}/resources/js/Eboard.js"></script>
 </head>

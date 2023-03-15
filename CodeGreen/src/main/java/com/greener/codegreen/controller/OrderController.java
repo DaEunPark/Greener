@@ -350,7 +350,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 		ProductOrderBuyerDTO productOrderBuyerDTO = orderService.getOrderDetail(orderNum);
 		model.addAttribute("orderDetail", productOrderBuyerDTO);
 
-		return "orderListDetail";
+		return "/order/orderListDetail";
 
 	}
 
@@ -365,7 +365,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 		logger.info("orderController에서 주문 내역취소 orderListCancle()시작..");
 		orderService.setOrderCancle(oNum);
 
-		return "orderManage";
+		return "/order/orderManage";
 	}
 	  
 	  

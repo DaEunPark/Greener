@@ -179,7 +179,7 @@ public class AdminController {
 		logger.info("get product view");
 		
 		ProductViewDTO product = adminService.productView(p_number);
-		
+		logger.info("*** getProductView() => " + product);
 		model.addAttribute("product", product);
 	}
 	
