@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.greener.codegreen.dto.CategoryDTO;
@@ -21,7 +20,6 @@ import com.greener.codegreen.dto.ProductViewDTO;
 import com.greener.codegreen.service.AdminService;
 
 @Controller("adminController")
-@RestController
 @RequestMapping("/admin/*")
 public class AdminController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);

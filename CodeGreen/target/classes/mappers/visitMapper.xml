@@ -12,10 +12,19 @@
 		]]>
 	</insert>
        
-	<select id="visitList" resultType="hashmap">
+	<select id="visitList" resultType="com.greener.codegreen.dto.VisitCountDTO">
 		<![CDATA[
-			select v_time from visitor 
-			where v_time=#{v_time};
+			select CASE WHEN DAYOFWEEK(v_time) = 1 THEN '일'
+			            WHEN DAYOFWEEK(v_time) = 2 THEN '월'
+			            WHEN DAYOFWEEK(v_time) = 3 THEN '화'
+			            WHEN DAYOFWEEK(v_time) = 4 THEN '수'
+			            WHEN DAYOFWEEK(v_time) = 5 THEN '목'
+			            WHEN DAYOFWEEK(v_time) = 6 THEN '금'
+			            WHEN DAYOFWEEK(v_time) = 7 THEN '토'
+		        	ELSE '오류' END WEEK_NAME
+				, count(v_time) AS C from visitor
+			where v_time between date_add(now(), interval -1 week) and now()
+			group by DAYOFWEEK(v_time);
   		]]>
 	</select>
 </mapper>

@@ -5,35 +5,49 @@
 
 <mapper namespace="com.greener.codegreen.seller">
 
-	<resultMap id="sellerResult" type="com.greener.codegreen.dto.SellerDTO">
-		<result property="s_id"		column="s_id"/>
-		<result property="s_pwd"		column="s_pwd"/>
-		<result property="s_name"		column="s_name"/>
-		<result property="s_RRC"		column="s_RRC"/>
-		<result property="s_BRN"		column="s_BRN"/>
-		<result property="s_email"	column="s_email"/>
-		<result property="s_address1"	column="s_address1"/>
-		<result property="s_address2"	column="s_address2"/>
-		<result property="s_address3"	column="s_address3"/>
-		<result property="s_joindate"	column="s_joindate"/>
-		<result property="s_phone"	column="s_phone"/>
-	</resultMap>
 	
-	<!-- 소비자 전체 회원의 수 -->
+	<!-- 판매자 전체 회원의 수 -->
 	<select id = "totalCount" parameterType="com.greener.codegreen.dto.SellerDTO" resultType="INT">
 		<![CDATA[
-			select count(*)
+			select count(1)
 			from Seller
-			where s_id is not null
 		]]>
 	</select>
-	<!-- 소비자 전체 리스트 -->
+	<!-- 판매자 전체 리스트 -->
 	<select id = "sellerList" parameterType="com.greener.codegreen.dto.SellerDTO" resultType="com.greener.codegreen.dto.SellerDTO">
 	 <![CDATA[
-	 	select *
-	 	from Seller
+	 	select s_id , s_name , s_email, s_address1, s_address2, s_address3, s_joindate, s_phone
+	 	from (
+					select	s_id, s_name, s_email,s_address1, s_address2, s_address3 ,s_joindate,s_phone,
+							ROW_NUMBER() OVER(ORDER BY s_name DESC) AS rNum
+					FROM	Seller
+					WHERE	1=1
 	 ]]>
+	<include refid="searchMySQL"/>
+		<![CDATA[
+			) brd
+			WHERE	rNum 	BETWEEN 1 + (#{perPageNum} * (#{page}-1) )
+							AND		#{perPageNum}*#{page}
+			ORDER BY s_name DESC
+		]]>
 	</select>
+	
+	<!-- 검색 조건 -->
+	<!-- MySQL -->
+	<sql id="searchMySQL">
+		<if test="searchType != null">
+			<if test="searchType == 's_id'.toString()">AND s_id LIKE CONCAT('%', #{keyword}, '%')</if>
+			<if test="searchType == 's_name'.toString()">AND s_name LIKE CONCAT('%', #{keyword}, '%')</if>
+		</if>
+	</sql>
+	
+	<!-- 판매자 -->
+	<select id="sellerDetail" parameterType = "com.greener.codegreen.dto.SellerDTO" resultType = "com.greener.codegreen.dto.SellerDTO">
+		select s_id , s_name , s_email, s_address1, s_address2, s_address3, s_joindate, s_phone
+		from Seller
+		where s_id = #{s_id}
+	</select>	
+	
 </mapper>   
 
 
