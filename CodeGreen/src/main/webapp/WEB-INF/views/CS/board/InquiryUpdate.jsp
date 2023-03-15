@@ -8,7 +8,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>1:1문의 관리자 답변</title>
+	<title>1:1 문의 관리자답변</title>
 	<!--  부트스트랩 5.3 적용 -->
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
    <link href=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
@@ -34,14 +34,14 @@
 		</div>
 		<div class="form-group">
 			
-			<label for="title" class="col-sm-2 control-label">제  목</label>
+			<label for="title" class="col-sm-2 control-label"><strong>제  목</strong></label>
 			<div class="col-sm-10">
 				<input type="hidden" id="i_no" name="i_no" value='${InquiryDetail.i_no}'></input>
 				<input type="text" class="form-control" id="i_title" name="i_title" maxlength="200" value="${InquiryDetail.i_title}" readonly/>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-2 control-label">카테고리</label>
+			<label class="col-sm-2 control-label"><strong>카테고리</strong></label>
 			<div class="col-sm-10">
 			 <c:choose>
 				<c:when test="${nolist.n_bc_code eq 14}">
@@ -63,19 +63,19 @@
 		</div>
 	 </div>
 		<div class="form-group">
-			<label for="regdate" class="col-sm-2 control-label">작성일자</label>
+			<label for="regdate" class="col-sm-2 control-label"><strong>문의일자</strong></label>
 			<div class="col-sm-5">
 				<input type="text" class="form-control" id="i_regdate" name="i_regdate" value="<fmt:formatDate value='${InquiryDetail.i_regdate}' pattern='yyyy년 MM월 dd일 a hh시 mm분 ss초'/>" readonly/>
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="writer" class="col-sm-2 control-label">작성자</label>
+			<label for="writer" class="col-sm-2 control-label"><strong>작성자ID</strong></label>
 			<div class="col-sm-3">
 				<input type="text" class="form-control" id="i_b_id" name="i_b_id" maxlength="20" value="${InquiryDetail.i_b_id}" readonly/>
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="content" class="col-sm-2 control-label">내  용</label>
+			<label for="content" class="col-sm-2 control-label"><strong>문의내용</strong></label>
 			<div class="col-sm-10">
 				<textarea rows="10" cols="160" class="form-control" id="i_content" name="i_content" readonly>${InquiryDetail.i_content}</textarea>
 			</div>
@@ -84,24 +84,24 @@
 		<hr/>
 		
 		<div class="form-group">
-			<label for="title" class="col-sm-2 control-label">답변여부</label>
+			<label for="title" class="col-sm-2 control-label"><strong>답변 여부</strong></label>
 			<div class="col-sm-3">
 			
 				<input type="hidden" id="i_m_id" name="i_m_id"  value='${InquiryDetail.i_m_id}' ></input>
 				<select class="form-select form-select-sm" aria-label="Default select example" title="답변처리유무" id="i_answer" name="i_answer" >
-				  <option value="0">답변대기중</option>
-				  <option value="1">답변완료</option>
+				  <option value="0">답변 대기</option>
+				  <option value="1">답변 완료</option>
 				</select>
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="regdate" class="col-sm-2 control-label">답변일자</label>
+			<label for="regdate" class="col-sm-2 control-label"><strong>답변 일자</strong></label>
 			<div class="col-sm-5">
-				<input type="text" class="form-control" id="i_an_date" name="i_an_date" value="<fmt:formatDate value='${InquiryDetail.i_an_date}' pattern='yyyy-MM-dd hh:mm:ss'/>" readonly />
+				<input type="text" class="form-control" id="i_an_date" name="i_an_date" value="<fmt:formatDate value='${InquiryDetail.i_an_date}' pattern='yyyy년 MM월 dd일 a hh시 mm분 ss초'/>" readonly />
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="content" class="col-sm-2 control-label">내 용</label>
+			<label for="content" class="col-sm-2 control-label"><strong>답변 내용</strong></label>
 				<div class="col-sm-10">
 					<textarea rows="5" cols="160" class="form-control" id="i_an_content" name="i_an_content" >${InquiryDetail.i_an_content}</textarea>
 				</div>

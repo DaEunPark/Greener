@@ -43,7 +43,7 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-2 control-label"><strong>관리자</strong></label>
+			<label class="col-sm-2 control-label"><strong>관리자ID</strong></label>
 			<div class="col-sm-4">
 				<input type="text" class="form-control" id="n_m_id" name="n_m_id" maxlength="20" placeholder="관리자ID"/>
 			</div>
@@ -51,7 +51,7 @@
 		
 		<div class="form-group">
 			<label class="col-sm-2 control-label"><strong>카테고리</strong></label>
-		<select class="form-select form-select-sm" aria-label="Default select example" title="문의유형 선택" id="n_bc_code" name="n_bc_code" >
+		<select class="form-select form-select-sm" aria-label="Default select example" title="카테고리선택" id="n_bc_code" name="n_bc_code" >
 			  <option value="4">회원/멤버십</option>
 			  <option value="5">주문/결제</option>
 			  <option value="6">배송</option>

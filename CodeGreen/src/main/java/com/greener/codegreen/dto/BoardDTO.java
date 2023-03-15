@@ -1,15 +1,12 @@
 package com.greener.codegreen.dto;
 
-
-
 import java.sql.Timestamp;
-
 
 import org.springframework.stereotype.Component;
 
 
 //---------------------------------------------
-//Manager_board  관리자 게시판 Manager_board DB데이터 운반
+// BoardDTO 게시판DTO
 //---------------------------------------------
 @Component("boardDTO")
 public class BoardDTO {
@@ -25,15 +22,15 @@ public class BoardDTO {
 		 String f_m_id;			//FAQ에 글 등록할 관리자id
 		 String f_title;		//FAQ 제목 
 		 String f_content;		//FAQ 내용
-		 Timestamp f_regdate;		//FAQ 생성일자
+		 Timestamp f_regdate;	//FAQ 생성일자
 		 int	f_readcount;    //FAQ 조회수
 	//Notice
-		 int n_no;			//Notice 게시글번호 
+		 int n_no;				//Notice 게시글번호 
 		 int 	n_bc_code;		//Notice 하위 카테고리 분류용
 		 String n_m_id;			//Notice에 글 등록할 관리자id
 		 String n_title;		//Notice 제목
 		 String n_content;		//Notice 내용
-		 Timestamp  n_regdate;		//Notice 생성일자
+		 Timestamp  n_regdate;	//Notice 생성일자
 		 int 	n_readcount;	//Notice 조회수
 	//Inquiry	
 		 int 	i_no;			//Inquiry 게시글 번호	
@@ -41,12 +38,12 @@ public class BoardDTO {
 		 String	i_title;		//Inquiry 폼 소비자문의 제목 	
 		 String	i_b_id;			//Inquiry 폼 소비자 id
 		 String i_content;		//Inquiry 폼 소비자 문의내용
-		 Timestamp	i_regdate;		//Inquiry 폼 소비자 문의생성일자 
+		 Timestamp	i_regdate;	//Inquiry 폼 소비자 문의생성일자 
 		 String i_m_id;			//Inquiry 폼 관리자 id
 		 int  	i_answer;		//Inquiry 폼 관리자 답변여부 1 or 0
 		 String	i_an_content;	//Inquiry 폼 관리자 답변내용
 		 //yyyy-MM-dd hh:mm:ss 형태로 받아야해서 inquiryUpdate에서 리턴되어 돌아올때 패턴값 바꿈
-		 Timestamp i_an_date;		//Inquiry 폼 관리자 답변일자
+		 Timestamp i_an_date;	//Inquiry 폼 관리자 답변일자
 		
 		 
 		 
@@ -221,8 +218,5 @@ public class BoardDTO {
 		}
 		 
 		 
-		 
-	
-	
 
 }// public class BoardDTO {

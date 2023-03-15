@@ -33,15 +33,15 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="title" class="col-sm-2 control-label">제  목</label>
+			<label for="title" class="col-sm-2 control-label"><strong>제  목</strong></label>
 			<div class="col-sm-10">
 				<input type="text" 	 class="form-control" id="n_title" name="n_title"  maxlength="200" value="${NoticeDetail.n_title}" />
 				<input type="hidden" class="form-control" id="n_no"    name="n_no"     value="${NoticeDetail.n_no}" readonly/>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-2 control-label">카테고리</label>
-		<select class="form-select form-select-sm" aria-label="Default select example" title="문의유형 선택" id="n_bc_code" name="n_bc_code" >
+			<label class="col-sm-2 control-label"><strong>카테고리</strong></label>
+		<select class="form-select form-select-sm" aria-label="Default select example" title="카테고리 선택" id="n_bc_code" name="n_bc_code" >
 			  <option value="4">회원/멤버십</option>
 			  <option value="5">주문/결제</option>
 			  <option value="6">배송</option>
@@ -51,25 +51,19 @@
 	 </div>
 	 
 		<div class="form-group">
-			<label for="regdate" class="col-sm-2 control-label">작성일자</label>
+			<label for="regdate" class="col-sm-2 control-label"><strong>작성일자</strong></label>
 			<div class="col-sm-5">
 				<input type="text" class="form-control" id="n_regdate" name="n_regdate" value="<fmt:formatDate value='${NoticeDetail.n_regdate}' pattern='yyyy년 MM월 dd일 a hh시 mm분 ss초'/>" readonly/>
 			</div>
 		</div>
-		<!-- <div class="form-group">
-			 <label for="readcount" class="col-sm-2 control-label">조회수</label>
-			<div class="col-sm-1">
-				<input type="text" class="form-control" id="n_readcount" name="n_readcount" maxlength="4" value="${NoticeDetail.n_readcount}" readonly/>
-			</div>
-		</div>-->
 		<div class="form-group">
-			<label for="writer" class="col-sm-2 control-label">작성자</label>
+			<label for="writer" class="col-sm-2 control-label"><strong>관리자ID</strong></label>
 			<div class="col-sm-3">
 				<input type="text" class="form-control" id="n_m_id" name="n_m_id" maxlength="20" value="${NoticeDetail.n_m_id}" />
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="content" class="col-sm-2 control-label">내  용</label>
+			<label for="content" class="col-sm-2 control-label"><strong>내  용</strong></label>
 			<div class="col-sm-10">
 				<textarea rows="10" cols="160" class="form-control" id="n_content" name="n_content" >${NoticeDetail.n_content}</textarea>
 			</div>

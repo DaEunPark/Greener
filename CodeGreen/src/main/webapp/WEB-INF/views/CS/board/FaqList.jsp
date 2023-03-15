@@ -8,7 +8,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>FAQ 전체 목록</title>
+	<title>FAQ 관리</title>
 	<!--  부트스트랩 5.3 적용 -->
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
    <link href=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
@@ -20,7 +20,6 @@
 	<script src="${contextPath}/resources/js/Eboard.js"></script>
 	
 </head>
-
 <body>
 <!-- 사이드바 -->
 <jsp:include page="../../admin/include/nav.jsp"></jsp:include>
@@ -31,17 +30,17 @@
 	<form class="form-horizontal" id="frm">
 		<div class="form-group">
 			<div>
-				<h2 align="center">FAQ 전체 목록</h2>
+				<h2 align="center">FAQ 관리</h2>
 			</div>
 		</div>
 		<!-- 게시글 쓰기/등록 버튼 -->
 		<p align="center">
-			<button type="button" class="btn btn-success" onclick="location.href='/CS/board/FaqForm'">FAQ작성</button>
+			<button type="button" class="btn btn-success" onclick="location.href='/CS/board/FaqForm'">FAQ 작성</button>
 		</p>
 		
 		<!-- 카테고리별 검색하기 --> 
 		<div align="right">
-		<select class="form-select right"  aria-label="Default select example" title="문의유형 선택" id="f_bc_code" name="f_bc_code" >
+		<select class="form-select right"  aria-label="Default select example" title="카테고리 선택" id="f_bc_code" name="f_bc_code" >
 		  <option value="0" <c:if test="${f_bc_code == '0'}">selected</c:if>>전체</option>
 			  <option value="9" <c:if test="${f_bc_code == '9'}">selected</c:if>>회원/멤버십</option>
 			  <option value="10" <c:if test="${f_bc_code == '10'}">selected</c:if>>주문/결제</option>
@@ -53,24 +52,21 @@
 		</div>
 		
 		<!-- 표  -->
-		<table class="table table-borderd table-hover">  <!-- 선, 굵기, 호버 -->
+		<table class="table table-borderd table-hover"> 
 			<thead>
-				<tr class="info"> <!-- 테이블모양확인용으로 사용됨 -->
+				<tr class="info"> 
 					<th class="col-sm-1 text-center">번호</th>
 					<th class="col-sm-1 text-center">카테고리</th> 
-					<th class="col-sm-1 text-center">관리자</th>
+					<th class="col-sm-1 text-center">관리자ID</th>
 					<th class="col-sm-3 text-center">제목</th>
 					<th class="col-sm-3 text-center">내용</th>
 					<th class="col-sm-2 text-center">작성일자</th>
-					<!--<th class="col-sm-1 text-center">조회수</th>-->
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach items="${FaqList}" var="falist">
 				<tr>
 					<td align="center">${falist.f_no}</td>
-					
-				   <!-- <td align="center">${falist.f_bc_code}</td>-->
 				  <c:choose>
 					<c:when test="${falist.f_bc_code eq 9}">
 						<td align="center">회원/멤버십</td>
@@ -91,9 +87,7 @@
 					<td align="center">${falist.f_m_id}</td>
 					<td align="center"><a href="${contextPath}/CS/board/FaqDetail?f_no=${falist.f_no}">${falist.f_title}</a></td>
 					<td align="center">${falist.f_content }</td>
-					<td><fmt:formatDate value="${falist.f_regdate}" pattern="yyyy년 MM월 dd일 a hh시 mm분 ss초"/></td>
-					<!-- 조회수는 요번에 빼놓음 -->
-					<!--  <td align="right">${falist.f_readcount}</td>-->
+					<td><fmt:formatDate value="${falist.f_regdate}" pattern="yyyy년 MM월 dd일"/></td>
 				</tr>
 				</c:forEach>
 			</tbody>

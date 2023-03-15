@@ -46,10 +46,6 @@ public class BoardServiceImpl implements BoardService {
 		return boardDAO.FaqUpForm(baordDTO);
 	}
 
-	
-	
-	
-	
 //----------------------------------------------------------------------------	
 // 공지사항, FAQ ,1:1 목록보기 
 //----------------------------------------------------------------------------		
@@ -82,29 +78,23 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 ///----------------------------------------------------------------------------	
-// 공지사항, FAQ ,1:1 상세보기 (조회) + 수정후 중복 처리도 같이
+// 공지사항, FAQ ,1:1 상세보기 (조회) 
 //----------------------------------------------------------------------------
 		
 	//공지사항 조회(상세보기)
 	@Override
-	public BoardDTO NoticeDetail(int n_no ) throws Exception {   //, int flag)
+	public BoardDTO NoticeDetail(int n_no ) throws Exception {   
 		logger.info("NoticeDetail Serviceimpl 상세조회시작  ");	
 		
-//		//증복처리 
-//		if(flag == 0 ) {
-//			managerDAO.nupdateCount(n_no);
-//		}
+
 	 return boardDAO.NoticeDetail(n_no);
 	}
 	//FAQ 조회(상세보기)
 	@Override
-	public BoardDTO FaqDetail(int f_no) throws Exception {       // ,int flag
+	public BoardDTO FaqDetail(int f_no) throws Exception {      
 		logger.info("FaqDetail Serviceimpl 상세조회시작  ");
 		
-//		//증복처리 
-//			if(flag == 0 ) {
-//				managerDAO.fupdateCount(f_no);
-//			}
+
 	     return boardDAO.FaqDetail(f_no);
 		
 	}
@@ -153,15 +143,7 @@ public class BoardServiceImpl implements BoardService {
 		
 		return boardDAO.InquiryUpdate(baordDTO);
 	}
-//----------------------------------------------------------------------------	
-// 공지사항, FAQ ,1:1  페이징처리 - 뻄 
-//----------------------------------------------------------------------------		
-
 
 	
 	
-	
-	
-
-	
-}//public class ManagerServiceImpl implements ManagerService
+}//public class BoardServiceImpl implements BoardService
