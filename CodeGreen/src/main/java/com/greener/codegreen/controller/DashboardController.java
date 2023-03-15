@@ -103,7 +103,7 @@ public class DashboardController {
 		return gson.toJson(jsonObject);
 	}
   
-	//목록 불러오기 - 정경희
+	//목록 뷰 불러오기 - 정경희
 	@RequestMapping(value="/dash/dashproductview", method = RequestMethod.GET)
 	public String DashProductview(Model model)throws Exception{
     logger.info("화면불러오기");
@@ -111,9 +111,9 @@ public class DashboardController {
 		return "/admin/dash/DashProductView";
 	 }
 
-	// 목록 불러오기 - 정경희
+	// 목록 JSON 불러오기 - 정경희
 	@ResponseBody
-	@RequestMapping(value = "/dashproductview", method = RequestMethod.POST)
+	@RequestMapping(value ="/dash/dashproductviewJSON", method = RequestMethod.GET)
 	public String dashproductviewpost(Model model) throws Exception {
 
 		List<ProductViewDTO> list = adminService.DashProductview();
@@ -126,10 +126,14 @@ public class DashboardController {
 			ProductViewDTO productViewDTO = it.next();
 			JsonObject object = new JsonObject();
 			String c_name = productViewDTO.getC_name();
+			//int c_code_ref = productViewDTO.getC_code_ref();
 			int p_view = productViewDTO.getP_view();
+			String p_name = productViewDTO.getP_name();
 
 			object.addProperty("c_name", c_name);
+			//object.addProperty("c_code_ref", c_code_ref);
 			object.addProperty("p_view", p_view);
+			object.addProperty("p_name", p_name);
 			jArray.add(object);
 		}
 

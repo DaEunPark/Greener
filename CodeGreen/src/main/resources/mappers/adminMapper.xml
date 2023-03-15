@@ -95,7 +95,7 @@
 
 
     <!-- DashProductView 목록  -->
-	<select id="dashproductview" resultType="com.greener.codegreen.dto.ProductViewDTO">
+	<select id="dashproductview" resultType="com.greener.codegreen.dto.ProductViewDTO" >
 		<![CDATA[
 		select	 p.p_name, p.p_view, c.c_code_ref, c.c_name
 		from 	 Product p

@@ -55,7 +55,7 @@
 			     	<a class="list-group-item list-group-item-action list-group-item-dark" href="${contextPath}/admin/dash/Dashboard">가입자 연령대</a>
 			     	<a class="list-group-item list-group-item-action list-group-item-dark" href="${contextPath}/admin/dash/dashBoardCategory">1주일간 일별 카테고리 선호도</a>
 			     	<a class="list-group-item list-group-item-action list-group-item-dark" href="${contextPath}/admin/dash/productAvg">상품별 구매 수량 평균</a>
-			     	<%-- <a class="list-group-item list-group-item-action list-group-item-dark" href="${contextPath}/admin/dash/dashproductview">상품별 조회수 누적</a> --%>
+			     	<a class="list-group-item list-group-item-action list-group-item-dark" href="${contextPath}/admin/dash/dashproductview">상품별 누적조회수 순위 현황</a> 
 			     	<%-- <a class="list-group-item list-group-item-action list-group-item-dark" href="${contextPath}/admin/dash/SignUpChart">월간 일별 회원가입자 수</a> --%>
 			     </div>
 			    </div>
