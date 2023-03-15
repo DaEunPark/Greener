@@ -8,7 +8,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>1:1문의 전체 목록 </title>
+	<title>1:1 문의 관리</title>
 	<!--  부트스트랩 5.3 적용 -->
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
    <link href=" https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"/>
@@ -30,7 +30,7 @@
 	<form class="form-horizontal" id="frm">
 		<div class="form-group">
 			<div>
-				<h2 align="center">1:1문의 전체 목록</h2>
+				<h2 align="center">1:1 문의 관리</h2>
 			</div>
 		</div>
 		
@@ -48,15 +48,15 @@
 		</div>
 		
 		<!-- 표  -->
-		<table class="table table-borderd table-hover">  <!-- 선, 굵기, 호버 -->
+		<table class="table table-borderd table-hover">  
 			<thead>
 				<tr class="info"> 
 					<th class="col-sm-1 text-center">번호</th>
 					<th class="col-sm-1 text-center">카테고리</th> 
-					<th class="col-sm-1 text-center">제목</th>
-					<th class="col-sm-3 text-center">작성자ID</th>
+					<th class="col-sm-2 text-center">제목</th>
+					<th class="col-sm-2 text-center">작성자ID</th>
 					<th class="col-sm-3 text-center">문의내용</th>
-					<th class="col-sm-2 text-center">작성일자</th>
+					<th class="col-sm-2 text-center">문의일자</th>
 						<th class="col-sm-2 text-center">답변여부</th>
 				</tr>
 			</thead>
@@ -66,7 +66,6 @@
 				<tr>
 		
 					<td align="center">${inlist.i_no}</td>
-				   <!-- <td align="center">${inlist.i_bc_code}</td>-->
 				 <c:choose>
 					<c:when test="${inlist.i_bc_code eq 14}">
 						<td align="center">회원/멤버십</td>
@@ -88,8 +87,7 @@
 					<!--  소비자ID 클릭시 답변창 -->
 					<td align="center"><a href="${contextPath}/CS/board/InquiryDetail?i_no=${inlist.i_no}">${inlist.i_b_id}</a></td>
 					<td align="center">${inlist.i_content }</td>
-					<td><fmt:formatDate value="${inlist.i_regdate}" pattern="yyyy년 MM월 dd일 a hh시 mm분 ss초"/></td>
-					<!-- <td align="center">${inlist.i_answer }</td> -->
+					<td><fmt:formatDate value="${inlist.i_regdate}" pattern="yyyy년 MM월 dd일"/></td>
 					<c:choose>
 					<c:when test="${inlist.i_answer eq 0}">
 						<td align="center">N</td>

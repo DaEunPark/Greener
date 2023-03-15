@@ -14,7 +14,6 @@ import com.greener.codegreen.dto.BoardDTO;
 
 
 
-
 @Repository
 public class BoardDAOImpl implements BoardDAO {
 	
@@ -25,8 +24,6 @@ public class BoardDAOImpl implements BoardDAO {
 	private SqlSession sqlSession;
 	
 	private static String Namespace = "com.greener.codegreen.board";  
-	
-
 	
 //----------------------------------------------------------------------------	
 // 공지사항, FAQ 등록처리 
@@ -47,10 +44,6 @@ public class BoardDAOImpl implements BoardDAO {
 		return sqlSession.insert(Namespace + ".BfaqUpform" , boardDTO);
 	}
 	
-	
-	
-	
-
 //----------------------------------------------------------------------------	
 // 공지사항, FAQ ,1:1 목록보기 
 //----------------------------------------------------------------------------	
@@ -87,11 +80,11 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 //----------------------------------------------------------------------------	
-// 공지사항, FAQ ,1:1 상세보기 (조회) + 수정후 중복 처리도 같이
+// 공지사항, FAQ ,1:1 상세보기 (조회)
 //----------------------------------------------------------------------------
 	
 	//----------------------------------------------------------------------------	
-	// 게시물 번호에 해당하는 게시글의 조회수를 증가
+	// 게시물 번호에 해당하는 게시글의 조회수를 증가 
 	//----------------------------------------------------------------------------	
 	@Override
 	public void nupdateCount(int n_no) {
@@ -162,31 +155,26 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public int NoticeUpdate(BoardDTO boardDTO) {
 		
-		logger.info("BoardDAOImpl 수정시작 ");
+		logger.info("BoardDAOImpl NoticeUpdate 수정시작 ");
 		return sqlSession.update(Namespace + ".nupdate" , boardDTO ); 
 		
 	}
 	@Override
 	public int FaqUpdate(BoardDTO boardDTO) {
 		
-		logger.info("BoardDAOImpl 수정시작 ");
+		logger.info("BoardDAOImpl FaqUpdate 수정시작 ");
 		return sqlSession.update(Namespace + ".fupdate" , boardDTO ); 
 		
 	}
 	@Override
 	public int InquiryUpdate(BoardDTO boardDTO) {
 		
-		logger.info("BoardDAOImpl 수정시작 ");
+		logger.info("BoardDAOImpl InquiryUpdate 수정시작 ");
 		return sqlSession.update(Namespace + ".iupdate" , boardDTO ); 
 		
 	}
 
-//----------------------------------------------------------------------------	
-// 공지사항, FAQ ,1:1  페이징처리 - 뺌 
-//----------------------------------------------------------------------------	
-//----------------------------------------------------------------------------
-// 카테고리에 따른 게시판 보여주기 
-//----------------------------------------------------------------------------
+
 
 	
-}// public class ManagerDAOImpl implements ManagerDAO 
+}// public class BoardDAOImpl implements BoardDAO

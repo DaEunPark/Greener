@@ -1,69 +1,67 @@
 /**
- * 게시글 관련 스크립트
- * 제이쿼리가 있는 파일에서 사용해야함 
+ * Board 게시글 JS
 */
  
- //-------------------------------------
- // 공지사항 등록
- //-------------------------------------
- function fn_NoticeUpForm() {
- 
-	//alert("게시글 등록 버튼 누름 확인용");   
- 
- 	//jsp 파일의 name과 같아야함
- 	let n_title 	= $("#n_title").val();
- 	let n_bc_code   = $("#n_bc_code").val();
- 	let	n_m_id		= $("#n_m_id").val();
-	let	n_content	= $("#n_content").val();
-	
-	//alert(n_title + ":" + n_bc_code + ":" +  n_m_id + ":" + n_content + "확인함");
-	
-	// 제목 항목에 값이 없으면 입력하도록 한다.
-	if($("#n_title").val() == "") {
-		alert("제목은 필수 입력 항목입니다.");
-		$("#n_title").focus();
-		return false;
-	}
-	
-	// 타입 항목에 값이 없으면 입력하도록 한다.
-	if($("#n_bc_code").val() == "") {
-		alert("문의사항은 필수 입력 항목입니다.");
-		$("#n_bc_code").focus();
-		return false;
-	}
-	
-	// 관리자 항목에 값이 없으면 입력하도록 한다.
-	if($("#n_m_id").val() == "") {
-		alert("작성자의 ID는 필수 입력 항목입니다.");
-		$("#n_m_id").focus();
-		return false;
-	}
-	
-	// 내용 항목에 값이 없으면 입력하도록 한다.
-	if($("#n_content").val() == "") {
-		alert("내용은 필수 입력 항목입니다.");
-		$("#n_content").focus();
-		return false;
-	}
-	
-	$.ajax({
-		type: "POST",
-		url:  "NoticeUpForm",
-		data:  { n_title : n_title, n_bc_code : n_bc_code , n_m_id : n_m_id , n_content : n_content },
-		success:  function(data) {
-			if(data == "Y") {
-			alert("등록되었습니다");
-			location.href = "/CS/board/NoticeList?n_bc_code=0";
+	 //----------------------------------------------------------------------------------------------------------
+ 	 // 공지사항 등록
+	 //----------------------------------------------------------------------------------------------------------
+	 function fn_NoticeUpForm() {
+	 
+		//alert("게시글 등록 버튼 누름 확인용");   
+	 
+	 	let n_title 	= $("#n_title").val();
+	 	let n_bc_code   = $("#n_bc_code").val();
+	 	let	n_m_id		= $("#n_m_id").val();
+		let	n_content	= $("#n_content").val();
+		
+		//alert(n_title + ":" + n_bc_code + ":" +  n_m_id + ":" + n_content + "확인함");
+		
+		// 제목 항목에 값이 없으면 입력하도록 한다.
+		if($("#n_title").val() == "") {
+			alert("제목은 필수 입력 항목입니다.");
+			$("#n_title").focus();
+			return false;
 		}
-	},
-	error:  function(data) {
-		alert("등록 실패");
+		
+		// 타입 항목에 값이 없으면 입력하도록 한다.
+		if($("#n_bc_code").val() == "") {
+			alert("카테고리 선택은 필수 입력 항목입니다.");
+			$("#n_bc_code").focus();
+			return false;
 		}
-	});
- }// 공지사항 등록 끝
-	//-------------------------------------
+		
+		// 관리자 항목에 값이 없으면 입력하도록 한다.
+		if($("#n_m_id").val() == "") {
+			alert("작성자의 ID는 필수 입력 항목입니다.");
+			$("#n_m_id").focus();
+			return false;
+		}
+		
+		// 내용 항목에 값이 없으면 입력하도록 한다.
+		if($("#n_content").val() == "") {
+			alert("내용은 필수 입력 항목입니다.");
+			$("#n_content").focus();
+			return false;
+		}
+		
+		$.ajax({
+			type: "POST",
+			url:  "NoticeUpForm",
+			data:  { n_title : n_title, n_bc_code : n_bc_code , n_m_id : n_m_id , n_content : n_content },
+			success:  function(data) {
+				if(data == "Y") {
+				alert("등록되었습니다");
+				location.href = "/CS/board/NoticeList?n_bc_code=0";
+			}
+		},
+		error:  function(data) {
+			alert("등록 실패");
+			}
+		});
+	 }// 공지사항 등록 끝
+ 	//----------------------------------------------------------------------------------------------------------
 	// FAQ 등록
-	//-------------------------------------
+ 	//----------------------------------------------------------------------------------------------------------
 	 function fn_FaqUpForm() {
  	
 		 //alert("클릭");
@@ -84,7 +82,7 @@
 			
 			// 타입 항목에 값이 없으면 입력하도록 한다.
 			if($("#f_bc_code").val() == "") {
-				alert("문의사항은 필수 입력 항목입니다.");
+				alert("카테고리 선택은 필수 입력 항목입니다.");
 				$("#f_bc_code").focus();
 				return false;
 			}
@@ -120,7 +118,7 @@
 		 }//FAQ 등록 끝 
 	 
 	 //----------------------------------------------------------------------------------------------------------
-	 // 공지사항 수정 -  GET인 NoticeDetail 에서 수정을 클릭했을때 넘어가는 NoticeUpdate 페이지의 요청url POST 페이지
+	 // 공지사항 수정 
 	 //----------------------------------------------------------------------------------------------------------
 	 function fn_NoticeUpdateForm(n_no) { 
 
@@ -136,9 +134,9 @@
 	 }//End -fn_NoticeUpdateForm
 	 
 	 //----------------------------------------------------------------------------------------------------------
-	 // 공지사항 수정 요청  - POST페이지에서 수정을 클릭했을때 성공하면 넘어가는 POST 인 NoticeUpdate 페이지
+	 // 공지사항 수정 요청  
 	 //----------------------------------------------------------------------------------------------------------
-	function fn_NoticeUpdate() {
+	 function fn_NoticeUpdate() {
 
 		//alert("test1");
 
@@ -160,7 +158,7 @@
 						alert("게시글 수정이 완료되었습니다.");
 						fn_noticeDetail(n_no);   //완료되면 상세페이지로 이동시킴
 					} else {
-						alert("게시글 수정이 되지 않았습니다.\n\n잠시후 다시 해주세여.");
+						alert("게시글 수정이 완료되지않았습니다.\n\n 잠시후 다시 해주세요.");
 					}
 				},
 				error:			function(data) {
@@ -169,17 +167,17 @@
 				}
 			});
 
-	}//End - fn_NoticeUpdate
+	 }//End - fn_NoticeUpdate
 	 //----------------------------------------------------------------------------------------------------------
 	 // 수정이 완료되었을 경우 게시글 번호에 해당하는 상세페이지로 이동하기 
 	 //----------------------------------------------------------------------------------------------------------
-		function fn_noticeDetail(n_no) { 
-		location.href = "/CS/board/NoticeDetail?n_no=" + n_no + "&flag=1";
-		
-		
-	}//END- fn_noticeDetail
+	 function fn_noticeDetail(n_no) { 
+		 location.href = "/CS/board/NoticeDetail?n_no=" + n_no + "&flag=1";
+	
+	
+	 }//END- fn_noticeDetail
 	 //----------------------------------------------------------------------------------------------------------
-	 // FAQ 수정 -  GET인 FaqDetail 에서 수정을 클릭했을때 넘어가는 FaqUpdate 페이지의 요청url POST 페이지
+	 // FAQ 수정 
 	 //----------------------------------------------------------------------------------------------------------
 	 function fn_FaqUpdateForm(f_no) { 
 
@@ -192,9 +190,8 @@
 
 
 	 }//End -fn_FaqUpdateForm
-	 
 	 //----------------------------------------------------------------------------------------------------------
-	 // FAQ 수정 요청  - POST페이지에서 수정을 클릭했을때 성공하면 넘어가는 POST 인 NoticeUpdate 페이지
+	 // FAQ 수정 요청  
 	 //----------------------------------------------------------------------------------------------------------
 	 function fn_FaqUpdate() {
 
@@ -218,7 +215,7 @@
 					alert("게시글 수정이 완료되었습니다.");
 					fn_faqDetail(f_no);   //완료되면 상세페이지로 이동시킴
 				} else {
-					alert("게시글 수정이 되지 않았습니다.\n잠시후 다시 해주세요.");
+					alert("게시글 수정이 완료되지않았습니다.\n\\n 잠시후 다시 해주세요.");
 				}
 			},
 			error:			function(data) {
@@ -231,81 +228,76 @@
 	 //----------------------------------------------------------------------------------------------------------
 	 // 수정이 완료되었을 경우 게시글 번호에 해당하는 상세페이지로 이동하기 
 	 //----------------------------------------------------------------------------------------------------------
-		function fn_faqDetail(f_no) { 
+	 function fn_faqDetail(f_no) { 
 		location.href = "/CS/board/FaqDetail?f_no=" + f_no + "&flag=1";
 		
 		
-	}//END- fn_faqDetail
+	 }//END- fn_faqDetail
 		
-		 //----------------------------------------------------------------------------------------------------------
-		 // 1:1 답변  : 게시글 수정화면 불러오기
-		 //----------------------------------------------------------------------------------------------------------
-		 function fn_InquiryUpdateForm(i_no) { 
+	 //----------------------------------------------------------------------------------------------------------
+	 // 1:1 답변  : 게시글 수정화면 불러오기
+	 //----------------------------------------------------------------------------------------------------------
+	 function fn_InquiryUpdateForm(i_no) { 
 
-			 var f = $("#frm");
-			 f.attr("action","/CS/board/InquiryUpdateForm?flag=1");
-			 f.attr("method","POST");
-			 f.append($('<input/>', {type:'hidden',name: 'i_no', value:i_no}));
-			 f.appendTo('body');
-			 f.submit();
+		 var f = $("#frm");
+		 f.attr("action","/CS/board/InquiryUpdateForm?flag=1");
+		 f.attr("method","POST");
+		 f.append($('<input/>', {type:'hidden',name: 'i_no', value:i_no}));
+		 f.appendTo('body');
+		 f.submit();
 
 
-		 }//End -fn_InquiryUpdateForm
+	 }//End -fn_InquiryUpdateForm
+	 //----------------------------------------------------------------------------------------------------------
+	 //  1:1 답변 
+	 //----------------------------------------------------------------------------------------------------------
+	 function fn_InquiryUpdate() {
+
+		//alert("test 답변주기 ");
+
+		let i_no 					 = $("#i_no").val();   
+		let i_answer	    	     = $("#i_answer").val();     //답변여부
+		let i_an_date	  		     = $("#i_an_date").val();    //작성일자 readonly
+		let i_an_content  		     = $("#i_an_content").val();     //작성자id
 		
 		
-		 //----------------------------------------------------------------------------------------------------------
-		 //  1:1 답변 
-		 //----------------------------------------------------------------------------------------------------------
-		 function fn_InquiryUpdate() {
+		//alert( i_answer + ":" + i_an_date + ":" + i_an_content );
+		if($("#i_answer").val() == "0") {
+			alert("답변상태를 답변완료로 체크해주세요");
+			$("#i_answer").focus();
+			return false;
+		}
+		
+		$.ajax({
+			type:			"POST",
+			url:			"InquiryUpdate",
+			//보내줄 데이터
+			data:			{ i_no : i_no , i_answer : i_answer , i_an_date : i_an_date , i_an_content : i_an_content },   
+			success:		function(data) {
 
-			//alert("test 답변주기 ");
-
-			let i_no 					 = $("#i_no").val();   
-			let i_answer	    	     = $("#i_answer").val();     //답변여부
-			let i_an_date	  		     = $("#i_an_date").val();    //작성일자 readonly
-			let i_an_content  		     = $("#i_an_content").val();     //작성자id
-			
-			
-			//alert( i_answer + ":" + i_an_date + ":" + i_an_content );
-			if($("#i_answer").val() == "0") {
-				alert("답변완료로로 체크해주세요");
-				$("#i_answer").focus();
-				return false;
-			}
-			
-			$.ajax({
-				type:			"POST",
-				url:			"InquiryUpdate",
-				//보내줄 데이터
-				data:			{ i_no : i_no , i_answer : i_answer , i_an_date : i_an_date , i_an_content : i_an_content },   
-				success:		function(data) {
-
-					if(data == "Y") {
-						alert("답변이 완료되었습니다.");
-						fn_InquiryDetail(i_no);   //완료되면 상세페이지로 이동시킴
-					} else {
-						alert("답변이 정상적으로 업로드 되지 않았습니다.\n잠시후 다시 해주세요.");
-						console.log(data);
-					}
-				},
-				error:			function(data) {
-					alert("답변을 업로드하는데 문제가 발생하였습니다.");
+				if(data == "Y") {
+					alert("답변이 완료되었습니다.");
+					fn_InquiryDetail(i_no);   //완료되면 상세페이지로 이동시킴
+				} else {
+					alert("답변이 정상적으로 업로드 되지 않았습니다.\n\\n 잠시후 다시 해주세요.");
 					console.log(data);
 				}
-			});
+			},
+			error:			function(data) {
+				alert("답변을 업로드하는데 문제가 발생하였습니다.");
+				console.log(data);
+			}
+		});
 
-		}//End - fn_InquiryUpdate
-		 //----------------------------------------------------------------------------------------------------------
-		 // 수정이 완료되었을 경우 게시글 번호에 해당하는 상세페이지로 이동하기 
-		 //----------------------------------------------------------------------------------------------------------
-			function fn_InquiryDetail(i_no) { 
-			location.href = "/CS/board/InquiryDetail?i_no=" + i_no + "&flag=1";
-			
-			
-		}//END- fn_InquiryDetail
-				
+	}//End - fn_InquiryUpdate
+	 //----------------------------------------------------------------------------------------------------------
+	 // 수정이 완료되었을 경우 게시글 번호에 해당하는 상세페이지로 이동하기 
+	 //----------------------------------------------------------------------------------------------------------
+	 function fn_InquiryDetail(i_no) { 
+		location.href = "/CS/board/InquiryDetail?i_no=" + i_no + "&flag=1";
 		
 		
+	 }//END- fn_InquiryDetail
 			
 	 //----------------------------------------------------------------------------------------------------------
 	 // 공지사항 삭제
@@ -342,78 +334,78 @@
 			});
 		}
 	}//공지사항 삭제 끝
-		 //----------------------------------------------------------------------------------------------------------
-		 // FAQ 삭제
-		 //----------------------------------------------------------------------------------------------------------
-			function fn_FaqDelete(f_no) {
-				
-				//삭제여부 확인 
-				if(!confirm("\n게시글을 삭제하시겠습니까?\n\n삭제하려면 [확인] , 아니면 [취소] 버튼을 누르십시오.")) {
-					alert("게시글 삭제를 취소하셨습니다");
-				} else {
-					$.ajax({
-						type: 	"POST",
-						url: 	"FaqDelete",
-						data:   {f_no : f_no },
-						success: function(data) {
-							console.log(data);
-							if(data == "Y") {
-								alert("게시글의 삭제가 완료되었습니다");
-								location.href ="/CS/board/FaqList?f_bc_code=0";
-						}
-					},
-					error:	  function(data) {
-							alert("게시글을 삭제하는데 문제가 발생하였습니다.");
-					},
-					done: 	   function(data) {
-							alert("요청 성공");
-					},
-					fail:	   function(data) {
-							alert("요청 실패");
-					},
-					always: 	function(data) {
-							alert("요청 완료");
+	 //----------------------------------------------------------------------------------------------------------
+	 // FAQ 삭제
+	 //----------------------------------------------------------------------------------------------------------
+		function fn_FaqDelete(f_no) {
+			
+			//삭제여부 확인 
+			if(!confirm("\n게시글을 삭제하시겠습니까?\n\n삭제하려면 [확인] , 아니면 [취소] 버튼을 누르십시오.")) {
+				alert("게시글 삭제를 취소하셨습니다");
+			} else {
+				$.ajax({
+					type: 	"POST",
+					url: 	"FaqDelete",
+					data:   {f_no : f_no },
+					success: function(data) {
+						console.log(data);
+						if(data == "Y") {
+							alert("게시글의 삭제가 완료되었습니다");
+							location.href ="/CS/board/FaqList?f_bc_code=0";
 					}
-					
-				});
-			}
-		}//공지사항 삭제 끝
-		 //----------------------------------------------------------------------------------------------------------
-		 // 1:1 권한삭제 
-		 //----------------------------------------------------------------------------------------------------------
-			function fn_InquiryDelete(i_no) {
+				},
+				error:	  function(data) {
+						alert("게시글을 삭제하는데 문제가 발생하였습니다.");
+				},
+				done: 	   function(data) {
+						alert("요청 성공");
+				},
+				fail:	   function(data) {
+						alert("요청 실패");
+				},
+				always: 	function(data) {
+						alert("요청 완료");
+				}
 				
-				//삭제여부 확인 
-				if(!confirm("\n게시글을 삭제하시겠습니까?\n\n삭제하려면 [확인] , 아니면 [취소] 버튼을 누르십시오.")) {
-					alert("게시글 삭제를 취소하셨습니다");
-				} else {
-					$.ajax({
-						type: 	"POST",
-						url: 	"InquiryDelete",
-						data:   {i_no : i_no },
-						success: function(data) {
-							if(data == "Y") {
-								alert("게시글의 삭제가 완료되었습니다");
-								location.href ="/CS/board/InquiryList?i_bc_code=0";
-						}
-					},
-					error:	  function(data) {
-							alert("게시글을 삭제하는데 문제가 발생하였습니다.");
-					},
-					done: 	   function(data) {
-							alert("요청 성공");
-					},
-					fail:	   function(data) {
-							alert("요청 실패");
-					},
-					always: 	function(data) {
-							alert("요청 완료");
+			});
+		}
+	}//FAQ 삭제 끝
+	 //----------------------------------------------------------------------------------------------------------
+	 // 1:1 권한삭제 
+	 //----------------------------------------------------------------------------------------------------------
+		function fn_InquiryDelete(i_no) {
+			
+			//삭제여부 확인 
+			if(!confirm("\n게시글을 삭제하시겠습니까?\n\n삭제하려면 [확인] , 아니면 [취소] 버튼을 누르십시오.")) {
+				alert("게시글 삭제를 취소하셨습니다");
+			} else {
+				$.ajax({
+					type: 	"POST",
+					url: 	"InquiryDelete",
+					data:   {i_no : i_no },
+					success: function(data) {
+						if(data == "Y") {
+							alert("게시글의 삭제가 완료되었습니다");
+							location.href ="/CS/board/InquiryList?i_bc_code=0";
 					}
-					
-				});
-			}
-		}//1:1 삭제 끝
-		
+				},
+				error:	  function(data) {
+						alert("게시글을 삭제하는데 문제가 발생하였습니다.");
+				},
+				done: 	   function(data) {
+						alert("요청 성공");
+				},
+				fail:	   function(data) {
+						alert("요청 실패");
+				},
+				always: 	function(data) {
+						alert("요청 완료");
+				}
+				
+			});
+		}
+	}//1:1 삭제 끝
+	
 		
 	
 	

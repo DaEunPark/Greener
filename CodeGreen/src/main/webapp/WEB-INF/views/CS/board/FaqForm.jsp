@@ -50,7 +50,7 @@
 		
 		<div class="form-group">
 			<label class="col-sm-2 control-label"><strong>카테고리</strong></label>
-		<select class="form-select form-select-sm" aria-label="Default select example" title="문의유형 선택" id="f_bc_code" name="f_bc_code" >
+		<select class="form-select form-select-sm" aria-label="Default select example" title="카테고리 선택" id="f_bc_code" name="f_bc_code" >
 			  <option value="9">회원/멤버십</option>
 			  <option value="10">주문/결제</option>
 			  <option value="11">배송</option>

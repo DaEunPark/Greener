@@ -19,10 +19,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.greener.codegreen.dao.BoardDAO;
 import com.greener.codegreen.dto.BoardDTO;
 import com.greener.codegreen.service.BoardService;
@@ -43,6 +44,7 @@ public class BoardController {
 	@Inject
 	private BoardDAO boardDAO;
 
+//등록------------------------------------------------------------------------------------------------	
 
 	//----------------------------------------------------------------------
 	// 공지사항 작성하기화면불러오기 NoticeForm.jsp
@@ -99,7 +101,7 @@ public class BoardController {
 		
 	}//FAQ 작성한걸 등록하기 
 	
-//------------------------------------------------------------------------------------------------	
+//Vue연동------------------------------------------------------------------------------------------------	
 	
 	//----------------------------------------------------------------------
 	// vue 에서 faq전체 목록 뿌려주기 
@@ -116,14 +118,26 @@ public class BoardController {
 	} 
 	//----------------------------------------------------------------------
 	// vue 에서 faq전체 목록 뿌려주기 - 게시글 번호에 해당하는 게시글 정보가져오기
-	//----------------------------------------------------------------------
-	@GetMapping("/Ffaqlist/{f_no}")
-	public BoardDTO FaqDetail(@PathVariable int f_no) throws Exception {
-
-		logger.info("BoardController FaqDetail() f_no ==> " + f_no);
-
-		return boardService.FaqDetail(f_no);
-	}
+//	//----------------------------------------------------------------------
+//	@GetMapping("/FfaqDetail/{f_no}")
+//	public BoardDTO FaqDetail(@PathVariable int f_no) throws Exception {
+//
+//		logger.info("BoardController FaqDetail() f_no ==> " + f_no);
+//
+//		return boardService.FaqDetail(f_no);
+//	}
+	@RequestMapping(value = "/FfaqDetail/{f_no}", method = RequestMethod.GET)
+	@ResponseBody 
+	@CrossOrigin(origins = "http://localhost:8080/") 
+	 public String FaqDetail(@RequestParam int f_no) throws Exception  {   
+		BoardDTO FaqDetail = boardService.FaqDetail(f_no);
+	      
+	      Gson gson = new GsonBuilder().create();
+	      return gson.toJson(FaqDetail);
+	      
+	   }
+	
+	
 	//----------------------------------------------------------------------
 	// vue 에서 Notice 전체 목록 뿌려주기 
 	//----------------------------------------------------------------------
@@ -149,10 +163,8 @@ public class BoardController {
 	}
 
 	
-//------------------------------------------------------------------------------------------------	
+//조회------------------------------------------------------------------------------------------------	
 
-
-	
 	//----------------------------------------------------------------------
 	// 공지사항 전체 목록보기 NoticeList.jsp 
 	//----------------------------------------------------------------------
@@ -166,13 +178,10 @@ public class BoardController {
 		logger.info("NoticeList() Controller" + NoticeList );	
 		
 		model.addAttribute("NoticeList",NoticeList);
-		//NoticeList 에 데이터가 저장되어있다 이걸로 NoticeList.jsp에서데이터값뿌려줌
 		
 	}//공지사항 전체 목록보기
-	
 	//----------------------------------------------------------------------
-	// FAQ 전체 목록보기 FaqList.jsp   : 앞으로의 전체목록보기는 
-	// FaqList?f_bc_code=0 형식으로 보아야함  
+	// FAQ 전체 목록보기 FaqList.jsp   
 	//----------------------------------------------------------------------
 	@RequestMapping( value="/FaqList" , method= RequestMethod.GET)
 	public void FaqList(Model model,Locale locale, HttpServletRequest request) throws Exception {
@@ -202,8 +211,7 @@ public class BoardController {
 		
 	}//1:1 문의 전체 목록보기
 
-//--------------------------------------------------------------------------------------------------	
-	
+//상세보기--------------------------------------------------------------------------------------------------	
 	
 	//----------------------------------------------------------------------
 	// 	공지사항 조회(상세보기) NoticeDetail.jsp
@@ -214,14 +222,10 @@ public class BoardController {
 		logger.info("BoardController 공지사항 상세조회 " +
 				Integer.parseInt((String) request.getParameter("n_no")));
 		
-		//수정후 조회수 중복에 대한 처리  - B
 		int n_no = Integer.parseInt((String) request.getParameter("n_no"));
-		//int flag = Integer.parseInt((String) request.getParameter("flag"));
 		
-		//게시글 번호에 해당하는 게시글의 정보를 가져온다 
-		BoardDTO boardDTO  = boardService.NoticeDetail(n_no); //,flag);
+		BoardDTO boardDTO  = boardService.NoticeDetail(n_no); 
 		
-		//넘겨주는 모델의 이름이 NoticeDetail 로 설정
 		model.addAttribute("NoticeDetail", boardDTO);
 		return"/CS/board/NoticeDetail";
 	}
@@ -236,10 +240,8 @@ public class BoardController {
 				Integer.parseInt((String) request.getParameter("f_no")));
 		
 		int f_no = Integer.parseInt((String) request.getParameter("f_no"));
-		//int flag = Integer.parseInt((String) request.getParameter("flag"));
-		
-		//게시글 번호에 해당하는 게시글의 정보를 가져온다 
-		BoardDTO boardDTO  = boardService.FaqDetail(f_no);  //,flag);
+	
+		BoardDTO boardDTO  = boardService.FaqDetail(f_no);  
 		
 		model.addAttribute("FaqDetail", boardDTO);
 		return"/CS/board/FaqDetail";
@@ -256,8 +258,6 @@ public class BoardController {
 		
 		int i_no = Integer.parseInt((String) request.getParameter("i_no"));
 	
-		
-		//게시글 번호에 해당하는 게시글의 정보를 가져온다 
 		BoardDTO boardDTO  = boardService.InquiryDetail(i_no);
 		
 		model.addAttribute("InquiryDetail", boardDTO);
@@ -265,16 +265,16 @@ public class BoardController {
 	}
 	
 	
-//---------------------------------------------------------------------------------------------------
+//삭제---------------------------------------------------------------------------------------------------
 	
-	//-----------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------
 	// 공지사항 게시글 번호에 해당하는 게시글 삭제하기 
-	//-----------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------
 	@ResponseBody
 	@RequestMapping(value="/NoticeDelete" ,  method=RequestMethod.POST)
 	public String NoticeDelete(Model model, HttpServletRequest request) throws Exception {
 		
-		logger.info("BoardController 게시글 번호에 해당하는 게시글 삭제하기  " +
+		logger.info("공지사항 게시글 번호에 해당하는 게시글 삭제하기  " +
 				
 				request.getParameter("n_no"));
 		
@@ -284,16 +284,16 @@ public class BoardController {
 			return "N";
 		}
 		
-	}//게시글 번호에 해당하는 게시글 삭제하기()
+	}//공지사항 삭제 
 	
-	//-----------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------
 	// FAQ 게시글 번호에 해당하는 게시글 삭제하기 
-	//-----------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------
 	@ResponseBody
 	@RequestMapping(value="/FaqDelete" ,  method=RequestMethod.POST)
 	public String FaqDelete(Model model, HttpServletRequest request) throws Exception {
 		
-		logger.info("BoardController 게시글 번호에 해당하는 게시글 삭제하기  " +
+		logger.info("FAQ 게시글 번호에 해당하는 게시글 삭제하기  " +
 				
 				request.getParameter("f_no"));
 		
@@ -303,15 +303,16 @@ public class BoardController {
 			return "N";
 		}
 		
-	}//게시글 번호에 해당하는 게시글 삭제하기()
-	//-----------------------------------------------------------------------------------------------------------
+	}//FAQ 삭제 
+	
+	//----------------------------------------------------------------------
 	// 1:1 게시글 번호에 해당하는 게시글 삭제하기 
-	//-----------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------
 	@ResponseBody
 	@RequestMapping(value="/InquiryDelete" ,  method=RequestMethod.POST)
 	public String InquiryDelete(Model model, HttpServletRequest request) throws Exception {
 		
-		logger.info("BoardController 게시글 번호에 해당하는 게시글 삭제하기  " +
+		logger.info("1:1 게시글 번호에 해당하는 게시글 삭제하기  " +
 				
 				request.getParameter("i_no"));
 		
@@ -321,74 +322,69 @@ public class BoardController {
 			return "N";
 		}
 		
-	}//게시글 번호에 해당하는 게시글 삭제하기()
+	}//1:1 삭제 
 	
 	
-//------------------------------------------------------------------------------------
+//수정---------------------------------------------------------------------------------------------------
 	
-	//-----------------------------------------------------------------------------------------------------------
-	// 공지사항 수정화면 불러오기  : 조회수 증가 안됨
-	//-----------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------
+	// 공지사항 수정화면 불러오기 
+	//----------------------------------------------------------------------
 	@RequestMapping(value="/NoticeUpdateForm" ,  method=RequestMethod.POST)
 	public String NoticeUpdateForm(Model model, HttpServletRequest request) throws Exception {
 	
-		logger.info("BoardController 수정화면 불러오기() 시작 "); 
-		//수정후 조회수 중복에 대한 처리  - B
+		logger.info("공지사항 수정화면 불러오기() 시작 "); 
+	
 		int n_no = Integer.parseInt((String) request.getParameter("n_no"));
-		//int flag = Integer.parseInt((String) request.getParameter("flag"));
 		
-		BoardDTO boardDTO = boardService.NoticeDetail(n_no);   //,flag);
+		BoardDTO boardDTO = boardService.NoticeDetail(n_no);   
 		
-		//넘겨줄때 모델에 담아서 가져간다 
 		model.addAttribute("NoticeDetail", boardDTO);
 		return"/CS/board/NoticeUpdate";
 		
-	}//게시글 수정화면 불러오기
+	}//공지사항 수정화면 불러오기 
 	
-	//-----------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------
 	// 공지사항 게시글 번호에 해당하는 게시글 내용(제목, 카테고리, 작성자, 내용) 수정하기
-	//-----------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------
 	@ResponseBody
 	@RequestMapping(value="/NoticeUpdate", method=RequestMethod.POST)
 	public String NoticeUpdate(Model model, BoardDTO boardDTO)  throws Exception {
-		logger.info("BoardController 게시글 번호에 해당하는 게시글 내용(제목, 카테고리, 작성자, 내용) 수정하기() 시작 "); 
+		logger.info("공지사항 게시글 번호에 해당하는 게시글 내용(제목, 카테고리, 작성자, 내용) 수정하기() 시작 "); 
 	
-		
 		if(boardService.NoticeUpdate(boardDTO) == 1) {
 			return "Y";
 		} else {
 			return "N";
 		}
 		
-	}//게시글 번호에 해당하는 게시글 내용(제목, 카테고리, 작성자, 내용) 수정하기
+	}//공지사항 게시글 번호에 해당하는 게시글 내용(제목, 카테고리, 작성자, 내용) 수정하기
 	
 	
-	//-----------------------------------------------------------------------------------------------------------
-	// FAQ 수정화면 불러오기  : 조회수 증가 안됨
-	//-----------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------
+	// FAQ 수정화면 불러오기 
+	//----------------------------------------------------------------------
 	@RequestMapping(value="/FaqUpdateForm" ,  method=RequestMethod.POST)
 	public String FaqUpdateForm(Model model, HttpServletRequest request) throws Exception {
 	
-		logger.info("BoardController 수정화면 불러오기() 시작 "); 
-		//수정후 조회수 중복에 대한 처리  - B
+		logger.info("FAQ 수정화면 불러오기() 시작 "); 
+	
 		int f_no = Integer.parseInt((String) request.getParameter("f_no"));
-		//int flag = Integer.parseInt((String) request.getParameter("flag"));
-		
-		BoardDTO boardDTO = boardService.FaqDetail(f_no);  //,flag);
-		
-		//넘겨줄때 모델에 담아서 가져간다 
+	
+		BoardDTO boardDTO = boardService.FaqDetail(f_no);  
+	
 		model.addAttribute("FaqDetail", boardDTO);
 		return"/CS/board/FaqUpdate";
 		
-	}//게시글 수정화면 불러오기
+	}//FAQ 수정화면 불러오기 
 	
-	//-----------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------
 	// FAQ 게시글 번호에 해당하는 게시글 내용(제목, 카테고리, 작성자, 내용) 수정하기
-	//-----------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------
 	@ResponseBody
 	@RequestMapping(value="/FaqUpdate", method=RequestMethod.POST)
 	public String FaqUpdate(Model model, BoardDTO boardDTO)  throws Exception {
-		logger.info("BoardController 게시글 번호에 해당하는 게시글 내용(제목, 카테고리, 작성자, 내용) 수정하기() 시작 "); 
+		logger.info("FAQ 게시글 번호에 해당하는 게시글 내용(제목, 카테고리, 작성자, 내용) 수정하기() 시작 "); 
 	
 		
 		if(boardService.FaqUpdate(boardDTO) == 1) {
@@ -397,35 +393,33 @@ public class BoardController {
 			return "N";
 		}
 		
-	}//게시글 번호에 해당하는 게시글 내용(제목, 카테고리, 작성자, 내용) 수정하기
+	}//FAQ 게시글 번호에 해당하는 게시글 내용(제목, 카테고리, 작성자, 내용) 수정하기
 	
 	
-	//-----------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------
 	// 1:1  수정화면 불러오기 : 소비자 답변 받는 곳 
-	//-----------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------
 	@RequestMapping(value="/InquiryUpdateForm" ,  method=RequestMethod.POST)
 	public String InquiryUpdateForm(Model model, HttpServletRequest request) throws Exception {
 	
-		logger.info("BoardController 수정화면 불러오기() 시작 "); 
+		logger.info("1:1  수정화면 불러오기() 시작 "); 
 		//수정후 조회수 중복에 대한 처리  
 		int i_no = Integer.parseInt((String) request.getParameter("i_no"));
-	
 		
 		BoardDTO boardDTO = boardService.InquiryDetail(i_no);
 		
-		//넘겨줄때 모델에 담아서 가져간다 
 		model.addAttribute("InquiryDetail", boardDTO);
 		return"/CS/board/InquiryUpdate";
 		
-	}//게시글 수정화면 불러오기
+	}//1:1 문의 수정화면 불러오기
 	
-	//-----------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------
 	// 1:1 게시글 번호에 해당하는 게시글 내용(제목, 카테고리, 작성자, 내용) 수정하기
-	//-----------------------------------------------------------------------------------------------------------
+	//----------------------------------------------------------------------
 	@ResponseBody
 	@RequestMapping(value="/InquiryUpdate", method=RequestMethod.POST)
 	public String InquiryUpdate(Model model, BoardDTO boardDTO)  throws Exception {
-		logger.info("boardController 게시글 번호에 해당하는 게시글 내용 수정하기() 시작 "); 
+		logger.info("1:1 문의 게시글 번호에 해당하는 게시글 내용 수정하기() 시작 "); 
 	
 		
 		if(boardService.InquiryUpdate(boardDTO) == 1) {
@@ -434,28 +428,10 @@ public class BoardController {
 			return "N";
 			
 		}
-	}//게시글 번호에 해당하는 게시글 내용(제목, 카테고리, 작성자, 내용) 수정하기
+	}//1:1 문의 게시글 번호에 해당하는 게시글 내용(제목, 카테고리, 작성자, 내용) 수정하기
 		
-	
-	// 리스트 양을 많이 안할거라 우선 페이징 처리 안함 - 따로 빼둠 
-
-	
 
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-}//public class ManagerController 게시판 관리 컨트롤러
+}//public class BoardController 게시판 관리 컨트롤러
 
