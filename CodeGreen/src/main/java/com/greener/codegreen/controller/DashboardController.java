@@ -161,7 +161,7 @@ public class DashboardController {
 		ModelAndView mav = new ModelAndView();
 
 		Map<String, Object> map = new HashMap<String, Object>();
-		// Map<String, Object> map = buyerService.getChart();
+		//Map<String, Object> map = buyerService.getChart();
 		List<Map<String, Object>> result = dashboardService.getChart(map);
 
 		mav.addObject("result", result);
