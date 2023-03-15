@@ -2,7 +2,7 @@ package com.greener.codegreen.dto;
 
 import org.springframework.stereotype.Component;
 
-@Component("dashBoardCategoryDTO")
+@Component("dashBoardDTO")
 public class DashBoardCategoryDTO{
 	
 	private int grainMon;
