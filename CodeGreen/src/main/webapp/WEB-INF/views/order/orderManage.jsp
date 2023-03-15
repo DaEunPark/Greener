@@ -135,6 +135,7 @@
 	<hr style="border: 1px; color:#FFFFFF;">
 
 	<div id="resultDiv"></div>
+
 <script>
 function sendAjaxRequest(data) {
         var orderNum = $('#orderNum').val();

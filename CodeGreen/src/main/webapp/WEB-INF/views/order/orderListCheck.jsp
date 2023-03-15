@@ -64,10 +64,10 @@
 			<button class="btn dropdown-toggle btn-sm" type="button" id="orderMenuButton" data-bs-toggle="dropdown"> 정렬기준
 			</button>
 			<ul class="dropdown-menu" aria-labelledby="orderMenuButton">
-				<li><button class="dropdown-item" type="button">주문일자(오름차순)</button></li>
-				<li><button class="dropdown-item" type="button">주문일자(내림차순)</button></li>
-				<li><button class="dropdown-item" type="button">결제금액순(오름차순)</button></li>
-				<li><button class="dropdown-item" type="button" id="priceDs">결제금액순(내림차순)</button></li>
+				<li><button class="dropdown-item" type="button" id="dateAsc">주문일자(오름차순)</button></li>
+				<li><button class="dropdown-item" type="button" id="dateDes">주문일자(내림차순)</button></li>
+				<li><button class="dropdown-item" type="button" id="priceAsc">결제금액순(오름차순)</button></li>
+				<li><button class="dropdown-item" type="button" id="priceDes">결제금액순(내림차순)</button></li>
 			</ul>
 		</div>
 	</div>
@@ -82,16 +82,7 @@
 					<th class="col-sm-1 text-center" id="title">아이디	</th>
 					<th class="col-sm-1 text-center" id="title">주문자명</th>
 					<th class="col-sm-1 text-center" id="title">결제금액</th>
-  					<th class="col-sm-1 text-center" id="title">
-   					<button class="btn dropdown-toggle btn-sm" type="button" id="orderStateButton" data-bs-toggle="dropdown"> 주문상태
-					</button>
-					<ul class="dropdown-menu" aria-labelledby="orderStateButton">
-						<li><button class="dropdown-item" type="button" id="state0">결제완료</button></li>
-						<li><button class="dropdown-item" type="button" id="state1">배송준비</button></li>
-						<li><button class="dropdown-item" type="button" id="state2">배송중</button></li>
-						<li><button class="dropdown-item" type="button" id="state3">배송완료</button></li>
-					</ul>
-  					</th>
+  					<th class="col-sm-1 text-center" id="title">주문상태</th>
 				</tr>
 		</thead>
 	   	<tbody>
@@ -182,115 +173,6 @@ function sendAjaxRequest(pageNum) {
  	           }
  	      });
 }
-</script>	
-<script>
-$('.dropdown-item:contains("결제완료")').click(function() {
-    var rows = $('#table tbody tr').get();
-    rows.sort(function(a, b) {
-        var keyA = $(a).children('td:eq(6)').text();
-        var keyB = $(b).children('td:eq(6)').text();
-        if (keyA < keyB) return -1;
-        if (keyA > keyB) return 1;
-        return 0;
-    });
-    
-    // tbody 내부의 모든 tr 요소들을 삭제합니다.
-    $('#table tbody').empty();
-    
-    // 정렬된 rows 배열을 tbody 내부에 추가합니다.
-    $.each(rows, function(index, row) {
-        if ($(row).children('td:eq(6)').text() === "결제완료") {
-            $('#table tbody').append(row);
-        }
-    });
-});
-</script>
-<script>
-$('.dropdown-item:contains("배송준비")').click(function() {
-    var rows = $('#table tbody tr').get();
-    rows.sort(function(a, b) {
-        var keyA = $(a).children('td:eq(6)').text();
-        var keyB = $(b).children('td:eq(6)').text();
-        if (keyA < keyB) return -1;
-        if (keyA > keyB) return 1;
-        return 0;
-    });
-    
-    // tbody 내부의 모든 tr 요소들을 삭제합니다.
-    $('#table tbody').empty();
-    
-    // 정렬된 rows 배열을 tbody 내부에 추가합니다.
-    $.each(rows, function(index, row) {
-        if ($(row).children('td:eq(6)').text() === "배송준비") {
-            $('#table tbody').append(row);
-        }
-    });
-});
-</script>
-<script>
-$('.dropdown-item:contains("배송중")').click(function() {
-    var rows = $('#table tbody tr').get();
-    rows.sort(function(a, b) {
-        var keyA = $(a).children('td:eq(6)').text();
-        var keyB = $(b).children('td:eq(6)').text();
-        if (keyA < keyB) return -1;
-        if (keyA > keyB) return 1;
-        return 0;
-    });
-    
-    // tbody 내부의 모든 tr 요소들을 삭제합니다.
-    $('#table tbody').empty();
-    
-    // 정렬된 rows 배열을 tbody 내부에 추가합니다.
-    $.each(rows, function(index, row) {
-        if ($(row).children('td:eq(6)').text() === "배송중") {
-            $('#table tbody').append(row);
-        }
-    });
-});
-</script>
-<script>
-$('.dropdown-item:contains("배송완료")').click(function() {
-    var rows = $('#table tbody tr').get();
-    rows.sort(function(a, b) {
-        var keyA = $(a).children('td:eq(6)').text();
-        var keyB = $(b).children('td:eq(6)').text();
-        if (keyA < keyB) return -1;
-        if (keyA > keyB) return 1;
-        return 0;
-    });
-    
-    // tbody 내부의 모든 tr 요소들을 삭제합니다.
-    $('#table tbody').empty();
-    
-    // 정렬된 rows 배열을 tbody 내부에 추가합니다.
-    $.each(rows, function(index, row) {
-        if ($(row).children('td:eq(6)').text() === "배송완료") {
-            $('#table tbody').append(row);
-        }
-    });
-});
-</script>
-<script>
-$('.dropdown-item:contains("주문일자(오름차순)")').click(function() {
-    var rows = $('#table tbody tr').get();
-    rows.sort(function(a, b) {
-        var keyA = new Date($(a).children('td:eq(0)').text());
-        var keyB = new Date($(b).children('td:eq(0)').text());
-        if (keyA > keyB) return 1;
-        if (keyA < keyB) return -1;
-        return 0;
-    });
-    
-    // tbody 내부의 모든 tr 요소들을 삭제합니다.
-    $('#table tbody').empty();
-    
-    // 정렬된 rows 배열을 tbody 내부에 추가합니다.
-    $.each(rows, function(index, row) {
-        $('#table tbody').append(row);
-    });
-    
-});
 </script>
 <script>
 $('.dropdown-item:contains("주문일자(내림차순)")').click(function() {

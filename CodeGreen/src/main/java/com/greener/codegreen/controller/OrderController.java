@@ -2,7 +2,6 @@ package com.greener.codegreen.controller;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,11 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.greener.codegreen.common.Criteria;
 import com.greener.codegreen.common.PageMaker;
 import com.greener.codegreen.common.SearchCriteria;
 import com.greener.codegreen.dao.OrderDAO;
@@ -64,6 +63,8 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 		} else {
 			scri.setPageNum("1");
 		}
+	
+		scri.pageSet();
 
 		scri.setOrderNum(String.valueOf(mapData.get("orderNum")));
 		scri.setBuyerName(String.valueOf(mapData.get("buyerName")));
@@ -87,6 +88,16 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 		String state2 = scri.getState2();
 		String state3 = scri.getState3();
 		
+		if(state0.equals("1")) scri.setState0("결제완료");
+		if(state1.equals("1")) scri.setState1("배송준비");
+		if(state2.equals("1")) scri.setState2("배송중");
+		if(state3.equals("1")) scri.setState3("배송완료");
+		if(state0.equals("0") && state1.equals("0") && state2.equals("0") && state3.equals("0")) {
+			scri.setState0("결제완료");
+			scri.setState1("배송준비");
+			scri.setState2("배송중");
+			scri.setState3("배송완료");
+		}
 		
 		// ********************<< 전체 주문건 조회(조건없을시) >> ************************* //
 		if (orderNum.equals("") && buyerName.equals("") && productNum.equals("") && period0.equals("0") && 				
