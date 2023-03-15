@@ -6,47 +6,509 @@
 <mapper namespace="com.greener.codegreen.order">
 
 	<!-- ****************************************************************************************** -->
+	<!-- 주문내역 목록 불러오기 (전체 주문) -->
+	<!-- ****************************************************************************************** -->
+		<select id="orderListAll" resultType="HashMap" parameterType="java.util.HashMap">
+			<![CDATA[
+			SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
+			FROM (
+				SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
+				FROM ProductOrder o JOIN Buyer b ON o.order_b_id = b.b_id
+			) brd
+			WHERE rNum BETWEEN (${pageNum}-1)*10+1
+					AND ${pageNum}*10
+			ORDER BY brd.o_date DESC
+			]]>
+		</select>
+
+	<!-- ****************************************************************************************** -->
 	<!-- 조건에 맞는 주문내역 목록 가져오기 -->
 	<!-- ****************************************************************************************** -->
  	<select id="orderListCheck" resultType="HashMap" parameterType="java.util.HashMap">
 		<![CDATA[
-			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, p.p_name
+		SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
+		FROM (
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
 			FROM ProductOrder o 
-			JOIN Buyer b ON o.order_b_id = b.b_id
-			JOIN Product p ON o.order_p_number = p.p_number
-			WHERE o.o_number = #{orderNum1} 
-			   OR b.b_name = #{buyerName1} 
-			   OR o.order_p_number = #{productNum1}
-			   OR o.o_number = #{orderNum2} AND b.b_name = #{buyerName2} AND o.order_p_number = #{productNum2}
-			   OR b.b_name = #{buyerName3} AND o.order_p_number = #{productNum3}
-			   OR o.o_number = #{orderNum4} AND o.order_p_number = #{productNum4}
-			   OR o.o_number = #{orderNum5} AND b.b_name = #{buyerName5}
+				JOIN Buyer b ON o.order_b_id = b.b_id
+				JOIN Product p ON o.order_p_number = p.p_number
+			WHERE o.o_number = #{orderNum}
+				OR b.b_name = #{buyerName}
+				OR p.p_number = #{productNum}
 			ORDER BY o.o_date DESC
+		) brd
+			WHERE rNum BETWEEN (${pageNum}-1)*10+1
+					AND ${pageNum}*10
+			ORDER BY brd.o_date DESC
 		]]>
 	</select>
 	
 	<!-- ****************************************************************************************** -->
-	<!-- 주문내역 전체 목록 가져오기 -->
+	<!-- 조건에 맞는 주문내역 목록 가져오기 /OnlyDay -->
 	<!-- ****************************************************************************************** -->
- 	<select id="orderListAll" resultType="HashMap" parameterType="java.util.HashMap">
+ 	<select id="orderListOnlyDay" resultType="HashMap" parameterType="java.util.HashMap">
 		<![CDATA[
-			SELECT 	o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price
-			FROM	ProductOrder o JOIN Buyer b ON o.order_b_id = b.b_id
+		SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
+		FROM (	
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
+			FROM ProductOrder o 
+				JOIN Buyer b ON o.order_b_id = b.b_id
+				JOIN Product p ON o.order_p_number = p.p_number
+			WHERE o.o_date > curdate()
 			ORDER BY o.o_date DESC
+			) brd
+			WHERE rNum BETWEEN (${pageNum}-1)*10+1
+					AND ${pageNum}*10
+			ORDER BY brd.o_date DESC
 		]]>
 	</select>
 	
+	<!-- ****************************************************************************************** -->
+	<!-- 조건에 맞는 주문내역 목록 가져오기 /OnlyWeek -->
+	<!-- ****************************************************************************************** -->
+ 	<select id="orderListOnlyWeek" resultType="HashMap" parameterType="java.util.HashMap">
+		<![CDATA[
+		SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
+		FROM (	
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
+			FROM ProductOrder o 
+				JOIN Buyer b ON o.order_b_id = b.b_id
+				JOIN Product p ON o.order_p_number = p.p_number
+			WHERE o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
+			ORDER BY o.o_date DESC
+			) brd
+			WHERE rNum BETWEEN (${pageNum}-1)*10+1
+					AND ${pageNum}*10
+			ORDER BY brd.o_date DESC
+		]]>
+	</select>
+	
+	<!-- ****************************************************************************************** -->
+	<!-- 조건에 맞는 주문내역 목록 가져오기 /OnlyMonth -->
+	<!-- ****************************************************************************************** -->
+ 	<select id="orderListOnlyMonth" resultType="HashMap" parameterType="java.util.HashMap">
+		<![CDATA[
+		SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
+		FROM (	
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
+			FROM ProductOrder o 
+				JOIN Buyer b ON o.order_b_id = b.b_id
+				JOIN Product p ON o.order_p_number = p.p_number
+			WHERE o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
+			ORDER BY o.o_date DESC
+			) brd
+			WHERE rNum BETWEEN (${pageNum}-1)*10+1
+					AND ${pageNum}*10
+			ORDER BY brd.o_date DESC
+		]]>
+	</select>
+	
+	<!-- ****************************************************************************************** -->
+	<!-- 조건에 맞는 주문내역 목록 가져오기(orderListCheckTwo) -->
+	<!-- ****************************************************************************************** -->
+ 	<select id="orderListCheckTwo" resultType="HashMap" parameterType="java.util.HashMap">
+		<![CDATA[
+		SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
+		FROM (
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
+			FROM ProductOrder o 
+				JOIN Buyer b ON o.order_b_id = b.b_id
+				JOIN Product p ON o.order_p_number = p.p_number
+			WHERE o.o_number = #{orderNum} AND b.b_name = #{buyerName}
+				OR o.o_number = #{orderNum} AND p.p_number = #{productNum}
+				OR p.p_number = #{productNum} AND b.b_name = #{buyerName}
+			ORDER BY o.o_date DESC
+		) brd
+			WHERE rNum BETWEEN (${pageNum}-1)*10+1
+					AND ${pageNum}*10
+			ORDER BY brd.o_date DESC
+		]]>
+	</select>
+	
+	<!-- ****************************************************************************************** -->
+	<!-- 조건에 맞는 주문내역 목록 가져오기(orderListDay) -->
+	<!-- ****************************************************************************************** -->
+ 	<select id="orderListDay" resultType="HashMap" parameterType="java.util.HashMap">
+		<![CDATA[
+		SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
+		FROM (
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
+			FROM ProductOrder o 
+				JOIN Buyer b ON o.order_b_id = b.b_id
+				JOIN Product p ON o.order_p_number = p.p_number
+			WHERE o.o_number = #{orderNum} AND o.o_date > curdate()
+				OR b.b_name = #{buyerName} AND o.o_date > curdate()
+				OR p.p_number = #{productNum} AND o.o_date > curdate()
+			ORDER BY o.o_date DESC
+		) brd
+			WHERE rNum BETWEEN (${pageNum}-1)*10+1
+					AND ${pageNum}*10
+			ORDER BY brd.o_date DESC
+		]]>
+	</select>
+	
+	<!-- ****************************************************************************************** -->
+	<!-- 조건에 맞는 주문내역 목록 가져오기(orderListWeek) -->
+	<!-- ****************************************************************************************** -->
+ 	<select id="orderListWeek" resultType="HashMap" parameterType="java.util.HashMap">
+		<![CDATA[
+		SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
+		FROM (
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
+			FROM ProductOrder o 
+				JOIN Buyer b ON o.order_b_id = b.b_id
+				JOIN Product p ON o.order_p_number = p.p_number
+			WHERE b.b_name = #{buyerName} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
+			ORDER BY o.o_date DESC
+		) brd
+			WHERE rNum BETWEEN (${pageNum}-1)*10+1
+					AND ${pageNum}*10
+			ORDER BY brd.o_date DESC
+		]]>
+	</select>
+	
+	<!-- ****************************************************************************************** -->
+	<!-- 조건에 맞는 주문내역 목록 가져오기(orderListMonth) -->
+	<!-- ****************************************************************************************** -->
+ 	<select id="orderListMonth" resultType="HashMap" parameterType="java.util.HashMap">
+		<![CDATA[
+		SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
+		FROM (
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
+			FROM ProductOrder o 
+				JOIN Buyer b ON o.order_b_id = b.b_id
+				JOIN Product p ON o.order_p_number = p.p_number
+			WHERE o.o_number = #{orderNum} AND o.o_date  BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
+				OR b.b_name = #{buyerName} AND o.o_date  BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
+				OR p.p_number = #{productNum} AND o.o_date  BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
+			ORDER BY o.o_date DESC
+		) brd
+			WHERE rNum BETWEEN (${pageNum}-1)*10+1
+					AND ${pageNum}*10
+			ORDER BY brd.o_date DESC
+		]]>
+	</select>
+	
+	<!-- ****************************************************************************************** -->
+	<!-- 조건에 맞는 주문내역 목록 가져오기(orderListCheckThree) -->
+	<!-- ****************************************************************************************** -->
+ 	<select id="orderListCheckThree" resultType="HashMap" parameterType="java.util.HashMap">
+		<![CDATA[
+		SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
+		FROM (
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
+			FROM ProductOrder o 
+				JOIN Buyer b ON o.order_b_id = b.b_id
+				JOIN Product p ON o.order_p_number = p.p_number
+			WHERE o.o_number = #{orderNum} AND b.b_name = #{buyerName} AND p.p_number = #{productNum}
+			ORDER BY o.o_date DESC
+		) brd
+			WHERE rNum BETWEEN (${pageNum}-1)*10+1
+					AND ${pageNum}*10
+			ORDER BY brd.o_date DESC
+		]]>
+	</select>
+	
+	<!-- ****************************************************************************************** -->
+	<!-- 조건에 맞는 주문내역 목록 가져오기(orderListDayTwo) -->
+	<!-- ****************************************************************************************** -->
+ 	<select id="orderListDayTwo" resultType="HashMap" parameterType="java.util.HashMap">
+		<![CDATA[
+		SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
+		FROM (
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
+			FROM ProductOrder o 
+				JOIN Buyer b ON o.order_b_id = b.b_id
+				JOIN Product p ON o.order_p_number = p.p_number
+			WHERE o.o_number = #{orderNum} AND b.b_name = #{buyerName} AND o.o_date > curdate()
+				OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_date > curdate()
+				OR p.p_number = #{productNum} AND b.b_name = #{buyerName} AND o.o_date > curdate()
+			ORDER BY o.o_date DESC
+		) brd
+			WHERE rNum BETWEEN (${pageNum}-1)*10+1
+					AND ${pageNum}*10
+			ORDER BY brd.o_date DESC
+		]]>
+	</select>
+	
+	<!-- ****************************************************************************************** -->
+	<!-- 조건에 맞는 주문내역 목록 가져오기(orderListWeekTwo) -->
+	<!-- ****************************************************************************************** -->
+ 	<select id="orderListWeekTwo" resultType="HashMap" parameterType="java.util.HashMap">
+		<![CDATA[
+		SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
+		FROM (
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
+			FROM ProductOrder o 
+				JOIN Buyer b ON o.order_b_id = b.b_id
+				JOIN Product p ON o.order_p_number = p.p_number
+			WHERE o.o_number = #{orderNum} AND b.b_name = #{buyerName} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
+				OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
+				OR p.p_number = #{productNum} AND b.b_name = #{buyerName} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
+			ORDER BY o.o_date DESC
+		) brd
+			WHERE rNum BETWEEN (${pageNum}-1)*10+1
+					AND ${pageNum}*10
+			ORDER BY brd.o_date DESC
+		]]>
+	</select>
+	
+	<!-- ****************************************************************************************** -->
+	<!-- 조건에 맞는 주문내역 목록 가져오기(orderListMonthTwo) -->
+	<!-- ****************************************************************************************** -->
+ 	<select id="orderListMonthTwo" resultType="HashMap" parameterType="java.util.HashMap">
+		<![CDATA[
+		SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
+		FROM (
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
+			FROM ProductOrder o 
+				JOIN Buyer b ON o.order_b_id = b.b_id
+				JOIN Product p ON o.order_p_number = p.p_number
+			WHERE o.o_number = #{orderNum} AND b.b_name = #{buyerName} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
+				OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
+				OR p.p_number = #{productNum} AND b.b_name = #{buyerName} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
+			ORDER BY o.o_date DESC
+		) brd
+			WHERE rNum BETWEEN (${pageNum}-1)*10+1
+					AND ${pageNum}*10
+			ORDER BY brd.o_date DESC
+		]]>
+	</select>
+	
+		<!-- ****************************************************************************************** -->
+	<!-- 조건에 맞는 주문내역 목록 가져오기(orderListWhole) -->
+	<!-- ****************************************************************************************** -->
+ 	<select id="orderListWhole" resultType="HashMap" parameterType="java.util.HashMap">
+		<![CDATA[
+		SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
+		FROM (
+			SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
+			FROM ProductOrder o 
+				JOIN Buyer b ON o.order_b_id = b.b_id
+				JOIN Product p ON o.order_p_number = p.p_number
+			WHERE o.o_number = #{orderNum} AND b.b_name = #{buyerName} AND p.p_number = #{productNum} AND o.o_date > curdate()
+				OR o.o_number = #{orderNum} AND b.b_name = #{buyerName} AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW()
+				OR o.o_number = #{orderNum} AND b.b_name = #{buyerName} AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
+			ORDER BY o.o_date DESC
+		) brd
+			WHERE rNum BETWEEN (${pageNum}-1)*10+1
+					AND ${pageNum}*10
+			ORDER BY brd.o_date DESC
+		]]>
+	</select>
+	
+	<!-- ****************************************************************************************** -->
+	<!-- 주문내역 총 개수 구하기 / orderTotalWhole -->
+	<!-- ****************************************************************************************** -->
+  	<select id="orderListCountWhole" resultType="int" parameterType="com.greener.codegreen.common.SearchCriteria">
+		<![CDATA[
+	        SELECT 	Count(o_number)
+	        FROM	ProductOrder
+	        WHERE o.o_number = #{orderNum} AND b.b_name = #{buyerName} AND p.p_number = #{productNum} AND o.o_date > curdate()
+				OR o.o_number = #{orderNum} AND b.b_name = #{buyerName} AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW()
+				OR o.o_number = #{orderNum} AND b.b_name = #{buyerName} AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
+		]]>
+	</select>
+	
+	<!-- ****************************************************************************************** -->
+	<!-- 주문내역 총 개수 구하기 / orderTotal -->
+	<!-- ****************************************************************************************** -->
+  	<select id="orderListCount" resultType="int" parameterType="com.greener.codegreen.common.SearchCriteria">
+		<![CDATA[
+	        SELECT 	Count(o_number)
+	        FROM	ProductOrder
+		]]>
+	</select>
+	
+	<!-- ****************************************************************************************** -->
+	<!-- 주문내역 총 개수 구하기 / orderTotalTwo -->
+	<!-- ****************************************************************************************** -->
+  	<select id="orderListCountTwo" resultType="int" parameterType="com.greener.codegreen.common.SearchCriteria">
+		<![CDATA[
+	        SELECT 	Count(o_number)
+	        FROM ProductOrder o 
+				JOIN Buyer b ON o.order_b_id = b.b_id
+				JOIN Product p ON o.order_p_number = p.p_number
+	        WHERE o.o_number = #{orderNum}
+				OR b.b_name = #{buyerName}
+				OR p.p_number = #{productNum}
+		]]>
+	</select>
+	
+	<!-- ****************************************************************************************** -->
+	<!-- 주문내역 총 개수 구하기 / orderTotalNumOnlyDay -->
+	<!-- ****************************************************************************************** -->
+  	<select id="orderListCountOnlyDay" resultType="int" parameterType="com.greener.codegreen.common.SearchCriteria">
+		<![CDATA[
+	        SELECT 	Count(o_number)
+	        FROM ProductOrder o
+	        WHERE o.o_date > curdate()
+		]]>
+	</select>
+
+	<!-- ****************************************************************************************** -->
+	<!-- 주문내역 총 개수 구하기 / orderTotalNumOnlyWeek -->
+	<!-- ****************************************************************************************** -->
+  	<select id="orderListCountOnlyWeek" resultType="int" parameterType="com.greener.codegreen.common.SearchCriteria">
+		<![CDATA[
+	        SELECT 	Count(o_number)
+	        FROM ProductOrder o
+	        WHERE o.o_date AND o.o_date  BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
+		]]>
+	</select>
+	
+	<!-- ****************************************************************************************** -->
+	<!-- 주문내역 총 개수 구하기 / orderTotalNumOnlyMonth -->
+	<!-- ****************************************************************************************** -->
+  	<select id="orderListCountOnlyMonth" resultType="int" parameterType="com.greener.codegreen.common.SearchCriteria">
+		<![CDATA[
+	        SELECT 	Count(o_number)
+	        FROM ProductOrder o
+	        WHERE o.o_date AND o.o_date  BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
+		]]>
+	</select>
+	
+	<!-- ****************************************************************************************** -->
+	<!-- 주문내역 총 개수 구하기 / orderTotalThree -->
+	<!-- ****************************************************************************************** -->
+  	<select id="orderListCountThree" resultType="int" parameterType="com.greener.codegreen.common.SearchCriteria">
+		<![CDATA[
+	        SELECT 	Count(o_number)
+	        FROM ProductOrder o 
+				JOIN Buyer b ON o.order_b_id = b.b_id
+				JOIN Product p ON o.order_p_number = p.p_number
+	        WHERE o.o_number = #{orderNum} AND b.b_name = #{buyerName}
+				OR o.o_number = #{orderNum} AND p.p_number = #{productNum}
+				OR p.p_number = #{productNum} AND b.b_name = #{buyerName}
+		]]>
+	</select>
+	
+	<!-- ****************************************************************************************** -->
+	<!-- 주문내역 총 개수 구하기 / orderTotalNumDay -->
+	<!-- ****************************************************************************************** -->
+  	<select id="orderListCountDay" resultType="int" parameterType="com.greener.codegreen.common.SearchCriteria">
+		<![CDATA[
+	        SELECT 	Count(o_number)
+	        FROM ProductOrder o
+	        	JOIN Buyer b ON o.order_b_id = b.b_id
+				JOIN Product p ON o.order_p_number = p.p_number
+	        WHERE o.o_number = #{orderNum} AND o.o_date > curdate()
+	        	OR b.b_name = #{buyerName} AND o.o_date > curdate()
+				OR p.p_number = #{productNum} AND o.o_date > curdate()
+		]]>
+	</select>
+
+	<!-- ****************************************************************************************** -->
+	<!-- 주문내역 총 개수 구하기 / orderTotalNumWeek -->
+	<!-- ****************************************************************************************** -->
+  	<select id="orderListCountWeek" resultType="int" parameterType="com.greener.codegreen.common.SearchCriteria">
+		<![CDATA[
+	        SELECT 	Count(o_number)
+	        FROM ProductOrder o
+	        	JOIN Buyer b ON o.order_b_id = b.b_id
+				JOIN Product p ON o.order_p_number = p.p_number
+	        WHERE o.o_number = #{orderNum} AND o.o_date  BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
+	        	OR b.b_name = #{buyerName} AND o.o_date  BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
+				OR p.p_number = #{productNum} AND o.o_date  BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
+		]]>
+	</select>
+	
+	<!-- ****************************************************************************************** -->
+	<!-- 주문내역 총 개수 구하기 / orderTotalNumMonth -->
+	<!-- ****************************************************************************************** -->
+  	<select id="orderListCountMonth" resultType="int" parameterType="com.greener.codegreen.common.SearchCriteria">
+		<![CDATA[
+	        SELECT 	Count(o_number)
+	        FROM ProductOrder o
+	        	JOIN Buyer b ON o.order_b_id = b.b_id
+				JOIN Product p ON o.order_p_number = p.p_number
+	        WHERE o.o_number = #{orderNum} AND o.o_date  BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
+	        	OR b.b_name = #{buyerName} AND o.o_date  BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
+				OR p.p_number = #{productNum} AND o.o_date  BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
+		]]>
+	</select>
+	
+	<!-- ****************************************************************************************** -->
+	<!-- 주문내역 총 개수 구하기 / orderTotalFour -->
+	<!-- ****************************************************************************************** -->
+  	<select id="orderListCountFour" resultType="int" parameterType="com.greener.codegreen.common.SearchCriteria">
+		<![CDATA[
+	        SELECT 	Count(o_number)
+	        FROM ProductOrder o 
+				JOIN Buyer b ON o.order_b_id = b.b_id
+				JOIN Product p ON o.order_p_number = p.p_number
+	        WHERE o.o_number = #{orderNum} AND b.b_name = #{buyerName} AND p.p_number = #{productNum}
+		]]>
+	</select>
+	
+	<!-- ****************************************************************************************** -->
+	<!-- 주문내역 총 개수 구하기 / orderTotalNumDayTwo -->
+	<!-- ****************************************************************************************** -->
+  	<select id="orderListCountDayTwo" resultType="int" parameterType="com.greener.codegreen.common.SearchCriteria">
+		<![CDATA[
+	        SELECT 	Count(o_number)
+	        FROM ProductOrder o
+	        	JOIN Buyer b ON o.order_b_id = b.b_id
+				JOIN Product p ON o.order_p_number = p.p_number
+	        WHERE o.o_number = #{orderNum} AND o.o_date > curdate()
+	        	OR b.b_name = #{buyerName} AND o.o_date > curdate()
+				OR p.p_number = #{productNum} AND o.o_date > curdate()
+		]]>
+	</select>
+
+	<!-- ****************************************************************************************** -->
+	<!-- 주문내역 총 개수 구하기 / orderTotalNumWeekTwo -->
+	<!-- ****************************************************************************************** -->
+  	<select id="orderListCountWeekTwo" resultType="int" parameterType="com.greener.codegreen.common.SearchCriteria">
+		<![CDATA[
+	        SELECT 	Count(o_number)
+	        FROM ProductOrder o
+	        	JOIN Buyer b ON o.order_b_id = b.b_id
+				JOIN Product p ON o.order_p_number = p.p_number
+	        WHERE o.o_number = #{orderNum} AND b.b_name = #{buyerName} AND o.o_date  BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
+	        	OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_date  BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
+				OR p.p_number = #{productNum} AND b.b_name = #{buyerName} AND o.o_date  BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
+		]]>
+	</select>
+	
+	<!-- ****************************************************************************************** -->
+	<!-- 주문내역 총 개수 구하기 / orderTotalNumMonthTwo -->
+	<!-- ****************************************************************************************** -->
+  	<select id="orderListCountMonthTwo" resultType="int" parameterType="com.greener.codegreen.common.SearchCriteria">
+		<![CDATA[
+	        SELECT 	Count(o_number)
+	        FROM ProductOrder o
+	        	JOIN Buyer b ON o.order_b_id = b.b_id
+				JOIN Product p ON o.order_p_number = p.p_number
+	        WHERE o.o_number = #{orderNum} AND b.b_name = #{buyerName} AND o.o_date  BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
+	        	OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_date  BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
+				OR p.p_number = #{productNum} AND b.b_name = #{buyerName} AND o.o_date  BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
+		]]>
+	</select>
+		
 	<!-- ****************************************************************************************** -->
 	<!-- 주문번호 누르면 상세 주문내역 보여주기 -->
 	<!-- ****************************************************************************************** -->
   	<select id="orderDetailCheck" resultType="com.greener.codegreen.dto.ProductOrderBuyerDTO" parameterType="integer">
 		<![CDATA[
 	        SELECT 	o.o_number, b.b_id, o.o_price, o.o_date, o.o_receiver_phone, o.o_receiver_name, b.b_email
-	        	   ,o.o_address1, o.o_address2, o.o_address3, b.b_name, b.b_grade
-	        FROM	ProductOrder o JOIN Buyer b ON o.order_b_id = b.b_id
+	        	   ,o.o_address1, o.o_address2, o.o_address3, b.b_name, b.b_grade, p.p_name, o.o_count, b.b_grade
+			FROM    ProductOrder o
+			        JOIN Buyer b ON o.order_b_id = b.b_id
+			        JOIN Product p ON o.order_p_number = p.p_number
 	        WHERE   o.o_number = #{orderNum}
 		]]>
 	</select>
+	
+	<!-- ****************************************************************************************** -->
+	<!-- 주문 내역 취소하기 -->
+	<!-- ****************************************************************************************** -->
+	  <delete id="orderListCancle" parameterType="int">
+		<![CDATA[
+	        DELETE 	FROM ProductOrder
+	        WHERE o_number = #{oNum}
+		]]>
+	</delete>
  	
 </mapper>   
 

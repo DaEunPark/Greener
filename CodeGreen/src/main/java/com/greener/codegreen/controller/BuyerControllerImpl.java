@@ -48,22 +48,6 @@ public class BuyerControllerImpl implements BuyerController {
 	
 	
 	//-----------------------------------------------------------------------------------------------------------
-    // 월별 가입자수 차트 (정하)
-	//-----------------------------------------------------------------------------------------------------------
-	@Override
-	@RequestMapping(value="/SignUpChart", method=RequestMethod.GET)
-	public ModelAndView getchart(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ModelAndView mav = new ModelAndView();
-		
-		HashMap<String,Object> map = new HashMap<String,Object>();
-		Map<String, Object> result = buyerService.getChart();
-		
-		mav.addObject("result", result);
-		mav.addObject("map", map);
-		mav.setViewName("buyer/SignUpChart");
-		return mav;
-	}
-	//-----------------------------------------------------------------------------------------------------------
     // 로그인(vue.js에서 입력값 DB로 전송, 결과 조회)(시훈)
 	//-----------------------------------------------------------------------------------------------------------
 	@PostMapping(value="/login")

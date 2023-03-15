@@ -25,12 +25,6 @@ public class BuyerServiceImpl implements BuyerService {
 	@Autowired
 	private BuyerDAO buyerDAO;
 
-	//-----------------------------------------------------------------------------------------------------------
-    // 월별 가입자수 차트 (정하)
-	//-----------------------------------------------------------------------------------------------------------
-	public Map<String, Object> getChart() throws DataAccessException{
-		return buyerDAO.getChart();	
-	}
 	
 	
 	

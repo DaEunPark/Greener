@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,8 +45,7 @@ public class DashBoardController {
 		Map<String,Object> map = new HashMap();
 		//Map<String, Object> map = buyerService.getChart();
 		List<Map<String, Object>> result= dashBoardService.getChart(map);
-		
-		
+				
 		 
 		 mav.addObject("result", result);
 		//mav.addObject("getChart", map);

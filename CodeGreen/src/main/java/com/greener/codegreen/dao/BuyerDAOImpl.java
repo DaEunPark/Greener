@@ -28,15 +28,7 @@ public class BuyerDAOImpl implements BuyerDAO {
 	
 	private	static final String Namespace = "com.greener.codegreen.buyer";
 	
-	
-	//-----------------------------------------------------------------------------------------------------------
-    // 월별 가입자수 차트 (정하)
-	//-----------------------------------------------------------------------------------------------------------
-	public Map<String, Object> getChart() throws DataAccessException{
-		return sqlSession.selectOne(Namespace + ".getChart");
-	}
-	
-	
+
 	
 	//-----------------------------------------------------------------------------------------------------------
 	// 로그인(시훈)

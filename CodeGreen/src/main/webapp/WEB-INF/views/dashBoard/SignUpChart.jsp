@@ -20,7 +20,7 @@
 				console.log(json);
 				
 				//5,7,3,5,3,3,4,5,5,5,2,3
-				let myData = [5,7,3,5,3,3,4,5,5,5,2,3];
+				let myData = [];
 				myData.push(json.jan22);
 				myData.push(json.feb22);
 				myData.push(json.mar22);
