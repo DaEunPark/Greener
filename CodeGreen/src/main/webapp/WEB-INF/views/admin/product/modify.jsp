@@ -15,7 +15,7 @@
 <jsp:include page="../include/nav.jsp"></jsp:include>
 	<div class="container">
 		<h2>상품 정보 수정</h2>
-		<form role = "form" method="post" autocomplete="off">
+		<form role = "form" method="post" autocomplete="off"  enctype="multipart/form-data">
 		
 		<input type = "hidden" name="p_number" value="${product.p_number}"/>
 		
@@ -69,7 +69,12 @@
 				 <label for="productUsedate">유통/소비기한</label>
 				 <input type="text" id="p_usedate" name="p_usedate" value="${product.p_usedate}"/>
 			</div>
-				
+			
+			<div class="inputArea">
+ 			<label for="gdsImg">이미지</label>
+ 			<input type="file" id="p_img" name="file" value="${product.p_thumbImg }"/>
+			 <div class="select_img" ><img src=""  /></div>
+			 </div>
 				
 			<div class="inputArea">
 				 <button type="submit" id="update_Btn" class="btn btn-primary">완료</button>
