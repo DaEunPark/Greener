@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>연령대</title>
+<title>가입자 연령대</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
@@ -70,8 +70,8 @@
 <body>
 	<jsp:include page="../include/nav.jsp" flush="false"/>
 	<div class="container">
-		<div style="width:50vw; height:30vh;">
-			<h1>연령대</h1>
+		<div style="width:60vw; height:40vh;" align="center">
+			<h1>가입자 연령대</h1>
 		
 		  <canvas id="myChart" ></canvas>
 		</div>	

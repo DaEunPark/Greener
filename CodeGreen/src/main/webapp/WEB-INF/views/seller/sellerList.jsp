@@ -9,14 +9,13 @@
 <meta charset="UTF-8">
 <title>소비자 목록 보기</title>
 <style>
-   .table{
-        border-collapse : collapse;
-        width: 100%;
-    }
-    .tr {
-        border: 1px solid #aaaaaa;
-        text-align: center;
-    }
+   #paging a{
+			text-decoration: none;
+			margin: 10px;
+			font-family:inherit;
+			font-size: medium;
+			font-weight: bold;
+	}
 </style>
 </head>
 <body>
@@ -65,49 +64,48 @@
 			</tbody>
 		</table>
 		
-		<div align="center">
-			<div class="form-group">
-			<div class= "col-sm-offset-4 col-sm-2">
-			<select id="searchType" class="form-control">
-				<option>검색종류</option>
-				<option value="s_id" <c:if test="${searchType=='id' }">selected</c:if>>아이디</option>
-				<option value="s_name" <c:if test="${searchType=='name' }">selected</c:if>>이 름</option>
-			</select>
-			</div>
-			<div class="col-sm-2">
-			<input type="text" id="searchKeyword" value="${keyword }"/>
-			</div>
-			<div class="col-sm-1">
-			<button id = "searchBtn" class="btn btn-danger">검색</button>
-			</div>
+		<div class="row justify-content-center">
+		  <div class="col-sm-2">
+		    <select id="searchType" class="form-select">
+		      <option selected disabled>검색종류</option>
+		      <option value="s_id" ${searchType == 's_id' ? 'selected' : ''}>아이디</option>
+		      <option value="s_name" ${searchType == 's_name' ? 'selected' : ''}>이름</option>
+		    </select>
+		  </div>
+		  <div class="col-sm-2">
+		    <input type="text" id="searchKeyword" class="form-control" value="${keyword }"/>
+		  </div>
+		  <div class="col-sm-1">
+		    <button id="searchBtn" class="btn btn-danger w-100">검색</button>
+		  </div>
+
+			<div class="row justify-content-center" id="paging">
+		  <div class="col-sm-8">
+		    <ul class="btn-group pagination d-flex justify-content-center">
+		      <c:if test="${pageMaker.prev}">
+		        <li>
+		          <a href='<c:url value="/seller/serList?page=${pageMaker.startPage-1}&searchType=${searchType}&keyword=${keyword}"/>'>
+		            <span class="glyphicon glyphicon-chevron-left"></span>
+		          </a>
+		        </li>
+		      </c:if>
+		      <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="pageNum">
+		        <li>
+		          <a href='<c:url value="/seller/serList?page=${pageNum}&searchType=${searchType}&keyword=${keyword}"/>'>
+		            <i>${pageNum}</i>
+		          </a> 
+		        </li>
+		      </c:forEach>
+		      <c:if test="${pageMaker.next}">
+		        <li>
+		          <a href='<c:url value="/seller/serList?page=${pageMaker.endPage+1}&searchType=${searchType}&keyword=${keyword}"/>'>
+		            <span class="glyphicon glyphicon-chevron-right"></span>
+		          </a>
+		        </li>
+		      </c:if>
+		    </ul>
+		  </div>
 		</div>
-	</div>	
-		<div align="center">
-			<ul class="btn-group pagination">
-				<c:if test="${pageMaker.prev }">
-					<li>
-						<a href='<c:url value="/seller/sellerList?page=${pageMaker.startPage-1}&searchType=${searchType }&keyword=${keyword }"/>'>
-							<span class="glyphicon glyphicon-chevron-left"></span>
-						</a>
-					</li>
-				</c:if>
-				<c:forEach begin="${pageMaker.startPage }" end = "${ pageMaker.endPage}" var="pageNum">
-					<li>
-						<a href='<c:url value="/seller/sellerList?page=${pageNum }&searchType=${searchType }&keyword=${keyword } "/>'>
-						<i>${pageNum }</i></a>	
-					</li>
-				</c:forEach>
-				
-				<c:if test="${pageMaker.next }">
-					<li>
-						<a href='<c:url value="/seller/sellerList?page=${pageMaker.endPage+1}&searchType=${searchType }&keyword=${keyword }"/>'>
-							<span class="glyphicon glyphicon-chevron-right"></span>
-						</a>
-					</li>
-				</c:if>
-			</ul>
-		</div>	
-		
 		<form id="formList" action="/seller/sellerList" method="get">
 			<input type="hidden" name="searchType" value="${ searchType}"/>
 			<input type="hidden" name="keyword" value="${keyword}"/>

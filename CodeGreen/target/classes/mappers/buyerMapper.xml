@@ -20,6 +20,71 @@
 		<result property="b_amount"	   column="b_amount"/>
 	</resultMap>
 	
+
+	
+
+    <!-- 월별 가입자수 차트 (정하)-->
+	
+	<select id="getChart" parameterType="java.util.Map" resultType="java.util.Map">
+	<![CDATA[
+      select  
+			sum( case str_month when 01 then sum end) as jan22,
+			sum(case str_month when 02 then sum end) as feb22,
+			sum(case str_month when 03 then sum end )as mar22,
+			sum(case str_month when 04 then sum end) as apr22,
+			sum(case str_month when 05 then sum end) as may22,
+			sum(case str_month when 06 then sum end )as jun22,
+			sum(case str_month when 07 then sum end )as jul22,
+			sum(case str_month when 08 then sum end )as aug22,
+			sum(case str_month when 09 then sum end )as sep22,
+			sum(case str_month when 10 then sum end )as oct22,
+			sum(case str_month when 11 then sum end )as nov22,
+			sum(case str_month when 12 then sum end )as dec22
+			from (
+				select  count(*) as sum,
+						substr(b_joindate, 6,2) as str_month,
+						substr(b_joindate, 1,4) as str_year
+				FROM Buyer
+				where 
+			    substr(b_joindate, 1,4) =2022
+				group by substr(b_joindate,6,2)
+				) 
+				buyer 
+				order by str_month;
+				]]>
+   </select>
+
+	<!-- 총 회원 수 -->
+	<select id="getToTalMember" parameterType="com.greener.codegreen.dto.BuyerDTO" resultType="int">
+	<![CDATA[
+		SELECT count(*) 
+		FROM b_id
+		]]>
+	</select>
+	<!-- 이번주 가입 회원 수 -->
+	<select id="getWeekMember" parameterType="com.greener.codegreen.dto.BuyerDTO" resultType="int">
+	<![CDATA[
+		SELECT (SELECT count(*)
+    		    FROM b_id
+    			WHERE b_joindate > to_char(trunc(sysdate,'this'), 'yyyy/mm/dd'))
+		FROM Buyer;
+		]]>
+	</select>
+	
+	
+	
+	<!-- 오늘 가입 회원 수 -->
+	<select id="getTodayMember" parameterType="com.greener.codegreen.dto.BuyerDTO" resultType="int">
+		<![CDATA[
+		SELECT (SELECT count(*)
+    		    FROM b_id
+    		 	WHERE b_joindate >= to_char(trunc(sysdate), 'yyyy/mm/dd'))
+		FROM Buyer;
+		]]>
+	</select>
+	
+	
+	
 	<!-- 로그인(시훈) -->
 	<select id="loginByIdPwd" parameterType="com.greener.codegreen.dto.BuyerDTO" resultType="com.greener.codegreen.dto.BuyerDTO">
 		<![CDATA[
@@ -50,7 +115,7 @@
 	<!-- 소비자 전체 회원의 수(민준) -->
 	<select id = "totalCount" parameterType="com.greener.codegreen.dto.BuyerDTO" resultType="INT">
 		<![CDATA[
-			SELECT count(*)
+			SELECT count(1)
 			FROM   Buyer
 			WHERE  1=1
 		]]>

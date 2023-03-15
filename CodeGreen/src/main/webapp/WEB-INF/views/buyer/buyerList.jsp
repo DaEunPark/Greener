@@ -11,7 +11,15 @@
 <link rel ="stylesheet" href= "/resources/css/admin/nav.css"/>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-
+<style>
+	#paging a{
+			text-decoration: none;
+			margin: 10px;
+			font-family:inherit;
+			font-size: medium;
+			font-weight: bold;
+	}
+</style>
 </head>
 <body>
 <!-- 상단 메뉴 -->
@@ -38,7 +46,9 @@
 			<tbody>
 				<c:forEach var="buyer" items="${buyerList }">
 					<tr>
-<td align="right" ><a href="${contextPath}/buyer/buyerDetail?b_id=${buyer.b_id}&flag=0">${buyer.b_id}</a></td>						<td align="right">${buyer.b_birth}</td>
+						<td align="right" ><a href="${contextPath}/buyer/buyerDetail?b_id=${buyer.b_id}&flag=0">${buyer.b_id}</a></td>	
+						<td align="right">${buyer.b_name }</td>					
+						<td align="right">${buyer.b_birth}</td>
 						<td align="right">${buyer.b_email}</td>
 						<td align="right">${buyer.b_address2}&nbsp;${buyer.b_address3}</td>
 						<td align="right">${buyer.b_grade}</td>
@@ -50,47 +60,48 @@
 			</tbody>
 		</table>
 		
-		<div align="center">
-			<div class="form-group">
-			<div class= "col-sm-offset-4 col-sm-2">
-			<select id="searchType" class="form-control">
-				<option>검색종류</option>
-				<option value="b_id" <c:if test="${searchType== b_id}">selected</c:if>>아이디</option>
-				<option value="b_name" <c:if test="${searchType== b_name}">selected</c:if>>이 름</option>
-			</select>
-			</div>
-			<div class="col-sm-2">
-			<input type="text" id="searchKeyword" value="${keyword }"/>
-			</div>
-			<div class="col-sm-1">
-			<button id = "searchBtn" class="btn btn-danger">검색</button>
-			</div>
-		</div>	
-		<div align="center">
-			<ul class="btn-group pagination">
-				<c:if test="${pageMaker.prev }">
-					<li>
-						<a href='<c:url value="/buyer/buyerList?page=${pageMaker.startPage-1}&searchType=${searchType }&keyword=${keyword }"/>'>
-							<span class="glyphicon glyphicon-chevron-left"></span>
-						</a>
-					</li>
-				</c:if>
-				<c:forEach begin="${pageMaker.startPage }" end = "${ pageMaker.endPage}" var="pageNum">
-					<li>
-						<a href='<c:url value="/buyer/buyerList?page=${pageNum }&searchType=${searchType }&keyword=${keyword } "/>'>
-						<i>${pageNum }</i></a>	
-					</li>
-				</c:forEach>
-				
-				<c:if test="${pageMaker.next }">
-					<li>
-						<a href='<c:url value="/buyer/buyerList?page=${pageMaker.endPage+1}&searchType=${searchType }&keyword=${keyword }"/>'>
-							<span class="glyphicon glyphicon-chevron-right"></span>
-						</a>
-					</li>
-				</c:if>
-			</ul>
-		</div>	
+		<div class="row justify-content-center">
+		  <div class="col-sm-2">
+		    <select id="searchType" class="form-select">
+		      <option selected disabled>검색종류</option>
+		      <option value="b_id" ${searchType == 'b_id' ? 'selected' : ''}>아이디</option>
+		      <option value="b_name" ${searchType == 'b_name' ? 'selected' : ''}>이름</option>
+		    </select>
+		  </div>
+		  <div class="col-sm-2">
+		    <input type="text" id="searchKeyword" class="form-control" value="${keyword }"/>
+		  </div>
+		  <div class="col-sm-1">
+		    <button id="searchBtn" class="btn btn-danger w-100">검색</button>
+		  </div>
+
+			<div class="row justify-content-center" id="paging">
+		  <div class="col-sm-8">
+		    <ul class="btn-group pagination d-flex justify-content-center">
+		      <c:if test="${pageMaker.prev}">
+		        <li>
+		          <a href='<c:url value="/buyer/buyerList?page=${pageMaker.startPage-1}&searchType=${searchType}&keyword=${keyword}"/>'>
+		            <span class="glyphicon glyphicon-chevron-left"></span>
+		          </a>
+		        </li>
+		      </c:if>
+		      <c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="pageNum">
+		        <li>
+		          <a href='<c:url value="/buyer/buyerList?page=${pageNum}&searchType=${searchType}&keyword=${keyword}"/>'>
+		            <i>${pageNum}</i>
+		          </a> 
+		        </li>
+		      </c:forEach>
+		      <c:if test="${pageMaker.next}">
+		        <li>
+		          <a href='<c:url value="/buyer/buyerList?page=${pageMaker.endPage+1}&searchType=${searchType}&keyword=${keyword}"/>'>
+		            <span class="glyphicon glyphicon-chevron-right"></span>
+		          </a>
+		        </li>
+		      </c:if>
+		    </ul>
+		  </div>
+		</div>
 		
 		<form id="formList" action="/buyer/buyerList" method="get">
 			<input type="hidden" name="searchType" value="${ searchType}"/>
