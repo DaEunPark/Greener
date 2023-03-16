@@ -12,9 +12,16 @@
 			FROM Product P, ProductOrder PO
 			WHERE P.p_number = PO.order_p_number
 			GROUP BY PO.order_p_number
-			ORDER BY product_order_avg DESC LIMIT 0, #{limit}
+			ORDER BY product_order_avg DESC
 		]]>
+		<include refid="showLimit"/>
 	</select>
+	
+	<sql id="showLimit">
+		<if test="limit > 0">
+			 LIMIT 0, #{limit}
+		</if>
+	</sql>
 
   	<!-- 구매자 나이별 분포 (민준) -->
 	<select id = "dash" resultType="com.greener.codegreen.dto.DashboardAgeDTO">
