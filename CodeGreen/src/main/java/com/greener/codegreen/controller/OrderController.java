@@ -2,7 +2,6 @@ package com.greener.codegreen.controller;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -14,11 +13,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.greener.codegreen.common.Criteria;
 import com.greener.codegreen.common.PageMaker;
 import com.greener.codegreen.common.SearchCriteria;
 import com.greener.codegreen.dao.OrderDAO;
@@ -64,6 +63,8 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 		} else {
 			scri.setPageNum("1");
 		}
+	
+		scri.pageSet();
 
 		scri.setOrderNum(String.valueOf(mapData.get("orderNum")));
 		scri.setBuyerName(String.valueOf(mapData.get("buyerName")));
@@ -71,6 +72,14 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 		scri.setPeriod0(String.valueOf(mapData.get("period0")));
 		scri.setPeriod1(String.valueOf(mapData.get("period1")));
 		scri.setPeriod2(String.valueOf(mapData.get("period2")));
+		scri.setState0(String.valueOf(mapData.get("state0")));
+		scri.setState1(String.valueOf(mapData.get("state1")));
+		scri.setState2(String.valueOf(mapData.get("state2")));
+		scri.setState3(String.valueOf(mapData.get("state3")));
+		scri.setDateAsc(String.valueOf(mapData.get("dateAsc")));
+		scri.setDateDes(String.valueOf(mapData.get("dateDes")));
+		scri.setPriceAsc(String.valueOf(mapData.get("priceAsc")));
+		scri.setPriceDes(String.valueOf(mapData.get("priceDes")));
 		
 		String orderNum = scri.getOrderNum();
 		String buyerName = scri.getBuyerName();
@@ -78,10 +87,61 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 		String period0 = scri.getPeriod0();
 		String period1 = scri.getPeriod1();
 		String period2 = scri.getPeriod2();
+		String state0 = scri.getState0();
+		String state1 = scri.getState1();
+		String state2 = scri.getState2();
+		String state3 = scri.getState3();
+		String dateAsc = scri.getDateAsc();
+		String dateDes = scri.getDateDes();
+		String priceAsc = scri.getPriceAsc();
+		String priceDes = scri.getPriceDes();
+		
+		if(state0.equals("1")) scri.setState0("결제완료");
+		if(state1.equals("1")) scri.setState1("배송준비");
+		if(state2.equals("1")) scri.setState2("배송중");
+		if(state3.equals("1")) scri.setState3("배송완료");
+		if(state0.equals("0") && state1.equals("0") && state2.equals("0") && state3.equals("0")) {
+			scri.setState0("결제완료");
+			scri.setState1("배송준비");
+			scri.setState2("배송중");
+			scri.setState3("배송완료");
+		}
+		if(dateAsc.equals("1") && dateDes.equals("0") && priceAsc.equals("0") && priceDes.equals("0")) { 
+			scri.setDateAsc("ORDER BY o.o_date");
+			scri.setDateDes("");
+			scri.setPriceAsc("");
+			scri.setPriceDes("");
+		}
+		if(dateAsc.equals("0") && dateDes.equals("1") && priceAsc.equals("0") && priceDes.equals("0")) {
+			scri.setDateDes("ORDER BY o.o_date DESC");
+			scri.setDateAsc("");
+			scri.setPriceAsc("");
+			scri.setPriceDes("");
+		}
+		if(dateAsc.equals("0") && dateDes.equals("0") && priceAsc.equals("1") && priceDes.equals("0")) {
+			scri.setDateAsc("");
+			scri.setDateDes("");
+			scri.setPriceAsc("ORDER BY o.o_price");
+			scri.setPriceDes("");
+		}
+		if(dateAsc.equals("0") && dateDes.equals("0") && priceAsc.equals("0") && priceDes.equals("1")) {
+			scri.setDateAsc("");
+			scri.setDateDes("");
+			scri.setPriceAsc("");
+			scri.setPriceDes("ORDER BY o.o_price DESC");
+		}
+		if(dateAsc.equals("0") && dateDes.equals("0") && priceAsc.equals("0") && priceDes.equals("0")) {
+			scri.setDateAsc("ORDER BY o.o_date DESC");
+			scri.setDateDes("");
+			scri.setPriceAsc("");
+			scri.setPriceDes("");
+		}
+
 		
 		// ********************<< 전체 주문건 조회(조건없을시) >> ************************* //
 		if (orderNum.equals("") && buyerName.equals("") && productNum.equals("") && period0.equals("0") && 				
 				period1.equals("0") && period2.equals("0")) {
+			scri.setBuyerName("공백");
 			List<HashMap<String, String>> orderListAll = orderService.getOrderListAll(scri);
 			mav.addObject("orderListAll", orderListAll);
 			pageMaker.setTotalCount(orderService.orderTotal(scri));
@@ -91,12 +151,14 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 		// ********************<< 단일 조건 주문건 조회 >> ************************* //
 		else if (!orderNum.equals("") && buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
 				period1.equals("0") && period2.equals("0")) {
+			scri.setBuyerName("공백");
 			List<HashMap<String, String>> orderList = orderService.getOrderList(scri);
 			mav.addObject("orderList", orderList);
 			pageMaker.setTotalCount(orderService.orderTotalTwo(scri));
 			
 			logger.info("=======================<< 2 >>======================");
 		}
+		
 		else if (orderNum.equals("") && !buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
 				period1.equals("0") && period2.equals("0")) {
 			List<HashMap<String, String>> orderList = orderService.getOrderList(scri);
@@ -106,6 +168,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 		}
 		else if (orderNum.equals("") && buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
 				period1.equals("0") && period2.equals("0")) {
+			scri.setBuyerName("공백");
 			List<HashMap<String, String>> orderList = orderService.getOrderList(scri);
 			mav.addObject("orderList", orderList);
 			pageMaker.setTotalCount(orderService.orderTotalTwo(scri));
@@ -113,6 +176,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 		}
 		else if (orderNum.equals("") && buyerName.equals("") && productNum.equals("") && !period0.equals("0") && 
 				period1.equals("0") && period2.equals("0")) {
+			scri.setBuyerName("공백");
 			List<HashMap<String, String>> orderList = orderService.getOrderListOnlyDay(scri);
 			mav.addObject("orderList", orderList);
 			pageMaker.setTotalCount(orderService.orderTotalOnlyDay(scri));
@@ -120,6 +184,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 		}
 		else if (orderNum.equals("") && buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
 				!period1.equals("0") && period2.equals("0")) {
+			scri.setBuyerName("공백");
 			List<HashMap<String, String>> orderList = orderService.getOrderListOnlyWeek(scri);
 			mav.addObject("orderList", orderList);
 			pageMaker.setTotalCount(orderService.orderTotalOnlyWeek(scri));
@@ -127,6 +192,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 		}
 		else if (orderNum.equals("") && buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
 				period1.equals("0") && !period2.equals("0")) {
+			scri.setBuyerName("공백");
 			List<HashMap<String, String>> orderList = orderService.getOrderListOnlyMonth(scri);
 			mav.addObject("orderList", orderList);
 			pageMaker.setTotalCount(orderService.orderTotalOnlyMonth(scri));
@@ -143,6 +209,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 		}
 		else if (!orderNum.equals("") && buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
 				period1.equals("0") && period2.equals("0")) {
+			scri.setBuyerName("공백");
 			List<HashMap<String, String>> orderList = orderService.getOrderListTwo(scri);
 			mav.addObject("orderList", orderList);
 			pageMaker.setTotalCount(orderService.orderTotalThree(scri));
@@ -159,6 +226,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 		// ********************<< 복수 조건 주문건 조회 (조건 2개) day >> ************************* //
 		else if (!orderNum.equals("") && buyerName.equals("") && productNum.equals("") && !period0.equals("0") && 
 				period1.equals("0") && period2.equals("0")) {
+			scri.setBuyerName("공백");
 			List<HashMap<String, String>> orderList = orderService.getOrderListDay(scri);
 			mav.addObject("orderList", orderList);
 			pageMaker.setTotalCount(orderService.orderTotalDay(scri));
@@ -173,6 +241,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 		}
 		else if (orderNum.equals("") && buyerName.equals("") && !productNum.equals("") && !period0.equals("0") && 
 				period1.equals("0") && period2.equals("0")) {
+			scri.setBuyerName("공백");
 			List<HashMap<String, String>> orderList = orderService.getOrderListDay(scri);
 			mav.addObject("orderList", orderList);
 			pageMaker.setTotalCount(orderService.orderTotalDay(scri));
@@ -182,6 +251,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 		// ********************<< 복수 조건 주문건 조회 (조건 2개) week >> ************************* //
 		else if (!orderNum.equals("") && buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
 				!period1.equals("0") && period2.equals("0")) {
+			scri.setBuyerName("공백");
 			List<HashMap<String, String>> orderList = orderService.getOrderListWeek(scri);
 			mav.addObject("orderList", orderList);
 			pageMaker.setTotalCount(orderService.orderTotalWeek(scri));
@@ -196,6 +266,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 		}
 		else if (orderNum.equals("") && buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
 				!period1.equals("0") && period2.equals("0")) {
+			scri.setBuyerName("공백");
 			List<HashMap<String, String>> orderList = orderService.getOrderListWeek(scri);
 			mav.addObject("orderList", orderList);
 			pageMaker.setTotalCount(orderService.orderTotalWeek(scri));
@@ -205,6 +276,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 		// ********************<< 복수 조건 주문건 조회 (조건 2개) Month >> ************************* //
 		else if (!orderNum.equals("") && buyerName.equals("") && productNum.equals("") && period0.equals("0") && 
 				period1.equals("0") && !period2.equals("0")) {
+			scri.setBuyerName("공백");
 			List<HashMap<String, String>> orderList = orderService.getOrderListMonth(scri);
 			mav.addObject("orderList", orderList);
 			pageMaker.setTotalCount(orderService.orderTotalMonth(scri));
@@ -219,6 +291,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 		}
 		else if (orderNum.equals("") && buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
 				period1.equals("0") && !period2.equals("0")) {
+			scri.setBuyerName("공백");
 			List<HashMap<String, String>> orderList = orderService.getOrderListMonth(scri);
 			mav.addObject("orderList", orderList);
 			pageMaker.setTotalCount(orderService.orderTotalMonth(scri));
@@ -244,6 +317,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 		}
 		else if (!orderNum.equals("") && buyerName.equals("") && !productNum.equals("") && !period0.equals("0") && 
 				period1.equals("0") && period2.equals("0")) {
+			scri.setBuyerName("공백");
 			List<HashMap<String, String>> orderList = orderService.getOrderListDayTwo(scri);
 			mav.addObject("orderList", orderList);
 			pageMaker.setTotalCount(orderService.orderTotalDayTwo(scri));
@@ -267,6 +341,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 		}
 		else if (!orderNum.equals("") && buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
 				!period1.equals("0") && period2.equals("0")) {
+			scri.setBuyerName("공백");
 			List<HashMap<String, String>> orderList = orderService.getOrderListWeek(scri);
 			mav.addObject("orderList", orderList);
 			pageMaker.setTotalCount(orderService.orderTotalWeekTwo(scri));
@@ -290,6 +365,7 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 		}
 		else if (!orderNum.equals("") && buyerName.equals("") && !productNum.equals("") && period0.equals("0") && 
 				period1.equals("0") && !period2.equals("0")) {
+			scri.setBuyerName("공백");
 			List<HashMap<String, String>> orderList = orderService.getOrderListMonth(scri);
 			mav.addObject("orderList", orderList);
 			pageMaker.setTotalCount(orderService.orderTotalMonthTwo(scri));
@@ -367,6 +443,5 @@ private static final Logger logger = LoggerFactory.getLogger(OrderController.cla
 
 		return "/order/orderManage";
 	}
-	  
 	  
 }

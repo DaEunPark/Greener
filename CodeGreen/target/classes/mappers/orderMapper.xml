@@ -12,12 +12,16 @@
 		<![CDATA[
 			SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
 			 FROM (
-				 SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
+				 SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(${dateAsc}${dateDes}${priceAsc}${priceDes}) AS rNum
 				 FROM ProductOrder o JOIN Buyer b ON o.order_b_id = b.b_id
+				 WHERE o.o_state = '${state0}'
+				 	OR o.o_state = '${state1}'
+				 	OR o.o_state = '${state2}'
+				 	OR o.o_state = '${state3}'
+				 ${dateAsc}${dateDes}${priceAsc}${priceDes}
 				 ) brd
 			 WHERE rNum BETWEEN (${pageNum}-1)*10+1
 				 AND ${pageNum}*10
-			 ORDER BY brd.o_date DESC
 		]]>
 	</select>
 
@@ -28,18 +32,26 @@
 		<![CDATA[
 			SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
 			 FROM (
-				 SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
+				 SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(${dateAsc}${dateDes}${priceAsc}${priceDes}) AS rNum
 				 FROM ProductOrder o 
 					 JOIN Buyer b ON o.order_b_id = b.b_id
 					 JOIN Product p ON o.order_p_number = p.p_number
-				 WHERE o.o_number = #{orderNum}
-					 OR b.b_name = #{buyerName}
-					 OR p.p_number = #{productNum}
-				 ORDER BY o.o_date DESC
+				 WHERE o.o_number = #{orderNum} AND o.o_state = '${state0}'
+				 	 OR o.o_number = #{orderNum} AND o.o_state = '${state1}'
+				 	 OR o.o_number = #{orderNum} AND o.o_state = '${state2}'
+				 	 OR o.o_number = #{orderNum} AND o.o_state = '${state3}'
+					 OR b.b_name LIKE '%${buyerName}%' AND o.o_state = '${state0}'
+					 OR b.b_name LIKE '%${buyerName}%' AND o.o_state = '${state1}'
+					 OR b.b_name LIKE '%${buyerName}%' AND o.o_state = '${state2}'
+					 OR b.b_name LIKE '%${buyerName}%' AND o.o_state = '${state3}'
+				 	 OR p.p_number = #{productNum} AND o.o_state = '${state0}'
+				 	 OR p.p_number = #{productNum} AND o.o_state = '${state1}'
+				 	 OR p.p_number = #{productNum} AND o.o_state = '${state2}'
+				 	 OR p.p_number = #{productNum} AND o.o_state = '${state3}'
+				 	${dateAsc}${dateDes}${priceAsc}${priceDes}
 				 ) brd
 			 WHERE rNum BETWEEN (${pageNum}-1)*10+1
 				 AND ${pageNum}*10
-			 ORDER BY brd.o_date DESC
 		]]>
 	</select>
 
@@ -50,16 +62,18 @@
 		<![CDATA[
 			SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
 			 FROM ( 
-				 SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
+				 SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(${dateAsc}${dateDes}${priceAsc}${priceDes}) AS rNum
 				 FROM ProductOrder o 
 					 JOIN Buyer b ON o.order_b_id = b.b_id
 					 JOIN Product p ON o.order_p_number = p.p_number
-				 WHERE o.o_date > curdate()
-				 ORDER BY o.o_date DESC
+				 WHERE o.o_date > curdate() AND o.o_state = '${state0}'
+				 	OR o.o_date > curdate() AND o.o_state = '${state1}'
+				 	OR o.o_date > curdate() AND o.o_state = '${state2}'
+				 	OR o.o_date > curdate() AND o.o_state = '${state3}'
+				 ${dateAsc}${dateDes}${priceAsc}${priceDes}
 				 ) brd
 			 WHERE rNum BETWEEN (${pageNum}-1)*10+1
 				 AND ${pageNum}*10
-			 ORDER BY brd.o_date DESC
 		]]>
 	</select>
 
@@ -70,16 +84,18 @@
 		<![CDATA[
 			SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
 			 FROM ( 
-				 SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
+				 SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(${dateAsc}${dateDes}${priceAsc}${priceDes}) AS rNum
 				 FROM ProductOrder o 
 					 JOIN Buyer b ON o.order_b_id = b.b_id
 					 JOIN Product p ON o.order_p_number = p.p_number
-				 WHERE o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
-				 ORDER BY o.o_date DESC
+				 WHERE o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state0}'
+				 	OR o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state1}'
+				 	OR o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state2}'
+				 	OR o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state3}'
+				 ${dateAsc}${dateDes}${priceAsc}${priceDes}
 				 ) brd
 			 WHERE rNum BETWEEN (${pageNum}-1)*10+1
 				 AND ${pageNum}*10
-			 ORDER BY brd.o_date DESC
 		]]>
 	</select>
 	
@@ -90,16 +106,18 @@
 		<![CDATA[
 		SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
 		 FROM ( 
-			 SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
+			 SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(${dateAsc}${dateDes}${priceAsc}${priceDes}) AS rNum
 			 FROM ProductOrder o 
 				 JOIN Buyer b ON o.order_b_id = b.b_id
 				 JOIN Product p ON o.order_p_number = p.p_number
-			 WHERE o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
-			 ORDER BY o.o_date DESC
+			 WHERE o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state0}'
+			 	OR o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state1}'
+			 	OR o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state2}'
+			 	OR o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state3}'
+			 ${dateAsc}${dateDes}${priceAsc}${priceDes}
 			 ) brd
 		 WHERE rNum BETWEEN (${pageNum}-1)*10+1
 			 AND ${pageNum}*10
-		 ORDER BY brd.o_date DESC
 		]]>
 	</select>
 
@@ -110,18 +128,26 @@
 		<![CDATA[
 			SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
 				 FROM (
-					 SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
+					 SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(${dateAsc}${dateDes}${priceAsc}${priceDes}) AS rNum
 					 FROM ProductOrder o 
 						 JOIN Buyer b ON o.order_b_id = b.b_id
 						 JOIN Product p ON o.order_p_number = p.p_number
-					 WHERE o.o_number = #{orderNum} AND b.b_name = #{buyerName}
-						 OR o.o_number = #{orderNum} AND p.p_number = #{productNum}
-						 OR p.p_number = #{productNum} AND b.b_name = #{buyerName}
-					 ORDER BY o.o_date DESC
+					 WHERE o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_state = '${state0}'
+						 OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_state = '${state1}'
+						 OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_state = '${state2}'
+						 OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_state = '${state3}'
+						 OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_state = '${state0}'
+						 OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_state = '${state1}'
+						 OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_state = '${state2}'
+						 OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_state = '${state3}'
+						 OR p.p_number = #{productNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_state = '${state0}'
+						 OR p.p_number = #{productNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_state = '${state1}'
+						 OR p.p_number = #{productNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_state = '${state2}'
+						 OR p.p_number = #{productNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_state = '${state3}'
+					 ${dateAsc}${dateDes}${priceAsc}${priceDes}
 					 ) brd
 			 WHERE rNum BETWEEN (${pageNum}-1)*10+1
 				 AND ${pageNum}*10
-			 ORDER BY brd.o_date DESC
 		]]>
 	</select>
 
@@ -132,18 +158,26 @@
 		<![CDATA[
 			SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
 				 FROM (
-					 SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
+					 SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(${dateAsc}${dateDes}${priceAsc}${priceDes}) AS rNum
 					 FROM ProductOrder o 
 						 JOIN Buyer b ON o.order_b_id = b.b_id
 						 JOIN Product p ON o.order_p_number = p.p_number
-					 WHERE o.o_number = #{orderNum} AND o.o_date > curdate()
-						 OR b.b_name = #{buyerName} AND o.o_date > curdate()
-						 OR p.p_number = #{productNum} AND o.o_date > curdate()
-					 ORDER BY o.o_date DESC
+					 WHERE o.o_number = #{orderNum} AND o.o_date > curdate() AND o.o_state = '${state0}'
+					 	OR o.o_number = #{orderNum} AND o.o_date > curdate() AND o.o_state = '${state1}'
+					 	OR o.o_number = #{orderNum} AND o.o_date > curdate() AND o.o_state = '${state2}'
+					 	OR o.o_number = #{orderNum} AND o.o_date > curdate() AND o.o_state = '${state3}'
+						OR b.b_name LIKE '%${buyerName}%' AND o.o_date > curdate() AND o.o_state = '${state0}'
+						OR b.b_name LIKE '%${buyerName}%' AND o.o_date > curdate() AND o.o_state = '${state1}'
+						OR b.b_name LIKE '%${buyerName}%' AND o.o_date > curdate() AND o.o_state = '${state2}'
+						OR b.b_name LIKE '%${buyerName}%' AND o.o_date > curdate() AND o.o_state = '${state3}'
+						OR p.p_number = #{productNum} AND o.o_date > curdate() AND o.o_state = '${state0}'
+						OR p.p_number = #{productNum} AND o.o_date > curdate() AND o.o_state = '${state1}'
+						OR p.p_number = #{productNum} AND o.o_date > curdate() AND o.o_state = '${state2}'
+						OR p.p_number = #{productNum} AND o.o_date > curdate() AND o.o_state = '${state3}'
+					 ${dateAsc}${dateDes}${priceAsc}${priceDes}
 				 ) brd
 			 WHERE rNum BETWEEN (${pageNum}-1)*10+1
 				 AND ${pageNum}*10
-			 ORDER BY brd.o_date DESC
 		]]>
 	</select>
 
@@ -154,16 +188,26 @@
 		<![CDATA[
 			SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
 				 FROM (
-					 SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
+					 SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(${dateAsc}${dateDes}${priceAsc}${priceDes}) AS rNum
 					 FROM ProductOrder o 
 						 JOIN Buyer b ON o.order_b_id = b.b_id
 						 JOIN Product p ON o.order_p_number = p.p_number
-					 WHERE b.b_name = #{buyerName} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
-					 ORDER BY o.o_date DESC
+					 WHERE o.o_number = #{orderNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state0}'
+					 	OR o.o_number = #{orderNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state1}'
+					 	OR o.o_number = #{orderNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state2}'
+					 	OR o.o_number = #{orderNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state3}'
+						OR b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state0}'
+						OR b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state1}'
+						OR b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state2}'
+						OR b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state3}'
+						OR p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state0}'
+						OR p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state1}'
+						OR p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state2}'
+						OR p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state3}'
+					 ${dateAsc}${dateDes}${priceAsc}${priceDes}
 				 ) brd
 			 WHERE rNum BETWEEN (${pageNum}-1)*10+1
 				 AND ${pageNum}*10
-			 ORDER BY brd.o_date DESC
 		]]>
 	</select>
 
@@ -174,18 +218,26 @@
 		<![CDATA[
 			SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
 				 FROM (
-					 SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
+					 SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(${dateAsc}${dateDes}${priceAsc}${priceDes}) AS rNum
 					 FROM ProductOrder o 
 						 JOIN Buyer b ON o.order_b_id = b.b_id
 						 JOIN Product p ON o.order_p_number = p.p_number
-					 WHERE o.o_number = #{orderNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
-						 OR b.b_name = #{buyerName} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
-						 OR p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
-					 ORDER BY o.o_date DESC
+					 WHERE o.o_number = #{orderNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state0}'
+					 	OR o.o_number = #{orderNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state1}'
+					 	OR o.o_number = #{orderNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state2}'
+					 	OR o.o_number = #{orderNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state3}'
+						OR b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state0}'
+						OR b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state1}'
+						OR b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state2}'
+						OR b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state3}'
+						OR p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state0}'
+						OR p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state1}'
+						OR p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state2}'
+						OR p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state3}'
+					 ${dateAsc}${dateDes}${priceAsc}${priceDes}
 				 ) brd
 			 WHERE rNum BETWEEN (${pageNum}-1)*10+1
 				 AND ${pageNum}*10
-			 ORDER BY brd.o_date DESC
 		]]>
 	</select>
 	
@@ -196,16 +248,18 @@
 		<![CDATA[
 			SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
 			 FROM (
-				 SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
+				 SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(${dateAsc}${dateDes}${priceAsc}${priceDes}) AS rNum
 				 FROM ProductOrder o 
 					 JOIN Buyer b ON o.order_b_id = b.b_id
 					 JOIN Product p ON o.order_p_number = p.p_number
-				 WHERE o.o_number = #{orderNum} AND b.b_name = #{buyerName} AND p.p_number = #{productNum}
-				 ORDER BY o.o_date DESC
+				 WHERE o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_state = '${state0}'
+					OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_state = '${state1}'
+					OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_state = '${state2}'
+					OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_state = '${state3}'
+				 ${dateAsc}${dateDes}${priceAsc}${priceDes}
 				 ) brd
 			 WHERE rNum BETWEEN (${pageNum}-1)*10+1
 				 AND ${pageNum}*10
-			 ORDER BY brd.o_date DESC
 		]]>
 	</select>
 	
@@ -216,18 +270,26 @@
 		<![CDATA[
 			SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
 			 FROM (
-				 SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
+				 SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(${dateAsc}${dateDes}${priceAsc}${priceDes}) AS rNum
 				 FROM ProductOrder o 
 					 JOIN Buyer b ON o.order_b_id = b.b_id
 					 JOIN Product p ON o.order_p_number = p.p_number
-				 WHERE o.o_number = #{orderNum} AND b.b_name = #{buyerName} AND o.o_date > curdate()
-					 OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_date > curdate()
-					 OR p.p_number = #{productNum} AND b.b_name = #{buyerName} AND o.o_date > curdate()
-				 ORDER BY o.o_date DESC
+				 WHERE o.o_number = #{orderNum} AND o.o_date > curdate() AND o.o_state = '${state0}'
+				 	OR o.o_number = #{orderNum} AND o.o_date > curdate() AND o.o_state = '${state1}'
+				 	OR o.o_number = #{orderNum} AND o.o_date > curdate() AND o.o_state = '${state2}'
+				 	OR o.o_number = #{orderNum} AND o.o_date > curdate() AND o.o_state = '${state3}'
+					OR b.b_name LIKE '%${buyerName}%' AND o.o_date > curdate() AND o.o_state = '${state0}'
+					OR b.b_name LIKE '%${buyerName}%' AND o.o_date > curdate() AND o.o_state = '${state1}'
+					OR b.b_name LIKE '%${buyerName}%' AND o.o_date > curdate() AND o.o_state = '${state2}'
+					OR b.b_name LIKE '%${buyerName}%' AND o.o_date > curdate() AND o.o_state = '${state3}'
+					OR p.p_number = #{productNum} AND o.o_date > curdate() AND o.o_state = '${state0}'
+					OR p.p_number = #{productNum} AND o.o_date > curdate() AND o.o_state = '${state1}'
+					OR p.p_number = #{productNum} AND o.o_date > curdate() AND o.o_state = '${state2}'
+					OR p.p_number = #{productNum} AND o.o_date > curdate() AND o.o_state = '${state3}'
+				 ${dateAsc}${dateDes}${priceAsc}${priceDes}
 				 ) brd
 			 WHERE rNum BETWEEN (${pageNum}-1)*10+1
 				 AND ${pageNum}*10
-			 ORDER BY brd.o_date DESC
 		]]>
 	</select>
 	
@@ -238,18 +300,26 @@
 		<![CDATA[
 			SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
 			 FROM (
-				 SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
+				 SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(${dateAsc}${dateDes}${priceAsc}${priceDes}) AS rNum
 				 FROM ProductOrder o 
 					 JOIN Buyer b ON o.order_b_id = b.b_id
 					 JOIN Product p ON o.order_p_number = p.p_number
-				 WHERE o.o_number = #{orderNum} AND b.b_name = #{buyerName} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
-					 OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
-					 OR p.p_number = #{productNum} AND b.b_name = #{buyerName} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
-				 ORDER BY o.o_date DESC
+				 WHERE o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state0}'
+				 	OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state1}'
+				 	OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state2}'
+				 	OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state3}'
+					OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state0}'
+					OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state1}'
+					OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state2}'
+					OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state3}'
+					OR p.p_number = #{productNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state0}'
+					OR p.p_number = #{productNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state1}'
+					OR p.p_number = #{productNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state2}'
+					OR p.p_number = #{productNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state3}'
+				 ${dateAsc}${dateDes}${priceAsc}${priceDes}
 				 ) brd
 			 WHERE rNum BETWEEN (${pageNum}-1)*10+1
 				 AND ${pageNum}*10
-			 ORDER BY brd.o_date DESC
 		]]>
 	</select>
 	
@@ -260,18 +330,26 @@
 		<![CDATA[
 		SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
 		 FROM (
-			 SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
+			 SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(${dateAsc}${dateDes}${priceAsc}${priceDes}) AS rNum
 			 FROM ProductOrder o 
 				 JOIN Buyer b ON o.order_b_id = b.b_id
 				 JOIN Product p ON o.order_p_number = p.p_number
-			 WHERE o.o_number = #{orderNum} AND b.b_name = #{buyerName} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
-				 OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
-				 OR p.p_number = #{productNum} AND b.b_name = #{buyerName} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
-			 ORDER BY o.o_date DESC
+			 WHERE o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state0}'
+			 	OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state1}'
+			 	OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state2}'
+			 	OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state3}'
+				OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state0}'
+				OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state1}'
+				OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state2}'
+				OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state3}'
+				OR p.p_number = #{productNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state0}'
+				OR p.p_number = #{productNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state1}'
+				OR p.p_number = #{productNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state2}'
+				OR p.p_number = #{productNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state3}'			 ORDER BY o.o_date DESC
+			 ${dateAsc}${dateDes}${priceAsc}${priceDes}
 			 ) brd
 		 WHERE rNum BETWEEN (${pageNum}-1)*10+1
 			 AND ${pageNum}*10
-		 ORDER BY brd.o_date DESC
 		]]>
 	</select>
 	
@@ -282,18 +360,27 @@
 		<![CDATA[
 		SELECT brd.o_date, brd.o_number, brd.b_num, brd.b_id, brd.b_name, brd.o_price, brd.o_state
 		 FROM (
-			 SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(ORDER BY o.o_date DESC) AS rNum
+			 SELECT o.o_date, o.o_number, b.b_num, b.b_id, b.b_name, o.o_price, o.o_state, ROW_NUMBER() OVER(${dateAsc}${dateDes}${priceAsc}${priceDes}) AS rNum
 			 FROM ProductOrder o 
 				 JOIN Buyer b ON o.order_b_id = b.b_id
 				 JOIN Product p ON o.order_p_number = p.p_number
-			 WHERE o.o_number = #{orderNum} AND b.b_name = #{buyerName} AND p.p_number = #{productNum} AND o.o_date > curdate()
-				 OR o.o_number = #{orderNum} AND b.b_name = #{buyerName} AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW()
-				 OR o.o_number = #{orderNum} AND b.b_name = #{buyerName} AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
+			 WHERE o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_date > curdate() AND o.o_state = '${state0}'
+			 	OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_date > curdate() AND o.o_state = '${state1}'
+			 	OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_date > curdate() AND o.o_state = '${state2}'
+			 	OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_date > curdate() AND o.o_state = '${state3}'
+				OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW() AND o.o_state = '${state0}'
+				OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW() AND o.o_state = '${state1}'
+				OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW() AND o.o_state = '${state2}'
+				OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW() AND o.o_state = '${state3}'
+				OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state0}'
+				OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state1}'
+				OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state2}'
+				OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state3}'
 			 ORDER BY o.o_date DESC
+			 ${dateAsc}${dateDes}${priceAsc}${priceDes}
 			 ) brd
 		 WHERE rNum BETWEEN (${pageNum}-1)*10+1
 			 AND ${pageNum}*10
-		 ORDER BY brd.o_date DESC
 		]]>
 	</select>
 	
@@ -304,10 +391,18 @@
 		<![CDATA[
 			SELECT Count(o_number)
 			 FROM ProductOrder
-			 WHERE o.o_number = #{orderNum} AND b.b_name = #{buyerName} AND p.p_number = #{productNum} AND o.o_date > curdate()
-				 OR o.o_number = #{orderNum} AND b.b_name = #{buyerName} AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW()
-				 OR o.o_number = #{orderNum} AND b.b_name = #{buyerName} AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
-		]]>
+			 WHERE o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_date > curdate() AND o.o_state = '${state0}'
+			 	OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_date > curdate() AND o.o_state = '${state1}'
+			 	OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_date > curdate() AND o.o_state = '${state2}'
+			 	OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_date > curdate() AND o.o_state = '${state3}'
+				OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW() AND o.o_state = '${state0}'
+				OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW() AND o.o_state = '${state1}'
+				OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW() AND o.o_state = '${state2}'
+				OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK) AND NOW() AND o.o_state = '${state3}'
+				OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state0}'
+				OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state1}'
+				OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state2}'
+				OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state3}'		]]>
 	</select>
 	
 <!-- ****************************************************************************************** -->
@@ -317,6 +412,10 @@
 		<![CDATA[
 			SELECT Count(o_number)
 			 FROM ProductOrder
+			 WHERE o_state = '${state0}'
+			 	OR o_state = '${state1}'
+			 	OR o_state = '${state2}'
+			 	OR o_state = '${state3}'
 		]]>
 	</select>
 	
@@ -329,9 +428,18 @@
 		 FROM ProductOrder o 
 			 JOIN Buyer b ON o.order_b_id = b.b_id
 			 JOIN Product p ON o.order_p_number = p.p_number
-		 WHERE o.o_number = #{orderNum}
-			 OR b.b_name = #{buyerName}
-			 OR p.p_number = #{productNum}
+				 WHERE o.o_number = #{orderNum} AND o.o_state = '${state0}'
+				 	 OR o.o_number = #{orderNum} AND o.o_state = '${state1}'
+				 	 OR o.o_number = #{orderNum} AND o.o_state = '${state2}'
+				 	 OR o.o_number = #{orderNum} AND o.o_state = '${state3}'
+					 OR b.b_name LIKE '%${buyerName}%' AND o.o_state = '${state0}'
+					 OR b.b_name LIKE '%${buyerName}%' AND o.o_state = '${state1}'
+					 OR b.b_name LIKE '%${buyerName}%' AND o.o_state = '${state2}'
+					 OR b.b_name LIKE '%${buyerName}%' AND o.o_state = '${state3}'
+				 	 OR p.p_number = #{productNum} AND o.o_state = '${state0}'
+				 	 OR p.p_number = #{productNum} AND o.o_state = '${state1}'
+				 	 OR p.p_number = #{productNum} AND o.o_state = '${state2}'
+				 	 OR p.p_number = #{productNum} AND o.o_state = '${state3}'
 	]]>
 	</select>
 	
@@ -342,7 +450,10 @@
 		<![CDATA[
 			SELECT Count(o_number)
 			 FROM ProductOrder o
-			 WHERE o.o_date > curdate()
+			 WHERE o.o_date > curdate() AND o.o_state = '${state0}'
+			 	OR o.o_date > curdate() AND o.o_state = '${state1}'
+			 	OR o.o_date > curdate() AND o.o_state = '${state2}'
+			 	OR o.o_date > curdate() AND o.o_state = '${state3}'
 		]]>
 	</select>
 
@@ -352,8 +463,11 @@
 	<select id="orderListCountOnlyWeek" resultType="int" parameterType="com.greener.codegreen.common.SearchCriteria">
 		<![CDATA[
 			SELECT Count(o_number)
-			 FROM ProductOrder o
-			 WHERE o.o_date AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
+			FROM ProductOrder o
+			WHERE o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state0}'
+			 	OR o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state1}'
+			 	OR o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state2}'
+			 	OR o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state3}'
 		]]>
 	</select>
 	
@@ -364,7 +478,10 @@
 		<![CDATA[
 			SELECT Count(o_number)
 			 FROM ProductOrder o
-			 WHERE o.o_date AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
+			 WHERE o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state0}'
+			 	OR o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state1}'
+			 	OR o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state2}'
+			 	OR o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state3}'
 		]]>
 	</select>
 
@@ -377,9 +494,18 @@
 			 FROM ProductOrder o 
 				 JOIN Buyer b ON o.order_b_id = b.b_id
 				 JOIN Product p ON o.order_p_number = p.p_number
-			 WHERE o.o_number = #{orderNum} AND b.b_name = #{buyerName}
-				 OR o.o_number = #{orderNum} AND p.p_number = #{productNum}
-				 OR p.p_number = #{productNum} AND b.b_name = #{buyerName}
+			WHERE o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_state = '${state0}'
+				OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_state = '${state1}'
+				OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_state = '${state2}'
+				OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_state = '${state3}'
+				OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_state = '${state0}'
+				OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_state = '${state1}'
+				OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_state = '${state2}'
+				OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_state = '${state3}'
+				OR p.p_number = #{productNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_state = '${state0}'
+				OR p.p_number = #{productNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_state = '${state1}'
+				OR p.p_number = #{productNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_state = '${state2}'
+				OR p.p_number = #{productNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_state = '${state3}'
 		]]>
 	</select>
 	
@@ -392,9 +518,18 @@
 			 FROM ProductOrder o
 				 JOIN Buyer b ON o.order_b_id = b.b_id
 				 JOIN Product p ON o.order_p_number = p.p_number
-			 WHERE o.o_number = #{orderNum} AND o.o_date > curdate()
-				 OR b.b_name = #{buyerName} AND o.o_date > curdate()
-				 OR p.p_number = #{productNum} AND o.o_date > curdate()
+			WHERE o.o_number = #{orderNum} AND o.o_date > curdate() AND o.o_state = '${state0}'
+				OR o.o_number = #{orderNum} AND o.o_date > curdate() AND o.o_state = '${state1}'
+				OR o.o_number = #{orderNum} AND o.o_date > curdate() AND o.o_state = '${state2}'
+				OR o.o_number = #{orderNum} AND o.o_date > curdate() AND o.o_state = '${state3}'
+				OR b.b_name LIKE '%${buyerName}%' AND o.o_date > curdate() AND o.o_state = '${state0}'
+				OR b.b_name LIKE '%${buyerName}%' AND o.o_date > curdate() AND o.o_state = '${state1}'
+				OR b.b_name LIKE '%${buyerName}%' AND o.o_date > curdate() AND o.o_state = '${state2}'
+				OR b.b_name LIKE '%${buyerName}%' AND o.o_date > curdate() AND o.o_state = '${state3}'
+				OR p.p_number = #{productNum} AND o.o_date > curdate() AND o.o_state = '${state0}'
+				OR p.p_number = #{productNum} AND o.o_date > curdate() AND o.o_state = '${state1}'
+				OR p.p_number = #{productNum} AND o.o_date > curdate() AND o.o_state = '${state2}'
+				OR p.p_number = #{productNum} AND o.o_date > curdate() AND o.o_state = '${state3}'
 		]]>
 	</select>
 	
@@ -407,9 +542,18 @@
 			 FROM ProductOrder o
 				 JOIN Buyer b ON o.order_b_id = b.b_id
 				 JOIN Product p ON o.order_p_number = p.p_number
-			 WHERE o.o_number = #{orderNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
-				 OR b.b_name = #{buyerName} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
-				 OR p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
+					 WHERE o.o_number = #{orderNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state0}'
+					 	OR o.o_number = #{orderNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state1}'
+					 	OR o.o_number = #{orderNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state2}'
+					 	OR o.o_number = #{orderNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state3}'
+						OR b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state0}'
+						OR b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state1}'
+						OR b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state2}'
+						OR b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state3}'
+						OR p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state0}'
+						OR p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state1}'
+						OR p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state2}'
+						OR p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state3}'
 		]]>
 	</select>
 
@@ -422,9 +566,18 @@
 			 FROM ProductOrder o
 				 JOIN Buyer b ON o.order_b_id = b.b_id
 				 JOIN Product p ON o.order_p_number = p.p_number
-			 WHERE o.o_number = #{orderNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
-				 OR b.b_name = #{buyerName} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
-				 OR p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
+					 WHERE o.o_number = #{orderNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state0}'
+					 	OR o.o_number = #{orderNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state1}'
+					 	OR o.o_number = #{orderNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state2}'
+					 	OR o.o_number = #{orderNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state3}'
+						OR b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state0}'
+						OR b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state1}'
+						OR b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state2}'
+						OR b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state3}'
+						OR p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state0}'
+						OR p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state1}'
+						OR p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state2}'
+						OR p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state3}'
 		]]>
 	</select>
 
@@ -437,7 +590,10 @@
 			 FROM ProductOrder o 
 				 JOIN Buyer b ON o.order_b_id = b.b_id
 				 JOIN Product p ON o.order_p_number = p.p_number
-			 WHERE o.o_number = #{orderNum} AND b.b_name = #{buyerName} AND p.p_number = #{productNum}
+				 WHERE o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_state = '${state0}'
+					OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_state = '${state1}'
+					OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_state = '${state2}'
+					OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND p.p_number = #{productNum} AND o.o_state = '${state3}'
 		]]>
 	</select>
 	
@@ -450,9 +606,18 @@
 			 FROM ProductOrder o
 				 JOIN Buyer b ON o.order_b_id = b.b_id
 				 JOIN Product p ON o.order_p_number = p.p_number
-			 WHERE o.o_number = #{orderNum} AND o.o_date > curdate()
-				 OR b.b_name = #{buyerName} AND o.o_date > curdate()
-				 OR p.p_number = #{productNum} AND o.o_date > curdate()
+			 WHERE o.o_number = #{orderNum} AND o.o_date > curdate() AND o.o_state = '${state0}'
+			 	OR o.o_number = #{orderNum} AND o.o_date > curdate() AND o.o_state = '${state1}'
+			 	OR o.o_number = #{orderNum} AND o.o_date > curdate() AND o.o_state = '${state2}'
+			 	OR o.o_number = #{orderNum} AND o.o_date > curdate() AND o.o_state = '${state3}'
+				OR b.b_name LIKE '%${buyerName}%' AND o.o_date > curdate() AND o.o_state = '${state0}'
+				OR b.b_name LIKE '%${buyerName}%' AND o.o_date > curdate() AND o.o_state = '${state1}'
+				OR b.b_name LIKE '%${buyerName}%' AND o.o_date > curdate() AND o.o_state = '${state2}'
+				OR b.b_name LIKE '%${buyerName}%' AND o.o_date > curdate() AND o.o_state = '${state3}'
+				OR p.p_number = #{productNum} AND o.o_date > curdate() AND o.o_state = '${state0}'
+				OR p.p_number = #{productNum} AND o.o_date > curdate() AND o.o_state = '${state1}'
+				OR p.p_number = #{productNum} AND o.o_date > curdate() AND o.o_state = '${state2}'
+				OR p.p_number = #{productNum} AND o.o_date > curdate() AND o.o_state = '${state3}'
 		]]>
 	</select>
 	
@@ -465,9 +630,18 @@
 			 FROM ProductOrder o
 				 JOIN Buyer b ON o.order_b_id = b.b_id
 				 JOIN Product p ON o.order_p_number = p.p_number
-			 WHERE o.o_number = #{orderNum} AND b.b_name = #{buyerName} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
-				 OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
-				 OR p.p_number = #{productNum} AND b.b_name = #{buyerName} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW()
+				 WHERE o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state0}'
+				 	OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state1}'
+				 	OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state2}'
+				 	OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state3}'
+					OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state0}'
+					OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state1}'
+					OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state2}'
+					OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state3}'
+					OR p.p_number = #{productNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state0}'
+					OR p.p_number = #{productNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state1}'
+					OR p.p_number = #{productNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state2}'
+					OR p.p_number = #{productNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 WEEK ) AND NOW() AND o.o_state = '${state3}'
 		]]>
 	</select>
 	
@@ -480,9 +654,18 @@
 			 FROM ProductOrder o
 				 JOIN Buyer b ON o.order_b_id = b.b_id
 				 JOIN Product p ON o.order_p_number = p.p_number
-			 WHERE o.o_number = #{orderNum} AND b.b_name = #{buyerName} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
-				 OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
-				 OR p.p_number = #{productNum} AND b.b_name = #{buyerName} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW()
+			 WHERE o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state0}'
+			 	OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state1}'
+			 	OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state2}'
+			 	OR o.o_number = #{orderNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state3}'
+				OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state0}'
+				OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state1}'
+				OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state2}'
+				OR o.o_number = #{orderNum} AND p.p_number = #{productNum} AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state3}'
+				OR p.p_number = #{productNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state0}'
+				OR p.p_number = #{productNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state1}'
+				OR p.p_number = #{productNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state2}'
+				OR p.p_number = #{productNum} AND b.b_name LIKE '%${buyerName}%' AND o.o_date BETWEEN DATE_ADD(NOW(), INTERVAL -1 MONTH ) AND NOW() AND o.o_state = '${state3}'
 		]]>
 	</select>
 
@@ -492,7 +675,7 @@
 	<select id="orderDetailCheck" resultType="com.greener.codegreen.dto.ProductOrderBuyerDTO" parameterType="integer">
 		<![CDATA[
 			SELECT o.o_number, b.b_id, o.o_price, o.o_date, o.o_receiver_phone, o.o_receiver_name, b.b_email
-			 ,o.o_address1, o.o_address2, o.o_address3, b.b_name, b.b_grade, p.p_name, o.o_count, b.b_grade
+			 ,o.o_address1, o.o_address2, o.o_address3, b.b_name, b.b_grade, p.p_name, o.o_count, b.b_grade, p.p_img, p.p_number
 			 FROM ProductOrder o
 				 JOIN Buyer b ON o.order_b_id = b.b_id
 				 JOIN Product p ON o.order_p_number = p.p_number
