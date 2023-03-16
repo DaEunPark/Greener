@@ -92,7 +92,7 @@ public class AdminController {
 		String imgUploadPath = uploadPath + File.separator + "imgUpload";
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 		String fileName = null;
-
+		logger.info("postProductRegister() file.getOriginalFilename() => " + file.getOriginalFilename());
 		if(file.getOriginalFilename() != null && file.getOriginalFilename() != "") {
 		 fileName =  UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(), file.getBytes(), ymdPath); 
 		} else{

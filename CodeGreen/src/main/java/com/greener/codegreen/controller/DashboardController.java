@@ -150,13 +150,25 @@ public class DashboardController {
 	}
 
 	// 대시보드 - 김민준
-	@RequestMapping(value = "/dash/Dashboard22", method = RequestMethod.GET)
+	@RequestMapping(value = "/dash/Dashboard22", method = RequestMethod.POST)
 	@ResponseBody
 	public List<DashboardAgeDTO> Dashboard() throws Exception {
 
 		List<DashboardAgeDTO> dashboard = dashboardService.Dash();
 		logger.info("DashboardController Dashboard() dashboard => " + dashboard);
+		
 		return dashboard;
+	}
+	
+	@RequestMapping(value = "/dash/Dashboard_temp", method = RequestMethod.GET)
+	@ResponseBody
+	public String Dashboard_temp() throws Exception {
+
+		List<DashboardAgeDTO> dashboard = dashboardService.Dash();
+		logger.info("DashboardController Dashboard() dashboard => " + dashboard);
+		Gson gson = new Gson();
+		String json_temp = gson.toJson(dashboard);
+		return json_temp;
 	}
 
 	// 대시보드 - 이정하

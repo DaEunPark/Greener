@@ -165,7 +165,7 @@ public class BuyerControllerImpl implements BuyerController {
 		
 		mav.addObject("buyerList",buyerList);
 		mav.addObject("pageMaker",pageMaker);
-		
+		logger.info("buyerList() => " + buyerList);
 		return mav;
 
 	} // buyerList()

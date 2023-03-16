@@ -78,8 +78,9 @@
 		  <div class="col-sm-1">
 		    <button id="searchBtn" class="btn btn-danger w-100">검색</button>
 		  </div>
-
-			<div class="row justify-content-center" id="paging">
+		</div>
+		
+		<div class="row justify-content-center" id="paging">
 		  <div class="col-sm-8">
 		    <ul class="btn-group pagination d-flex justify-content-center">
 		      <c:if test="${pageMaker.prev}">
@@ -110,6 +111,7 @@
 			<input type="hidden" name="searchType" value="${ searchType}"/>
 			<input type="hidden" name="keyword" value="${keyword}"/>
 		</form>
+	
 	</div>
 <!-- 하단 메뉴 -->
 <jsp:include page="../common/footer.jsp" flush="false"/>
