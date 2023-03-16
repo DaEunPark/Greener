@@ -14,16 +14,16 @@
 <script type="text/javascript">
 
 	// Load the Visualization API
-	google.charts.load('visualization', '1', {'packages':['bar']});
+	google.charts.load('current', {'packages':['bar']});
 	google.charts.setOnLoadCallback(drawChart);
 	
 	function drawChart() {
 		var jsonData = $.ajax({
-			url: "/admin/dash/productavgdata",
+			url: "/admin/dash/productavg",
 			dataType: "json",
 			async: false
 		}).responseText;
-//		alert(Object.keys(jsonData).length);
+//		alert(jsonData);
 		var jdata = new google.visualization.DataTable(jsonData);
 /*		var dt = new google.visualization.DataTable({
 				    cols: [{id: 'task', label: 'Task', type: 'string'},
@@ -42,34 +42,19 @@
             ['2017', 1030]
           ]);
 */
-			var length = Object.keys(jsonData).length;
-			var height;
-			if (length > 700) {
-				document.getElementById("product_avg_chart").style.cssText = "width: 1200px; height: 1100px;";
-			} else {
-				document.getElementById("product_avg_chart").style.cssText = "width: 1200px; height: 600px;";
-			}
-			
-			
-			var options = {
-				chart : {
-					title : '상품별 구매 개수 평균',
-					subtitle : '',
-				},
-				bars : 'horizontal', // Required for Material Bar Charts.
-				animation : {
-					startup : true,
-					duration: 20,
-			        easing: 'out'
-			    }
-			};
-			
-			
-			var chart = new google.charts.Bar(document.getElementById('product_avg_chart'));
+          var options = {
+            chart: {
+              title: '상품별 구매 개수 평균',
+              subtitle: '',
+            },
+            bars: 'horizontal' // Required for Material Bar Charts.
+          };
 
-			chart.draw(jdata, google.charts.Bar.convertOptions(options));
+          var chart = new google.charts.Bar(document.getElementById('product_avg_chart'));
 
+          chart.draw(jdata, google.charts.Bar.convertOptions(options));		
 	}
+
 </script>
 
 <style type="text/css">
@@ -92,7 +77,7 @@
 <body>
 	<jsp:include page="../include/nav.jsp" flush="false"/>
 	<div class="container">
-		<div id="product_avg_chart"></div>
+		<div id="product_avg_chart" style="width: 1200px; height: 500px;"></div>
 	</div>
 	
 </body>

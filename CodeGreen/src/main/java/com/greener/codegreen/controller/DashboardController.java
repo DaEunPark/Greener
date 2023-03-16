@@ -63,7 +63,7 @@ public class DashboardController {
 	/*
 	 * 구매 상품 주문 수량 평균 - 박다은
 	 */	
-	@RequestMapping(value = "/dash/productavgdata", method = RequestMethod.GET)
+	@RequestMapping(value = "/dash/productavg", method = RequestMethod.GET)
 	@ResponseBody
 	public String productAvg() throws Exception {
 		List<ProductAvgCntDTO> dtoList = dashboardService.getProductAvgCntInfo(10);
