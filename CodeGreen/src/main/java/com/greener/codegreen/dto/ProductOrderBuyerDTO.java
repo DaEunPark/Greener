@@ -37,8 +37,17 @@ public class ProductOrderBuyerDTO {
 	String p_made;		// 원산지
 	String p_usedate;	// 유통/소비기한
 	String order_coupon_name;
+	String p_img;		// 상품 이미지
 	
 	
+	public String getP_img() {
+		return p_img;
+	}
+
+	public void setP_img(String p_img) {
+		this.p_img = p_img;
+	}
+
 	public String getOrder_coupon_name() {
 		return order_coupon_name;
 	}

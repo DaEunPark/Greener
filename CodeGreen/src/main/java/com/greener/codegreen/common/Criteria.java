@@ -5,7 +5,7 @@ public class Criteria {
 	private int perPageNum;	// 페이지당 보여줄 소비자 목록의 개수
 	private String pageNum;	// jsp에서 클릭된 페이지
 	
-	public Criteria() {
+	public void pageSet() {
 		this.page = 1;						// 시작시 페이지 번호를 1로 고정
 		this.perPageNum = 10;		// 페이지당 보여줄 소비자 목록의 개수를 설정한다.
 	} // end - public Criteria()

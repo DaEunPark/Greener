@@ -51,6 +51,10 @@
 	#o_count {
 		align:	center;
 	}
+	#img {
+		width:	100px;
+		height:	100px;
+	}
 </style>
 <body>
 
@@ -100,8 +104,8 @@
 	    <td>${orderDetail.o_address2} ${orderDetail.o_address3}</td><td></td><td></td>
 	  </tr>
 	  <tr>
-	    <th>상품명</th>
-	    <td id="borderRight">${orderDetail.p_name} </td><td id="o_count">수량 : ${orderDetail.o_count}개</td><td></td>
+	    <th>[p_num]상품명</th>
+	    <td id="borderRight"><img src="${orderDetail.p_img}" id="img">&nbsp;&nbsp;&nbsp; [${orderDetail.p_number}] ${orderDetail.p_name} </td><td id="o_count">수량 : ${orderDetail.o_count}개</td><td></td>
 	  </tr>
 	</table>
 	</div>

@@ -115,7 +115,7 @@
 	<!-- 소비자 전체 회원의 수(민준) -->
 	<select id = "totalCount" parameterType="com.greener.codegreen.dto.BuyerDTO" resultType="INT">
 		<![CDATA[
-			SELECT count(*)
+			SELECT count(1)
 			FROM   Buyer
 			WHERE  1=1
 		]]>
