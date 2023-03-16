@@ -15,7 +15,7 @@
 <jsp:include page="../include/nav.jsp"></jsp:include>
 	<div class="container">
 		<h2>상품등록</h2>
-		<form role = "form" method="post" autocomplete="off" enctype="myltipart/form-data">
+		<form role = "form" method="post" autocomplete="off" enctype="multipart/form-data">
 			<label>1차 분류</label>
 			<select class="category1">
 				<option value="">전체</option>

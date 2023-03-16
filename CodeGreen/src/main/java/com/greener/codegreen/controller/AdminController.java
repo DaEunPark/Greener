@@ -1,9 +1,17 @@
 package com.greener.codegreen.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
 import org.slf4j.Logger;
@@ -19,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.greener.codegreen.common.UploadFileUtils;
 import com.greener.codegreen.dto.CategoryDTO;
 import com.greener.codegreen.dto.ProductDTO;
 import com.greener.codegreen.dto.ProductViewDTO;
@@ -79,7 +88,7 @@ public class AdminController {
 	// 상품등록
 	@RequestMapping(value = "/product/register", method = RequestMethod.POST)
 	public String postProductRegister( ProductDTO dto, MultipartFile file) throws Exception{
-/*
+
 		String imgUploadPath = uploadPath + File.separator + "imgUpload";
 		String ymdPath = UploadFileUtils.calcPath(imgUploadPath);
 		String fileName = null;
@@ -93,24 +102,12 @@ public class AdminController {
 		dto.setP_img(File.separator + "imgUpload" + ymdPath + File.separator + fileName);
 		dto.setP_thumbImg(File.separator + "imgUpload" + ymdPath + File.separator + "s" + File.separator + "s_" + fileName);
 		
-		adminService.register(dto);
-		
-		
-		return "redirect:/";
-*/
-		System.out.println("=================");
-		
-		System.out.println("1 = " + dto.getP_name());
-		System.out.println("1 = " + dto.getP_price());
-		System.out.println("1 = " + dto.getP_content());
-		System.out.println("1 = " + dto.getP_img());
-		System.out.println("=================");
-							
+	
 		adminService.productRegister(dto);
 		
 		return "redirect:/admin/product/list";
 	}
-/*
+
 	// --------------------------------------------------------------------------
 	// ck 에디터에서 파일 업로드
 	// --------------------------------------------------------------------------
@@ -162,7 +159,7 @@ public class AdminController {
 
 			 return; 
 	 }
-*/
+
  
 	// 상품 목록
 	@RequestMapping(value = "/product/list", method = RequestMethod.GET)
@@ -201,7 +198,7 @@ public class AdminController {
 	// 상품 수정
 	@RequestMapping(value = "/product/modify", method = RequestMethod.POST)
 	public String postProductModify( ProductDTO dto, MultipartFile file) throws Exception{
-/*
+
 		logger.info("post product modify");
 		
 		String imgUploadPath = uploadPath + File.separator + "imgUpload";
@@ -219,13 +216,10 @@ public class AdminController {
 		
 		adminService.productModify(dto);
 		
-		return "redirect:/admin/product/list";
-*/
-		logger.info("post product modify");
-		
-		adminService.productModify(dto);
 		
 		return "redirect:/admin/product/list";
+
+		
 	}
 	
 	// 상품 삭제
