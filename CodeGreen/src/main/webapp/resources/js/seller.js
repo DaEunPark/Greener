@@ -10,7 +10,7 @@ $(document).ready(function(){
 	$("#searchBtn").click(function(){
 		var typeStr	=	$("#searchType").find(":selected").val();
 		var keywordStr	=	$("#searchKeyword").val();
-		alert(typeStr + ":" +keywordStr);
+//		alert(typeStr + ":" +keywordStr);
 		
 		// 서버로 전송하기 전에, name 속성에 값을 넣어준다.
 		formObj.find("[name='searchType']").val(typeStr);

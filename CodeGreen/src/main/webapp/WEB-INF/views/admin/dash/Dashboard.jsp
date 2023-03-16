@@ -34,7 +34,7 @@
 		    type: "GET",
 		    dataType: "json",
 		    success: function(data) {
-	        	alert(data);
+//	        	alert(data);
 		        var chartData = {
 		            labels: [], 
 		            datasets: [

@@ -32,12 +32,18 @@
 	<!--  구매할 상품 정보 목록 -->
 	<select id="paymentCartList" parameterType="com.greener.codegreen.dto.BuyerDTO" resultType="com.greener.codegreen.dto.PaymentCartDTO">
 		<![CDATA[
-			SELECT Product.p_number p_number, Product.p_name p_name, Product.p_price p_price, Product.p_img p_img, BCart.BCart_o_count o_count, (BCart.BCart_o_count * Product.p_price) o_total_price
-			FROM Product, (SELECT Cart.cart_p_number BCart_p_num, Cart.cart_o_count BCart_o_count
-			FROM Cart, Buyer
-			WHERE Cart.cart_b_id = #{b_id} AND Cart.cart_selected = 1) BCart
-			WHERE Product.p_number = BCart.BCart_p_num
-			GROUP BY Product.p_number
+			SELECT Prod.p_name p_name, Prod.p_price p_price, Prod.p_img p_img, BCart.BCart_o_count o_count, (BCart.BCart_o_count * Prod.p_price) o_total_price, Prod.c_name c_name, Prod.c_code c_code, Prod.p_number p_number
+			FROM (	SELECT Product.p_number p_number, Product.p_name p_name, Product.p_price p_price, Product.p_img p_img, BCategory.bc_name c_name, BCategory.c_code c_code
+					FROM (	SELECT C1.c_name bc_name, C2.c_name sc_name, C2.c_code c_code
+							FROM Category C1, Category C2
+							WHERE C1.c_code = C2.c_code_ref) BCategory
+					INNER JOIN Product
+					ON Product.product_c_code = BCategory.c_code) Prod, 
+				 (	SELECT Cart.cart_p_number BCart_p_num, Cart.cart_o_count BCart_o_count
+					FROM Cart,  Buyer
+					WHERE Cart.cart_b_id = #{b_id} AND Cart.cart_selected = 1) BCart
+			WHERE Prod.p_number = BCart.BCart_p_num
+			GROUP BY Prod.p_number		
 		]]>
 	</select>
 	

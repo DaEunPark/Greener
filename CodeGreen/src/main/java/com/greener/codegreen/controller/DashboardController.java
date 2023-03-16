@@ -150,7 +150,7 @@ public class DashboardController {
 	}
 
 	// 대시보드 - 김민준
-	@RequestMapping(value = "/dash/Dashboard22", method = RequestMethod.POST)
+	@RequestMapping(value = "/dash/Dashboard22", method = RequestMethod.GET)
 	@ResponseBody
 	public List<DashboardAgeDTO> Dashboard() throws Exception {
 

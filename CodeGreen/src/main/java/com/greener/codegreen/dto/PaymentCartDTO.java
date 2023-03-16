@@ -10,6 +10,8 @@ public class PaymentCartDTO {
 	private int o_count;
 	private int o_total_price;
 	private int p_number;
+	private int c_code;
+	private String c_name;
 
 	public PaymentCartDTO() {
 	}
@@ -81,11 +83,30 @@ public class PaymentCartDTO {
 		this.p_number = p_number;
 	}
 
+	public int getC_code() {
+		return c_code;
+	}
+
+	public void setC_code(int c_code) {
+		this.c_code = c_code;
+	}
+
+	public String getC_name() {
+		return c_name;
+	}
+
+	public void setC_name(String c_name) {
+		this.c_name = c_name;
+	}
+
 	@Override
 	public String toString() {
 		return "PaymentCartDTO [p_name=" + p_name + ", p_price=" + p_price + ", p_img=" + p_img + ", o_count=" + o_count
-				+ ", o_total_price=" + o_total_price + ", p_number=" + p_number + "]";
+				+ ", o_total_price=" + o_total_price + ", p_number=" + p_number + ", c_code=" + c_code + ", c_name="
+				+ c_name + "]";
 	}
+
+	
 
 
 	
