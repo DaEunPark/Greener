@@ -48,7 +48,8 @@
 				     resize_enaleb : false,
 				     enterMode : CKEDITOR.ENTER_BR,
 				     shiftEnterMode : CKEDITOR.ENTER_P,
-				     filebrowserUploadUrl : "/admin/product/ckUpload"
+				     filebrowserUploadUrl : "/admin/product/ckUpload",
+				     filebrowserUploadMethod: 'form'
 				   };
 				   
 				   CKEDITOR.replace("p_content", ckeditor_config);
@@ -187,6 +188,15 @@ if(select_c_code_ref != null && select_c_code_ref != "") {
 	$(".category2").append("<option value='"
 			+ select_c_code + "' selected='selected'>전체</option>");
 }
+$("#p_img").change(function(){
+	 if(this.files && this.files[0]) {
+	  var reader = new FileReader;
+	  reader.onload = function(data) {
+	   $(".select_img img").attr("src", data.target.result).width(500);        
+	  }
+	  reader.readAsDataURL(this.files[0]);
+	 }
+	});
 
 </script>
 <script>

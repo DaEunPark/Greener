@@ -55,7 +55,7 @@
 			     	<a class="list-group-item list-group-item-action list-group-item-dark" href="${contextPath}/admin/dash/Dashboard">가입자 연령대</a>
 			     	<a class="list-group-item list-group-item-action list-group-item-dark" href="${contextPath}/admin/dash/dashBoardCategory">1주일간 일별 카테고리 선호도</a>
 			     	<a class="list-group-item list-group-item-action list-group-item-dark" href="${contextPath}/admin/dash/productAvg">상품별 구매 수량 평균</a>
-			     	<a class="list-group-item list-group-item-action list-group-item-dark" href="${contextPath}/admin/dash/dashproductview">상품별 누적조회수 순위 현황</a> 
+			     	<%-- <a class="list-group-item list-group-item-action list-group-item-dark" href="${contextPath}/admin/dash/dashproductview">상품별 조회수 누적</a> --%>
 			     	<%-- <a class="list-group-item list-group-item-action list-group-item-dark" href="${contextPath}/admin/dash/SignUpChart">월간 일별 회원가입자 수</a> --%>
 			     </div>
 			    </div>
@@ -107,25 +107,26 @@
 	    <hr>
 	    <div class="dropdown">
 	      
-	      <c:choose>
-			<c:when test="${isLogOn == true && manager != null}">
-				<strong style="color: white;"><b>${manager.m_name}님, 즐거운 시간되십시오.</b></strong>
-				<a href="${contextPath}/manager/logout.do" class="btn btn-danger">
-					<span class="glyphicon glyphicon-log-out"></span> 로그아웃</a>
-			</c:when>
-			<c:otherwise>
-				<a href="${contextPath}/manager/manager_loginForm.do" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-	       			<img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-	        		<strong>Manager LogIn</strong>
-	      		</a>
-			</c:otherwise>
+	          <c:choose>
+		<c:when test="${isLogOn == true && manager != null}"> 
+			<a  href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown"  aria-expanded="false">
+			<img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+			<strong style="color: white;" >
+			${manager.m_name}
+			</strong>			
+			</a>
+	 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+	        		<li><hr class="dropdown-divider"></li>
+	        		<li><a class="dropdown-item" href="${contextPath}/manager/logout.do">로그아웃</a></li>
+	      		</ul>
+		</c:when>
+		<c:otherwise>
+			<a href="${contextPath}/manager/manager_loginForm.do" class="d-flex align-items-center text-white text-decoration-none"  aria-expanded="false">
+        		<i class="fa-solid fa-user"></i>
+        		<strong>로그인</strong>
+      		</a>
+		</c:otherwise>
 		</c:choose>
-	      <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-	        <li><a class="dropdown-item" href="#">Settings</a></li>
-	        <li><a class="dropdown-item" href="#">Profile</a></li>
-	        <li><hr class="dropdown-divider"></li>
-	        <li><a class="dropdown-item" href="#">Sign out</a></li>
-	      </ul>
 	    </div>
 	  </div>
 	</nav>

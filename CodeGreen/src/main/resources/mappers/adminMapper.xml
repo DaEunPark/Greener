@@ -77,7 +77,9 @@
 			        p_stock		= #{p_stock},
 			        p_made		= #{p_made},
 			        p_usedate	= #{p_usedate},
-			        product_c_code = #{product_c_code}
+			        product_c_code = #{product_c_code},
+			        p_img = #{p_img},
+			        p_thumbImg = #{p_thumbImg}
 			where	p_number	= #{p_number};
 	     ]]>
 	</update>

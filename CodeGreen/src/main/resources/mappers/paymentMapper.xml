@@ -43,7 +43,7 @@
 					FROM Cart,  Buyer
 					WHERE Cart.cart_b_id = #{b_id} AND Cart.cart_selected = 1) BCart
 			WHERE Prod.p_number = BCart.BCart_p_num
-			GROUP BY Prod.p_number		
+			GROUP BY Prod.p_number
 		]]>
 	</select>
 	
