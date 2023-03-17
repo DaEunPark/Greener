@@ -8,10 +8,10 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>소비자 상세 정보</title>
+	<title>판매자 상세 정보</title>
 <style>
 	  .cont{
-       margin-left: 280px;
+       margin-left: 80px;
    }
 </style>
 
@@ -49,7 +49,22 @@
 				<input type="text" class="form-control" id="s_email" name="s_email" maxlength="30" value="${sellerDetail.s_email}" readonly/>
 			</div>
 		</div>
-		
+			<c:if test="${seller.s_RRC != null}">
+				<div class="form-group">
+					<label for="subject" class="col-sm-2 control-label">주민등록 번호</label>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="s_RRC" name="s_RRC" maxlength="20" value="${sellerDetail.s_RRC}" readonly/>
+				</div>
+				</div>
+			</c:if>
+			<c:if test="${seller.s_BRN != null }">
+				<div class="form-group">
+					<label for="subject" class="col-sm-2 control-label">사업자 등록 번호</label>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="s_BRN" name="s_BRN" maxlength="20" value="${sellerDetail.s_BRN}" readonly/>
+				</div>
+				</div>
+			</c:if>
 		<div class="form-group">
 			<label for="subject" class="col-sm-2 control-label">주소</label>
 			<div class="col-sm-5" align="right">
