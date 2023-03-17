@@ -100,8 +100,7 @@
 	</form>
 	</div>
 </div>
-<!-- 하단 메뉴 -->
-<jsp:include page="../common/footer.jsp" flush="false"/>
+
 <script src="${contextPath}/resources/js/buyer.js"></script>
 <script>
 $(function(){

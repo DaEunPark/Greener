@@ -35,8 +35,9 @@
 			SELECT Prod.p_name p_name, Prod.p_price p_price, Prod.p_img p_img, BCart.BCart_o_count o_count, 
 				(BCart.BCart_o_count * Prod.p_price) o_total_price, Prod.c_name c_name, Prod.c_code c_code, 
 				Prod.p_number p_number, BCart.cart_number cart_number
-			FROM (	SELECT Product.p_number p_number, Product.p_name p_name, Product.p_price p_price, Product.p_img p_img, BCategory.bc_name c_name, BCategory.c_code c_code
-					FROM (	SELECT C1.c_name bc_name, C2.c_name sc_name, C2.c_code c_code
+			FROM (	SELECT Product.p_number p_number, Product.p_name p_name, Product.p_price p_price, Product.p_img p_img, 
+						   BCategory.bc_name c_name, BCategory.c_code c_code
+					FROM (	SELECT C1.c_name bc_name, C2.c_name sc_name, C2.c_Acode c_code
 							FROM Category C1, Category C2
 							WHERE C1.c_code = C2.c_code_ref) BCategory
 					INNER JOIN Product

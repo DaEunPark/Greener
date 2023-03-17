@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>소비자 목록 보기</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel ="stylesheet" href= "/resources/css/admin/nav.css"/>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
@@ -22,8 +23,7 @@
 </style>
 </head>
 <body>
-<!-- 상단 메뉴 -->
-<%-- <jsp:include page="../common/manager_topMenu.jsp" flush="false"/> --%>
+
 	<jsp:include page="../admin/include/nav.jsp" flush="false"/>
 		<div class="container">
 		<div>
@@ -100,8 +100,7 @@
 		</div>	
 	</div>
 	
-<!-- 하단 메뉴 -->
-<jsp:include page="../common/footer.jsp" flush="false"/>
+
 <script src="/resources/js/buyer.js"></script>
 </body>
 </html>

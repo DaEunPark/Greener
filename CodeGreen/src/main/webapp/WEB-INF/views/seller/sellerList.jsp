@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>판매자 목록 보기</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style>
    #paging a{
 			text-decoration: none;
@@ -19,8 +20,7 @@
 </style>
 </head>
 <body>
-<!-- 상단 메뉴 -->
-<%-- <jsp:include page="../common/manager_topMenu.jsp" flush="false"/> --%>
+
 	<jsp:include page="../admin/include/nav.jsp" flush="false"/>
 
 	<div class="container">
@@ -96,8 +96,7 @@
 		</form>
 	</div>
 </div>
-<!-- 하단 메뉴 -->
-<jsp:include page="../common/footer.jsp" flush="false"/>
+
 
 <script src="/resources/js/seller.js"></script>
 </body>

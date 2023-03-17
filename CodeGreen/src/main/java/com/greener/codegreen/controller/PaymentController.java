@@ -33,9 +33,9 @@ public class PaymentController {
 	private PaymentService paymentService;
 	
 	/*
-	 * 장바구니 담기
+	 * 장바구니 담기 / 바로 구매
 	 */
-	@PostMapping(value = {"/addtocart", "/paydirect"})
+	@PostMapping(value = {"/wheretopay"})
 	@CrossOrigin(origins="http://localhost:8080")
 	public @ResponseBody String addToCart(@RequestBody CartDTO cartDTO) throws Exception {
 		String res = "";
@@ -46,12 +46,12 @@ public class PaymentController {
 			} else {
 				logger.info("addToCart() RequestBody CartDTO => " + cartDTO);
 				paymentService.addTocart(cartDTO);
-				res = "/cart";
+				res = "toCart";
 			}
 		} else {
 			logger.info("addToCart() RequestBody CartDTO => " + cartDTO);
 			paymentService.addTocart(cartDTO);
-			res = "PaymentPage";
+			res = "toPayment";
 		}
 		return res;
 	}
@@ -72,11 +72,6 @@ public class PaymentController {
 		
 		return res;
 	}
-	
-	/*
-	 * 바로 구매
-	 */
-	
 	
 	@PostMapping(value = {"/paymentInfo", "/paybycart"})
 	@CrossOrigin(origins="http://localhost:8080")
