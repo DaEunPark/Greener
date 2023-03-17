@@ -116,7 +116,7 @@
 			</strong>			
 			</a>
 	 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-	        		<li><hr class="dropdown-divider"></li>
+	        		<!-- <li><hr class="dropdown-divider"></li> -->
 	        		<li><a class="dropdown-item" href="${contextPath}/manager/logout.do">로그아웃</a></li>
 	      		</ul>
 		</c:when>
