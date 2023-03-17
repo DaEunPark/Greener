@@ -21,16 +21,16 @@
 	</resultMap> -->
 	
 	<!-- 구매자 정보 -->
-	<select id="buyerInfo" parameterType="com.greener.codegreen.dto.BuyerDTO" resultType="com.greener.codegreen.dto.BuyerDTO">
+	<select id="buyerInfo" parameterType="com.greener.codegreen.dto.CartDTO" resultType="com.greener.codegreen.dto.BuyerDTO">
 		<![CDATA[
 			SELECT * 
 			FROM Buyer 
-			WHERE b_id = #{b_id}
+			WHERE b_id = #{cart_b_id}
 		]]>
 	</select>
 	
 	<!--  구매할 상품 정보 목록 -->
-	<select id="paymentCartList" parameterType="com.greener.codegreen.dto.BuyerDTO" resultType="com.greener.codegreen.dto.PaymentCartDTO">
+	<select id="paymentCartList" parameterType="com.greener.codegreen.dto.CartDTO" resultType="com.greener.codegreen.dto.PaymentCartDTO">
 		<![CDATA[
 			SELECT Prod.p_name p_name, Prod.p_price p_price, Prod.p_img p_img, BCart.BCart_o_count o_count, 
 				(BCart.BCart_o_count * Prod.p_price) o_total_price, Prod.c_name c_name, Prod.c_code c_code, 
@@ -43,7 +43,7 @@
 					ON Product.product_c_code = BCategory.c_code) Prod, 
 				 (	SELECT Cart.cart_p_number BCart_p_num, Cart.cart_o_count BCart_o_count, Cart.cart_number cart_number
 					FROM Cart,  Buyer
-					WHERE Cart.cart_b_id = #{b_id} AND Cart.cart_selected = 1) BCart
+					WHERE Cart.cart_b_id = #{cart_b_id} AND Cart.cart_selected = #{cart_selected}) BCart
 			WHERE Prod.p_number = BCart.BCart_p_num
 			GROUP BY BCart.cart_number
 		]]>
@@ -51,8 +51,8 @@
 	<!-- 장바구니 추가 -->
 	<insert id="addTocart" parameterType="com.greener.codegreen.dto.CartDTO">
 		<![CDATA[
-			INSERT INTO Cart (cart_p_number, cart_o_count, cart_b_id)
-			VALUES (#{cart_p_number}, #{cart_o_count}, #{cart_b_id})
+			INSERT INTO Cart (cart_p_number, cart_o_count, cart_b_id, cart_selected)
+			VALUES (#{cart_p_number}, #{cart_o_count}, #{cart_b_id}, #{cart_selected})
 		]]>
 	</insert>
 	
@@ -68,7 +68,7 @@
 	<delete id="deleteThisProduct" parameterType="com.greener.codegreen.dto.CartDTO">
 		<![CDATA[
 			delete from Cart
-			where cart_number = #{cart_number} and cart_selected = 1;
+			where cart_number = #{cart_number} and cart_selected = #{cart_selected};
 	     ]]>
 	</delete>	
 

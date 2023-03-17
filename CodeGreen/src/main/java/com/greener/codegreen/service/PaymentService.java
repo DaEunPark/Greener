@@ -13,12 +13,12 @@ public interface PaymentService {
 	/*
 	 * 구매자 정보 
 	 */
-	BuyerDTO getBuyerInfo(BuyerDTO buyerId) throws DataAccessException;
+	BuyerDTO getBuyerInfo(CartDTO buyerId) throws DataAccessException;
 
 	/*
 	 * 구매 예정 장바구니 정보
 	 */
-	List<PaymentCartDTO> getPaymentCartList(BuyerDTO buyerId) throws DataAccessException;
+	List<PaymentCartDTO> getPaymentCartList(CartDTO buyerId) throws DataAccessException;
 
 	/*
 	 * 장바구니에 추가

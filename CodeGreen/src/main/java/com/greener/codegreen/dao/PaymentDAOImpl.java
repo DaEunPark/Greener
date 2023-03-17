@@ -22,13 +22,13 @@ public class PaymentDAOImpl implements PaymentDAO {
 	private	static final String Namespace = "com.greener.codegreen.payment";
 	
 	@Override
-	public BuyerDTO getBuyerInfo(BuyerDTO buyerId) throws DataAccessException {
+	public BuyerDTO getBuyerInfo(CartDTO buyerId) throws DataAccessException {
 		BuyerDTO buyerDTO = sqlSession.selectOne(Namespace + ".buyerInfo", buyerId);
 		return buyerDTO;
 	}
 
 	@Override
-	public List<PaymentCartDTO> getPaymentCartList(BuyerDTO buyerId) throws DataAccessException {
+	public List<PaymentCartDTO> getPaymentCartList(CartDTO buyerId) throws DataAccessException {
 		List<PaymentCartDTO> list = sqlSession.selectList(Namespace + ".paymentCartList", buyerId);
 		return list;
 	}

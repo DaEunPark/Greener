@@ -22,13 +22,13 @@ public class PaymentServiceImpl implements PaymentService {
 	private PaymentDAO paymentDAO;
 	
 	@Override
-	public BuyerDTO getBuyerInfo(BuyerDTO buyerId) throws DataAccessException {
+	public BuyerDTO getBuyerInfo(CartDTO buyerId) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return paymentDAO.getBuyerInfo(buyerId);
 	}
 
 	@Override
-	public List<PaymentCartDTO> getPaymentCartList(BuyerDTO buyerId) throws DataAccessException {
+	public List<PaymentCartDTO> getPaymentCartList(CartDTO buyerId) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return paymentDAO.getPaymentCartList(buyerId);
 	}
