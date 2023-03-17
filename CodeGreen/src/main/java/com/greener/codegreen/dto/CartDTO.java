@@ -12,6 +12,8 @@ public class CartDTO {
 	
 	// Buyer
 	String cart_b_id;
+	
+	private int cart_selected;
 
 	public CartDTO() {
 	}
@@ -53,12 +55,19 @@ public class CartDTO {
 		this.cart_b_id = cart_b_id;
 	}
 
+	public int getCart_selected() {
+		return cart_selected;
+	}
+
+	public void setCart_selected(int cart_selected) {
+		this.cart_selected = cart_selected;
+	}
+
 	@Override
 	public String toString() {
 		return "CartDTO [cart_number=" + cart_number + ", cart_o_count=" + cart_o_count + ", cart_p_number="
-				+ cart_p_number + ", cart_b_id=" + cart_b_id + "]";
+				+ cart_p_number + ", cart_b_id=" + cart_b_id + ", cart_selected=" + cart_selected + "]";
 	}
-	
 	
 	
 }

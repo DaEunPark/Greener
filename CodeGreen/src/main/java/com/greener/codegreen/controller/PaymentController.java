@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.greener.codegreen.dto.BuyerDTO;
+import com.greener.codegreen.dto.CartDTO;
 import com.greener.codegreen.dto.PaymentCartDTO;
 import com.greener.codegreen.service.PaymentService;
 
@@ -31,8 +32,47 @@ public class PaymentController {
 	@Autowired
 	private PaymentService paymentService;
 	
+	/*
+	 * 장바구니 담기
+	 */
+	@PostMapping(value = "/addtocart")
+	@CrossOrigin(origins="http://localhost:8080")
+	public @ResponseBody String addToCart(@RequestBody CartDTO cartDTO) throws Exception {
+		int cartCount = paymentService.getCartCount();
+		String res = "";
+		if (cartCount >= 10) {
+			res = "NO";
+		} else {
+			logger.info("addToCart() RequestBody CartDTO => " + cartDTO);
+			paymentService.addTocart(cartDTO);
+			res = "/cart";
+		}
+		return res;
+	}
 	
-	@PostMapping(value="/paymentInfo")
+	/*
+	 * 장바구니에서 상품 삭제
+	 */
+	@PostMapping(value = "/deletethisproduct")
+	@CrossOrigin(origins="http://localhost:8080")
+	public @ResponseBody String deleteThisProduct(@RequestBody CartDTO cartDTO) throws Exception {
+		int delete = paymentService.deleteThisProduct(cartDTO);
+		String res = "";
+		if (delete > 0) {
+			res = "YES";
+		} else {
+			res = "NO";
+		}
+		
+		return res;
+	}
+	
+	/*
+	 * 바로 구매
+	 */
+	
+	
+	@PostMapping(value = {"/paymentInfo", "/paybycart"})
 	@CrossOrigin(origins="http://localhost:8080")
 	public @ResponseBody String paymentInfo(@RequestBody BuyerDTO buyerId) throws Exception {
 		// 현재 구매자 정보 반환

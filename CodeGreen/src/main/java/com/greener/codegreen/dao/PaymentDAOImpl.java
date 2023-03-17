@@ -10,6 +10,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
 
 import com.greener.codegreen.dto.BuyerDTO;
+import com.greener.codegreen.dto.CartDTO;
 import com.greener.codegreen.dto.PaymentCartDTO;
 
 @Repository("paymentDAO")
@@ -31,7 +32,23 @@ public class PaymentDAOImpl implements PaymentDAO {
 		List<PaymentCartDTO> list = sqlSession.selectList(Namespace + ".paymentCartList", buyerId);
 		return list;
 	}
-	
-	
+
+	@Override
+	public int addTocart(CartDTO cartDTO) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return sqlSession.insert(Namespace + ".addTocart", cartDTO);
+	}
+
+	@Override
+	public int getCartCount() throws DataAccessException {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(Namespace + ".getCartCount");
+	}
+
+	@Override
+	public int deleteThisProduct(CartDTO cartDTO) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return sqlSession.delete(Namespace + ".deleteThisProduct", cartDTO);
+	}
 
 }
