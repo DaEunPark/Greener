@@ -51,4 +51,12 @@ public class PaymentDAOImpl implements PaymentDAO {
 		return sqlSession.delete(Namespace + ".deleteThisProduct", cartDTO);
 	}
 
+	@Override
+	public int deleteBuyerProduct(CartDTO cartDTO) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return sqlSession.delete(Namespace + ".deleteBuyerProduct", cartDTO);
+	}
+	
+	
+
 }

@@ -35,4 +35,6 @@ public interface PaymentService {
 	 */
 	int deleteThisProduct(CartDTO cartDTO) throws DataAccessException;
 
+	int deleteBuyerProduct(CartDTO cartDTO) throws DataAccessException;
+
 }

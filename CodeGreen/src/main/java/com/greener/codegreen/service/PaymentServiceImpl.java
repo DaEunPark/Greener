@@ -50,6 +50,12 @@ public class PaymentServiceImpl implements PaymentService {
 		// TODO Auto-generated method stub
 		return paymentDAO.deleteThisProduct(cartDTO);
 	}
+
+	@Override
+	public int deleteBuyerProduct(CartDTO cartDTO) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return paymentDAO.deleteBuyerProduct(cartDTO);
+	}
 	
 	
 	

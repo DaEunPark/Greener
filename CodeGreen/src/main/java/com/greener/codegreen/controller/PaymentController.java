@@ -73,6 +73,20 @@ public class PaymentController {
 		return res;
 	}
 	
+	@PostMapping(value = "/deletebuyerproduct")
+	@CrossOrigin(origins="http://localhost:8080")
+	public @ResponseBody String deleteBuyerProduct(@RequestBody CartDTO cartDTO) throws Exception {
+		int delete = paymentService.deleteBuyerProduct(cartDTO);
+		String res = "";
+		if (delete > 0) {
+			res = "YES";
+		} else {
+			res = "NO";
+		}
+		
+		return res;
+	}
+	
 	@PostMapping(value = {"/paymentInfo", "/paybycart"})
 	@CrossOrigin(origins="http://localhost:8080")
 	public @ResponseBody String paymentInfo(@RequestBody CartDTO buyerId) throws Exception {
