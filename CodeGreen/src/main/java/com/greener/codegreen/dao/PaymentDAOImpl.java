@@ -40,9 +40,9 @@ public class PaymentDAOImpl implements PaymentDAO {
 	}
 
 	@Override
-	public int getCartCount() throws DataAccessException {
+	public int getCartCount(CartDTO cartDTO) throws DataAccessException {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne(Namespace + ".getCartCount");
+		return sqlSession.selectOne(Namespace + ".getCartCount", cartDTO);
 	}
 
 	@Override

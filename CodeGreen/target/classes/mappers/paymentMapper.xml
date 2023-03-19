@@ -58,10 +58,11 @@
 	</insert>
 	
 	<!--  장바구니 상품 개수 -->
-	<select id ="getCartCount" resultType="INT">
+	<select id ="getCartCount" parameterType="com.greener.codegreen.dto.CartDTO" resultType="INT">
 		<![CDATA[
 			select count(*)
 			from Cart
+			where cart_b_id = #{cart_b_id} and cart_selected = #{cart_selected}
 		]]>
 	</select>
 

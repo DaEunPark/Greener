@@ -40,9 +40,9 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public int getCartCount() throws DataAccessException {
+	public int getCartCount(CartDTO cartDTO) throws DataAccessException {
 		// TODO Auto-generated method stub
-		return paymentDAO.getCartCount();
+		return paymentDAO.getCartCount(cartDTO);
 	}
 
 	@Override

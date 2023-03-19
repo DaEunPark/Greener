@@ -28,7 +28,7 @@ public interface PaymentDAO {
 	/*
 	 * 장바구니 상품 개수
 	 */
-	int getCartCount() throws DataAccessException;
+	int getCartCount(CartDTO cartDTO) throws DataAccessException;
 
 	/*
 	 * 장바구니에서 상품 삭제

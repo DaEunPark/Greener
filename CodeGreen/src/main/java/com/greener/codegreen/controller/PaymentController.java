@@ -40,7 +40,7 @@ public class PaymentController {
 	public @ResponseBody String addToCart(@RequestBody CartDTO cartDTO) throws Exception {
 		String res = "";
 		if (cartDTO.getCart_selected() == 1) {
-			int cartCount = paymentService.getCartCount();
+			int cartCount = paymentService.getCartCount(cartDTO);
 			if (cartCount >= 10) {
 				res = "NO";
 			} else {
