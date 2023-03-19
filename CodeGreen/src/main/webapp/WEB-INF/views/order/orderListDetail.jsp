@@ -13,7 +13,6 @@
 <title>주문내역 상세조회</title>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <%-- <jsp:include page="../common/manager_topMenu.jsp" flush="false"/> --%>
 	<jsp:include page="../admin/include/nav.jsp" flush="false"/>
 
@@ -42,8 +41,7 @@
 		margin-left:	820px; 
 	}
 	#orderCancle {
-		position:	relative;
-		margin-left:	1000px; 
+		width : 100px;
 	}
 	#borderRight {
 		border:	dotted black 0.5px;
@@ -55,13 +53,21 @@
 		width:	100px;
 		height:	100px;
 	}
+	.listWrap {
+	width : 90%;
+	margin : 0 auto;
+	display : flex;
+	            justify-content: right;
+}
 </style>
 <body>
 
 <div class="container">
-	<h2><p id="title">주문내역 상세조회</p></h2>
+	<h2 class="adminTitle">주문내역 상세조회</h2>
+	<div class="listWrap">
 	<button type="button" class="btn btn-secondary btn-sm" id="orderCancle" name="orderCancle" onclick="fn_orderCancle()">주문취소</button>
 	<hr/>
+	</div>
 	<table id="table1">
 	  <tr>
 	    <th>주문번호</th>

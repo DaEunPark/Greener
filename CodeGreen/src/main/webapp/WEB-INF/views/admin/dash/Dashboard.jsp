@@ -18,11 +18,12 @@
 <body>
 	<jsp:include page="../include/nav.jsp" flush="false"/>
 	<div class="container">
-		<div style="width:60vw; height:40vh;" align="center">
+		<div class="adminTitle" >
 			<h1>가입자 연령대</h1>
-		
-		  <canvas id="myChart" ></canvas>
 		</div>	
+		<div class="chart" style="width:450px; height:auto; margin:0px auto;">
+			<canvas id="myChart"></canvas>
+		</div>
 	</div>
 
 	<script>

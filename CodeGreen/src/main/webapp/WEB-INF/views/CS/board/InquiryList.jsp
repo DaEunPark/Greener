@@ -18,25 +18,35 @@
    <link href="../../resources/css/admin/bootstrap.min.css" rel="stylesheet">
    <!-- 게시판관리 js 적용 -->
 	<script src="${contextPath}/resources/js/Eboard.js"></script>
+		<style>
+	.listWrap {
+	width : 90%;
+	margin : 0 auto;
+}
+	th, td{
+	text-align:center; vertical-align: middle;
+	}
+</style>
 </head>
 
 <body>
 <!-- 사이드바 -->
 <jsp:include page="../../admin/include/nav.jsp"></jsp:include>
 
-<div class="container"  style="margin-right:120px; width: 70%" >
 <!-- 상단 바  -->
 <jsp:include page="../../common/CStopMenu.jsp"></jsp:include>		
-	<form class="form-horizontal" id="frm">
+<div class="container" >
+	<form class="form-horizontal listWrap" id="frm">
 		<div class="form-group">
 			<div>
-				<h2 align="center">1:1 문의 관리</h2>
+				<h2 class="adminTitle">1:1 문의 관리</h2>
 			</div>
 		</div>
 		
 		<!-- 카테고리별 검색하기 --> 
-		<div align="right">
-		<select class="form-select right"  aria-label="Default select example" title="문의유형 선택" id="i_bc_code" name="i_bc_code" >
+		<div align="left" style="display:flex; width:100%; margin-bottom:20px; justify-content:space-between;">
+		<div style="display:flex; justify-content:row;">
+		<select class="form-select right"  style="width:200px; margin-right:10px;" aria-label="Default select example" title="문의유형 선택" id="i_bc_code" name="i_bc_code" >
 		  <option value="0" <c:if test="${i_bc_code == '0'}">selected</c:if>>전체</option>
 			  <option value="14" <c:if test="${i_bc_code == '14'}">selected</c:if>>회원/멤버십</option>
 			  <option value="15" <c:if test="${i_bc_code == '15'}">selected</c:if>>주문/결제</option>
@@ -46,10 +56,11 @@
 		</select>	
 		<button type="submit" class="btn btn-success">조회</button>
 		</div>
+		</div>
 		
 		<!-- 표  -->
-		<table class="table table-borderd table-hover">  
-			<thead>
+		<table class="table table-striped table-hover align-middle table-bordered" style="border-spacing:0;">
+	   	<thead class="table-dark" style="text-align:center; vertical-align: middle;">
 				<tr class="info"> 
 					<th class="col-sm-1 text-center">번호</th>
 					<th class="col-sm-1 text-center">카테고리</th> 

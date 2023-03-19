@@ -9,19 +9,36 @@
 <head>
 	<meta charset="UTF-8">
 	<title>구매자 상세 정보</title>
+	
+	<style>
+	  .cont{
+       margin-left: 80px;
+   }
+</style>
 
 
 </head>
+<style>
+.listWrap {
+	width : 90%;
+	margin : 0 auto;
+}
+.p_name{
+	width : 250px;
+}
+</style>
 <body>
 <!-- 상단 메뉴 -->
 <jsp:include page="../admin/include/nav.jsp" flush="false"/>
 
 <div class="cont">
 	<div class="container">
-	<form class="form-horizontal" id="frm">
+	<form class="form-horizontal listWrap" id="frm">
 		<div class="form-group">
 			<div>
-				<h2 align="center">소비자 상세 정보</h2>
+
+				<h2 align="center">구매자 상세 정보</h2>
+
 				<hr/>
 			</div>
 		</div>
@@ -78,6 +95,12 @@
 				<input type="text" class="form-control" id="b_phone" name="p_phone" maxlength="15" value='${buyerDetail.b_phone}' readonly/>
 			</div>
 		</div>
+				<div class="form-group">
+			<label for="subject" class="col-sm-2 control-label">누적 금액</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" id="b_amount" name="p_amount" maxlength="15" value='${buyerDetail.b_amount}' readonly/>
+			</div>
+		</div>
 		<div class="form-group">
 			<p align="center">
 				<button type="button" class="btn btn-primary" onclick="location.href='${contextPath}/buyer/buyerList'">
@@ -88,8 +111,7 @@
 	</form>
 	</div>
 </div>
-<!-- 하단 메뉴 -->
-<jsp:include page="../common/footer.jsp" flush="false"/>
+
 <script src="${contextPath}/resources/js/buyer.js"></script>
 <script>
 $(function(){

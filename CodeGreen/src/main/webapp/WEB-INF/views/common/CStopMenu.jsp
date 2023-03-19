@@ -12,10 +12,11 @@
    <!-- 부트스트랩 사이드바 css  -->
 <!--    <link href="../../resources/css/admin/bootstrap.min.css" rel="stylesheet"> -->
 	<script src="${contextPath}/resources/js/Eboard.js"></script>
+
 	
 	
 	
-		<div class="form-group-bar">
+		<div class="form-group-bar" style="position:absolute; width: 100%; item-align:right;">
 			<p align="right">
 				<button type="button" class="btn btn-outline-secondary" onclick="location.href='${contextPath}/CS/board/NoticeList?n_bc_code=0'">
 					<span>공지사항 관리</span>

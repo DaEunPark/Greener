@@ -19,38 +19,53 @@
    <link href="../../resources/css/admin/bootstrap.min.css" rel="stylesheet">
 	<script src="${contextPath}/resources/js/Eboard.js"></script>
 </head>
+		<style>
+	.listWrap {
+	width : 90%;
+	margin : 0 auto;
+}
+	th, td{
+	text-align:center; vertical-align: middle;
+	}
+		.detail_btn{
+	margin : 10px;
+	}
+		.form-group{
+	margin: 20px 0;
+	}
+</style>
 <body>
 <!-- 사이드바 -->
 <jsp:include page="../../admin/include/nav.jsp"></jsp:include>
 
-<div class="container"  style="margin-right:120px; width: 70%" >
 <!-- 상단 바  -->
 <jsp:include page="../../common/CStopMenu.jsp"></jsp:include>		
-	<form class="form-horizontal" name="FaqForm">
+<div class="container"  >
+	<form class="form-horizontal listWrap" name="FaqForm">
 		<input type="hidden" value="${FaqForm.f_no}" name="f_no" id="f_no">
 		<input type="hidden" value="${FaqForm.f_regdate}" name="f_regdate" id="f_regdate">
 		<input type="hidden" value="${FaqForm.f_readcount}" name="f_readcount" id="f_readcount">
 		<div class="form-group">
 			<div class="col-sm-12">
-				<h2 align="center">FAQ 작성</h2>
+				<h2 class="adminTitle">FAQ 작성</h2>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-2 control-label"><strong>제  목</strong></label>
-			<div class="col-sm-8">
+			<label class=" control-label"><strong>제  목</strong></label>
+			<div style="width:100%;">
 				<input type="text" class="form-control" id="f_title" name="f_title" maxlength="200" placeholder="제목 입력"/>
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-sm-2 control-label"><strong>관리자ID</strong></label>
-			<div class="col-sm-4">
+			<label class=" control-label"><strong>관리자ID</strong></label>
+			<div style="width:100%;">
 				<input type="text" class="form-control" id="f_m_id" name="f_m_id" maxlength="20" placeholder="관리자ID" />
 			</div>
 		</div>
 		
 		<div class="form-group">
-			<label class="col-sm-2 control-label"><strong>카테고리</strong></label>
-		<select class="form-select form-select-sm" aria-label="Default select example" title="카테고리 선택" id="f_bc_code" name="f_bc_code" >
+			<label class=" control-label"><strong>카테고리</strong></label>
+		<select class="form-select form-select-sm" style="width:100%;"aria-label="Default select example" title="카테고리 선택" id="f_bc_code" name="f_bc_code" >
 			  <option value="9">회원/멤버십</option>
 			  <option value="10">주문/결제</option>
 			  <option value="11">배송</option>
@@ -60,13 +75,13 @@
 	 </div>
 		
 		<div class="form-group">
-			<label class="col-sm-2 control-label"><strong>내  용</strong></label>
-			<div class="col-sm-8">
+			<label class=" control-label"><strong>내  용</strong></label>
+			<div style="width:100%;">
 				<textarea class="form-control" id="f_content" name="f_content" rows="10" cols="160"  placeholder="내용 입력"></textarea>
 			</div>
 		</div>
 		<div class="form-group">
-			<div class="col-sm-offset-4 left">
+			<div style="width:100%;">
 				<button type="reset"  class="btn btn-warning">다시 입력</button>
 				<button type="button" class="btn btn-primary" onclick="fn_FaqUpForm();">등록</button>	
 			</div>

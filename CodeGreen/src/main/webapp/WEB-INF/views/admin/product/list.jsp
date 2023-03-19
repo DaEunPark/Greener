@@ -10,7 +10,7 @@
 <style>
 .listWrap {
 	width : 90%;
-	margin : 0 20px;
+	margin : 0 auto;
 }
 .p_name{
 	width : 250px;
@@ -22,7 +22,7 @@
 <jsp:include page="../include/nav.jsp"></jsp:include>
 <div class="container">
 <div class="listWrap">
-	<h1 class="text-center">상품 관리 페이지</h1>
+	<h1 class="adminTitle">상품 관리 페이지</h1>
 	<table class="table table-striped table-hover align-middle table-bordered">
 	   	<thead class="table-dark">
 	    	<tr class="text-center">
@@ -38,14 +38,14 @@
 	    	</tr>
 	   	</thead>
    		<tbody class="table-group-divider"> 
-    		<c:forEach items="${list}" var="list">
-    		<tr>
+    		<c:forEach items="${list}" var="list" > 
+    		<tr >
 		     	<td>${list.p_number}</td>
 		     	<td class="p_name">
 		     		<a href="/admin/product/view?n=${list.p_number}">${list.p_name}</a>
 		     	</td>
 		     	<td>
-		     		<img src="${list.p_thumbImg}">
+		     		<img src="${list.p_img}" style="width:100px; height:100px;">
 		     	</td>
 		     	<td>${list.c_name}</td>
 		     	<td>${list.p_price}</td>

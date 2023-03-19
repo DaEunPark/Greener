@@ -12,6 +12,7 @@
 <meta charset="UTF-8">
 <title>관리자 주문관리</title>
 </head>
+
 <style>
 	#formname1 {
 		padding: 10px 0px;
@@ -28,15 +29,12 @@
 	#orderMenuButton {
 		border: 1px solid black;
 	}
-	.container {
-		width: 70%;
-	}
+
 	.title {
 		padding: 25px 0px 0px 420px;
 	}
 	#orderCheck {
-		position:	absolute;
-		left:	780px;
+		margin : 0 auto;
 	}
 		.txt:hover {
 		font-weight: bold;
@@ -56,17 +54,25 @@
 		background-color: transparent;
 	}
 	#table {
-		width:	1100px;
+		width:	100%;
 		font-size:	14px;
 	}
 	#contents {
 		height:	35px;
 	}
 	#paging {
-		position:	absolute;
-		left:	780px;
+		width:100%;
+		margin : 0 auto;
 	}
+	.listWrap {
+	width : 90%;
+	margin : 0 auto;
+}
+.inputArea{
+margin-left : 50px;
+}
 </style>
+
 <body>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -76,9 +82,10 @@
 	<jsp:include page="../admin/include/nav.jsp" flush="false"/>
 <div class="container">
 
-<h2><p class="title">주문내역 조회</p></h2>
+<h2 class="adminTitle">주문내역 조회</h2>
+	<form class="form-horizontal listWrap" method="GET" name="formname1" id="formname1">
 <hr/>
-	<form class="form-horizontal" method="GET" name="formname1" id="formname1">
+<div class="inputArea">
 		<div class="form-inline form-group">
 			<label for="orderNum" class="control-label" id="labelname1">주문번호</label>&nbsp;&nbsp;&nbsp;
 			<input type="text" id="orderNum" name="orderNum"/>
@@ -133,18 +140,18 @@
 				<label class="checkbox-inline">
 					<input type="checkbox" class="priceDes" id="priceDes" name="viewList" value="3"> 결제금액(내림차순)&nbsp;&nbsp;&nbsp;
 				</label>
+				</div>
 		</div>
+				<hr/>
+				
 	</form>
+				<button type="button" id="orderCheck" class="btn btn-success btn-sm" onclick="sendAjaxRequest()">조회</button>
+	<div id="resultDiv"></div>
 </div>
 
-<hr/>
 
-	<div class="container">
-				<center><button type="button" id="orderCheck" class="btn btn-success btn-sm" onclick="sendAjaxRequest()">조회</button></center>
-	</div>
-	<hr style="border: 1px; color:#FFFFFF;">
 
-	<div id="resultDiv"></div>
+
 
 <script>
 $(".checkbox-inline input[type='checkbox']").on("click", function(){

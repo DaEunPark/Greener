@@ -21,51 +21,50 @@
 <jsp:include page="./admin/include/nav.jsp"></jsp:include>
 <div class="container">
 	<div class="jumbotron">
-		<div class="container text-center">
+		<div class="text-center adminTitle">
 			<h1>관리자 페이지</h1>			
-		</div>
-		
+		</div>		
 	</div>
-	<div id="chart_div" class="container" width="300" height="250"></div>
-  <script type="text/javascript">
-   google.charts.load('current', {packages: ['corechart', 'bar']});
-   google.charts.setOnLoadCallback(drawBasic);
-
-   function drawBasic() {
-    var data = new google.visualization.DataTable();
-    data.addColumn('string', '요일');
-    data.addColumn('number', '방문자수(명)');
-
-    data.addRows([
-     ['일', 1],
-     ['월', 2],
-     ['화', 3],
-     ['수', 4],
-     ['일', 5],
-     ['금', 6],
-     ['토', 7],
-    ]);
-
-    var options = {
-     title: '이번주 일별 방문자 현황',
-     hAxis: {
-      title: '요일',
-      viewWindow: {
-       min: [7, 30, 0],
-       max: [17, 30, 0]
-      }
-     },
-     vAxis: {
-      title: '방문자수(명)'
-     }
-    };
-
-    var chart = new google.visualization.ColumnChart(
-    document.getElementById('chart_div'));
-
-    chart.draw(data, options);
-   }
-  </script>
+	<div id="chart_div" width="300" height="250"></div>
+		<script type="text/javascript">
+		   	google.charts.load('current', {packages: ['corechart', 'bar']});
+		   	google.charts.setOnLoadCallback(drawBasic);
+		
+			function drawBasic() {
+			    var data = new google.visualization.DataTable();
+			    data.addColumn('string', '요일');
+			    data.addColumn('number', '방문자수(명)');
+			
+			    data.addRows([
+			     ['일', 1],
+			     ['월', 2],
+			     ['화', 3],
+			     ['수', 4],
+			     ['일', 5],
+			     ['금', 6],
+			     ['토', 7],
+			    ]);
+			
+			    var options = {
+			     title: '이번주 일별 방문자 현황',
+			     hAxis: {
+			      title: '요일',
+			      viewWindow: {
+			       min: [7, 30, 0],
+			       max: [17, 30, 0]
+			      }
+			     },
+			     vAxis: {
+			      title: '방문자수(명)'
+			     }
+			    };
+			
+			    var chart = new google.visualization.ColumnChart(
+			    document.getElementById('chart_div'));
+			
+			    chart.draw(data, options);
+			   }
+		</script>
 </div>
 </body>
 </html>

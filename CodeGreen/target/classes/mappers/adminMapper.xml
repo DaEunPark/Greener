@@ -40,15 +40,18 @@
 	     	values (#{p_name} , #{p_price} , #{p_content} , #{p_stock} , 0 , #{p_made} , #{p_usedate}, #{p_img}, #{p_thumbImg}, #{product_c_code},#{product_s_id},#{product_m_id});
 	     ]]>	 -->
 		<![CDATA[
-	 		insert into Product (p_name, p_price, p_content, p_stock, p_view, p_made, p_usedate, p_img, p_thumbImg, product_c_code)
-	     	values (#{p_name}, #{p_price}, #{p_content}, #{p_stock}, '0', #{p_made}, #{p_usedate}, #{p_img}, #{p_thumbImg}, #{product_c_code});
+	 		insert into Product (p_name, p_price, p_content, p_stock, 
+	 							 p_view, p_made, p_usedate, p_img, p_thumbImg, product_c_code)
+	     	values (#{p_name}, #{p_price}, #{p_content}, #{p_stock}, '0', 
+	     			#{p_made}, #{p_usedate}, #{p_img}, #{p_thumbImg}, #{product_c_code});
 	     ]]>
 	</insert>
 	
 	<!-- 상품 목록 -->
 	<select id="productList" resultType="com.greener.codegreen.dto.ProductViewDTO">
 		<![CDATA[
-	 		select p.p_number, p.p_name, p.product_c_code, c.c_code_ref, c.c_name, p_price, p_content, p_stock, p_thumbImg, p_made, p_usedate
+	 		select p.p_number, p.p_name, p.product_c_code, c.c_code_ref, 
+	 			   c.c_name, p_price, p_content, p_stock, p_img, p_made, p_usedate
 	 		from Product p
 	 		inner join Category c
 	 		on p.product_c_code = c.c_code

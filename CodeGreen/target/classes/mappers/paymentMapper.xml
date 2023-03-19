@@ -21,21 +21,22 @@
 	</resultMap> -->
 	
 	<!-- 구매자 정보 -->
-	<select id="buyerInfo" parameterType="com.greener.codegreen.dto.BuyerDTO" resultType="com.greener.codegreen.dto.BuyerDTO">
+	<select id="buyerInfo" parameterType="com.greener.codegreen.dto.CartDTO" resultType="com.greener.codegreen.dto.BuyerDTO">
 		<![CDATA[
 			SELECT * 
 			FROM Buyer 
-			WHERE b_id = #{b_id}
+			WHERE b_id = #{cart_b_id}
 		]]>
 	</select>
 	
 	<!--  구매할 상품 정보 목록 -->
-	<select id="paymentCartList" parameterType="com.greener.codegreen.dto.BuyerDTO" resultType="com.greener.codegreen.dto.PaymentCartDTO">
+	<select id="paymentCartList" parameterType="com.greener.codegreen.dto.CartDTO" resultType="com.greener.codegreen.dto.PaymentCartDTO">
 		<![CDATA[
 			SELECT Prod.p_name p_name, Prod.p_price p_price, Prod.p_img p_img, BCart.BCart_o_count o_count, 
 				(BCart.BCart_o_count * Prod.p_price) o_total_price, Prod.c_name c_name, Prod.c_code c_code, 
 				Prod.p_number p_number, BCart.cart_number cart_number
-			FROM (	SELECT Product.p_number p_number, Product.p_name p_name, Product.p_price p_price, Product.p_img p_img, BCategory.bc_name c_name, BCategory.c_code c_code
+			FROM (	SELECT Product.p_number p_number, Product.p_name p_name, Product.p_price p_price, Product.p_img p_img, 
+						   BCategory.bc_name c_name, BCategory.c_code c_code
 					FROM (	SELECT C1.c_name bc_name, C2.c_name sc_name, C2.c_code c_code
 							FROM Category C1, Category C2
 							WHERE C1.c_code = C2.c_code_ref) BCategory
@@ -43,29 +44,43 @@
 					ON Product.product_c_code = BCategory.c_code) Prod, 
 				 (	SELECT Cart.cart_p_number BCart_p_num, Cart.cart_o_count BCart_o_count, Cart.cart_number cart_number
 					FROM Cart,  Buyer
-					WHERE Cart.cart_b_id = #{b_id} AND Cart.cart_selected = 1) BCart
+					WHERE Cart.cart_b_id = #{cart_b_id} AND Cart.cart_selected = #{cart_selected}) BCart
 			WHERE Prod.p_number = BCart.BCart_p_num
-			GROUP BY Prod.p_number
+			GROUP BY BCart.cart_number
 		]]>
 	</select>
+	<!-- 장바구니 추가 -->
+	<insert id="addTocart" parameterType="com.greener.codegreen.dto.CartDTO">
+		<![CDATA[
+			INSERT INTO Cart (cart_p_number, cart_o_count, cart_b_id, cart_selected)
+			VALUES (#{cart_p_number}, #{cart_o_count}, #{cart_b_id}, #{cart_selected})
+		]]>
+	</insert>
 	
-	<!--  아이디 중복 확인(민준) -->
-	<!-- <select id ="idCheck" parameterType="com.greener.codegreen.dto.BuyerDTO" resultType="INT">
+	<!--  장바구니 상품 개수 -->
+	<select id ="getCartCount" resultType="INT">
 		<![CDATA[
 			select count(*)
-			from Buyer
-			where b_id = #{b_id}
+			from Cart
 		]]>
-	</select> -->
-	
-	<!-- 회원 가입(민준) -->
-	<!-- <insert id="addBuyer" parameterType="com.greener.codegreen.dto.BuyerDTO">
+	</select>
+
+	<!-- 장바구니에서 상품 삭제 -->
+	<delete id="deleteThisProduct" parameterType="com.greener.codegreen.dto.CartDTO">
 		<![CDATA[
-			INSERT INTO Buyer 
-					(b_id, b_pwd, b_name,b_birth,b_email,b_address1,b_address2,b_address3,b_phone, b_grade,b_joindate,b_amount)
-			VALUES	(#{b_id},	  #{b_pwd}, #{b_name}, #{b_birth}, #{b_email}, #{b_address1},#{b_address2},#{b_address3}, #{b_phone}, '브론즈', sysdate(),0)
-		]]>
-	</insert> -->
+			delete from Cart
+			where cart_number = #{cart_number} and cart_selected = #{cart_selected};
+	     ]]>
+	</delete>
+	
+	<!-- 장바구니에서 상품 삭제 -->
+	<delete id="deleteBuyerProduct" parameterType="com.greener.codegreen.dto.CartDTO">
+		<![CDATA[
+			delete from Cart
+			where cart_b_id = #{cart_b_id} and cart_selected = #{cart_selected};
+	     ]]>
+	</delete>
+
 
 	<!-- 소비자 전체 회원의 수(민준) -->
 	<!-- <select id = "totalCount" parameterType="com.greener.codegreen.dto.BuyerDTO" resultType="INT">

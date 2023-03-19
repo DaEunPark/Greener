@@ -18,33 +18,48 @@
    <!-- 부트스트랩 사이드바 css  -->
    <link href="../../resources/css/admin/bootstrap.min.css" rel="stylesheet">
 	<script src="${contextPath}/resources/js/Eboard.js"></script>
+			<style>
+	.listWrap {
+	width : 90%;
+	margin : 0 auto;
+}
+	th, td{
+	text-align:center; vertical-align: middle;
+	}
+		.detail_btn{
+	margin : 10px;
+	}
+		.form-group{
+	margin: 20px 0;
+	}
+</style>
 </head>
 
 <body>
 <!-- 사이드바 -->
 <jsp:include page="../../admin/include/nav.jsp"></jsp:include>
 
-<div class="container"  style="margin-right:120px; width: 70%" >
 <!-- 상단 바  -->
 <jsp:include page="../../common/CStopMenu.jsp"></jsp:include>		
-	<form class="form-horizontal" name="NoticeForm">
+<div class="container" >
+	<form class="form-horizontal listWrap" name="NoticeForm">
 	<input type="hidden" value="${NoticeForm.n_no}" name="n_no" id="n_no">
 	<input type="hidden" value="${NoticeForm.n_regdate}" name="n_regdate" id="n_regdate">
 	<input type="hidden" value="${NoticeForm.n_readcount}" name="n_readcount" id="n_readcount">
 		<div class="form-group">
-			<div class="col-sm-12">
-				<h2 align="center">공지사항 작성</h2>
+			<div style="width:100%;">
+				<h2 class="adminTitle">공지사항 작성</h2>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label"><strong>제  목</strong></label>
-			<div class="col-sm-8">
+			<div style="width:100%;">
 				<input type="text" class="form-control" id="n_title" name="n_title" maxlength="200" placeholder="제목 입력"/>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 control-label"><strong>관리자ID</strong></label>
-			<div class="col-sm-4">
+			<div style="width:100%;">
 				<input type="text" class="form-control" id="n_m_id" name="n_m_id" maxlength="20" placeholder="관리자ID"/>
 			</div>
 		</div>
@@ -62,12 +77,12 @@
 		
 		<div class="form-group">
 			<label class="col-sm-2 control-label"><strong>내  용</strong></label>
-			<div class="col-sm-8">
+			<div style="width:100%;">
 				<textarea class="form-control" id="n_content" name="n_content" rows="10" cols="160"  placeholder="내용 입력"></textarea>
 			</div>
 		</div>
 		<div class="form-group">
-			<div class="col-sm-offset-4 left">
+			<div style="width:100%;">
 				<button type="reset"  class="btn btn-warning">다시 입력</button>
 				<button type="button" class="btn btn-primary" onclick="fn_NoticeUpForm()">등록</button>	
 			</div>

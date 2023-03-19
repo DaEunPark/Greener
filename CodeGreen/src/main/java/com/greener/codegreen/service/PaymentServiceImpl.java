@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.greener.codegreen.dao.PaymentDAO;
 import com.greener.codegreen.dto.BuyerDTO;
+import com.greener.codegreen.dto.CartDTO;
 import com.greener.codegreen.dto.PaymentCartDTO;
 
 @Service("paymentService")
@@ -21,15 +22,39 @@ public class PaymentServiceImpl implements PaymentService {
 	private PaymentDAO paymentDAO;
 	
 	@Override
-	public BuyerDTO getBuyerInfo(BuyerDTO buyerId) throws DataAccessException {
+	public BuyerDTO getBuyerInfo(CartDTO buyerId) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return paymentDAO.getBuyerInfo(buyerId);
 	}
 
 	@Override
-	public List<PaymentCartDTO> getPaymentCartList(BuyerDTO buyerId) throws DataAccessException {
+	public List<PaymentCartDTO> getPaymentCartList(CartDTO buyerId) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return paymentDAO.getPaymentCartList(buyerId);
+	}
+
+	@Override
+	public int addTocart(CartDTO cartDTO) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return paymentDAO.addTocart(cartDTO);
+	}
+
+	@Override
+	public int getCartCount() throws DataAccessException {
+		// TODO Auto-generated method stub
+		return paymentDAO.getCartCount();
+	}
+
+	@Override
+	public int deleteThisProduct(CartDTO cartDTO) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return paymentDAO.deleteThisProduct(cartDTO);
+	}
+
+	@Override
+	public int deleteBuyerProduct(CartDTO cartDTO) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return paymentDAO.deleteBuyerProduct(cartDTO);
 	}
 	
 	

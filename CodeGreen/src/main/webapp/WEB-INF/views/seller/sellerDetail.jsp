@@ -8,11 +8,21 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>소비자 상세 정보</title>
+	<title>판매자 상세 정보</title>
 <style>
+
+	.listWrap {
+	width : 90%;
+	margin : 0 auto;
+}
+	th, td{
+	text-align:center; vertical-align: middle;
+	}
+<!--
 	  .cont{
-       margin-left: 280px;
+       margin-left: 80px;
    }
+-->
 </style>
 
 
@@ -21,12 +31,12 @@
 <!-- 상단 메뉴 -->
 <jsp:include page="../admin/include/nav.jsp" flush="false"/>
 
-<div class="cont">
-	<div class="container">
+<div class="container">
+	<div class="listWrap">
 	<form class="form-horizontal" id="frm">
 		<div class="form-group">
 			<div>
-				<h2 align="center">판매자 상세 정보</h2>
+				<h2 class="adminTitle">판매자 상세 정보</h2>
 				<hr/>
 			</div>
 		</div>
@@ -49,7 +59,22 @@
 				<input type="text" class="form-control" id="s_email" name="s_email" maxlength="30" value="${sellerDetail.s_email}" readonly/>
 			</div>
 		</div>
-		
+			<c:if test="${seller.s_RRC != null}">
+				<div class="form-group">
+					<label for="subject" class="col-sm-2 control-label">주민등록 번호</label>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="s_RRC" name="s_RRC" maxlength="20" value="${sellerDetail.s_RRC}" readonly/>
+				</div>
+				</div>
+			</c:if>
+			<c:if test="${seller.s_BRN != null }">
+				<div class="form-group">
+					<label for="subject" class="col-sm-2 control-label">사업자 등록 번호</label>
+				<div class="col-sm-2">
+					<input type="text" class="form-control" id="s_BRN" name="s_BRN" maxlength="20" value="${sellerDetail.s_BRN}" readonly/>
+				</div>
+				</div>
+			</c:if>
 		<div class="form-group">
 			<label for="subject" class="col-sm-2 control-label">주소</label>
 			<div class="col-sm-5" align="right">
@@ -80,8 +105,7 @@
 	</form>
 	</div>
 </div>
-<!-- 하단 메뉴 -->
-<jsp:include page="../common/footer.jsp" flush="false"/>
-	<script src="${contextPath}/resources/js/seller.js"></script>
+
+<script src="${contextPath}/resources/js/seller.js"></script>
 </body>
 </html>
