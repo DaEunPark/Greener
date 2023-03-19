@@ -41,7 +41,7 @@
 	  <div class="d-flex flex-column flex-shrink-0 p-3 sidebar">
 	    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
 	        <i class="fa-solid fa-leaf fs-2"></i>
-	      <span class="fs-2 adminTitle">&nbsp;Code Green</span>
+	      	<span class="mainTitle">&nbsp;Code Green</span>
 	    </a>
 	    <hr>
 	    <ul class="nav flex-column mb-auto">

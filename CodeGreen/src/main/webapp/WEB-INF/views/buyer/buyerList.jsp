@@ -10,9 +10,14 @@
 <title>소비자 목록 보기</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel ="stylesheet" href= "/resources/css/admin/nav.css"/>
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<!--
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+-->
 <style>
+
 	#paging a{
 			text-decoration: none;
 			margin: 10px;
@@ -20,13 +25,41 @@
 			font-size: medium;
 			font-weight: bold;
 	}
+	.listWrap {
+	width : 90%;
+	margin : 0 auto;
+}
+	th, td{
+	text-align:center; vertical-align: middle;
+	}
 </style>
 </head>
 <body>
 
 	<jsp:include page="../admin/include/nav.jsp" flush="false"/>
 		<div class="container">
+		<div class="listWrap">
 		<div>
+
+			<h2 class="adminTitle">구매자 목록</h2>
+		</div>
+		<table class="table table-striped table-hover align-middle table-bordered" style="border-spacing:0;">
+	   	<thead class="table-dark" style="text-align:center; vertical-align: middle;">
+	    	<tr>
+					<th style="width:fit-content;">아이디</th>
+					<th style="width:fit-content;">이름</th>
+					<th style="width:fit-content;">생년월일</th>
+					<th style="width:fit-content;">이메일</th>
+					<th style="width:200px;">주소</th>
+					<th style="width:fit-content;">등급</th>
+					<th style="width:fit-content;">가입일자</th>
+					<th style="width:fit-content;">핸드폰번호</th>
+					<th style="width:fit-content;">누적 금액</th>
+					</tr>
+			</thead>
+			<tbody style="text-align:center; vertical-align: middle;">
+				<c:forEach var="buyer" items="${buyerList }">
+<! -- =======
 			<h2 align="center">구매자 목록</h2>
 		</div>
 		<table class="table table-bordered table-hover" style="width:1100px;">
@@ -40,6 +73,7 @@
 			</thead>
 			<tbody>
 				<c:forEach var="buyer" items="${buyerList}">
+ develop -->
 					<tr>
 						<td align="right" ><a href="${contextPath}/buyer/buyerDetail?b_id=${buyer.b_id}&flag=0">${buyer.b_id}</a></td>	
 						<td align="right">${buyer.b_name }</td>					
@@ -92,13 +126,15 @@
 		    </ul>
 		  </div>
 		</div>
+				</div>
 		
 		<form id="formList" action="/buyer/buyerList" method="get">
 			<input type="hidden" name="searchType" value="${ searchType}"/>
 			<input type="hidden" name="keyword" value="${keyword}"/>
 		</form>
 		</div>	
-	</div>
+		</div>
+
 	
 
 <script src="/resources/js/buyer.js"></script>

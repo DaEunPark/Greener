@@ -17,6 +17,13 @@
 			font-size: medium;
 			font-weight: bold;
 	}
+	.listWrap {
+	width : 90%;
+	margin : 0 auto;
+}
+	th, td{
+	text-align:center; vertical-align: middle;
+	}
 </style>
 </head>
 <body>
@@ -25,15 +32,27 @@
 
 	<div class="container">
 		<div>
-			<h2>판매자 목록</h2>
+			<h2 class="adminTitle">판매자 목록</h2>
 		</div>
-		<table class="table table-bordered table-hover">
-			<thead>
+		<div class="listWrap">
+		<table class="table table-striped table-hover align-middle table-bordered" style="border-spacing:0;">
+	   	<thead class="table-dark" style="text-align:center; vertical-align: middle;">
 				<tr class="warning">
+
+					<th style="width:fit-content;">아이디</th>
+					<th style="width:150px;">비밀번호</th>
+					<th style="width:fit-content;">이름</th>
+					<th style="width:fit-content;">주민번호/사업자 번호</th>
+					<th class="col-sm-2	text-center">이메일</th>
+					<th style="width:150px;">주민번호</th>
+					<th style="width:fit-content;">가입일자</th>
+					<th style="width:fit-content;">핸드폰번호</th>
+<!--
 					<th class="col-sm-1	text-center">아이디</th>
 					<th class="col-sm-1	text-center">이름</th>
 					<th class="col-sm-2	text-center">이메일</th>
 					<th class="col-sm-2	text-center">가입일자</th>
+develop -->
 					</tr>
 			</thead>
 			<tbody>
@@ -46,6 +65,7 @@
 					</tr>
 				</c:forEach>
 			</tbody>
+			</div>
 		</table>
 		
 		<div class="row justify-content-center">

@@ -17,6 +17,21 @@
    <!-- 부트스트랩 사이드바 css  -->
    <link href="../../resources/css/admin/bootstrap.min.css" rel="stylesheet">
 	<script src="${contextPath}/resources/js/Eboard.js"></script>
+			<style>
+	.listWrap {
+	width : 90%;
+	margin : 0 auto;
+}
+	th, td{
+	text-align:center; vertical-align: middle;
+	}
+		.detail_btn{
+	margin : 10px;
+	}
+		.form-group{
+	margin: 20px 0;
+	}
+</style>
 </head>
 <body>
 <!-- 사이드바 -->

@@ -48,9 +48,4 @@
 		where s_id = #{s_id}
 	</select>	
 	
-</mapper>   
-
-
-
-
-
+</mapper>  

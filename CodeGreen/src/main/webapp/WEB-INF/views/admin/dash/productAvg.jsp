@@ -34,14 +34,14 @@
 			var length = Object.keys(jsonData).length;
 			var height;
 			if (length > 700) {
-				document.getElementById("product_avg_chart").style.cssText = "width: 1200px; height: 1100px;";
+				document.getElementById("product_avg_chart").style.cssText = "width : 90%; height: 1100px; margin: 0 auto;";
 			} else {
-				document.getElementById("product_avg_chart").style.cssText = "width: 1200px; height: 600px;";
+				document.getElementById("product_avg_chart").style.cssText = "width: 90%; height: 600px; margin: 0 auto;";
 			}
 		
 			var options = {
 				chart : {
-					title : '상품별 구매 개수 평균',
+					title : '',
 					subtitle : '',
 				},
 				bars : 'horizontal', // Required for Material Bar Charts.
@@ -77,7 +77,8 @@
 <body>
 	<jsp:include page="../include/nav.jsp" flush="false"/>
 	<div class="container">
-		<div id="product_avg_chart"></div>
+		<div class="adminTitle">상품별 구매 개수 평균</div>
+		<div id="product_avg_chart" ></div>
 	</div>
 	
 </body>

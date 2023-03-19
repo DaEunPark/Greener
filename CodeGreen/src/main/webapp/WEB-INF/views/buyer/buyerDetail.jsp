@@ -18,16 +18,27 @@
 
 
 </head>
+<style>
+.listWrap {
+	width : 90%;
+	margin : 0 auto;
+}
+.p_name{
+	width : 250px;
+}
+</style>
 <body>
 <!-- 상단 메뉴 -->
 <jsp:include page="../admin/include/nav.jsp" flush="false"/>
 
 <div class="cont">
 	<div class="container">
-	<form class="form-horizontal" id="frm">
+	<form class="form-horizontal listWrap" id="frm">
 		<div class="form-group">
 			<div>
+
 				<h2 align="center">구매자 상세 정보</h2>
+
 				<hr/>
 			</div>
 		</div>

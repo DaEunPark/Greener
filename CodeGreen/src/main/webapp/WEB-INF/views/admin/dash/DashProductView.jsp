@@ -21,21 +21,20 @@
 	<!-- chart.js 그래프적용 -->
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	
-	
 </head>
 <body>
 <!-- 사이드바 -->
 <jsp:include page="../../admin/include/nav.jsp"></jsp:include>
 <!-- 관리자화면 구성용 -->
-<div class="container"  style="margin-right:120px; width: 70%; margin-top: 5%;" >
+<div class="container">
 
-<div align="center">
-<h2><b>상품별 누적조회수 순위 현황</b></h2>
+<div class="adminTitle">
+<h2>상품별 누적조회수 순위 현황</h2>
 </div>
 
 <!-- chart.js 그래프적용 -->
-<div class="myCanvas">
-    <canvas id="line-chart" width="100%" height="40%"></canvas>
+<div class="myCanvas" style="width:90%;">
+    <canvas id="line-chart"></canvas>
 </div>
 <script>
 $(function() {

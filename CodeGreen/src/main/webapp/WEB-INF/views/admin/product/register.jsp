@@ -9,13 +9,19 @@
 	<link href="../../resources/css/admin/product.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="../../resources/ckeditor/ckeditor.js"></script>
+<style type="text/css">
+		.listWrap {
+	width : 90%;
+	margin : 0 auto;
+}
+</style>
 </head>
 <body>
 <!-- 사이드 바 -->
 <jsp:include page="../include/nav.jsp"></jsp:include>
 	<div class="container">
-		<h2>상품등록</h2>
-		<form role = "form" method="post" autocomplete="off" enctype="multipart/form-data">
+		<h2 class="adminTitle">상품등록</h2>
+		<form role = "form" class="listWrap" method="post" autocomplete="off" enctype="multipart/form-data">
 			<label>1차 분류</label>
 			<select class="category1">
 				<option value="">전체</option>
@@ -71,9 +77,7 @@
  			<input type="file" id="p_img" name="file" />
 			 <div class="select_img"><img src="" /></div>
 			 </div>
-			
-			<%=request.getRealPath("/") %>			
-			
+		
 			<div class="inputArea">
 			 	<button type="submit" id="register_Btn" class="btn btn-primary">등록</button>
 			</div>

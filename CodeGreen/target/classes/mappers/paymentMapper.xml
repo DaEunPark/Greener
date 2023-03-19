@@ -26,11 +26,13 @@
 			SELECT * 
 			FROM Buyer 
 			WHERE b_id = #{cart_b_id}
+
 		]]>
 	</select>
 	
 	<!--  구매할 상품 정보 목록 -->
 	<select id="paymentCartList" parameterType="com.greener.codegreen.dto.CartDTO" resultType="com.greener.codegreen.dto.PaymentCartDTO">
+
 		<![CDATA[
 			SELECT Prod.p_name p_name, Prod.p_price p_price, Prod.p_img p_img, BCart.BCart_o_count o_count, 
 				(BCart.BCart_o_count * Prod.p_price) o_total_price, Prod.c_name c_name, Prod.c_code c_code, 
