@@ -23,24 +23,13 @@
 			dataType: "json",
 			async: false
 		}).responseText;
-//		alert(Object.keys(jsonData).length);
 		var jdata = new google.visualization.DataTable(jsonData);
 /*		var dt = new google.visualization.DataTable({
 				    cols: [{id: 'task', label: 'Task', type: 'string'},
 				           {id: 'hours', label: 'Hours per Day', type: 'number'}],
 				    rows: [{c:[{v: 'Work'}, {v: 11}]},
 				           {c:[{v: 'Eat'}, {v: 2}]},
-				           {c:[{v: 'Commute'}, {v: 2}]},
-				           {c:[{v: 'Watch TV'}, {v:2}]},
-				           {c:[{v: 'Sleep'}, {v:7, f:'7.000'}]}]
 				    }, 0.6);
-        var data = google.visualization.arrayToDataTable([
-            ['Year', 'Sales'],
-            ['2014', 1000],
-            ['2015', 1170,],
-            ['2016', 660],
-            ['2017', 1030]
-          ]);
 */
 			var length = Object.keys(jsonData).length;
 			var height;
@@ -49,8 +38,7 @@
 			} else {
 				document.getElementById("product_avg_chart").style.cssText = "width: 90%; height: 600px; margin: 0 auto;";
 			}
-			
-			
+		
 			var options = {
 				chart : {
 					title : '',
@@ -62,11 +50,8 @@
 					duration: 20,
 			        easing: 'out'
 			    }
-			};
-			
-			
+			};			
 			var chart = new google.charts.Bar(document.getElementById('product_avg_chart'));
-
 			chart.draw(jdata, google.charts.Bar.convertOptions(options));
 
 	}
