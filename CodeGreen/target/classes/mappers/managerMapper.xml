@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.greener.codegreen.manager">
+	
+	<!-- 로그인 처리 -->
+	<select id="ManagerLogin" parameterType="com.greener.codegreen.dto.ManagerDTO" resultType="com.greener.codegreen.dto.ManagerDTO">
+		<![CDATA[
+			SELECT	m_id,m_pwd,m_name,m_email,m_phone,m_address1,m_address2,m_address3
+			FROM Manager
+			WHERE	m_id = #{m_id}
+		]]>
+	</select>
+	
+</mapper>   
+
+
+
+
+
