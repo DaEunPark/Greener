@@ -8,65 +8,92 @@
 <title>상품 상세</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<link href="../../resources/css/admin/product.css" rel="stylesheet">
+	<style type="text/css">
+		#table1 {
+		font-size:	15px;
+		width: 100%;
+		margin : 0;
+		border-collapse: collapse;
+	}
+	table tr th {
+		padding:	10px 10px;
+		border-bottom:	dotted black 0.5px;
+		border-right:	dotted black 0.5px;
+	}
+	table tr td {
+		padding:	0px 30px;
+		border-bottom:	dotted black 0.5px;
+	}
+		.listWrap {
+	width : 90%;
+	margin : 0 auto;
+}
+.inputArea_btn{
+display:flex;
+justify-content:right;
+}
+.btn{
+margin:10px 5px 10px 0;
+}
+	</style>
+
 </head>
 <body>
 <!-- 사이드 바 -->
 <jsp:include page="../include/nav.jsp"></jsp:include>
 	<div class="container">
-		<h2>상품 상세</h2>
-		<form role = "form" method="post" autocomplete="off">
+		<h2 class="adminTitle">상품 상세</h2>
+		<form role = "form" method="post" autocomplete="off" class="listWrap">
 		<input type = "hidden" name="n" value="${product.p_number}"/>
-			<label>1차 분류</label>
-			<span class="category1"></span>    
-			<label>2차 분류</label>
-			<span class="category2">${product.c_name}</span>    
+		<table id = "table1">  
+		<tr>
+			<th>상품 분류</th>
+			<td class="category2">${product.c_name}</td>   
+			</tr> 
 			
-			<div class="inputArea">
-			 <label for="productNumber">상품번호</label>
-			 <span>${product.p_number}</span>
-			</div>
+			<tr class="inputArea">
+			 <th>상품번호</th>
+			 <td>${product.p_number}</td>
+			</tr>
 			
-			<div class="inputArea">
-			 <label for="productName">상품명</label>
-			 <span>${product.p_name}</span>
-			</div>
+			<tr class="inputArea">
+			 <th>상품명</th>
+			 <td>${product.p_name}</td>
+			</tr>
 			
-			<div class="inputArea">
-			 <label for="productPrice">상품가격</label>
-			 <span><fmt:formatNumber value="${product.p_price}" pattern="###,###,###"/></span>
-			</div>
+			<tr class="inputArea">
+			 <th>상품가격</th>
+			 <td><fmt:formatNumber value="${product.p_price}" pattern="###,###,###"/></td>
+			</tr>
 			
-			<div class="inputArea">
-			 <label for="productContent">상품소개</label>
-			 <span>${product.p_content}</span>
-			</div>
+			<tr class="inputArea">
+			 <th>상품소개</th>
+			 <td>${product.p_content}</td>
+			</tr>
 			
-			<div class="inputArea">
-			 <label for="purdocutImg">상품 이미지</label>
-			 <p>원본 이미지</p>
-			 <img src = "${product.p_img}" class="oriImg"/>
-
-			 <p>썸네일</p>
-			 <img src = "${product.p_thumbImg}" class="thumbImg"/>
-			</div>
+			<tr class="inputArea">
+			 <th>상품 이미지</th>
+			 <td><img src = "${product.p_img}" class="oriImg"/></td>
+			</tr>
 			
-			<div class="inputArea">
-			 <label for="productStock">상품수량</label>
-			 <span>${product.p_stock}</span>
-			</div>
+			<tr class="inputArea">
+			 <th>상품수량</th>
+			 <td>${product.p_stock}</td>
+			</tr>
 			
-			<div class="inputArea">
-			 <label for="productMade">원산지</label>
-			 <span>${product.p_made}</span>
-			</div>
+			<tr class="inputArea">
+			 <th>원산지</th>
+			 <td>${product.p_made}</td>
+			</tr>
 			
-			<div class="inputArea">
-			 <label for="productUsedate">유통/소비기한</label>
-			 <span>${product.p_usedate}</span>
-			</div>
+			<tr class="inputArea">
+			 <th>유통/소비기한</th>
+			 <td>${product.p_usedate}</td>
+			</tr>
 			
 			
-			<div class="inputArea">
+			</table>
+			<div class="inputArea_btn listWrap">
 				<button type="button" id="modify_Btn" class="btn btn-warning">수정</button>
 				<button type="button" id="delete_Btn" class="btn btn-danger">삭제</button>
 

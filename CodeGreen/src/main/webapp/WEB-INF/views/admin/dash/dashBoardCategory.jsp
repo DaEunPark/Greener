@@ -14,6 +14,7 @@
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
 </head>
+<!--  
 <style>
 .highcharts-figure,
 .highcharts-data-table table {
@@ -64,20 +65,23 @@
 	margin-top: 20px;
 }
 </style>
+-->
 <body>
 	<jsp:include page="../include/nav.jsp" flush="false"/>
-<figure class="highcharts-figure">
-    <div id="container">
+    <div class="container">
+    <div class="adminTitle">지난주 일별 카테고리 판매량</div>
+	<figure class="highcharts-figure">
+		<div id="myChart" style="width:80%; margin:0 auto;"></div>
+	    <p id="explain" style="width : 80%; margin:0 auto;">1 : 월요일, 2 : 화요일, 3 : 수요일, 4 : 목요일, 5 : 금요일, 6 : 토요일, 7 : 일요일</p>
+	</figure>
     </div>
-    <p id="explain">1 : 월요일, 2 : 화요일, 3 : 수요일, 4 : 목요일, 5 : 금요일, 6 : 토요일, 7 : 일요일</p>
 
-</figure>
 
 <script>
-Highcharts.chart('container', {
+Highcharts.chart('myChart', {
 
     title: {
-        text: '<지난주 일별 카테고리 판매량>',
+        text: '',
         align: 'center'
     },
 

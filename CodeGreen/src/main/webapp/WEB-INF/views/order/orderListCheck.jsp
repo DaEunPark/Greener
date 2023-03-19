@@ -14,7 +14,7 @@
 <title>Insert title here</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<link href="../../resources/css/admin/nav.css" rel="stylesheet"/>
 <style>
 	.txt:hover {
 		font-weight: bold;
@@ -33,38 +33,38 @@
 	#contents {
 		background-color: transparent;
 	}
-	#table {
-		width:	1100px;
-		font-size:	14px;
+	.listWrap {
+	width : 90%;
+	margin : 0 auto;
 	}
 	#contents {
 		height:	35px;
-	}
-	#paging {
-		position:	absolute;
-		left:	780px;
 	}
 	#orderStateButton {
 		border:	none;
 		text-size:	14px;
 		font-weight:	bold;
 	}
-	#paging {
-		align:	center;
-	}
 	#orderCheck {
-		align: cennter;
+		align: center;
 	}
 	.orderList {
 		padding:	100px;
 	}
+	#paging{
+	width: 100%;
+	margin : 0 auto;
+	display: flex;
+            justify-content: center;
+	}
 </style>
+
 </head>
 <body>
 	<hr style="border: 1px; color:#FFFFFF;">
 	<hr style="border: 1px; color:#FFFFFF;">
 	<hr style="border: 1px; color:#FFFFFF;">
-<div class="container" id="container">
+<div id="container" class="container listWrap">
 	<table class="table table-bordered table-hover" id="table">
 		<thead>
 				<tr class="orderList">
@@ -109,7 +109,7 @@
 	  <br>
 </div>
 	<div id="paging">
-		<ul class="btn-group pagination">
+		<ul class="btn-group pagination" >
 			<c:if test="${pageMaker.prev}">
 				<li>
 					<a href='<c:url value="/order/map-data?page=${pageMaker.startPage-1}"/>'><span class="glyphicon glyphicon-chevron-left"></span></a>

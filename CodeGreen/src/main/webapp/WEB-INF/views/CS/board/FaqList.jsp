@@ -18,29 +18,34 @@
    <link href="../../resources/css/admin/bootstrap.min.css" rel="stylesheet">
    <!-- 게시판관리 js 적용 -->
 	<script src="${contextPath}/resources/js/Eboard.js"></script>
-	
+	<style>
+	.listWrap {
+	width : 90%;
+	margin : 0 auto;
+}
+	th, td{
+	text-align:center; vertical-align: middle;
+	}
+</style>
 </head>
 <body>
 <!-- 사이드바 -->
 <jsp:include page="../../admin/include/nav.jsp"></jsp:include>
 
-<div class="container"  style="margin-right:120px; width: 70%" >
 <!-- 상단 바  -->
 <jsp:include page="../../common/CStopMenu.jsp"></jsp:include>		
-	<form class="form-horizontal" id="frm">
+<div class="container" >
+	<form class="form-horizontal listWrap" id="frm">
 		<div class="form-group">
 			<div>
-				<h2 align="center">FAQ 관리</h2>
+				<h2 class="adminTitle">FAQ 관리</h2>
 			</div>
 		</div>
-		<!-- 게시글 쓰기/등록 버튼 -->
-		<p align="center">
-			<button type="button" class="btn btn-success" onclick="location.href='/CS/board/FaqForm'">FAQ 작성</button>
-		</p>
-		
+
 		<!-- 카테고리별 검색하기 --> 
-		<div align="right">
-		<select class="form-select right"  aria-label="Default select example" title="카테고리 선택" id="f_bc_code" name="f_bc_code" >
+		<div align="left" style="display:flex; width:100%; margin-bottom:20px; justify-content:space-between;">
+		<div style="display:flex; justify-content:row;">
+		<select class="form-select right"  style="width:200px; margin-right:10px;" aria-label="Default select example" title="카테고리 선택" id="f_bc_code" name="f_bc_code" >
 		  <option value="0" <c:if test="${f_bc_code == '0'}">selected</c:if>>전체</option>
 			  <option value="9" <c:if test="${f_bc_code == '9'}">selected</c:if>>회원/멤버십</option>
 			  <option value="10" <c:if test="${f_bc_code == '10'}">selected</c:if>>주문/결제</option>
@@ -50,10 +55,14 @@
 		</select>	
 		<button type="submit" class="btn btn-success">조회</button>
 		</div>
+				<!-- 게시글 쓰기/등록 버튼 -->
+			<button type="button" class="btn btn-success" onclick="location.href='/CS/board/FaqForm'">FAQ 작성</button>
+		
+		</div>
 		
 		<!-- 표  -->
-		<table class="table table-borderd table-hover"> 
-			<thead>
+		<table class="table table-striped table-hover align-middle table-bordered" style="border-spacing:0;">
+	   	<thead class="table-dark" style="text-align:center; vertical-align: middle;">
 				<tr class="info"> 
 					<th class="col-sm-1 text-center">번호</th>
 					<th class="col-sm-1 text-center">카테고리</th> 

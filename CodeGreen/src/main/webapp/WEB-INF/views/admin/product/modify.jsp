@@ -9,13 +9,19 @@
 	<link href="../../resources/css/admin/product.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="/resources/ckeditor/ckeditor.js"></script>
+<style type="text/css">
+		.listWrap {
+	width : 90%;
+	margin : 0 auto;
+}
+</style>
 </head>
 <body>
 <!-- 사이드 바 -->
 <jsp:include page="../include/nav.jsp"></jsp:include>
 	<div class="container">
-		<h2>상품 정보 수정</h2>
-		<form role = "form" method="post" autocomplete="off"  enctype="multipart/form-data">
+		<h2 class="adminTitle">상품 정보 수정</h2>
+		<form role = "form" method="post" autocomplete="off"  enctype="multipart/form-data" class="listWrap">
 		
 		<input type = "hidden" name="p_number" value="${product.p_number}"/>
 		

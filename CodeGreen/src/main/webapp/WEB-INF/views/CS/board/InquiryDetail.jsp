@@ -17,31 +17,46 @@
    <!-- 부트스트랩 사이드바 css  -->
    <link href="../../resources/css/admin/bootstrap.min.css" rel="stylesheet">
 	<script src="${contextPath}/resources/js/Eboard.js"></script>
+		<style>
+	.listWrap {
+	width : 90%;
+	margin : 0 auto;
+}
+	th, td{
+	text-align:center; vertical-align: middle;
+	}
+		.detail_btn{
+	margin : 10px;
+	}
+		.form-group{
+	margin: 20px 0;
+	}
+</style>
 	
 </head>
 <body>
 <!-- 사이드바 -->
 <jsp:include page="../../admin/include/nav.jsp"></jsp:include>
 
-<div class="container"  style="margin-right:120px; width: 70%" >
 <!-- 상단 바  -->
 <jsp:include page="../../common/CStopMenu.jsp"></jsp:include>		
-	<form class="form-horizontal" id="frm">
+<div class="container">
+	<form class="form-horizontal listWrap" id="frm">
 		<div class="form-group">
 			<div>
-				<h2 align="center">1:1 문의 상세</h2>
+				<h2 class="adminTitle">1:1 문의 상세</h2>
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="title" class="col-sm-2 control-label"><strong>제  목</strong></label>
-			<div class="col-sm-10">
+			<div style="width:100%;">
 				<input type="hidden" id="i_no" name="i_no" value='${InquiryDetail.i_no}'></input>
 				<input type="text" class="form-control" id="i_title" name="i_title" maxlength="200" value="${InquiryDetail.i_title}" readonly/>
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="type" class="col-sm-2 control-label"><strong>카테고리</strong></label>
-			<div class="col-sm-10">
+			<div style="width:100%;">
 			 <c:choose>
 			 	<c:when test="${InquiryDetail.i_bc_code eq 14}">
 				<input type="text" class="form-control" id="i_bc_code" name="i_bc_code" maxlength="200" value="회원/멤버십" readonly/>
@@ -75,21 +90,21 @@
 		</div>
 		<div class="form-group">
 			<label for="content" class="col-sm-2 control-label"><strong>문의내용</strong></label>
-			<div class="col-sm-10">
+			<div style="width:100%;">
 				<textarea rows="10" cols="160" class="form-control" id="i_content" name="i_content" readonly>${InquiryDetail.i_content}</textarea>
 			</div>
 		</div>
 		
 		
-		<div class="form-group">
+		<div class="form-group"  style="margin:20px;">
 			<p align="center">
-				<button type="button" class="btn btn-primary" onclick="location.href='${contextPath}/CS/board/InquiryList?i_bc_code=0'">
+				<button type="button" class="btn btn-primary detail_btn" onclick="location.href='${contextPath}/CS/board/InquiryList?i_bc_code=0'">
 					<span class="glyphicon glyphicon-list-alt"> 게시글 목록</span>
 				</button>
-				<button type="button" class="btn btn-warning" onclick="fn_InquiryUpdateForm(${InquiryDetail.i_no})">
+				<button type="button" class="btn btn-warning detail_btn" onclick="fn_InquiryUpdateForm(${InquiryDetail.i_no})">
 					<span class="glyphicon glyphicon-pencil"> 답변등록 및 확인</span>
 				</button>
-				<button type="button" class="btn btn-danger" onclick="fn_InquiryDelete(${InquiryDetail.i_no})">
+				<button type="button" class="btn btn-danger detail_btn" onclick="fn_InquiryDelete(${InquiryDetail.i_no})">
 					<span class="glyphicon glyphicon-erase"> 게시글 삭제</span>
 				</button>
 			</p>

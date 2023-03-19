@@ -73,9 +73,7 @@ public class AdminController {
 		logger.info("get index");
 	}
 
-	/*
-	 * �긽�뭹 �벑濡�
-	 */
+	// 상품등록
 	@RequestMapping(value = "/product/register", method = RequestMethod.GET)
 	public void getProductRegister(Model model) throws Exception {
 		logger.info("get product register");
@@ -187,7 +185,8 @@ public class AdminController {
 		
 		logger.info("get product modify");
 		
-		ProductViewDTO product = adminService.productView(p_number);  // productViewDTO 형태 변수 product에 상품 정보 저장
+		// productViewDTO 형태 변수 product에 상품 정보 저장
+		ProductViewDTO product = adminService.productView(p_number);  
 		model.addAttribute("product", product);
 		
 		List<CategoryDTO> category = null;

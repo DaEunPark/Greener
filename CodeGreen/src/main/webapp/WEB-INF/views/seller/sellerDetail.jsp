@@ -10,9 +10,13 @@
 	<meta charset="UTF-8">
 	<title>소비자 상세 정보</title>
 <style>
-	  .cont{
-       margin-left: 280px;
-   }
+	.listWrap {
+	width : 90%;
+	margin : 0 auto;
+}
+	th, td{
+	text-align:center; vertical-align: middle;
+	}
 </style>
 
 
@@ -21,12 +25,12 @@
 <!-- 상단 메뉴 -->
 <jsp:include page="../admin/include/nav.jsp" flush="false"/>
 
-<div class="cont">
-	<div class="container">
+<div class="container">
+	<div class="listWrap">
 	<form class="form-horizontal" id="frm">
 		<div class="form-group">
 			<div>
-				<h2 align="center">판매자 상세 정보</h2>
+				<h2 class="adminTitle">판매자 상세 정보</h2>
 				<hr/>
 			</div>
 		</div>
