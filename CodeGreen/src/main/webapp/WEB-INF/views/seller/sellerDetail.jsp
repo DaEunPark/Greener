@@ -16,13 +16,13 @@
 	margin : 0 auto;
 }
 	th, td{
-	text-align:center; vertical-align: middle;
+		text-align:center; vertical-align: middle;
 	}
-<!--
-	  .cont{
+
+	.cont{
        margin-left: 80px;
-   }
--->
+   	}
+
 </style>
 
 

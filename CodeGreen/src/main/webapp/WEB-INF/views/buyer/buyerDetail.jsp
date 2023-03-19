@@ -11,33 +11,35 @@
 	<title>구매자 상세 정보</title>
 	
 	<style>
-	  .cont{
-       margin-left: 80px;
-   }
+		.cont {
+	       	margin-left: 80px;
+		}
+	   .listWrap {
+			width : 90%;
+			margin : 0 auto;
+		}
+		.p_name{
+			width : 250px;
+		}
+		th, td{
+		text-align:center; vertical-align: middle;
+	}
 </style>
 
 
 </head>
-<style>
-.listWrap {
-	width : 90%;
-	margin : 0 auto;
-}
-.p_name{
-	width : 250px;
-}
-</style>
 <body>
 <!-- 상단 메뉴 -->
 <jsp:include page="../admin/include/nav.jsp" flush="false"/>
 
-<div class="cont">
-	<div class="container">
-	<form class="form-horizontal listWrap" id="frm">
+
+<div class="container">
+	<div class="listWrap">
+	<form class="form-horizontal" id="frm">
 		<div class="form-group">
 			<div>
 
-				<h2 align="center">구매자 상세 정보</h2>
+				<h2 class="adminTitle">구매자 상세 정보</h2>
 
 				<hr/>
 			</div>
@@ -104,12 +106,12 @@
 		<div class="form-group">
 			<p align="center">
 				<button type="button" class="btn btn-primary" onclick="location.href='${contextPath}/buyer/buyerList'">
-					<span class="glyphicon glyphicon-list-alt"> 소비자 목록</span>
+					<span class="glyphicon glyphicon-list-alt"> 구매자 목록</span>
 				</button>
 			</p>
 		</div>
 	</form>
-	</div>
+</div>
 </div>
 
 <script src="${contextPath}/resources/js/buyer.js"></script>

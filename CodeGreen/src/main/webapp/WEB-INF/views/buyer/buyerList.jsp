@@ -62,8 +62,13 @@
 					<tr>
 						<td align="right" ><a href="${contextPath}/buyer/buyerDetail?b_id=${buyer.b_id}&flag=0">${buyer.b_id}</a></td>	
 						<td align="right">${buyer.b_name }</td>					
+						<td align="right">${buyer.b_birth}</td>
 						<td align="right">${buyer.b_email}</td>
+						<td align="right">${buyer.b_address2}&nbsp;${buyer.b_address3}</td>
 						<td align="right">${buyer.b_grade}</td>
+						<td align="right"><fmt:formatDate value="${buyer.b_joindate}" pattern="yyyy.MM.dd  hh:mm"/></td>
+						<td align="right">${buyer.b_phone}</td>
+						<td align="right"><fmt:formatNumber value="${buyer.b_amount }" pattern="#,###"/></td>
 					</tr>
 				</c:forEach>
 			</tbody>
