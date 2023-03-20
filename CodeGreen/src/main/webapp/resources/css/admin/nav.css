@@ -16,7 +16,6 @@ main {
   overflow-y: hidden;
 }
 nav {
-	position: fixed;
 	height: 100%;	
   	width: 280px;
 }
