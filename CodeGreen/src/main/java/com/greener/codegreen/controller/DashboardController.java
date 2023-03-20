@@ -156,19 +156,17 @@ public class DashboardController {
 	}
 
 	// 대시보드 - 이정하
-	@GetMapping("/dash/SignUpChart")
-	public ModelAndView getchart() throws Exception {
-		ModelAndView mav = new ModelAndView();
+//	@GetMapping("/dash/SignUpChart")
+//	public ModelAndView getchart() throws Exception {
+//	ModelAndView mav = new ModelAndView() ;
+	
+//	Map<String, Object> map = new HashMap<String, Object>();
+		
+		//List<Map<String, Object>> result = dashboardService.getChart(map);
 
-		Map<String, Object> map = new HashMap<String, Object>();
-		//Map<String, Object> map = buyerService.getChart();
-		List<Map<String, Object>> result = dashboardService.getChart(map);
+//		return mav;
+//}
 
-		mav.addObject("result", result);
-		// mav.addObject("getChart", map);
-		mav.setViewName("/admin/dash/SignUpChart");
-		return mav;
-	}
 
 	/* -----------------------------
 	 * *********** 유현지 **********

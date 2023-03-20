@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.greener.codegreen.common.SearchCriteria;
 import com.greener.codegreen.dto.BuyerDTO;
 import com.greener.codegreen.dto.DashboardAgeDTO;
+import com.greener.codegreen.dto.PaymentCartDTO;
 
 //-----------------------------------------------------------------------------------------------------------
 //회원 정보 서비스
@@ -30,6 +31,19 @@ public class BuyerDAOImpl implements BuyerDAO {
 	private	static final String Namespace = "com.greener.codegreen.buyer";
 	
 	
+	
+	
+	@Override
+	public BuyerDTO getmypage(BuyerDTO mypage) throws DataAccessException {
+		BuyerDTO buyerDTO = sqlSession.selectOne(Namespace + ".mypage", mypage);
+		return buyerDTO;
+	}
+
+	@Override
+	public List<BuyerDTO> getmypagelist(BuyerDTO mypage) throws DataAccessException {
+		List<BuyerDTO> list = sqlSession.selectList(Namespace + ".mypage", mypage);
+		return list;
+	}
 	//-----------------------------------------------------------------------------------------------------------
     // 월별 가입자수 차트 (정하)
 	//-----------------------------------------------------------------------------------------------------------

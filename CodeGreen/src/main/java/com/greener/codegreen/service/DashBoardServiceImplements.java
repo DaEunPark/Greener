@@ -39,10 +39,12 @@ public class DashBoardServiceImplements implements DashboardService {
 	}
 
 	// 대시보드 - 정하
-	@Override
-	public List<Map<String, Object>> getChart(Map<String, Object> map) throws DataAccessException {
-		// TODO Auto-generated method stub
-		return dashboarddao.getChart(map);
+	 
+	public DashboardAgeDTO jan22() throws DataAccessException { 	
+		return dashboarddao.jan22();
+	}
+	public DashboardAgeDTO feb22() throws DataAccessException { 	
+		return dashboarddao.feb22();
 	}
 
 	/* -----------------------------

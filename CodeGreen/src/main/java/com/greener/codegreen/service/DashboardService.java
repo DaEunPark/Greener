@@ -25,8 +25,9 @@ public interface DashboardService {
 	//-----------------------------------------------------------------------------------------------------------
 	// 월별 가입자수 차트 (정하)
 	//-----------------------------------------------------------------------------------------------------------
-	List<Map<String, Object>> getChart(Map<String, Object> map) throws DataAccessException;
-	
+	//List<Map<String, Object>> getChart(Map<String, Object> map) throws DataAccessException;
+	public DashboardAgeDTO jan22() throws DataAccessException ;
+	public DashboardAgeDTO feb22() throws DataAccessException ;
 	/* -----------------------------
 	 * *********** 유현지 **********
 	 * -----------------------------

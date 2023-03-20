@@ -39,11 +39,20 @@ public class DashboardDAOImplements implements DashboardDAO {
 	}
 
 	// 대시보드 - 이정하
-	@Override
-	public List<Map<String, Object>> getChart(Map<String, Object> map) throws DataAccessException {
+	
+	//public List<Map<String, Object>> getChart(Map<String, Object> map) throws DataAccessException {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(Namespace + ".getChart", map);
-	}
+		//return sqlSession.selectList(Namespace + ".getChart", map);
+	@Override
+	public DashboardAgeDTO jan22() throws DataAccessException { 	
+//	public DashboardAgeDTO jan22() throws DataAccessException {
+		return sqlSession.selectOne(Namespace+ ".getChart");
+}
+	@Override
+	public DashboardAgeDTO feb22() throws DataAccessException { 	
+//	public DashboardAgeDTO jan22() throws DataAccessException {
+		return sqlSession.selectOne(Namespace+ ".getChart");
+}
 	/* -----------------------------
 	 * *********** 유현지 **********
 	 * -----------------------------

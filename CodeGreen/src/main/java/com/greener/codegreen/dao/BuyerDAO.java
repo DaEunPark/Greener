@@ -19,7 +19,8 @@ import com.greener.codegreen.dto.DashboardAgeDTO;
 //-----------------------------------------------------------------------------------------------------------
 public interface BuyerDAO {
 
-	
+	public BuyerDTO getmypage(BuyerDTO mypage) throws DataAccessException ;
+	public List<BuyerDTO> getmypagelist(BuyerDTO mypage) throws DataAccessException ;
 	//-----------------------------------------------------------------------------------------------------------
     // 월별 가입자수 차트 (정하)
 	//-----------------------------------------------------------------------------------------------------------

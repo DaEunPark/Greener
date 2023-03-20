@@ -35,7 +35,7 @@
 	
 	
     <!-- 월별 가입자수 차트 (정하)-->	
-	<select id="getChart" resultType="HashMap" parameterType="java.util.HashMap">
+	<select id="getChart"  resultType="com.greener.codegreen.dto.DashboardAgeDTO">
 	<![CDATA[
       select  
 			sum(case str_month when 01 then sum end) jan22,
@@ -55,7 +55,7 @@
 						substr(b_joindate, 6,2) as str_month,
 						substr(b_joindate, 1,4) as str_year
 				FROM Buyer
-				where 
+				where
 			    substr(b_joindate, 1,4) =2022
 				group by substr(b_joindate,6,2)
 				) 

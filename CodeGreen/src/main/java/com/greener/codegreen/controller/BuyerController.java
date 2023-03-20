@@ -25,9 +25,9 @@ public interface BuyerController {
 	//-----------------------------------------------------------------------------------------------------------
     // 월별 가입자수 차트 (정하)
 	//-----------------------------------------------------------------------------------------------------------
-	public ModelAndView getchart(HttpServletRequest request, HttpServletResponse response) throws Exception ;
-	
-	
+	//public ModelAndView getchart(HttpServletRequest request, HttpServletResponse response) throws Exception ;
+	public Map<String, Object>  getchart();
+	public String SignUpchart();
 	
 	//-----------------------------------------------------------------------------------------------------------
     // 로그인(vue.js에서 입력값 DB로 전송, 결과 조회)(시훈)

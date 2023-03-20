@@ -1,7 +1,6 @@
 package com.greener.codegreen.service;
 
-import java.sql.SQLException;
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -10,12 +9,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 import com.greener.codegreen.common.SearchCriteria;
 import com.greener.codegreen.dao.BuyerDAO;
 import com.greener.codegreen.dto.BuyerDTO;
-import com.greener.codegreen.dto.DashboardAgeDTO;
+
 
 //-----------------------------------------------------------------------------------------------------------
 //회원 정보 서비스
@@ -26,6 +25,21 @@ public class BuyerServiceImpl implements BuyerService {
 	@Autowired
 	private BuyerDAO buyerDAO;
 
+	
+	
+	
+	@Override
+	public BuyerDTO getmypage(BuyerDTO mypage) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return buyerDAO.getmypage(mypage);
+	}
+
+	@Override
+	public List<BuyerDTO> getmypagelist(BuyerDTO mypage) throws DataAccessException {
+		// TODO Auto-generated method stub
+		return buyerDAO.getmypagelist(mypage);
+	}
+	
 	//-----------------------------------------------------------------------------------------------------------
     // 월별 가입자수 차트 (정하)
 	//-----------------------------------------------------------------------------------------------------------

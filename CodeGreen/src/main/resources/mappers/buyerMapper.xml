@@ -23,9 +23,18 @@
 
 	
 
+
+	<!-- 구매자 정보 -->
+	<select id="mypage" parameterType="com.greener.codegreen.dto.BuyerDTO" resultType="com.greener.codegreen.dto.BuyerDTO" >
+		<![CDATA[
+			SELECT b_id, b_name, b_grade
+			FROM Buyer 
+			WHERE b_id = #{b_id}
+		]]>
+	</select>
     <!-- 월별 가입자수 차트 (정하)-->
 	
-	<select id="getChart" parameterType="java.util.Map" resultType="java.util.Map">
+	<select id="getChart" parameterType="com.greener.codegreen.dto.BuyerDTO" resultType="java.util.Map">
 	<![CDATA[
       select  
 			sum( case str_month when 01 then sum end) as jan22,
@@ -50,7 +59,7 @@
 				group by substr(b_joindate,6,2)
 				) 
 				buyer 
-				order by str_month;
+				
 				]]>
    </select>
 

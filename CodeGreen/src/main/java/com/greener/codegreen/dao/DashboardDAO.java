@@ -21,8 +21,10 @@ public interface DashboardDAO {
 	public List<DashboardAgeDTO>Dash() throws Exception;
 
 	// 대시보드 - 이정하
-	List<Map<String, Object>> getChart(Map<String, Object> map) throws DataAccessException;
-
+	//List<Map<String, Object>> getChart(Map<String, Object> map) throws DataAccessException;
+//	public DashboardAgeDTO<String, Object> jan22() throws DataAccessException;
+	public DashboardAgeDTO jan22() throws DataAccessException ;
+	public DashboardAgeDTO feb22() throws DataAccessException ;
 	/* -----------------------------
 	 * *********** 유현지 **********
 	 * -----------------------------

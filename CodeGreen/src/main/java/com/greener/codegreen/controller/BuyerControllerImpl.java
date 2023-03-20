@@ -32,6 +32,8 @@ import com.greener.codegreen.dto.BuyerDTO;
 import com.greener.codegreen.service.BuyerService;
 
 import java.text.DateFormat;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 //-----------------------------------------------------------------------------------------------------------
@@ -54,7 +56,7 @@ public class BuyerControllerImpl implements BuyerController {
 	//-----------------------------------------------------------------------------------------------------------
 	@Override
 	@RequestMapping(value="/SignUpChart", method=RequestMethod.GET)
-	public ModelAndView getchart(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ModelAndView getchart() throws Exception {
 		ModelAndView mav = new ModelAndView();
 		
 		HashMap<String,Object> map = new HashMap<String,Object>();
@@ -65,6 +67,12 @@ public class BuyerControllerImpl implements BuyerController {
 		mav.setViewName("buyer/SignUpChart");
 		return mav;
 	}
+
+	
+
+
+	
+
 	//-----------------------------------------------------------------------------------------------------------
     // 로그인(vue.js에서 입력값 DB로 전송, 결과 조회)(시훈)
 	//-----------------------------------------------------------------------------------------------------------
