@@ -110,7 +110,8 @@
 		</div>
 		<div class="form-group">
 			<label for="regdate" class="col-sm-2 control-label"><strong>답변 일자</strong></label>
-			<div style="width:100%;">
+
+			<div class="col-sm-5">
 				<input type="text" class="form-control" id="i_an_date" name="i_an_date" value="<fmt:formatDate value='${InquiryDetail.i_an_date}' pattern='yyyy-MM-dd hh:mm:ss'/>" readonly />
 			</div>
 		</div>

@@ -162,6 +162,33 @@ public class BoardController {
 		return boardService.NoticeDetail(n_no);
 	}
 
+	//----------------------------------------------------------------------
+	// vue 에서 Inquiry 전체 목록 뿌려주기 
+	//----------------------------------------------------------------------
+	
+	@CrossOrigin
+	@ResponseBody
+	@GetMapping ("/Iinquirylist")
+	public List<BoardDTO> InquiryList() throws Exception {
+		
+		List<BoardDTO> InquiryList = boardService.InquiryList(0);
+		return InquiryList;
+		
+	} 
+	//----------------------------------------------------------------------
+	// vue 에서 Notice 전체 목록 뿌려주기  - 게시글 번호에 해당하는 게시글 정보가져오기
+	//----------------------------------------------------------------------
+//	@GetMapping("/Nnoticelist/{n_no}")
+//	public BoardDTO NoticeDetail(@PathVariable int n_no) throws Exception {
+//
+//		logger.info("BoardController NoticeDetail() n_no ==> " + n_no);
+//
+//		return boardService.NoticeDetail(n_no);
+//	}
+	
+	
+	
+	
 	
 //조회------------------------------------------------------------------------------------------------	
 
